@@ -6,7 +6,13 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:10 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/02 22:35:11 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/02 22:42:12 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
+
+int	main(int argc, char **argv)
+{
+	return (0);
+}
