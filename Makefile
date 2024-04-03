@@ -1,38 +1,45 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/02 22:37:31 by sunghwki          #+#    #+#              #
-#    Updated: 2024/04/02 22:40:12 by sunghwki         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME =	./bin/cub3D
 
-CC = cc
+CC	=	cc
 
-CFLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
-NAME = cub3D
+SRC_DIR =	src
 
-all : $(NAME)
+OBJ_DIR =	build
 
-$(NAME) : 
-	make -C ./libft
-	make -C ./mlx
-	$(CC) $(CFLAGS) -o $(NAME) ./*.c ./libft/libft.a ./mlx/libmlx.a -framework OpenGL -framework AppKit
-# tmp
+SRC =	main.c
 
-clean :
-	make clean -C ./libft
-	make clean -C ./mlx
+SRCS =	$(addprefix src/, $(SRC))
 
-fclean : clean
-	make fclean -C ./libft
-	rm -f $(NAME)
+OBJ =	$(addprefix build/, $(SRC))
 
-re : fclean all
+OBJS =	$(OBJ:.c=.o)
 
-.PHONY : all clean fclean re
+MLX =	./lib/mlx/libmlx.dylib
 
+all: $(NAME)
+
+$(MLX):
+	make -C ./lib/mlx all
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
+
+$(LIBFT):
+	make -C ./libft all bonus
+
+clean:
+	rm -rf $(OBJS)
+	make -C ./libft clean
+
+fclean: clean
+	rm -rf $(NAME)
+	make -C ./libft fclean
+
+re: fclean all
+
+.PHONY: clean fclean all re
