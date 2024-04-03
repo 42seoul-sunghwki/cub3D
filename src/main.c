@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/03 18:36:27 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:49:32 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,21 @@ void	init_t_mlx(t_mlx *graphic)
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
+	t_map	map;
 
+	map.w = 10;
+	map.h = 10;
+	map.map = malloc(sizeof(char *) * 10);
+	map.map[0] = "1111111111";
+	map.map[1] = "1000000001";
+	map.map[2] = "1000000001";
+	map.map[3] = "1000000001";
+	map.map[4] = "1000000001";
+	map.map[5] = "1000000001";
+	map.map[6] = "1000000001";
+	map.map[7] = "1000000001";
+	map.map[8] = "1000000001";
+	map.map[9] = "1111111111";
 	init_t_mlx(&graphic);
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
 	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);
