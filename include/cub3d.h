@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 16:07:03 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:40:21 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,18 @@ typedef struct s_user {
 }	t_user;
 
 /* mlx_hooks.c */
-int	terminate_program(t_mlx *graphic);
-int	key_down(int keypress, void *param);
+int				terminate_program(t_mlx *graphic);
+int				key_down(int keypress, void *param);
+
+/* mlx_pixel_put.c */
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+/* mlx_color.c */
+int				create_trgb(unsigned char t, unsigned char r,
+					unsigned char g, unsigned char b);
+unsigned char	get_t(int trgb);
+unsigned char	get_r(int trgb);
+unsigned char	get_g(int trgb);
+unsigned char	get_b(int trgb);
 
 #endif
