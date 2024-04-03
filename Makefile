@@ -8,7 +8,7 @@ SRC_DIR =	src
 
 OBJ_DIR =	build
 
-SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel_put.c
+SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c
 
 SRCS =	$(addprefix src/, $(SRC))
 
