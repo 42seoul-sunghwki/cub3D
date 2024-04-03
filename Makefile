@@ -31,7 +31,10 @@ all: $(NAME)
 $(MLX):
 	make -C ./lib/mlx all
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR):
+	mkdir -p build
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) -Iinclude -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
