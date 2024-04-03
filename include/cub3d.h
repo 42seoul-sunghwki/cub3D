@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 19:44:42 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:48:33 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
 
+
+# define IMG_W		64
+# define IMG_H		64
+
+# define UNDEFINED	-1
+# define SUCCESS	0
+# define FAIL		1
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+
 typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
 typedef struct s_map	t_map;
@@ -30,6 +43,7 @@ typedef struct s_block	t_block;
 /*
 * double buffering
 */
+
 typedef struct s_data
 {
 	void	*img;
@@ -75,6 +89,17 @@ typedef struct s_sprite {
 	t_pic	*size;
 }	t_sprite;
 
+typedef struct s_block {
+	t_pic	*no;
+	t_pic	*so;
+	t_pic	*we;
+	t_pic	*ea;
+	t_pic	*fi;
+	t_pic	*ci;
+	int		f_trgb;
+	int		c_trgb;
+}	t_block;
+
 typedef struct s_user {
 	double	x;
 	double	y;
@@ -104,4 +129,15 @@ unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
+/**
+ * open_file.c
+ * 
+*/
+int		open_file(char *file);
+int		close_file(int fd);
+
+/**
+ * free_pointer.c
+*/
+void	free_2d_ptr(char **ptr);
 #endif
