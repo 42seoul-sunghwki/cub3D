@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_color.c                                        :+:      :+:    :+:   */
+/*   mlx_pixel_put.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 22:36:49 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 15:13:29 by minsepar         ###   ########.fr       */
+/*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
+/*   Updated: 2024/04/03 14:45:29 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	create_trgb(unsigned char t, unsigned char r,
-	unsigned char g, unsigned char b)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	return (*(int *)(unsigned char [4]){b, g, r, t});
-}
+	char	*dst;
 
-unsigned char	get_t(int trgb)
-{
-	return (((unsigned char *)&trgb)[3]);
-}
-
-unsigned char	get_r(int trgb)
-{
-	return (((unsigned char *)&trgb)[2]);
-}
-
-unsigned char	get_g(int trgb)
-{
-	return (((unsigned char *)&trgb)[1]);
-}
-
-unsigned char	get_b(int trgb)
-{
-	return (((unsigned char *)&trgb)[0]);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
