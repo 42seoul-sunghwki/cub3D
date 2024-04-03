@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 16:07:03 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:44:42 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_map	t_map;
 typedef struct s_pic	t_pic;
 typedef struct s_sprite	t_sprite;
 typedef struct s_user	t_user;
+typedef struct s_block	t_block;
 
 /*
 * double buffering
@@ -45,12 +46,21 @@ typedef struct s_mlx {
 }	t_mlx;
 
 typedef struct s_map {
-	int	w;
-	int	h;
-	int	map_x;
-	int	map_y;
+	int		w;
+	int		h;
+	char	**map;
 }	t_map;
 
+typedef struct s_block {
+	t_pic	*no;
+	t_pic	*so;
+	t_pic	*we;
+	t_pic	*ea;
+	t_pic	*fi;
+	t_pic	*ci;
+	int		f_trgb;
+	int		c_trgb;
+}	t_block;
 /**
 * image data
 */
@@ -69,6 +79,8 @@ typedef struct s_user {
 	double	x;
 	double	y;
 	double	z;
+	int		map_x;
+	int		map_y;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
@@ -78,7 +90,18 @@ typedef struct s_user {
 }	t_user;
 
 /* mlx_hooks.c */
-int	terminate_program(t_mlx *graphic);
-int	key_down(int keypress, void *param);
+int				terminate_program(t_mlx *graphic);
+int				key_down(int keypress, void *param);
+
+/* mlx_pixel_put.c */
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+/* mlx_color.c */
+int				create_trgb(unsigned char t, unsigned char r,
+					unsigned char g, unsigned char b);
+unsigned char	get_t(int trgb);
+unsigned char	get_r(int trgb);
+unsigned char	get_g(int trgb);
+unsigned char	get_b(int trgb);
 
 #endif
