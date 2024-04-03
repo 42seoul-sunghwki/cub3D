@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:33 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:18:23 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
 
+# define RED 0xFF << 16
+# define GREEN 0xFF << 8
+# define BLUE  0xFF
 
 # define IMG_W		64
 # define IMG_H		64
@@ -57,6 +60,7 @@ typedef struct s_mlx {
 	void	*mlx;
 	void	*win;
 	t_data	img_data[2];
+	int		num_frame;
 }	t_mlx;
 
 typedef struct s_map {
@@ -65,16 +69,6 @@ typedef struct s_map {
 	char	**map;
 }	t_map;
 
-typedef struct s_block {
-	t_pic	*no;
-	t_pic	*so;
-	t_pic	*we;
-	t_pic	*ea;
-	t_pic	*fi;
-	t_pic	*ci;
-	int		f_trgb;
-	int		c_trgb;
-}	t_block;
 /**
 * image data
 */
@@ -118,8 +112,9 @@ typedef struct s_user {
 int				terminate_program(t_mlx *graphic);
 int				key_down(int keypress, void *param);
 
-/* mlx_pixel_put.c */
+/* mlx_pixel.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int				my_mlx_pixel_get(t_data *data, int x, int y);
 
 /* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
