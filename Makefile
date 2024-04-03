@@ -8,7 +8,7 @@ SRC_DIR =	src
 
 OBJ_DIR =	build
 
-SRC =	main.c
+SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel_put.c
 
 SRCS =	$(addprefix src/, $(SRC))
 
@@ -31,8 +31,11 @@ all: $(NAME)
 $(MLX):
 	make -C ./lib/mlx all
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -Iinclude -MD -MF $(DEP) -c $< -o $@
+$(OBJ_DIR):
+	mkdir -p build
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) -Iinclude -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
@@ -47,9 +50,13 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf $(DEP)
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+run:
+	./$(NAME)
 
 -include $(DEP)
 
