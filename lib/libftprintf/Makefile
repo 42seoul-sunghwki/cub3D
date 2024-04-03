@@ -1,4 +1,4 @@
-NAME = libftprintf.a
+NAME = ./bin/libftprintf.a
 
 SRCS = ft_printf.c ft_printf_utils.c ft_printf_utils2.c ft_printf_numlen.c \
 ft_printf_format.c ft_printf_format_d.c ft_printf_format_x.c
@@ -17,26 +17,26 @@ CC = cc
 	$(CC) -c $(FLAGS) $< -o $@
 
 all: $(OBJS)
-	make -C ./libftprintf bonus
+	make -C ./libft bonus
 	ar rucs $(NAME) $(OBJS)
 
 $(LIBFT):
-	make -C ./libftprintf bonus
+	make -C ./libft bonus
 
 bonus: $(BONUS_OBJS)
-	make -C ./libftprintf all bonus
+	make -C ./libft all bonus
 	ar rucs $(NAME) $(BONUS_OBJS)
 
 re: 
-	make -C ./libftprintf re
+	make -C ./libft re
 	fclean all
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
-	make -C ./libftprintf clean
+	make -C ./libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C ./libftprintf fclean
+	make -C ./libft fclean
 
-.PHONY: bonus re all clean fclean libft
+.PHONY: bonus re all clean fclean
