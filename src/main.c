@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/04 18:00:10 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:10:55 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,16 @@ void	init_t_mlx(t_mlx *graphic)
 				&graphic->img_data[i].line_length,
 				&graphic->img_data[i].endian);
 	}
+	graphic->user = init_user();
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
 	graphic->start = get_time_in_us();
 }
 
-int	test_loop(void *arg)
-{
-	t_data		*data_from;
-	t_data		*data_to;
-	int			color;
-	t_mlx		*graphic;
-
-	graphic = arg;
-	// printf("%d\n", graphic->num_frame);
-	data_from = &graphic->img_data[graphic->num_frame];
-	data_to = &graphic->img_data[graphic->num_frame ^ 1];
-	for (int i = 0; i < 1080; i++)
-	{
-		for (int j = 0; j < 1920; j++)
-		{
-			color = my_mlx_pixel_get(data_from, j, i);
-			my_mlx_pixel_put(data_to, (j + 50) % 1920, i, color);
-			// printf("color: %X\n", color);
-			// printf("x: %d y: %d\n", j, i);
-			// sleep(1);
-		}
-	}
-	// usleep(100000);
-	mlx_put_image_to_window(graphic->mlx, graphic->win, data_to->img, 0, 0);
-	graphic->total_frame++;
-	graphic->num_frame ^= 1;
-	return (0);
-}
+// int	game_loop(void *arg)
+// {
+// 	double
+// }
 
 int	frame_display(void *arg)
 {
@@ -70,7 +47,7 @@ int	frame_display(void *arg)
 	sleep(1);
 	graphic = arg;
 	diff = get_time_in_us() - graphic->start;
-	printf("FPS: %lld\ntime: %zu\n------\n",
+	printf("FPS: %zu\ntime: %zu\n------\n",
 		graphic->total_frame / (diff >> 6), diff);
 	return (0);
 }
@@ -96,6 +73,7 @@ int	main(int argc, char **argv)
 	map.map[8] = "1000000001";
 	map.map[9] = "1111111111";
 	init_t_mlx(&graphic);
+	graphic.map = &map;
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
 	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);
 	for (int i = 0; i < 50; i++)
@@ -121,7 +99,7 @@ int	main(int argc, char **argv)
 	t_pic	font;
 	t_data	font_img;
 
-	char	*file_dir = "./src/font/0.xpm";
+	char	*file_dir = "./src/font/1.xpm";
 
 	font_img.img = mlx_xpm_file_to_image(graphic.mlx, file_dir, &font.w, &font.h);
 	font_img.addr = mlx_get_data_addr(
@@ -133,6 +111,6 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(graphic.mlx, graphic.win,
 		font_img.img, 500, 500);
 	// mlx_string_put(graphic.mlx, graphic.win, 20, 20, 0xFF00, "60");
-	// mlx_loop_hook(graphic.mlx, test_loop, (void *)&graphic);
+	// mlx_loop_hook(graphic.mlx, game_loop, (void *)&graphic);
 	mlx_loop(graphic.mlx);
 }

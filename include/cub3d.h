@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 17:57:45 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:32:32 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 # include "mlx.h"
+# include "../lib/libftprintf/ft_printf.h"
 
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
@@ -98,8 +100,6 @@ typedef struct s_user {
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	double	old_time;
-	double	new_time;
 }	t_user;
 
 /**
@@ -110,7 +110,7 @@ typedef struct s_mlx {
 	void		*win;
 	t_data		img_data[2];
 	int			num_frame;
-	long long	total_frame;
+	size_t		total_frame;
 	size_t		start;
 	t_map		*map;
 	t_block		*block;
@@ -135,6 +135,9 @@ unsigned char	get_t(int trgb);
 unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
+
+/* init_struct.c */
+t_user			*init_user(void);
 
 /* frame.c */
 size_t	get_time_in_us(void);
