@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 18:32:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:55:25 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,30 @@ unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
+
+/* open_file.c */
+int				open_file(char *file);
+int				close_file(int fd);
+
+/* free_pointer.c */
+void			free_2d_ptr(char **ptr);
+
+/* init_struct.c */
+t_block			*init_block(void);
+t_pic			*init_pic(void);
+
+/* cub_slice.c */
+int				slice_cub(char *line, t_mlx *graphic, t_block *block);
+
+/* cub_check.c */
+int				check_img_cub(char **split, t_mlx *graphic, t_pic **org_img);
+
+/* cub_read.c */
+int				read_cub(char *cub, t_mlx *graphic, t_map *map, t_block *block);
+
+/* cub_helper.c */
+int				color_cub(char **split);
+
 /* init_struct.c */
 t_user			*init_user(void);
 
@@ -149,8 +173,4 @@ size_t	get_time_in_us(void);
 int		open_file(char *file);
 int		close_file(int fd);
 
-/**
- * free_pointer.c
-*/
-void	free_2d_ptr(char **ptr);
 #endif
