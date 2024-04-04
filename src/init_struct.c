@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 15:55:43 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:09:01 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,22 @@ t_block	*init_block(void)
 	block->f_trgb = UNDEFINED;
 	block->c_trgb = UNDEFINED;
 	return (block);
+}
+
+t_user	*init_user(void)
+{
+	t_user	*return_user;
+
+	return_user = malloc(sizeof(t_user));
+	ft_memset((void *) return_user, 0, sizeof(t_user));
+	return_user->x = 1.0;
+	return_user->y = 1.0;
+	return_user->z = 48.0;
+	return_user->map_x = 0;
+	return_user->map_y = 0;
+	return_user->dir_x = 1.0;
+	return_user->dir_y = 0.0;
+	return_user->plane_x = 0.0;
+	return_user->plane_y = 0.66;
+	return (return_user);
 }
