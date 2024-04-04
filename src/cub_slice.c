@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 19:21:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:22:22 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	slice_cub(char *line, t_mlx *graphic, t_map *map, t_block *block)
 	else if (slice_color_cub(split, graphic, map, block) == SUCCESS)
 		ret = SUCCESS;
 	else
-		return (UNDEFINED); //add map slice
+		return (UNDEFINED);
 	free_2d_ptr(split);
 	return (ret);
 }

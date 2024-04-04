@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 18:09:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:24:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,23 @@ unsigned char	get_b(int trgb);
  * open_file.c
  * 
 */
-int		open_file(char *file);
-int		close_file(int fd);
+int				open_file(char *file);
+int				close_file(int fd);
 
 /**
  * free_pointer.c
 */
-void	free_2d_ptr(char **ptr);
+void			free_2d_ptr(char **ptr);
 
 /**
  * init_struct.c
 */
-t_block		*init_block(void);
-t_pic		*init_pic(void);
+t_block			*init_block(void);
+t_pic			*init_pic(void);
+
+/**
+ * cub_check.c
+*/
+int				check_img_cub(char **split, t_mlx *graphic, t_pic **org_img);
 
 #endif
