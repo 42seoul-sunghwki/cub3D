@@ -3,18 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:33 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:18:23 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdlib.h>
+# include "mlx.h"
+
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
+
+# define RED 0xFF << 16
+# define GREEN 0xFF << 8
+# define BLUE  0xFF
 
 # define IMG_W		64
 # define IMG_H		64
@@ -28,14 +35,17 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+typedef struct s_mlx	t_mlx;
+typedef struct s_data	t_data;
+typedef struct s_map	t_map;
+typedef struct s_pic	t_pic;
+typedef struct s_sprite	t_sprite;
+typedef struct s_user	t_user;
+typedef struct s_block	t_block;
+
 /*
-* 이중 버퍼링
+* double buffering
 */
-typedef struct s_mlx {
-	void	*mlx;
-	void	*win;
-	t_data	data[2];
-}	t_mlx;
 
 typedef struct s_data
 {
@@ -46,6 +56,13 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_mlx {
+	void	*mlx;
+	void	*win;
+	t_data	img_data[2];
+	int		num_frame;
+}	t_mlx;
+
 typedef struct s_map {
 	int		w;
 	int		h;
@@ -53,7 +70,7 @@ typedef struct s_map {
 }	t_map;
 
 /**
-* 이미지 저장
+* image data
 */
 typedef struct s_pic {
 	int		w;
@@ -90,6 +107,22 @@ typedef struct s_user {
 	double	old_time;
 	double	new_time;
 }	t_user;
+
+/* mlx_hooks.c */
+int				terminate_program(t_mlx *graphic);
+int				key_down(int keypress, void *param);
+
+/* mlx_pixel.c */
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int				my_mlx_pixel_get(t_data *data, int x, int y);
+
+/* mlx_color.c */
+int				create_trgb(unsigned char t, unsigned char r,
+					unsigned char g, unsigned char b);
+unsigned char	get_t(int trgb);
+unsigned char	get_r(int trgb);
+unsigned char	get_g(int trgb);
+unsigned char	get_b(int trgb);
 
 /**
  * open_file.c
