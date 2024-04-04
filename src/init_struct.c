@@ -6,24 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 15:55:43 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:09:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_pic	*init_pic(void)
-{
-	t_pic	*pic;
-
-	pic = (t_pic *)malloc(sizeof(t_pic));
-	if (!pic)
-		return (NULL);
-	pic->w = UNDEFINED;
-	pic->h = UNDEFINED;
-	pic->img = NULL;
-	return (pic);
-}
 
 t_block	*init_block(void)
 {
@@ -41,4 +28,17 @@ t_block	*init_block(void)
 	block->f_trgb = UNDEFINED;
 	block->c_trgb = UNDEFINED;
 	return (block);
+}
+
+t_pic	*init_pic(void)
+{
+	t_pic	*pic;
+
+	pic = (t_pic *)malloc(sizeof(t_pic));
+	if (!pic)
+		return (NULL);
+	pic->w = IMG_W;
+	pic->h = IMG_H;
+	pic->img = NULL;
+	return (pic);
 }

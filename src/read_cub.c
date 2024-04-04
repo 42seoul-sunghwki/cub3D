@@ -6,80 +6,77 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 15:45:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:21:09 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	slice_cub(char *line, t_mlx *graphic, t_map *map, t_block *block)
+int	color_cub(char **split)
+{
+	char	**rgb;
+	int		ret;
+	int		r;
+	int		g;
+	int		b;
+
+	rgb = ft_split(split[1], ',');
+	if (!rgb)
+		return (UNDEFINED);
+	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
+	{
+		perror("Error\nInvalid cub file");
+		free_2d_ptr(rgb);
+		return (UNDEFINED);
+	}
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
+	ret = create_trgb(0, r, g, b);
+	free_2d_ptr(rgb);
+	return (ret);
+}
+
+char	**split_line(char *line)
 {
 	char	**split;
-	t_pic	*pic;
 
 	split = ft_split(line, ' ');
 	if (!split)
-		return (FAIL);
-	pic = (t_pic *)malloc(sizeof(t_pic));
-	if (!pic)
+		return (NULL);
+	if (split[0] == NULL)
 	{
 		free(split);
+		return (NULL);
+	}
+	return (split);
+}
+
+int	check_img_cub(char **split, t_mlx *graphic, t_pic **org_img)
+{
+	t_pic	*pic;
+
+	if (split[0] == NULL || split[1] == NULL || split[2] != NULL)
+	{
+		perror("Error\nInvalid cub file");
 		return (FAIL);
 	}
-	pic->w = IMG_W;
-	pic->h = IMG_H;
-	if (ft_strncmp(split[0], "NO", 3) == 0)
+	pic = init_pic();
+	if (!pic)
+		return (FAIL);
+	*org_img = pic;
+	(*org_img)->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
+			&(*org_img)->w, &(*org_img)->h);
+	if (!(*org_img)->img)
 	{
-		block->no = pic;
-		block->no->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
-				&block->no->w, &block->no->h);
-	}
-	else if (ft_strncmp(split[0], "SO", 3) == 0)
-	{
-		block->so = pic;
-		block->so->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
-				&block->so->w, &block->so->h);
-	}
-	else if (ft_strncmp(split[0], "WE", 3) == 0)
-	{
-		block->we = pic;
-		block->we->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
-				&block->we->w, &block->we->h);
-	}
-	else if (ft_strncmp(split[0], "EA", 3) == 0)
-	{
-		block->ea = pic;
-		block->ea->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
-				&block->ea->w, &block->ea->h);
-	}
-	else if (ft_strncmp(split[0], "F", 3) == 0)
-	{
-		
-	}
-	else if (ft_strncmp(split[0], "C", 3) == 0)
-	{
-		
-	}
-	else if (ft_strncmp(split[0], "FI", 3) == 0)
-	{
-		block->fi = pic;
-		block->fi->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
-				&block->fi->w, &block->fi->h);
-	}
-	else if (ft_strncmp(split[0], "CI", 3) == 0)
-	{
-		block->ci = pic;
-		block->ci->img = mlx_xpm_file_to_image(graphic->mlx, split[1],
-				&block->ci->w, &block->ci->h);
-	}
-	else
-	{
-		
+		free(pic);
+		perror("Error\nInvalid cub file in img");
+		return (FAIL);
 	}
 	return (SUCCESS);
 }
 
-int	read_cub(char *cub, t_mlx graphic, t_map *map, t_block *block)
+int	read_cub(char *cub, t_mlx *graphic, t_map *map, t_block *block)
 {
 	int		fd;
 	char	*line;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 21:18:23 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:09:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,11 @@ int		close_file(int fd);
  * free_pointer.c
 */
 void	free_2d_ptr(char **ptr);
+
+/**
+ * init_struct.c
+*/
+t_block		*init_block(void);
+t_pic		*init_pic(void);
+
 #endif
