@@ -8,7 +8,7 @@ SRC_DIR =	src
 
 OBJ_DIR =	build
 
-SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c
+SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c
 
 SRCS =	$(addprefix src/, $(SRC))
 
@@ -35,10 +35,10 @@ $(OBJ_DIR):
 	mkdir -p build
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) -Iinclude -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Iinclude -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/03 22:03:40 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:00:10 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@ void	init_t_mlx(t_mlx *graphic)
 				&graphic->img_data[i].endian);
 	}
 	graphic->num_frame = 0;
+	graphic->total_frame = 0;
+	graphic->start = get_time_in_us();
 }
 
 int	test_loop(void *arg)
 {
-	t_data *data_from;
-	t_data *data_to;
-	int		color;
-	t_mlx	*graphic;
+	t_data		*data_from;
+	t_data		*data_to;
+	int			color;
+	t_mlx		*graphic;
 
 	graphic = arg;
-	printf("%d\n", graphic->num_frame);
+	// printf("%d\n", graphic->num_frame);
 	data_from = &graphic->img_data[graphic->num_frame];
 	data_to = &graphic->img_data[graphic->num_frame ^ 1];
 	for (int i = 0; i < 1080; i++)
@@ -53,16 +55,32 @@ int	test_loop(void *arg)
 			// sleep(1);
 		}
 	}
-	usleep(100000);
+	// usleep(100000);
 	mlx_put_image_to_window(graphic->mlx, graphic->win, data_to->img, 0, 0);
+	graphic->total_frame++;
 	graphic->num_frame ^= 1;
-	return (1);
+	return (0);
+}
+
+int	frame_display(void *arg)
+{
+	size_t	diff;
+	t_mlx	*graphic;
+
+	sleep(1);
+	graphic = arg;
+	diff = get_time_in_us() - graphic->start;
+	printf("FPS: %lld\ntime: %zu\n------\n",
+		graphic->total_frame / (diff >> 6), diff);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	map;
+	(void) argc;
+	(void) argv;
 
 	map.w = 10;
 	map.h = 10;
@@ -87,8 +105,34 @@ int	main(int argc, char **argv)
 			my_mlx_pixel_put(&graphic.img_data[graphic.num_frame], i, j, RED);
 		}
 	}
+	int color;
+	for (int i = 0; i < 200; i++)
+	{
+		for (int j = 0; j < 100; j++)
+		{
+			color = blend_trgb(0xB000FF00,
+				my_mlx_pixel_get(&graphic.img_data[graphic.num_frame], i, j));
+			my_mlx_pixel_put(&graphic.img_data[graphic.num_frame], i, j, color);
+			
+		}
+	}
 	mlx_put_image_to_window(graphic.mlx, graphic.win,
 		graphic.img_data[graphic.num_frame].img, 0, 0);
-	mlx_loop_hook(graphic.mlx, test_loop, (void *)&graphic);
+	t_pic	font;
+	t_data	font_img;
+
+	char	*file_dir = "./src/font/0.xpm";
+
+	font_img.img = mlx_xpm_file_to_image(graphic.mlx, file_dir, &font.w, &font.h);
+	font_img.addr = mlx_get_data_addr(
+		font_img.img,
+		&font_img.bits_per_pixel,
+		&font_img.line_length,
+		&font_img.endian
+		);
+	mlx_put_image_to_window(graphic.mlx, graphic.win,
+		font_img.img, 500, 500);
+	// mlx_string_put(graphic.mlx, graphic.win, 20, 20, 0xFF00, "60");
+	// mlx_loop_hook(graphic.mlx, test_loop, (void *)&graphic);
 	mlx_loop(graphic.mlx);
 }

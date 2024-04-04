@@ -6,20 +6,26 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/03 21:18:23 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:57:45 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <sys/time.h>
+
 # include "mlx.h"
 
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
 
-# define RED 0xFF << 16
+# define RED 0x00FF0000
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
@@ -29,11 +35,6 @@
 # define UNDEFINED	-1
 # define SUCCESS	0
 # define FAIL		1
-
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
@@ -55,13 +56,6 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }	t_data;
-
-typedef struct s_mlx {
-	void	*mlx;
-	void	*win;
-	t_data	img_data[2];
-	int		num_frame;
-}	t_mlx;
 
 typedef struct s_map {
 	int		w;
@@ -108,6 +102,23 @@ typedef struct s_user {
 	double	new_time;
 }	t_user;
 
+/**
+ * 
+*/
+typedef struct s_mlx {
+	void		*mlx;
+	void		*win;
+	t_data		img_data[2];
+	int			num_frame;
+	long long	total_frame;
+	size_t		start;
+	t_map		*map;
+	t_block		*block;
+	t_sprite	*sprite;
+	t_user		*user;
+	t_pic		font[10];
+}	t_mlx;
+
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
 int				key_down(int keypress, void *param);
@@ -115,6 +126,7 @@ int				key_down(int keypress, void *param);
 /* mlx_pixel.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
+int				blend_trgb(int fg_color, int bg_color);
 
 /* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
@@ -123,6 +135,9 @@ unsigned char	get_t(int trgb);
 unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
+
+/* frame.c */
+size_t	get_time_in_us(void);
 
 /**
  * open_file.c
