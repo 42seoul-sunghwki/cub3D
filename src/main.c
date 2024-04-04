@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/04 19:10:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:26:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,11 @@ void	init_t_mlx(t_mlx *graphic)
 				&graphic->img_data[i].line_length,
 				&graphic->img_data[i].endian);
 	}
-	graphic->user = init_user();
+	init_user(&graphic->user);
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
 	graphic->start = get_time_in_us();
 }
-
-// int	game_loop(void *arg)
-// {
-// 	double
-// }
 
 int	frame_display(void *arg)
 {
@@ -73,7 +68,7 @@ int	main(int argc, char **argv)
 	map.map[8] = "1000000001";
 	map.map[9] = "1111111111";
 	init_t_mlx(&graphic);
-	graphic.map = &map;
+	graphic.map = map;
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
 	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);
 	for (int i = 0; i < 50; i++)
@@ -96,21 +91,21 @@ int	main(int argc, char **argv)
 	}
 	mlx_put_image_to_window(graphic.mlx, graphic.win,
 		graphic.img_data[graphic.num_frame].img, 0, 0);
-	t_pic	font;
-	t_data	font_img;
+	// t_pic	font;
+	// t_data	font_img;
 
-	char	*file_dir = "./src/font/1.xpm";
+	// char	*file_dir = "./src/font/1.xpm";
 
-	font_img.img = mlx_xpm_file_to_image(graphic.mlx, file_dir, &font.w, &font.h);
-	font_img.addr = mlx_get_data_addr(
-		font_img.img,
-		&font_img.bits_per_pixel,
-		&font_img.line_length,
-		&font_img.endian
-		);
-	mlx_put_image_to_window(graphic.mlx, graphic.win,
-		font_img.img, 500, 500);
+	// font_img.img = mlx_xpm_file_to_image(graphic.mlx, file_dir, &font.w, &font.h);
+	// font_img.addr = mlx_get_data_addr(
+	// 	font_img.img,
+	// 	&font_img.bits_per_pixel,
+	// 	&font_img.line_length,
+	// 	&font_img.endian
+	// 	);
+	// mlx_put_image_to_window(graphic.mlx, graphic.win,
+	// 	font_img.img, 500, 500);
 	// mlx_string_put(graphic.mlx, graphic.win, 20, 20, 0xFF00, "60");
-	// mlx_loop_hook(graphic.mlx, game_loop, (void *)&graphic);
+	mlx_loop_hook(graphic.mlx, game_loop, (void *)&graphic);
 	mlx_loop(graphic.mlx);
 }
