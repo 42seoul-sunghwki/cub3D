@@ -13,13 +13,21 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <stdbool.h>
+
 # include "mlx.h"
+# include "../lib/libftprintf/ft_printf.h"
 
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
 
-# define RED 0xFF << 16
+# define RED 0x00FF0000
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
@@ -29,11 +37,6 @@
 # define UNDEFINED	-1
 # define SUCCESS	0
 # define FAIL		1
-
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
@@ -55,13 +58,6 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }	t_data;
-
-typedef struct s_mlx {
-	void	*mlx;
-	void	*win;
-	t_data	img_data[2];
-	int		num_frame;
-}	t_mlx;
 
 typedef struct s_map {
 	int		w;
@@ -104,9 +100,24 @@ typedef struct s_user {
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	double	old_time;
-	double	new_time;
 }	t_user;
+
+/**
+ * 
+*/
+typedef struct s_mlx {
+	void		*mlx;
+	void		*win;
+	t_data		img_data[2];
+	int			num_frame;
+	size_t		total_frame;
+	size_t		start;
+	t_map		*map;
+	t_block		*block;
+	t_sprite	*sprite;
+	t_user		*user;
+	t_pic		font[10];
+}	t_mlx;
 
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
@@ -115,6 +126,7 @@ int				key_down(int keypress, void *param);
 /* mlx_pixel.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
+int				blend_trgb(int fg_color, int bg_color);
 
 /* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
@@ -123,6 +135,7 @@ unsigned char	get_t(int trgb);
 unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
+
 
 /* open_file.c */
 int				open_file(char *file);
@@ -146,5 +159,18 @@ int				read_cub(char *cub, t_mlx *graphic, t_map *map, t_block *block);
 
 /* cub_helper.c */
 int				color_cub(char **split);
+
+/* init_struct.c */
+t_user			*init_user(void);
+
+/* frame.c */
+size_t	get_time_in_us(void);
+
+/**
+ * open_file.c
+ * 
+*/
+int		open_file(char *file);
+int		close_file(int fd);
 
 #endif

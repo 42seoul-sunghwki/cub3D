@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
 /*   Updated: 2024/04/04 18:09:11 by sunghwki         ###   ########.fr       */
@@ -41,4 +41,22 @@ t_pic	*init_pic(void)
 	pic->h = IMG_H;
 	pic->img = NULL;
 	return (pic);
+}
+
+t_user	*init_user(void)
+{
+	t_user	*return_user;
+
+	return_user = malloc(sizeof(t_user));
+	ft_memset((void *) return_user, 0, sizeof(t_user));
+	return_user->x = 1.0;
+	return_user->y = 1.0;
+	return_user->z = 48.0;
+	return_user->map_x = 0;
+	return_user->map_y = 0;
+	return_user->dir_x = 1.0;
+	return_user->dir_y = 0.0;
+	return_user->plane_x = 0.0;
+	return_user->plane_y = 0.66;
+	return (return_user);
 }

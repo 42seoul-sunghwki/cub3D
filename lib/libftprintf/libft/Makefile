@@ -21,7 +21,7 @@ BONUS_OBJECTS = $(BONUS_SRCS:.c=.o)
 
 GNL_OBJECTS = $(GNL_SRCS:.c=.o)
 
-NAME = ../libftprintf.a
+NAME = ../bin/libftprintf.a
 
 all : $(NAME)
 
