@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   slice_cub.c                                        :+:      :+:    :+:   */
+/*   cub_slice.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 19:22:22 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:55:41 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	slice_wall_cub(char **split, t_mlx *graphic, t_map *map, t_block *block)
+int	slice_wall_cub(char **split, t_mlx *graphic, t_block *block)
 {
 	if (ft_strncmp(split[0], "NO", 3) == 0)
 	{
@@ -37,7 +37,7 @@ int	slice_wall_cub(char **split, t_mlx *graphic, t_map *map, t_block *block)
 	return (SUCCESS);
 }
 
-int	slice_f_c_cub(char **split, t_mlx *graphic, t_map *map, t_block *block)
+int	slice_f_c_cub(char **split, t_mlx *graphic, t_block *block)
 {
 	if (ft_strncmp(split[0], "FI", 3) == 0)
 	{
@@ -52,7 +52,7 @@ int	slice_f_c_cub(char **split, t_mlx *graphic, t_map *map, t_block *block)
 	return (SUCCESS);
 }
 
-int	slice_color_cub(char **split, t_mlx *graphic, t_map *map, t_block *block)
+int	slice_color_cub(char **split, t_mlx *graphic, t_block *block)
 {
 	if (ft_strncmp(split[0], "F", 3) == 0)
 	{
@@ -68,7 +68,7 @@ int	slice_color_cub(char **split, t_mlx *graphic, t_map *map, t_block *block)
 	}
 }
 
-int	slice_cub(char *line, t_mlx *graphic, t_map *map, t_block *block)
+int	slice_cub(char *line, t_mlx *graphic, t_block *block)
 {
 	char	**split;
 	int		ret;
@@ -82,14 +82,17 @@ int	slice_cub(char *line, t_mlx *graphic, t_map *map, t_block *block)
 		free_2d_ptr(split);
 		return (SUCCESS);
 	}
-	if (slice_wall_cub(split, graphic, map, block) == SUCCESS)
+	if (slice_wall_cub(split, graphic, block) == SUCCESS)
 		ret = SUCCESS;
-	else if (slice_f_c_cub(split, graphic, map, block) == SUCCESS)
+	else if (slice_f_c_cub(split, graphic, block) == SUCCESS)
 		ret = SUCCESS;
-	else if (slice_color_cub(split, graphic, map, block) == SUCCESS)
+	else if (slice_color_cub(split, graphic, block) == SUCCESS)
 		ret = SUCCESS;
 	else
+	{
+		free_2d_ptr(split);
 		return (UNDEFINED);
+	}
 	free_2d_ptr(split);
 	return (ret);
 }
