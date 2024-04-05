@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 21:27:35 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:06:22 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ t_lst_head		*push_lst(t_lst_head *head, t_line_lst *new);
 char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
+void			free_lst_head(t_lst_head *head);
 
 /* init_struct.c */
 t_user			*init_user(void);

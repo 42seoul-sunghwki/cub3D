@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_read.c                                         :+:      :+:    :+:   */
+/*   cub_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 14:55:46 by sunghwki         ###   ########.fr       */
+/*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
+/*   Updated: 2024/04/05 16:23:15 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	read_cub(char *cub, t_mlx *graphic)
+int	*ft_dx_dy(int flag)
 {
-	int		fd;
-	int		ret;
-	char	*line;
+	
+}
 
-	fd = open_file(cub);
-	if (fd == UNDEFINED)
-		return (FAIL);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		ret = slice_cub(line, graphic, graphic->block);
-		if (ret == FAIL)
-		{
-			free(line);
-			close_file(fd);
-			return (FAIL);
-		}
-		if (ret == UNDEFINED)
-		{
-			
-		}
-		free(line);
-	}
-	close_file(fd);
-	return (SUCCESS);
+int	map_dfs(t_map *map, int x, int y)
+{
+	
+}
+
+int	cub_valid(t_map *map)
+{
+	int	dx[4];
+	int	dy[4];
+
+	dx[0] = 0;
+	dx[1] = 1;
+	dx[2] = 0;
+	dx[3] = -1;
+	dy[0] = -1;
+	dy[1] = 0;
+	dy[2] = 1;
+	dy[3] = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 20:47:42 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 21:28:53 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:31:57 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,22 @@ char	**lst_to_arr(t_lst_head *head)
 	t_line_lst	*tmp;
 	int			i;
 
-	arr = (char **)malloc(sizeof(char *) * (head->h + 1));
+	arr = (char **)malloc(sizeof(char *) * (head->h));
 	if (!arr)
 		return (NULL);
 	tmp = head->head;
 	i = 0;
 	while (tmp)
 	{
-		arr[i] = tmp->line;
+		arr[i] = (char *)malloc(sizeof(char) * (head->w + 1));
+		if (!arr[i])
+			return (NULL);
+		ft_memset(arr[i], ' ', head->w);
+		arr[i][head->w] = '\0';
+		ft_strlcpy(arr[i], tmp->line, head->w + 1);
 		tmp = tmp->next;
 		i++;
 	}
-	arr[i] = NULL;
 	return (arr);
 }
 
@@ -79,4 +83,20 @@ t_lst_head	*init_lst_head(void)
 	new->w = 0;
 	new->h = 0;
 	return (new);
+}
+
+void	free_lst(t_lst_head *head)
+{
+	t_line_lst	*tmp;
+	t_line_lst	*next;
+
+	tmp = head->head;
+	while (tmp)
+	{
+		next = tmp->next;
+		free(tmp->line);
+		free(tmp);
+		tmp = next;
+	}
+	free(head);
 }
