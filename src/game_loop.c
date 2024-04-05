@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 19:18:34 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:55:03 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 {
-	printf("enter perform dda\n");
+	// printf("enter perform dda\n");
 	while (dda->collision_flag == false)
 	{
-		printf("enter collision check @@@@@@@@\n");
+		// printf("enter collision check @@@@@@@@\n");
 		if (dda->side_dist_x < dda->side_dist_y)
 		{
 			dda->side_dist_x += dda->delta_dist_x;
@@ -33,10 +33,10 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 		if (map->map[user->map_x][user->map_y] != '0')
 			dda->collision_flag = true;
 	}
-	printf("side_dist_x [%f]\n", dda->side_dist_x);
-	printf("delta_dist_x [%f]\n", dda->delta_dist_x);
-	printf("side_dist_y [%f]\n", dda->side_dist_y);
-	printf("delta_dist_y [%f]\n", dda->delta_dist_y);
+	// printf("side_dist_x [%f]\n", dda->side_dist_x);
+	// printf("delta_dist_x [%f]\n", dda->delta_dist_x);
+	// printf("side_dist_y [%f]\n", dda->side_dist_y);
+	// printf("delta_dist_y [%f]\n", dda->delta_dist_y);
 	if (dda->side == 0)
 		dda->perp_wall_dist = (dda->side_dist_x - dda->delta_dist_x);
 	else
@@ -53,9 +53,9 @@ static void	draw_walls(t_dda *dda, t_mlx *mlx, t_user *user, t_map *map)
 	int	wall_index;
 
 	(void) color;
-	line_height = (int)(520 / dda->perp_wall_dist);
-	printf("perp wall dist [%f]\n", dda->perp_wall_dist);
-	printf("line height [%d]\n", line_height);
+	line_height = (int)(WINHEIGHT * 0.66 / dda->perp_wall_dist);
+	// printf("perp wall dist [%f]\n", dda->perp_wall_dist);
+	// printf("line height [%d]\n", line_height);
 	dda->draw_start_y = (-line_height / 2) + (WINHEIGHT / 2);
 	if (dda->draw_start_y < 0)
 		dda->draw_start_y = 0;

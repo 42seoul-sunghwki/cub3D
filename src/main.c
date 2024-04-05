@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 18:23:50 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:52:01 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ int	main(int argc, char **argv)
 	map->w = 10;
 	map->h = 10;
 	map->map = malloc(sizeof(char *) * 10);
-	map->map[0] = "1111111111";
-	map->map[1] = "1000000001";
-	map->map[2] = "1000000001";
-	map->map[3] = "1000000001";
-	map->map[4] = "1000000001";
-	map->map[5] = "1000000001";
-	map->map[6] = "1000000001";
-	map->map[7] = "1000000001";
-	map->map[8] = "1000000001";
-	map->map[9] = "1111111111";
+	map->map[0] = "1234123412";
+	map->map[1] = "4000000003";
+	map->map[2] = "3000011004";
+	map->map[3] = "2000000001";
+	map->map[4] = "1000000002";
+	map->map[5] = "4000000003";
+	map->map[6] = "3000000004";
+	map->map[7] = "2001000001";
+	map->map[8] = "1000000002";
+	map->map[9] = "4321432143";
 	init_t_mlx(&graphic);
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
 	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);
@@ -92,6 +92,7 @@ int	main(int argc, char **argv)
 	// mlx_put_image_to_window(graphic.mlx, graphic.win,
 	// 	font_img.img, 500, 500);
 	// mlx_string_put(graphic.mlx, graphic.win, 20, 20, 0xFF00, "60");
-	mlx_loop_hook(graphic.mlx, game_loop, (void *)&graphic);
+	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
+	mlx_hook(graphic.win, 02, 0L, handle_keypress, &graphic);
 	mlx_loop(graphic.mlx);
 }

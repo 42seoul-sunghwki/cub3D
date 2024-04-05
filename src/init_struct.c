@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 19:04:30 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:42:08 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,6 @@ void	init_user(t_user *user)
 	user->dir_y = 1.0;
 	user->plane_x = 1.0;
 	user->plane_y = -1.0;
+	user->move_speed = 0.05;
+	user->rot_speed = 0.02;
 }

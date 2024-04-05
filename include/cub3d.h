@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 18:56:07 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 22:51:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
+
+# define ARROW_OFFSET	123
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
@@ -116,15 +118,17 @@ typedef struct s_block {
 }	t_block;
 
 /**
- * @var	double	x		x position of the user
- * @var	double	y		y position of the user
- * @var	double	z		z position of the user
- * @var	int		map_x	x position of the square the user is currently in
- * @var	int		map_y	y position of the square the user is currently in
- * @var	double	dir_x	x component of direction vector of the user
- * @var	double	dir_y	y component of direction vector of the user
- * @var	double	plane_x	x component of direction vector of the plane
- * @var	double	plane_y	y component of direction vector of the plane
+ * @var	double	x			x position of the user
+ * @var	double	y			y position of the user
+ * @var	double	z			z position of the user
+ * @var	int		map_x		x position of the square the user is currently in
+ * @var	int		map_y		y position of the square the user is currently in
+ * @var	double	dir_x		x component of direction vector of the user
+ * @var	double	dir_y		y component of direction vector of the user
+ * @var	double	plane_x		x component of direction vector of the plane
+ * @var	double	plane_y		y component of direction vector of the plane
+ * @var	double	move_speed	the move_speed of the user when up, down ey pressed
+ * @var	double	rot_speed	the rotation speed of the user
 */
 typedef struct s_user {
 	double	x;
@@ -136,6 +140,8 @@ typedef struct s_user {
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
 }	t_user;
 
 /**
@@ -251,6 +257,9 @@ int				game_loop(void *arg);
 
 /* init_dda_data.c */
 void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
+
+/* handle_keypress.c */
+int				handle_keypress(int keycode, void *arg);
 
 /**
  * open_file.c
