@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 00:00:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:50:53 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
 
-# define RED 0x00FF0000
+# define YELLOW 0xFFFF << 8
+# define RED 0xFF << 16
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
@@ -150,6 +151,8 @@ typedef struct s_user {
  * @var	int		collision_flag	collision_flag of the ray
  * @var	int		side			indicator to which side of the wall was hit 
  * 								NS = 1 or EW = 0
+ * @var int		draw_start_y	the start y value of the vertical line drawing
+ * @var int		draw_end_y		the end y value of the vertical line drawing
 */
 typedef struct s_dda {
 	double	camera_x;
@@ -164,6 +167,9 @@ typedef struct s_dda {
 	int		step_y;
 	int		collision_flag;
 	int		side;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		cur_pixel_x;
 }	t_dda;
 
 /**
@@ -196,6 +202,7 @@ int				key_down(int keypress, void *param);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
 int				blend_trgb(int fg_color, int bg_color);
+void			draw_vertical_line(t_mlx *mlx, t_dda *dda, int color);
 
 /* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
@@ -233,7 +240,11 @@ int				color_cub(char **split);
 void			init_user(t_user *user);
 
 /* frame.c */
-size_t	get_time_in_us(void);
+void			display_frame(t_mlx *graphic);
+// size_t			get_time_in_us(void);
+
+/* game_loop.c */
+int				game_loop(void *arg);
 
 /**
  * open_file.c

@@ -2,13 +2,14 @@ NAME =	./bin/cub3D
 
 CC	=	cc
 
-FLAGS =  -g
+FLAGS =  -g -Wall -Wextra -Werror
 
 SRC_DIR =	src
 
 OBJ_DIR =	build
 
-SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c
+SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
+		game_loop.c
 
 SRCS =	$(addprefix src/, $(SRC))
 
@@ -38,7 +39,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -Iinclude -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
+	$(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
@@ -57,6 +59,9 @@ re: fclean all
 
 run:
 	./$(NAME)
+
+debug:
+	lldb $(NAME)
 
 -include $(DEP)
 

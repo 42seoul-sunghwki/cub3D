@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/04 16:08:40 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:23:45 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ int	blend_trgb(int fg_color, int bg_color)
 			((1 - alpha) * (get_b(bg_color)) + alpha * (get_b(fg_color)))
 			);
 	return (return_trgb);
+}
+
+void	draw_vertical_line(t_mlx *graphic, t_dda *dda, int color)
+{
+	t_data	*data;
+
+	(void) color;
+	data = &graphic->img_data[graphic->num_frame];
+	printf("start: [%d] end: [%d]\n", dda->draw_start_y, dda->draw_end_y);
+	printf("x: [%d]\n", dda->cur_pixel_x);
+	printf("color: [%x]\n", color);
+	while (dda->draw_start_y <= dda->draw_end_y)
+	{
+		my_mlx_pixel_put(data, dda->cur_pixel_x, dda->draw_start_y, RED);
+		dda->draw_start_y++;
+	}
 }
