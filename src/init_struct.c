@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 21:22:10 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:04:30 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ t_pic	*init_pic(void)
 
 void	init_user(t_user *user)
 {
-	user->x = 1.0;
-	user->y = 1.0;
+	user->x = 5.0;
+	user->y = 5.0;
 	user->z = 48.0;
 	user->map_x = 0;
 	user->map_y = 0;
 	user->dir_x = 1.0;
-	user->dir_y = 0.0;
-	user->plane_x = 0.0;
-	user->plane_y = 0.66;
+	user->dir_y = 1.0;
+	user->plane_x = 1.0;
+	user->plane_y = -1.0;
 }

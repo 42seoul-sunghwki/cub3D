@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 15:50:53 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:56:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define UNDEFINED	-1
 # define SUCCESS	0
 # define FAIL		1
+
+# define INT_MAX	0x7FFFFFFF
+# define INT_MIN	0x80000000
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
@@ -245,6 +248,9 @@ void			display_frame(t_mlx *graphic);
 
 /* game_loop.c */
 int				game_loop(void *arg);
+
+/* init_dda_data.c */
+void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
 /**
  * open_file.c

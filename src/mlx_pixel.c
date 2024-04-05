@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 16:23:45 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:48:54 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	draw_vertical_line(t_mlx *graphic, t_dda *dda, int color)
 	printf("color: [%x]\n", color);
 	while (dda->draw_start_y <= dda->draw_end_y)
 	{
-		my_mlx_pixel_put(data, dda->cur_pixel_x, dda->draw_start_y, RED);
+		my_mlx_pixel_put(data, dda->cur_pixel_x, dda->draw_start_y, color);
 		dda->draw_start_y++;
 	}
 }
