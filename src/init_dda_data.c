@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:45:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 21:23:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 22:13:29 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	init_data(t_dda *dda, t_user *user, int x_pixel_num)
 	init_delta_dist(dda);
 	//printf("delta_dist_x: %f\n", dda->delta_dist_x);
 	//printf("delta_dist_y: %f\n", dda->delta_dist_y);
-	dda->collision_flag = 0;
+	dda->collision_flag = false;
 	init_side_dist(dda, user);
 }

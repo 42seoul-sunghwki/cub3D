@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 21:13:41 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 23:29:57 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	calculate_texture(t_dda *dda, t_user *user)
 	if ((dda->side == 0 && dda->raydir_x > 0)
 		|| (dda->side == 1 && dda->raydir_y < 0))
 		dda->texture_x = IMG_W - dda->texture_x - 1;
-	dda->text_step = 1.0 * IMG_H / WINHEIGHT * 0.66;
+	dda->text_step = 1.0 * IMG_H / dda->line_height;
 	dda->text_pos = (dda->draw_start_y - (WINHEIGHT * 0.66) / 2
 			+ dda->line_height / 2) * dda->text_step;
 }
@@ -80,7 +80,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	int	wall_index;
 
 	dda->line_height = (int)(WINHEIGHT * 0.66 / dda->perp_wall_dist);
-	dda->draw_start_y = (-dda->line_height / 2) + (WINHEIGHT / 2);
+	dda->draw_start_y = (-(dda->line_height) / 2) + (WINHEIGHT / 2);
 	if (dda->draw_start_y < 0)
 		dda->draw_start_y = 0;
 	dda->draw_end_y = dda->line_height / 2 + (WINHEIGHT / 2);

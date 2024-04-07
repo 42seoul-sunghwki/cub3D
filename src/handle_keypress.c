@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/06 00:03:18 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 23:08:52 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,15 @@ void	handle_up_arrow(t_mlx *graphic)
 	}
 }
 
+static void	on_escape(t_mlx *graphic)
+{
+	mlx_destroy_window(graphic->mlx, graphic->win);
+	terminate_program(graphic);
+}
+
 int	handle_keypress(int keycode, void *arg)
 {
+	t_mlx		*graphic;
 	static void	(*f[4])(t_mlx *) = {
 		handle_left_arrow,
 		handle_right_arrow,
@@ -109,7 +116,13 @@ int	handle_keypress(int keycode, void *arg)
 		handle_up_arrow
 	};
 
-	keycode -= ARROW_OFFSET;
-	f[keycode]((t_mlx *)arg);
+	graphic = arg;
+	if (keycode == 53)
+		on_escape(graphic);
+	if (keycode >= 123 && keycode <= 126)
+	{
+		keycode -= ARROW_OFFSET;
+		f[keycode]((t_mlx *)arg);
+	}
 	return (SUCCESS);
 }

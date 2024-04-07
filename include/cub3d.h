@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:45:28 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 23:04:11 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
-# define IMG_W		64
-# define IMG_H		64
+# define IMG_W		160
+# define IMG_H		160
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -236,7 +236,6 @@ typedef struct s_mlx {
 
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
-int				key_down(int keypress, void *param);
 
 /* mlx_pixel.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 21:13:58 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 23:29:31 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
 		if (i < dda->draw_start_y)
 			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.c_trgb);
 		else if (i <= dda->draw_end_y)
-			draw_texture_line(graphic, data, dda, i);
+			my_mlx_pixel_put(data, dda->cur_pixel_x, i, RED);
+			// draw_texture_line(graphic, data, dda, i);
 		else
 			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.f_trgb);
 	}
