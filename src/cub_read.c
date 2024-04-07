@@ -6,13 +6,13 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 19:55:55 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:55:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	read_cub(char *cub, t_mlx *graphic, t_map *map, t_block *block)
+int	read_cub(char *cub, t_mlx *graphic)
 {
 	int		fd;
 	int		ret;
@@ -26,10 +26,11 @@ int	read_cub(char *cub, t_mlx *graphic, t_map *map, t_block *block)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		ret = slice_cub(line, graphic, block);
+		ret = slice_cub(line, graphic, graphic->block);
 		if (ret == FAIL)
 		{
 			free(line);
+			close_file(fd);
 			return (FAIL);
 		}
 		if (ret == UNDEFINED)
