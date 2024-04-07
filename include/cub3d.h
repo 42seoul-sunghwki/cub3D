@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 19:55:25 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:06:22 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@
 # define SUCCESS	0
 # define FAIL		1
 
-typedef struct s_mlx	t_mlx;
-typedef struct s_data	t_data;
-typedef struct s_map	t_map;
-typedef struct s_pic	t_pic;
-typedef struct s_sprite	t_sprite;
-typedef struct s_user	t_user;
-typedef struct s_block	t_block;
+typedef struct s_mlx		t_mlx;
+typedef struct s_data		t_data;
+typedef struct s_map		t_map;
+typedef struct s_pic		t_pic;
+typedef struct s_sprite		t_sprite;
+typedef struct s_user		t_user;
+typedef struct s_block		t_block;
+typedef struct s_line_lst	t_line_lst;
+typedef struct s_lst_head	t_lst_head;
 
 /*
 * double buffering
@@ -64,6 +66,21 @@ typedef struct s_map {
 	int		h;
 	char	**map;
 }	t_map;
+
+typedef struct s_lst_head
+{
+	int			w;
+	int			h;
+	t_line_lst	*head;
+	t_line_lst	*tail;
+}	t_lst_head;
+
+typedef struct s_line_lst
+{
+	int			size;
+	char		*line;
+	t_line_lst	*next;
+}	t_line_lst;
 
 /**
 * image data
@@ -147,6 +164,10 @@ void			free_2d_ptr(char **ptr);
 /* init_struct.c */
 t_block			*init_block(void);
 t_pic			*init_pic(void);
+t_line_lst		*init_line_lst(char *line);
+
+/* free_struct.c */
+void			free_line_lst(t_line_lst *lst);
 
 /* cub_slice.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
@@ -155,16 +176,23 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 int				check_img_cub(char **split, t_mlx *graphic, t_pic **org_img);
 
 /* cub_read.c */
-int				read_cub(char *cub, t_mlx *graphic, t_map *map, t_block *block);
+int				read_cub(char *cub, t_mlx *graphic);
 
 /* cub_helper.c */
 int				color_cub(char **split);
+
+/* cub_list.c */
+t_lst_head		*push_lst(t_lst_head *head, t_line_lst *new);
+char			**lst_to_arr(t_lst_head *head);
+t_line_lst		*init_line_lst(char *line);
+t_lst_head		*init_lst_head(void);
+void			free_lst_head(t_lst_head *head);
 
 /* init_struct.c */
 t_user			*init_user(void);
 
 /* frame.c */
-size_t	get_time_in_us(void);
+size_t			get_time_in_us(void);
 
 /**
  * open_file.c
