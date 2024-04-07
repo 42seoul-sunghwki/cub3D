@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:35:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:13:17 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@
 // 	return (block);
 // }
 
-t_pic	*init_pic(void)
-{
-	t_pic	*pic;
+// t_pic	*init_pic(void)
+// {
+// 	t_pic	*pic;
 
-	pic = (t_pic *)malloc(sizeof(t_pic));
-	if (!pic)
-		return (NULL);
-	pic->w = IMG_W;
-	pic->h = IMG_H;
-	pic->img = NULL;
-	return (pic);
-}
+// 	pic = (t_pic *)malloc(sizeof(t_pic));
+// 	if (!pic)
+// 		return (NULL);
+// 	pic->w = IMG_W;
+// 	pic->h = IMG_H;
+// 	pic->img = NULL;
+// 	return (pic);
+// }
 
 void	init_user(t_user *user)
 {
@@ -68,20 +68,22 @@ void	get_img_addr(t_data *data)
 			);
 }
 
-void	init_block_temp(t_mlx *graphic, t_block *block)
+void	init_block_temp(t_mlx *graphic)
 {
 	t_pic	*pic;
+	t_data	*data;
 	char	*str;
 	int		i;
+	t_block	*block;
 
+	block = &graphic->block;
 	str = "./src/xpm_images/ender_block.xpm";
-	block->pic[0]
-	// data = mlx_xpm_file_to_image(graphic, str, , 60);
-	// block->block_tex[NORTH].img = data;
-	// block->block_tex[SOUTH].img = data;
-	// block->block_tex[EAST].img = data;
-	// block->block_tex[WEST].img = data;
-	// i = 0;
-	// while (i < 4)
-	// 	get_img_addr(&block->block_tex[i]);
+	i = -1;
+	while (++i < 4)
+	{
+		pic = &block->pic[i];
+		data = &pic->data;
+		data->img = mlx_xpm_file_to_image(graphic, str, &pic->w, &pic->h);
+		get_img_addr(data);
+	}
 }

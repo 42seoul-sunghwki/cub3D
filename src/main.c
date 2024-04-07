@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 19:32:41 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:02:39 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,15 @@ int	main(int argc, char **argv)
 	// mlx_put_image_to_window(graphic.mlx, graphic.win,
 	// 	font_img.img, 500, 500);
 	// mlx_string_put(graphic.mlx, graphic.win, 20, 20, 0xFF00, "60");
+	init_block_temp(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 02, 0L, handle_keypress, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
+	// char *str = "./src/xpm_images/ender_block.xpm";
+	// t_data data;
+	
+	// int w = 0, h = 0;
+	// data.img = mlx_xpm_file_to_image(graphic.mlx, str, &w, &h);
+	// mlx_put_image_to_window(graphic.mlx, graphic.win, graphic.block.pic[0].data.img, 0, 0);
 	mlx_loop(graphic.mlx);
 }

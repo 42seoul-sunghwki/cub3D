@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:30:39 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:45:28 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,7 @@ void			free_lst_head(t_lst_head *head);
 /* init_struct.c */
 void			init_user(t_user *user);
 void			get_img_addr(t_data *data);
-void			init_block_temp(t_mlx *graphic, t_block *block);
+void			init_block_temp(t_mlx *graphic);
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);

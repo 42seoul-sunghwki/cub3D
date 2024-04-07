@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 18:51:15 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:13:58 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
 	int		color;
 	t_data	*pic;
 
-	pic = &graphic->block.block_tex[dda->texture_num];
-	tex_y = (int)dda->text_pos & (IMG_H - 1);
+	pic = &graphic->block.pic[dda->texture_num].data;
+	tex_y = (int)dda->text_pos & (IMG_H - 1); //IMG_H
 	dda->text_pos += dda->text_step;
 	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
 	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);
