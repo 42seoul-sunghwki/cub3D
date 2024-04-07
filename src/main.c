@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 23:52:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:32:41 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ void	init_t_mlx(t_mlx *graphic)
 	while (++i < 2)
 	{
 		graphic->img_data[i].img = mlx_new_image(graphic->mlx, 1920, 1080);
-		graphic->img_data[i].addr = mlx_get_data_addr(
-				graphic->img_data[i].img,
-				&graphic->img_data[i].bits_per_pixel,
-				&graphic->img_data[i].line_length,
-				&graphic->img_data[i].endian);
+		get_img_addr(&graphic->img_data[i]);
 	}
 	init_user(&graphic->user);
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
+	graphic->block.f_trgb = 0xced4da;
+	graphic->block.c_trgb = 0;
 }
 
 int	main(int argc, char **argv)
@@ -94,5 +92,6 @@ int	main(int argc, char **argv)
 	// mlx_string_put(graphic.mlx, graphic.win, 20, 20, 0xFF00, "60");
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 02, 0L, handle_keypress, &graphic);
+	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
 	mlx_loop(graphic.mlx);
 }

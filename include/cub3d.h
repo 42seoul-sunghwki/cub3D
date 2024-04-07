@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 22:51:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:30:39 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@
 # define SUCCESS	0
 # define FAIL		1
 
+# define NORTH	0
+# define SOUTH	1
+# define EAST	2
+# define WEST	3
+# define SKY	4
+# define FLOOR	5
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -111,7 +117,7 @@ typedef struct s_line_lst
 typedef struct s_pic {
 	int		w;
 	int		h;
-	void	*img;
+	t_data	data;
 }	t_pic;
 
 /**
@@ -126,12 +132,7 @@ typedef struct s_sprite {
  * 
 */
 typedef struct s_block {
-	t_pic	*no;
-	t_pic	*so;
-	t_pic	*we;
-	t_pic	*ea;
-	t_pic	*fi;
-	t_pic	*ci;
+	t_pic	pic[6];
 	int		f_trgb;
 	int		c_trgb;
 }	t_block;
@@ -191,6 +192,10 @@ typedef struct s_dda {
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	perp_wall_dist;
+	double	wall_pixel_x;
+	double	text_step;
+	double	text_pos;
+	double	line_height;
 	int		step_x;
 	int		step_y;
 	int		collision_flag;
@@ -198,6 +203,8 @@ typedef struct s_dda {
 	int		draw_start_y;
 	int		draw_end_y;
 	int		cur_pixel_x;
+	int		texture_num;
+	int		texture_x;
 }	t_dda;
 
 /**
@@ -208,6 +215,11 @@ typedef struct s_dda {
  * @var	t_data	img_data[2]	two img data struct used to double buffer
  * @var	int		num_frame	index of the img_data to render to screen
  * @var	size_t	total_frame	count of total_frame rendered
+ * @var	map
+ * @var	block
+ * @var	sprite
+ * @var	user
+ * @var	
  * 
 */
 typedef struct s_mlx {
@@ -230,7 +242,7 @@ int				key_down(int keypress, void *param);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
 int				blend_trgb(int fg_color, int bg_color);
-void			draw_vertical_line(t_mlx *mlx, t_dda *dda, int color);
+void			draw_vertical_line(t_mlx *mlx, t_dda *dda);
 
 /* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
@@ -277,6 +289,8 @@ void			free_lst_head(t_lst_head *head);
 
 /* init_struct.c */
 void			init_user(t_user *user);
+void			get_img_addr(t_data *data);
+void			init_block_temp(t_mlx *graphic, t_block *block);
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);
@@ -291,6 +305,9 @@ void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
+
+/* handle_mouse.c */
+int				handle_mouse(int button, int x, int y, void *arg);
 
 /**
  * open_file.c

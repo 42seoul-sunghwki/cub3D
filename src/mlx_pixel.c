@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 23:25:57 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 18:51:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,33 @@ int	blend_trgb(int fg_color, int bg_color)
 /**
  * TODO: need to work on sky and floor, if done with color, add texture
 */
-void	draw_vertical_line(t_mlx *graphic, t_dda *dda, int color)
+void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
+{
+	int		tex_y;
+	int		color;
+	t_data	*pic;
+
+	pic = &graphic->block.block_tex[dda->texture_num];
+	tex_y = (int)dda->text_pos & (IMG_H - 1);
+	dda->text_pos += dda->text_step;
+	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
+	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);
+}
+
+void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
 {
 	t_data	*data;
 	int		i;
 
-	(void) color;
 	data = &graphic->img_data[graphic->num_frame];
-	//printf("start: [%d] end: [%d]\n", dda->draw_start_y, dda->draw_end_y);
-	//printf("x: [%d]\n", dda->cur_pixel_x);
-	//printf("color: [%x]\n", color);
 	i = -1;
 	while (++i < WINHEIGHT)
 	{
-		if (i >= dda->draw_start_y && i <= dda->draw_end_y)
-			my_mlx_pixel_put(data, dda->cur_pixel_x, i, color);
+		if (i < dda->draw_start_y)
+			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.c_trgb);
+		else if (i <= dda->draw_end_y)
+			draw_texture_line(graphic, data, dda, i);
 		else
-			my_mlx_pixel_put(data, dda->cur_pixel_x, i, 0);
+			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.f_trgb);
 	}
 }
