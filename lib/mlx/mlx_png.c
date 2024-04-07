@@ -131,7 +131,7 @@ int	mipng_fill_img(void *img, unsigned char *buf, png_info_t *pi)
     {
       if (ipos % iline == 0)
 	{
-	  // printf("ipos %d iline %d pi->width %d bpos %d\n", ipos, iline, pi->width, bpos);
+	  // //printf("ipos %d iline %d pi->width %d bpos %d\n", ipos, iline, pi->width, bpos);
 	  if ((current_filter = buf[bpos++]) > 4)
 	    {  
 	    return (ERR_DATA_FILTER);
@@ -152,7 +152,7 @@ int	mipng_fill_img(void *img, unsigned char *buf, png_info_t *pi)
     }
   if (ipos != ilen || bpos != blen)
     {
-      //      printf("fill err ipos %d vs %d, bpos %d vs %d\n", ipos, ilen, bpos, blen);
+      //      //printf("fill err ipos %d vs %d, bpos %d vs %d\n", ipos, ilen, bpos, blen);
       return (ERR_DATA_MISMATCH);
     }
   ipos = 0;
@@ -206,7 +206,7 @@ int	mipng_data(void *img, unsigned char *dat, png_info_t *pi)
 	  z_strm.avail_out = Z_CHUNK;
 	  z_strm.next_out = z_out;
 	  z_ret = inflate(&z_strm, Z_NO_FLUSH);
-	  //	  printf("inflate ret %d avail_out %d\n", z_ret, z_strm.avail_out);
+	  //	  //printf("inflate ret %d avail_out %d\n", z_ret, z_strm.avail_out);
 	  if (z_ret != Z_OK && z_ret != Z_STREAM_END)
 	    {
 	      inflateEnd(&z_strm);
@@ -227,7 +227,7 @@ int	mipng_data(void *img, unsigned char *dat, png_info_t *pi)
   inflateEnd(&z_strm);
   if (b_pos != pi->width*pi->height*pi->bpp+pi->height)
     {
-      //      printf("pb : bpos %d vs expected %d\n", b_pos, img->width*img->height*pi->bpp+img->height);
+      //      //printf("pb : bpos %d vs expected %d\n", b_pos, img->width*img->height*pi->bpp+img->height);
       free(buffer);
       return (ERR_DATA_MISMATCH);
     }
@@ -296,7 +296,7 @@ int	mipng_structure(unsigned char *ptr, int size, unsigned char **hdr, unsigned 
 	    return (ERR_STRUCT_INCOMPLETE);
 	  if (mipng_crc(ptr, len))
 	    return (ERR_STRUCT_CRC);
-	  //	  printf("found chunk len %d type %c%c%c%c\n", len, *(ptr+4), *(ptr+5), *(ptr+6), *(ptr+7));
+	  //	  //printf("found chunk len %d type %c%c%c%c\n", len, *(ptr+4), *(ptr+5), *(ptr+6), *(ptr+7));
 	  if (mipng_is_type(ptr, "IHDR"))
 	    {
 	      if (*hdr || len != PNG_HDR_SIZE)
@@ -355,7 +355,7 @@ int	mipng_verif_hdr(unsigned char *hdr, png_info_t *pi)
     pi->bpp *= 3;
   if (pi->color == 6)
     pi->bpp *= 4;
-  //  printf("hdr info : %d x %d, depth %d, col type %d, comp %d, filter %d, interlace %d\nbpp is %d\n",
+  //  //printf("hdr info : %d x %d, depth %d, col type %d, comp %d, filter %d, interlace %d\nbpp is %d\n",
   //	 pi->width, pi->height, pi->depth, pi->color, compress, filter, pi->interlace, pi->bpp);
   return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 20:48:12 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:42:08 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,17 @@ t_pic	*init_pic(void)
 	return (pic);
 }
 
-t_user	*init_user(void)
+void	init_user(t_user *user)
 {
-	t_user	*return_user;
-
-	return_user = malloc(sizeof(t_user));
-	ft_memset((void *) return_user, 0, sizeof(t_user));
-	return_user->x = 1.0;
-	return_user->y = 1.0;
-	return_user->z = 48.0;
-	return_user->map_x = 0;
-	return_user->map_y = 0;
-	return_user->dir_x = 1.0;
-	return_user->dir_y = 0.0;
-	return_user->plane_x = 0.0;
-	return_user->plane_y = 0.66;
-	return (return_user);
+	user->x = 5.0;
+	user->y = 5.0;
+	user->z = 48.0;
+	user->map_x = 0;
+	user->map_y = 0;
+	user->dir_x = 1.0;
+	user->dir_y = 1.0;
+	user->plane_x = 1.0;
+	user->plane_y = -1.0;
+	user->move_speed = 0.05;
+	user->rot_speed = 0.02;
 }
