@@ -6,11 +6,22 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 19:27:15 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:26:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	cub_valid_door_bonus(t_map *map, int x, int y)
+{
+	if (map->map[y][x] == 'D')
+	{
+		if (!((map->map[y][x + 1] == '1' && map->map[y][x - 1] == '1')
+			&& (map->map[y + 1][x] == '1' || map->map[y - 1][x] == '1')))
+			return (FAIL);
+	}
+	return (SUCCESS);
+}
 
 static int	cub_valid_zero(t_map *map, int x, int y, int *flag)
 {

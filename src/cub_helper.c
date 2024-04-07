@@ -6,11 +6,37 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 20:27:42 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:13:52 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+char	*merge_split(char **split, int start)
+{
+	char	*ret;
+	char	*tmp;
+	int		i;
+	int		end;
+
+	end = 0;
+	i = start - 1;
+	ret = split[start];
+	while (split[end] == NULL)
+		end++;
+	while (++i < end - 1)
+	{
+		tmp = ft_strlcat(ret, split[i + 1]);
+		if (!tmp)
+		{
+			free(ret);
+			return (NULL);
+		}
+		free(ret);
+		ret = tmp;
+	}
+	return (ret);
+}
 
 int	color_cub(char **split)
 {

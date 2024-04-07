@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/05 23:52:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:45:15 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,65 @@ void	init_t_mlx(t_mlx *graphic)
 				&graphic->img_data[i].line_length,
 				&graphic->img_data[i].endian);
 	}
+	init_block(&(graphic->block));
 	init_user(&graphic->user);
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
+}
+
+int	init_main(int argc)
+{
+	if (argc != 2)
+	{
+		perror("Error\nInvalid number of arguments");
+		return (FAIL);
+	}
+	else
+	{
+		return (SUCCESS);
+	}
+}
+
+void	print_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->h)
+	{
+		printf("%s\n", map->map[i]);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	*map;
-	(void) argc;
-	(void) argv;
 
+	if (init_main(argc) == FAIL)
+		return (1);
 	map = &graphic.map;
-	map->w = 10;
-	map->h = 10;
-	map->map = malloc(sizeof(char *) * 10);
-	map->map[0] = "1234123412";
-	map->map[1] = "4000000003";
-	map->map[2] = "3000011004";
-	map->map[3] = "2000000001";
-	map->map[4] = "1000000002";
-	map->map[5] = "4000000003";
-	map->map[6] = "3000000004";
-	map->map[7] = "2001000001";
-	map->map[8] = "1000000002";
-	map->map[9] = "4321432143";
+	//map->w = 10;
+	//map->h = 10;
+	//map->map = malloc(sizeof(char *) * 10);
+	//map->map[0] = "1234123412";
+	//map->map[1] = "4000000003";
+	//map->map[2] = "3000011004";
+	//map->map[3] = "2000000001";
+	//map->map[4] = "1000000002";
+	//map->map[5] = "4000000003";
+	//map->map[6] = "3000000004";
+	//map->map[7] = "2001000001";
+	//map->map[8] = "1000000002";
+	//map->map[9] = "4321432143";
+
+	if (read_cub(argv[1], &graphic))
+	{
+		perror("Error\n"); //tmp
+		return (1);
+	}
+	print_map(map);
 	init_t_mlx(&graphic);
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
 	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);

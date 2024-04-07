@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 20:47:42 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 15:31:57 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:47:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	**lst_to_arr(t_lst_head *head)
 	i = 0;
 	while (tmp)
 	{
+		printf("tmp->line: %s\n", tmp->line); //tmp
 		arr[i] = (char *)malloc(sizeof(char) * (head->w + 1));
 		if (!arr[i])
 			return (NULL);

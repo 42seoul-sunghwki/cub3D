@@ -6,41 +6,39 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 23:42:08 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:40:25 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_block	*init_block(void)
+void	init_block(t_block *block)
 {
-	t_block	*block;
+	int		i;
 
-	block = (t_block *)malloc(sizeof(t_block));
-	if (!block)
-		return (NULL);
-	block->no = NULL;
-	block->so = NULL;
-	block->we = NULL;
-	block->ea = NULL;
-	block->fi = NULL;
-	block->ci = NULL;
+	i = -1;
+	while (++i < 6)
+	{
+		init_pic(&(block->pic[i]));
+	}
 	block->f_trgb = UNDEFINED;
 	block->c_trgb = UNDEFINED;
-	return (block);
 }
 
-t_pic	*init_pic(void)
+void	init_t_data(t_data *data)
 {
-	t_pic	*pic;
+	data->img = NULL;
+	data->addr = NULL;
+	data->bits_per_pixel = 0;
+	data->line_length = 0;
+	data->endian = 0;
+}
 
-	pic = (t_pic *)malloc(sizeof(t_pic));
-	if (!pic)
-		return (NULL);
+void	init_pic(t_pic *pic)
+{
 	pic->w = IMG_W;
 	pic->h = IMG_H;
-	pic->img = NULL;
-	return (pic);
+	init_t_data(&(pic->data));
 }
 
 void	init_user(t_user *user)
@@ -54,6 +52,6 @@ void	init_user(t_user *user)
 	user->dir_y = 1.0;
 	user->plane_x = 1.0;
 	user->plane_y = -1.0;
-	user->move_speed = 0.05;
-	user->rot_speed = 0.02;
+	user->move_speed = 0.2;
+	user->rot_speed = 0.2;
 }

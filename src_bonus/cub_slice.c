@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 21:08:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:07:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 			return (FAIL);
 	}
 	else if (ft_strncmp(split[0], "EA", 3) == 0)
+	{
+		if (check_img_cub(split, mlx, &(block->pic)[NO]) == FAIL)
+			return (FAIL);
+	}
+	return (SUCCESS);
+}
+
+static int	slice_f_c_cub(char **split, t_mlx *mlx, t_block *block)
+{
+	if (ft_strncmp(split[0], "FI", 3) == 0)
+	{
+		if (check_img_cub(split, mlx, &(block->pic)[NO]) == FAIL)
+			return (FAIL);
+	}
+	else if (ft_strncmp(split[0], "CI", 3) == 0)
 	{
 		if (check_img_cub(split, mlx, &(block->pic)[NO]) == FAIL)
 			return (FAIL);
@@ -70,7 +85,7 @@ int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 	}
 	if (slice_wall_cub(split, mlx, block) == SUCCESS)
 		ret = SUCCESS;
-	if (slice_color_cub(split, block) == SUCCESS)
+	if (slice_color_cub(split, mlx) == SUCCESS)
 		ret = SUCCESS;
 	else
 	{
