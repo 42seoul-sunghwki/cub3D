@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 23:04:11 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:18:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
-# define IMG_W		160
-# define IMG_H		160
+# define IMG_W	160
+# define IMG_H	160
 
 # define UNDEFINED	-1
 # define SUCCESS	0
 # define FAIL		1
+# define WALL_RATIO 1.34
 
 # define NORTH	0
 # define SOUTH	1
@@ -49,6 +50,12 @@
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
+
+# define HITBOX			0.3
+# define LEFT_ARROW		123
+# define RIGHT_ARROW	124
+# define DOWN_ARROW		125
+# define UP_ARROW		126
 
 # define ARROW_OFFSET	123
 
@@ -196,6 +203,8 @@ typedef struct s_dda {
 	double	text_step;
 	double	text_pos;
 	double	line_height;
+	double	cos_rot_speed;
+	double	sin_rot_speed;
 	int		step_x;
 	int		step_y;
 	int		collision_flag;
@@ -232,6 +241,8 @@ typedef struct s_mlx {
 	t_block		block;
 	t_sprite	*sprite;
 	t_user		user;
+	size_t		time;
+	t_dda		dda;
 }	t_mlx;
 
 /* mlx_hooks.c */
@@ -307,6 +318,17 @@ size_t			get_time_in_us(void);
 
 /* handle_mouse.c */
 int				handle_mouse(int button, int x, int y, void *arg);
+
+/* collision_check.c */
+void			dir_y_check_p(t_map *map,
+					t_user *user, double new_displacement_y);
+void			dir_y_check_n(t_map *map,
+					t_user *user, double new_displacement_y);
+void			dir_x_check_p(t_map *map,
+					t_user *user, double new_displacement_x);
+void			dir_x_check_n(t_map *map,
+					t_user *user, double new_displacement_x);
+
 
 /**
  * open_file.c

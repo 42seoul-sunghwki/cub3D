@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 23:12:52 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:16:23 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@
 
 void	init_user(t_user *user)
 {
-	user->x = 3.0;
-	user->y = 3.0;
+	user->x = 2;
+	user->y = 2;
 	user->z = 48.0;
 	user->map_x = 0;
 	user->map_y = 0;
-	user->dir_x = 0;
-	user->dir_y = 1.0;
-	user->plane_x = 1.0;
-	user->plane_y = 0;
+	user->dir_x = 1.0;
+	user->dir_y = 0.0;
+	user->plane_x = 0.0;
+	user->plane_y = -0.66;
 	user->move_speed = 0.05;
 	user->rot_speed = 0.02;
 }
@@ -66,6 +66,7 @@ void	get_img_addr(t_data *data)
 			&data->line_length,
 			&data->endian
 			);
+	printf("data->addr: [%p]\n", data->addr);
 }
 
 void	init_block_temp(t_mlx *graphic)
@@ -79,11 +80,16 @@ void	init_block_temp(t_mlx *graphic)
 	block = &graphic->block;
 	str = "./src/xpm_images/ender_block.xpm";
 	i = -1;
+	// pic = &block->pic[i];
+	// data = &pic->data;
+	// data->img = mlx_xpm_file_to_image(graphic, str, &pic->w, &pic->h);
+	// get_img_addr(data);
 	while (++i < 4)
 	{
 		pic = &block->pic[i];
 		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic, str, &pic->w, &pic->h);
+		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
 		get_img_addr(data);
+		printf("init_block data->img [%p]\n", data->img);
 	}
 }

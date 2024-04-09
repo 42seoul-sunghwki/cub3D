@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 23:29:57 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:22:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,19 @@ void	calculate_texture(t_dda *dda, t_user *user)
 		|| (dda->side == 1 && dda->raydir_y < 0))
 		dda->texture_x = IMG_W - dda->texture_x - 1;
 	dda->text_step = 1.0 * IMG_H / dda->line_height;
-	dda->text_pos = (dda->draw_start_y - (WINHEIGHT * 0.66) / 2
+	dda->text_pos = (dda->draw_start_y - (WINHEIGHT) / 2
 			+ dda->line_height / 2) * dda->text_step;
 }
 
 /**
  * TODO: find a way to make realistic shade effect
- * line_height is calculated by multiplying WINHEIGHT by 0.66 to make each
- * surface to be square and not a rectangle
+ * TODO: block comes out to be 540 x 480 fix it to make it square
 */
 static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
 	int	wall_index;
 
-	dda->line_height = (int)(WINHEIGHT * 0.66 / dda->perp_wall_dist);
+	dda->line_height = (int)(WINHEIGHT * 1.34 / dda->perp_wall_dist);
 	dda->draw_start_y = (-(dda->line_height) / 2) + (WINHEIGHT / 2);
 	if (dda->draw_start_y < 0)
 		dda->draw_start_y = 0;
@@ -96,19 +95,26 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 
 int	game_loop(void *arg)
 {
-	t_dda	dda;
-	t_mlx	*graphic;
-	t_user	*user;
+	t_dda			*dda;
+	t_mlx			*graphic;
+	t_user			*user;
+	size_t			cur_time;
 
-	dda.cur_pixel_x = -1;
 	graphic = arg;
+	dda = &graphic->dda;
+	dda->cur_pixel_x = -1;
 	user = &graphic->user;
-	while (++dda.cur_pixel_x < WINWIDTH)
+	while (++dda->cur_pixel_x < WINWIDTH)
 	{
-		init_data(&dda, user, dda.cur_pixel_x);
-		perform_dda(&dda, user, &graphic->map);
-		draw_walls(&dda, graphic, user, &graphic->map);
+		init_data(dda, user, dda->cur_pixel_x);
+		perform_dda(dda, user, &graphic->map);
+		draw_walls(dda, graphic, user, &graphic->map);
 	}
+	// sleep(1);
+	// printf("line_height %d\n", dda.line_height);
 	display_frame(graphic);
+	cur_time = get_time_in_us();
+	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
+	graphic->time = cur_time;
 	return (0);
 }

@@ -2,14 +2,15 @@ NAME =	./bin/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS =  -g -pg -Wall -Wextra -Werror
 
 SRC_DIR =	src
 
 OBJ_DIR =	build
 
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
-		game_loop.c init_dda_data.c handle_keypress.c handle_mouse.c
+		game_loop.c init_dda_data.c handle_keypress.c handle_mouse.c \
+		collision_check.c
 
 SRCS =	$(addprefix src/, $(SRC))
 

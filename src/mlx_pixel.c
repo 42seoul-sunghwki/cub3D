@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 23:29:31 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:23:39 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 */
 int	my_mlx_pixel_get(t_data *data, int x, int y)
 {
-	return (*(unsigned int *)(data->addr
-		+ (y * data->line_length)
-		+ (x * (data->bits_per_pixel / 8))));
+	(void) x;
+	(void) y;
+	
+	// return (*(unsigned int *)(data->addr
+	// 	+ (y * data->line_length)
+	// 	+ (x * (data->bits_per_pixel / 8))));
+	return (*(unsigned int *)(data->addr + (y * data->line_length) + (x * (data->bits_per_pixel / 8))));
 }
 
 /**
@@ -65,7 +69,8 @@ void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
 	t_data	*pic;
 
 	pic = &graphic->block.pic[dda->texture_num].data;
-	tex_y = (int)dda->text_pos & (IMG_H - 1); //IMG_H
+	// tex_y = (int)dda->text_pos & (IMG_H - 1); //IMG_H
+	tex_y = (int)dda->text_pos % 160; //IMG_H
 	dda->text_pos += dda->text_step;
 	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
 	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);
@@ -83,8 +88,8 @@ void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
 		if (i < dda->draw_start_y)
 			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.c_trgb);
 		else if (i <= dda->draw_end_y)
-			my_mlx_pixel_put(data, dda->cur_pixel_x, i, RED);
-			// draw_texture_line(graphic, data, dda, i);
+			// my_mlx_pixel_put(data, dda->cur_pixel_x, i, RED);
+			draw_texture_line(graphic, data, dda, i);
 		else
 			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.f_trgb);
 	}
