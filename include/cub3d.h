@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 13:35:42 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:24:39 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,21 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
+
+# define NO			0
+# define SO			1
+# define WE			2
+# define EA			3
+# define FI			4
+# define CI			5
+
 # define NORTH	0
 # define SOUTH	1
 # define EAST	2
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
+
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -125,6 +134,7 @@ typedef struct s_line_lst
 typedef struct s_pic {
 	int		w;
 	int		h;
+	char	*name;
 	t_data	data;
 }	t_pic;
 
@@ -246,6 +256,9 @@ typedef struct s_mlx {
 	t_dda		dda;
 }	t_mlx;
 
+//tmp
+void	print_map(t_map *map);
+
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
 
@@ -263,7 +276,6 @@ unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
-
 /* open_file.c */
 int				open_file(char *file);
 int				close_file(int fd);
@@ -272,36 +284,55 @@ int				close_file(int fd);
 void			free_2d_ptr(char **ptr);
 
 /* init_struct.c */
-t_block			*init_block(void);
-t_pic			*init_pic(void);
+void			init_block(t_block *block);
+void			init_pic(t_pic *pic);
+void			init_user(t_user *user, int x, int y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
 /* free_struct.c */
 void			free_line_lst(t_line_lst *lst);
 
+/* ft_lib.c */
+int				ft_sanitize_enter(char *line);
+
+/* cub_to_struct.c */
+int				cub_to_struct(char *file, t_mlx *mlx);
+
 /* cub_slice.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
 /* cub_check.c */
-int				check_img_cub(char **split, t_mlx *graphic, t_pic **org_img);
+int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
 
 /* cub_read.c */
-int				read_cub(char *cub, t_mlx *graphic);
+char			*read_cub(int fd, t_mlx *graphic);
+
+/* cub_dup_valid.c */
+void			cub_dup_valid(t_mlx *mlx);
 
 /* cub_helper.c */
 int				color_cub(char **split);
+
+/* cub_map.c */
+int				map_cub(char *line, int fd, t_map *map);
+int				check_map_cub(char *line);
 
 /* cub_list.c */
 t_lst_head		*push_lst(t_lst_head *head, t_line_lst *new);
 char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
-void			free_lst_head(t_lst_head *head);
+void			free_lst(t_lst_head *head);
+
+
+/* cub_map_valid.c */
+int				cub_map_valid(t_map *map);
 
 /* init_struct.c */
 void			init_user(t_user *user);
 void			get_img_addr(t_data *data);
 void			init_block_temp(t_mlx *graphic);
+
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);

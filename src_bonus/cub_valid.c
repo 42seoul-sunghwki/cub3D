@@ -6,22 +6,21 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 21:29:52 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:08:04 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_d(int **d)
+static int	cub_valid_door_bonus(t_map *map, int x, int y)
 {
-	d[0][0] = 1;
-	d[0][1] = 0;
-	d[1][0] = 0;
-	d[1][1] = -1;
-	d[2][0] = -1;
-	d[2][1] = 0;
-	d[3][0] = 0;
-	d[3][1] = 1;
+	if (map->map[y][x] == 'D')
+	{
+		if (!((map->map[y][x + 1] == '1' && map->map[y][x - 1] == '1')
+			&& (map->map[y + 1][x] == '1' || map->map[y - 1][x] == '1')))
+			return (FAIL);
+	}
+	return (SUCCESS);
 }
 
 static int	cub_valid_zero(t_map *map, int x, int y, int *flag)
@@ -39,25 +38,17 @@ static int	cub_valid_zero(t_map *map, int x, int y, int *flag)
 			return (FAIL);
 		*flag = 1;
 	}
-	if (map->map[y][x] == 'D')
-	{
-		if (!((map->map[y][x + 1] == '1' && map->map[y][x - 1] == '1')
-			&& (map->map[y + 1][x] == '1' || map->map[y - 1][x] == '1')))
-			return (FAIL);
-	}
 	return (SUCCESS);
 }
 
-int	cub_valid(t_map *map)
+int	cub_map_valid(t_map *map)
 {
 	int	x;
 	int	y;
 	int	flag;
-	int	d[4][2];
 
 	y = -1;
 	flag = 0;
-	ft_d(d);
 	while (++y < map->h)
 	{
 		x = -1;
