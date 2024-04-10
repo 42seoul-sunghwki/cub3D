@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:38:51 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:40:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int	check_img_cub(char **split, t_mlx *graphic, t_pic *org_img)
 	}
 	org_img->data.img = mlx_xpm_file_to_image(graphic->mlx, split[1],
 			&org_img->w, &org_img->h);
-	printf("split 1 : [%s]\n", split[1]);
 	if (!org_img->data.img)
 	{
-		printf("org_img->img : %p\n", org_img->data.img);
 		perror("Error\nInvalid cub file in img");
 		exit (1);
 	}

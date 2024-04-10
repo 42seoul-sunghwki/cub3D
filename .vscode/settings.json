@@ -3,6 +3,8 @@
 		"stdlib.h": "c",
 		"stdio.h": "c",
 		"mlx.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"__config": "c",
+		"__string": "c"
 	}
 }

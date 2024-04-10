@@ -2,7 +2,7 @@ NAME =	./bin/cub3D
 
 CC	=	cc
 
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -g  -fsanitize=address  -Wall -Wextra -Werror
 
 SRC_DIR =	src
 
@@ -60,7 +60,7 @@ fclean: clean
 re: fclean all
 
 run:
-	./$(NAME)
+	./$(NAME) ../test.cub
 
 debug:
 	lldb $(NAME)

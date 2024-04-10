@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:41:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:28:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ int	map_cub(char **line, int fd, t_map *map)
 		free_lst(head);
 		return (FAIL);
 	}
+	free_lst(head);
 	return (SUCCESS);
 }

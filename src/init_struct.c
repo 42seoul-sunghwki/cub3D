@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:40:25 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/09 22:10:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,23 @@ void	init_pic(t_pic *pic)
 	init_t_data(&(pic->data));
 }
 
-void	init_user(t_user *user)
+void	init_user(t_user *user, int x, int y, char pos)
 {
-	user->x = 5.0;
-	user->y = 5.0;
+	user->x = (double)x;
+	user->y = (double)y;
 	user->z = 48.0;
 	user->map_x = 0;
 	user->map_y = 0;
-	user->dir_x = 1.0;
-	user->dir_y = 1.0;
+	user->dir_x = 0.0;
+	user->dir_y = 0.0;
+	if (pos == 'N')
+		user->dir_y = 1.0;
+	else if (pos == 'S')
+		user->dir_y = -1.0;
+	else if (pos == 'W')
+		user->dir_x = -1.0;
+	else if (pos == 'E')
+		user->dir_x = 1.0;
 	user->plane_x = 1.0;
 	user->plane_y = -1.0;
 	user->move_speed = 0.2;

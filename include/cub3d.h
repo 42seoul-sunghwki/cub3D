@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 20:37:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/09 22:10:10 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ void			free_2d_ptr(char **ptr);
 /* init_struct.c */
 void			init_block(t_block *block);
 void			init_pic(t_pic *pic);
-void			init_user(t_user *user);
+void			init_user(t_user *user, int x, int y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
 /* free_struct.c */
@@ -284,9 +284,6 @@ void			free_lst(t_lst_head *head);
 /* cub_valid.c */
 void			ft_d(int d[][2]);
 int				cub_valid(t_map *map);
-
-/* init_struct.c */
-void			init_user(t_user *user);
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);

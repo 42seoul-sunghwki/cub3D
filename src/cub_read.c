@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 21:03:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:54:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	read_cub_helper(char **line, int fd, t_mlx *graphic)
 	int		ret;
 
 	ret = slice_cub(*line, graphic, &(graphic->block));
-	printf("*line : %s\n", *line); //error
 	if (ret == UNDEFINED)
 	{
+		printf("map_cub\n");
 		if (map_cub(line, fd, &(graphic->map)) == FAIL)
 			return (FAIL);
 		else
