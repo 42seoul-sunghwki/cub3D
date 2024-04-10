@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 13:58:40 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:01:54 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	init_t_mlx(t_mlx *graphic)
 
 	i = -1;
 	graphic->mlx = mlx_init();
-	graphic->win = mlx_new_window(graphic->mlx, 1920, 1080, "cub3D");
+	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
 	while (++i < 2)
 	{
-		graphic->img_data[i].img = mlx_new_image(graphic->mlx, 1920, 1080);
+		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, 1080);
 		graphic->img_data[i].addr = mlx_get_data_addr(
 				graphic->img_data[i].img,
 				&graphic->img_data[i].bits_per_pixel,
@@ -69,7 +69,6 @@ int	main(int argc, char **argv)
 	if (init_main(argc) == FAIL)
 		return (1);
 	map = &graphic.map;
-
 	init_t_mlx(&graphic);
 	if (read_cub(argv[1], &graphic))
 	{

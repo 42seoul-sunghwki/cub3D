@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/09 19:40:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:21:33 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,19 @@ int	check_map_cub(char *line)
 	int	flag;
 
 	i = -1;
-	flag = 0;
 	while (line[++i])
 	{
-		if (line[i] != ' ')
+		flag = FAIL;
+		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
+			flag = SUCCESS;
+		if (line[i] == 'D' || line[i] == 'N'
+			|| line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+			flag = SUCCESS;
+		if (flag == FAIL)
 		{
-			flag = 1;
-			continue ;
+			perror("Error\nInvalid map");
+			exit (1);
 		}
-		if (line[i] == ' ' && flag == 1)
-			return (FAIL);
-		if (line[i] != '1' && line[i] != '0')
-			return (FAIL);
-		if (line[i] != 'D' && line[i] != 'N'
-			&& line[i] != 'S' && line[i] != 'W' && line[i] == 'E')
-			return (FAIL);
 	}
 	return (SUCCESS);
 }
