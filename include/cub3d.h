@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/09 22:10:10 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 12:40:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,6 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
 /* cub_check.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
-char			**split_line(char *line);
 
 /* cub_read.c */
 int				read_cub(char *cub, t_mlx *graphic);

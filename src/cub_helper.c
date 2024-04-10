@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/09 20:49:28 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 12:40:02 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,4 @@ int	color_cub(char **split)
 	ret = create_trgb(0, r, g, b);
 	free_2d_ptr(rgb);
 	return (ret);
-}
-
-char	**split_line(char *line)
-{
-	char	**split;
-
-	split = ft_split(line, ' ');
-	if (!split)
-		return (NULL);
-	if (split[0] == NULL)
-	{
-		free(split);
-		return (NULL);
-	}
-	return (split);
 }

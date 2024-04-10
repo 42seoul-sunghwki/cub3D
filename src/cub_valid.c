@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/09 19:37:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 12:37:26 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,77 +14,76 @@
 
 static int	cub_valid_right_side(t_map *map, int x, int y)
 {
-	int	ret;
-
-	ret = SUCCESS;
 	if (map->map[y][x] == '1')
-	{
 		return (SUCCESS);
-	}
 	else if (map->map[y][x] != ' ')
 	{
 		perror("Error\nInvalid map");
-		return (FAIL);
+		exit (1);
 	}
-	if (x - 1 >= 0 && map->map[y][x - 1])
+	if (map->map[y][x] == 1)
 	{
-		ret = cub_valid_right_side(map, x - 1, y);
-		if (ret == FAIL)
-			return (FAIL);
+		if (x - 1 >= 0)
+			cub_valid_right_side(map, x - 1, y);
 	}
-	if (y + 1 < map->h && map->map[y + 1][x])
+	else
 	{
-		ret = cub_valid_right_side(map, x, y + 1);
-		if (ret == FAIL)
-			return (FAIL);
+		map->map[y][x] = 1;
+		if (y - 1 >= 0)
+			cub_valid_right_side(map, x, y - 1);
+		if (y + 1 < map->h)
+			cub_valid_right_side(map, x, y + 1);
 	}
 	return (SUCCESS);
 }
 
 static int	cub_valid_left_side(t_map *map, int x, int y)
 {
-	int	ret;
-
-	ret = SUCCESS;
 	if (map->map[y][x] == '1')
-	{
 		return (SUCCESS);
-	}
-	else if (map->map[y][x] != ' ')
+	else if (map->map[y][x] != ' ' && map->map[y][x] != 0)
 	{
 		perror("Error\nInvalid map");
-		return (FAIL);
+		exit (1);
 	}
-	if (x + 1 < map->w && map->map[y][x + 1])
+	if (map->map[y][x] == 0)
 	{
-		ret = cub_valid_left_side(map, x + 1, y);
-		if (ret == FAIL)
-			return (FAIL);
+		if (x + 1 < map->w)
+			cub_valid_left_side(map, x + 1, y);
 	}
-	if (y + 1 < map->h && map->map[y + 1][x])
+	else
 	{
-		ret = cub_valid_left_side(map, x, y + 1);
-		if (ret == FAIL)
-			return (FAIL);
+		map->map[y][x] = 0;
+		if (y + 1 < map->h)
+			cub_valid_left_side(map, x, y + 1);
+		if (y - 1 >= 0)
+			cub_valid_left_side(map, x, y - 1);
 	}
 	return (SUCCESS);
 }
 
 int	cub_valid(t_map *map)
 {
+	int x;
 	int	y;
-	int	ret;
 
+	x = -1;
+	while (++x < map->w)
+	{
+		cub_valid_left_side(map, x, 0);
+		cub_valid_right_side(map, x, 0);
+	}
 	y = -1;
-	ret = 0;
 	while (++y < map->h)
 	{
-		ret = cub_valid_left_side(map, 0, y);
-		if (ret == FAIL)
-			return (FAIL);
-		ret = cub_valid_right_side(map, map->w - 1, y);
-		if (ret == FAIL)
-			return (FAIL);
+		cub_valid_left_side(map, 0, y);
+		cub_valid_right_side(map, map->w - 1, y);
+	}
+	x = -1;
+	while (++x < map->w)
+	{
+		cub_valid_left_side(map, x, map->h - 1);
+		cub_valid_right_side(map, x, map->h - 1);
 	}
 	return (SUCCESS);
 }
