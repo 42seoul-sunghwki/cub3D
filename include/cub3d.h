@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 12:40:17 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:58:58 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,9 @@ typedef struct s_mlx {
 	t_sprite	*sprite;
 	t_user		user;
 }	t_mlx;
+
+//tmp
+void	print_map(t_map *map);
 
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);

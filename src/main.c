@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/09 22:09:45 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:58:40 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ int	init_main(int argc)
 		return (SUCCESS);
 	}
 }
-
+//tmp
 void	print_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
+	printf("map width: %d\n", map->w);
+	printf("map height: %d\n", map->h);
 	while (i < map->h)
 	{
 		printf("%s\n", map->map[i]);
