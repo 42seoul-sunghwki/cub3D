@@ -21,17 +21,17 @@ void	init_t_mlx(t_mlx *graphic)
 	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
 	while (++i < 2)
 	{
-		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, 1080);
-		graphic->img_data[i].addr = mlx_get_data_addr(
-				graphic->img_data[i].img,
-				&graphic->img_data[i].bits_per_pixel,
-				&graphic->img_data[i].line_length,
-				&graphic->img_data[i].endian);
+		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, WINHEIGHT);
+		get_img_addr(&graphic->img_data[i]);
+		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
-	init_block(&(graphic->block));
-	//init_user(&graphic->user);
+	init_user(&graphic->user);
+	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed);
+	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed);
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
+	graphic->block.f_trgb = 0xced4da;
+	graphic->block.c_trgb = 0;
 }
 
 int	init_main(int argc)
@@ -77,5 +77,6 @@ int	main(int argc, char **argv)
 	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 02, 0L, handle_keypress, &graphic);
+	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
 	mlx_loop(graphic.mlx);
 }

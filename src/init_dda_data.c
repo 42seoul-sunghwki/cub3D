@@ -50,15 +50,12 @@ static void	init_side_dist(t_dda *dda, t_user *user)
 
 void	init_data(t_dda *dda, t_user *user, int x_pixel_num)
 {
-	dda->camera_x = (2 * x_pixel_num / (double) WINWIDTH) - 1;
-	//printf("camera_x %f", dda->camera_x);
+	dda->camera_x = (2 * x_pixel_num / (float) WINWIDTH) - 1;
 	dda->raydir_x = user->dir_x + user->plane_x * dda->camera_x;
 	dda->raydir_y = user->dir_y + user->plane_y * dda->camera_x;
 	user->map_x = (int) user->x;
 	user->map_y = (int) user->y;
 	init_delta_dist(dda);
-	//printf("delta_dist_x: %f\n", dda->delta_dist_x);
-	//printf("delta_dist_y: %f\n", dda->delta_dist_y);
-	dda->collision_flag = 0;
+	dda->collision_flag = false;
 	init_side_dist(dda, user);
 }

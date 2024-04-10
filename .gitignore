@@ -58,7 +58,7 @@ dkms.conf
 ### macOS ###
 # General
 .DS_Store
-.AppleDouble
+.Applefloat
 .LSOverride
 
 # Icon must end with two \r
