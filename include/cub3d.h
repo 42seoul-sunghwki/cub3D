@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 15:29:21 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:08:07 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ t_line_lst		*init_line_lst(char *line);
 void			free_line_lst(t_line_lst *lst);
 
 /* ft_lib.c */
-char			*ft_sanitize_enter(char *line);
+int				ft_sanitize_enter(char *line);
 
 /* cub_to_struct.c */
 int				cub_to_struct(char *file, t_mlx *mlx);
@@ -289,9 +289,8 @@ t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
 
-/* cub_valid.c */
-void			ft_d(int d[][2]);
-int				cub_valid(t_map *map);
+/* cub_map_valid.c */
+int				cub_map_valid(t_map *map);
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);

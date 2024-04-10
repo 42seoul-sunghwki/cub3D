@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 15:32:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:37:52 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ char	*read_cub(int fd, t_mlx *graphic)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		line = ft_sanitize_enter(line);
+		if (ft_sanitize_enter(line) == FAIL)
+		{
+			perror("Error\nEnd of File before Map");
+			exit(1);
+		}
 		if (slice_cub(line, graphic, &(graphic->block)) == UNDEFINED)
 			return (line);
 		free(line);

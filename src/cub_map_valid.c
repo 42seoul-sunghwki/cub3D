@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 14:00:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:06:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	cub_valid_left_side(t_map *map, int x, int y)
 }
 
 
-int	cub_valid(t_map *map)
+int	cub_map_valid(t_map *map)
 {
 	int x;
 	int	y;

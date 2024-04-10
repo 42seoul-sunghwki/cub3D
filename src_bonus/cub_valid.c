@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/07 19:26:29 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:08:04 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,14 @@ static int	cub_valid_zero(t_map *map, int x, int y, int *flag)
 	return (SUCCESS);
 }
 
-void	ft_d(int d[][2])
-{
-	d[0][0] = 1;
-	d[0][1] = 0;
-	d[1][0] = 0;
-	d[1][1] = -1;
-	d[2][0] = -1;
-	d[2][1] = 0;
-	d[3][0] = 0;
-	d[3][1] = 1;
-}
-
-int	cub_valid(t_map *map)
+int	cub_map_valid(t_map *map)
 {
 	int	x;
 	int	y;
 	int	flag;
-	int	d[4][2];
 
 	y = -1;
 	flag = 0;
-	ft_d(d);
 	while (++y < map->h)
 	{
 		x = -1;

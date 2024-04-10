@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_file.c                                        :+:      :+:    :+:   */
+/*   cub_dup_valid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 14:45:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:00:46 by sunghwki         ###   ########.fr       */
+/*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
+/*   Updated: 2024/04/10 16:18:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	open_file(char *file)
+int		cub_img_dup_valid(t_pic *org, t_pic *cmp)
 {
-	int	fd;
+	int 	i;
+	char	*org_img;
+	char	*cmp_img;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	if (org->h != cmp->h || org->w != cmp->w)
+		return (FAIL);
+	org_img = org->data.img;
+	cmp_img = cmp->data.img;
+	i = -1;
+	while (++i < org->data.size)
 	{
-		perror("Error\n");
-		perror("Failed to open file\n");
-		exit(1);
+		if (org_img[i] != cmp_img[i])
+			return (FAIL);
 	}
-	return (fd);
 }
 
-int	close_file(int fd)
+void	cub_dup_valid(t_mlx *mlx)
 {
-	if (close(fd) == -1)
-	{
-		perror("Error\n");
-		perror("Failed to close file\n");
-		exit(1);
-	}
-	return (SUCCESS);
+	
 }
