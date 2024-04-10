@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:45:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/09 21:17:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:21:20 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	init_side_dist(t_dda *dda, t_user *user)
 
 void	init_data(t_dda *dda, t_user *user, int x_pixel_num)
 {
-	dda->camera_x = (2 * x_pixel_num / (double) WINWIDTH) - 1;
+	dda->camera_x = (2 * x_pixel_num / (float) WINWIDTH) - 1;
 	dda->raydir_x = user->dir_x + user->plane_x * dda->camera_x;
 	dda->raydir_y = user->dir_y + user->plane_y * dda->camera_x;
 	user->map_x = (int) user->x;

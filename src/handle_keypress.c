@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 12:52:52 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:21:20 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	handle_left_arrow(t_mlx *graphic, int keycode)
 {
 	t_user	*user;
 	t_dda	*dda;
-	double	old_dir_x;
-	double	old_plane_x;
+	float	old_dir_x;
+	float	old_plane_x;
 
 	(void) keycode;
 	user = &graphic->user;
@@ -38,8 +38,8 @@ void	handle_right_arrow(t_mlx *graphic, int keycode)
 {
 	t_dda	*dda;
 	t_user	*user;
-	double	old_dir_x;
-	double	old_plane_x;
+	float	old_dir_x;
+	float	old_plane_x;
 
 	(void) keycode;
 	dda = &graphic->dda;
@@ -47,19 +47,19 @@ void	handle_right_arrow(t_mlx *graphic, int keycode)
 	old_dir_x = user->dir_x;
 	old_plane_x = user->plane_x;
 	user->dir_x = user->dir_x * dda->cos_rot_speed
-		- user->dir_y * dda->sin_rot_speed;
-	user->dir_y = old_dir_x * dda->sin_rot_speed
+		- user->dir_y * -dda->sin_rot_speed;
+	user->dir_y = old_dir_x * -dda->sin_rot_speed
 		+ user->dir_y * dda->cos_rot_speed;
 	user->plane_x = user->plane_x * dda->cos_rot_speed
-		- user->plane_y * dda->sin_rot_speed;
-	user->plane_y = old_plane_x * dda->sin_rot_speed
+		- user->plane_y * -dda->sin_rot_speed;
+	user->plane_y = old_plane_x * -dda->sin_rot_speed
 		+ user->plane_y * dda->cos_rot_speed;
 }
 
 void	check_collision(t_mlx *graphic, int keycode)
 {
-	double	new_displacement_y;
-	double	new_displacement_x;
+	float	new_displacement_y;
+	float	new_displacement_x;
 	int		flag;
 	t_user	*user;
 	t_map	*map;
@@ -72,7 +72,7 @@ void	check_collision(t_mlx *graphic, int keycode)
 		flag = 1;
 	new_displacement_y = user->dir_y * flag * user->move_speed;
 	new_displacement_x = user->dir_x * flag * user->move_speed;
-	printf("displacement x: [%f] displacement y: [%f]\n", new_displacement_x, new_displacement_y);
+	// printf("displacement x: [%f] displacement y: [%f]\n", new_displacement_x, new_displacement_y);
 	if (new_displacement_y <= 0)
 		dir_y_check_n(map, user, new_displacement_y);
 	else

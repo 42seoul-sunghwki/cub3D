@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/09 21:20:09 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:26:28 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	init_t_mlx(t_mlx *graphic)
 
 	i = -1;
 	graphic->mlx = mlx_init();
-	graphic->win = mlx_new_window(graphic->mlx, 1920, 1080, "cub3D");
+	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
 	while (++i < 2)
 	{
-		graphic->img_data[i].img = mlx_new_image(graphic->mlx, 1920, 1080);
+		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, WINHEIGHT);
 		get_img_addr(&graphic->img_data[i]);
-		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (1920 * 1080));
+		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
 	init_user(&graphic->user);
 	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed);
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	map->map[1] = "4000000003";
 	map->map[2] = "3000000004";
 	map->map[3] = "2000000001";
-	map->map[4] = "1000000002";
+	map->map[4] = "1000010002";
 	map->map[5] = "4000000003";
 	map->map[6] = "3000000004";
 	map->map[7] = "2000000001";
