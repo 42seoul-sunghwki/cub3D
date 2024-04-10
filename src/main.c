@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 14:01:54 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:22:18 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,7 @@ int	main(int argc, char **argv)
 		return (1);
 	map = &graphic.map;
 	init_t_mlx(&graphic);
-	if (read_cub(argv[1], &graphic))
-	{
-		perror("Error\n");
-		exit (1);
-	}
-	if (cub_valid(map) == FAIL)
-	{
-		perror("Error\nInvalid map");
-		exit (1);
-	}
+	cub_to_struct(argv[1], &graphic);
 	print_map(map);
 	init_user(&graphic.user, 1, 1, 'N');
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);

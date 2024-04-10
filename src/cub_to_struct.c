@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_read.c                                         :+:      :+:    :+:   */
+/*   cub_to_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 15:32:38 by sunghwki         ###   ########.fr       */
+/*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
+/*   Updated: 2024/04/10 15:31:57 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*read_cub(int fd, t_mlx *graphic)
+int	cub_to_struct(char *file, t_mlx *mlx)
 {
+	int		fd;
 	char	*line;
-
-	while (1)
+	
+	fd = open_file(file);
+	if (fd == UNDEFINED)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		line = ft_sanitize_enter(line);
-		if (slice_cub(line, graphic, &(graphic->block)) == UNDEFINED)
-			return (line);
-		free(line);
+		perror("Error\n");
+		exit(1);
 	}
-	return (NULL);
+	line = read_cub(fd, mlx);
+	if (line == NULL)
+	{
+		perror("Error\nInvalid file");
+		exit(1);
+	}
+	if (map_cub(line, fd, &(mlx->map)) == FAIL)
+	{
+		perror("Error\nInvalid map");
+		exit(1);
+	}
+	close(fd);
+	return (SUCCESS);
 }
