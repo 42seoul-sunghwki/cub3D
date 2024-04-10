@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 22:51:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:35:42 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,38 @@
 # include "mlx.h"
 # include "../lib/libftprintf/ft_printf.h"
 
-# define WINWIDTH 1920
-# define WINHEIGHT 1080
+# define WINWIDTH 1600
+# define WINHEIGHT 900
+# define HALF_WINHEIGHT 450
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
-# define IMG_W		64
-# define IMG_H		64
+# define IMG_W	160
+# define IMG_H	160
 
 # define UNDEFINED	-1
 # define SUCCESS	0
 # define FAIL		1
+# define WALL_RATIO 1.34
 
+# define NORTH	0
+# define SOUTH	1
+# define EAST	2
+# define WEST	3
+# define SKY	4
+# define FLOOR	5
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
+
+# define HITBOX			0.3
+# define LEFT_ARROW		123
+# define RIGHT_ARROW	124
+# define DOWN_ARROW		125
+# define UP_ARROW		126
 
 # define ARROW_OFFSET	123
 
@@ -111,7 +125,7 @@ typedef struct s_line_lst
 typedef struct s_pic {
 	int		w;
 	int		h;
-	void	*img;
+	t_data	data;
 }	t_pic;
 
 /**
@@ -126,53 +140,48 @@ typedef struct s_sprite {
  * 
 */
 typedef struct s_block {
-	t_pic	*no;
-	t_pic	*so;
-	t_pic	*we;
-	t_pic	*ea;
-	t_pic	*fi;
-	t_pic	*ci;
+	t_pic	pic[6];
 	int		f_trgb;
 	int		c_trgb;
 }	t_block;
 
 /**
- * @var	double	x			x position of the user
- * @var	double	y			y position of the user
- * @var	double	z			z position of the user
+ * @var	float	x			x position of the user
+ * @var	float	y			y position of the user
+ * @var	float	z			z position of the user
  * @var	int		map_x		x position of the square the user is currently in
  * @var	int		map_y		y position of the square the user is currently in
- * @var	double	dir_x		x component of direction vector of the user
- * @var	double	dir_y		y component of direction vector of the user
- * @var	double	plane_x		x component of direction vector of the plane
- * @var	double	plane_y		y component of direction vector of the plane
- * @var	double	move_speed	the move_speed of the user when up, down ey pressed
- * @var	double	rot_speed	the rotation speed of the user
+ * @var	float	dir_x		x component of direction vector of the user
+ * @var	float	dir_y		y component of direction vector of the user
+ * @var	float	plane_x		x component of direction vector of the plane
+ * @var	float	plane_y		y component of direction vector of the plane
+ * @var	float	move_speed	the move_speed of the user when up, down ey pressed
+ * @var	float	rot_speed	the rotation speed of the user
 */
 typedef struct s_user {
-	double	x;
-	double	y;
-	double	z;
+	float	x;
+	float	y;
+	float	z;
 	int		map_x;
 	int		map_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	move_speed;
-	double	rot_speed;
+	float	dir_x;
+	float	dir_y;
+	float	plane_x;
+	float	plane_y;
+	float	move_speed;
+	float	rot_speed;
 }	t_user;
 
 /**
- * @var	double	camera_x		x-coordinate of the current ray in camera space.
+ * @var	float	camera_x		x-coordinate of the current ray in camera space.
  * 								Left most value is 1, middle is 0, right is 2
- * @var	double	raydir_x		x component of the ray direction vector
- * @var	double	raydir_y		y component of the ray direction vector
- * @var	double	side_dist_x		distance left until the block in the x direction
- * @var	double	side_dist_y		distance left until the block in the y direction
- * @var	double	delta_dist_x	unit distance towards next block in x direction
- * @var	double	delta_dist_y	unit distance towards next block in y direction
- * @var	double	perp_wall_dist	perpendicular distance from user's view plane 
+ * @var	float	raydir_x		x component of the ray direction vector
+ * @var	float	raydir_y		y component of the ray direction vector
+ * @var	float	side_dist_x		distance left until the block in the x direction
+ * @var	float	side_dist_y		distance left until the block in the y direction
+ * @var	float	delta_dist_x	unit distance towards next block in x direction
+ * @var	float	delta_dist_y	unit distance towards next block in y direction
+ * @var	float	perp_wall_dist	perpendicular distance from user's view plane 
  * 								to the object
  * @var	int		step_x			which direction to step in x direction, -1 or 1
  * @var	int		step_y			which direction to step in y direction, -1 or 1
@@ -183,14 +192,20 @@ typedef struct s_user {
  * @var int		draw_end_y		the end y value of the vertical line drawing
 */
 typedef struct s_dda {
-	double	camera_x;
-	double	raydir_x;
-	double	raydir_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
+	float	camera_x;
+	float	raydir_x;
+	float	raydir_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	float	perp_wall_dist;
+	float	wall_pixel_x;
+	float	text_step;
+	float	text_pos;
+	float	line_height;
+	float	cos_rot_speed;
+	float	sin_rot_speed;
 	int		step_x;
 	int		step_y;
 	int		collision_flag;
@@ -198,6 +213,8 @@ typedef struct s_dda {
 	int		draw_start_y;
 	int		draw_end_y;
 	int		cur_pixel_x;
+	int		texture_num;
+	int		texture_x;
 }	t_dda;
 
 /**
@@ -205,9 +222,14 @@ typedef struct s_dda {
  * 
  * @var	void	*mlx
  * @var	void	*win
- * @var	t_data	img_data[2]	two img data struct used to double buffer
+ * @var	t_data	img_data[2]	two img data struct used to float buffer
  * @var	int		num_frame	index of the img_data to render to screen
  * @var	size_t	total_frame	count of total_frame rendered
+ * @var	map
+ * @var	block
+ * @var	sprite
+ * @var	user
+ * @var	
  * 
 */
 typedef struct s_mlx {
@@ -220,17 +242,18 @@ typedef struct s_mlx {
 	t_block		block;
 	t_sprite	*sprite;
 	t_user		user;
+	size_t		time;
+	t_dda		dda;
 }	t_mlx;
 
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
-int				key_down(int keypress, void *param);
 
 /* mlx_pixel.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
 int				blend_trgb(int fg_color, int bg_color);
-void			draw_vertical_line(t_mlx *mlx, t_dda *dda, int color);
+void			draw_vertical_line(t_mlx *mlx, t_dda *dda);
 
 /* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
@@ -277,6 +300,8 @@ void			free_lst_head(t_lst_head *head);
 
 /* init_struct.c */
 void			init_user(t_user *user);
+void			get_img_addr(t_data *data);
+void			init_block_temp(t_mlx *graphic);
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);
@@ -291,6 +316,20 @@ void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
+
+/* handle_mouse.c */
+int				handle_mouse(int button, int x, int y, void *arg);
+
+/* collision_check.c */
+void			dir_y_check_p(t_map *map,
+					t_user *user, float new_displacement_y);
+void			dir_y_check_n(t_map *map,
+					t_user *user, float new_displacement_y);
+void			dir_x_check_p(t_map *map,
+					t_user *user, float new_displacement_x);
+void			dir_x_check_n(t_map *map,
+					t_user *user, float new_displacement_x);
+
 
 /**
  * open_file.c

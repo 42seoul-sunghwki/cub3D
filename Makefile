@@ -9,7 +9,8 @@ SRC_DIR =	src
 OBJ_DIR =	build
 
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
-		game_loop.c init_dda_data.c handle_keypress.c
+		game_loop.c init_dda_data.c handle_keypress.c handle_mouse.c \
+		collision_check.c
 
 SRCS =	$(addprefix src/, $(SRC))
 
@@ -44,6 +45,10 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
+
+release: $(OBJS) $(LIBFT) $(MLX)
+	$(CC) -O3 $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
+	$(LIBFT) -o $(NAME)
 
 clean:
 	rm -rf $(OBJS)
