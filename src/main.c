@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 13:26:28 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 21:44:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_t_mlx(t_mlx *graphic)
 	{
 		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, WINHEIGHT);
 		get_img_addr(&graphic->img_data[i]);
+		printf("%d\n", graphic->img_data[i].endian);
 		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
 	init_user(&graphic->user);
