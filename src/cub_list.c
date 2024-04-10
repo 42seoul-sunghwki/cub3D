@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 20:47:42 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/09 21:49:37 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:44:02 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ void	free_lst(t_lst_head *head)
 	{
 		next = tmp->next;
 		free(tmp->line);
+		tmp->line = NULL;
 		free(tmp);
+		tmp = NULL;
 		tmp = next;
 	}
 	free(head);
+	head = NULL;
 }

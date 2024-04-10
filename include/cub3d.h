@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 13:58:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:38:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,9 @@ t_line_lst		*init_line_lst(char *line);
 /* free_struct.c */
 void			free_line_lst(t_line_lst *lst);
 
+/* ft_lib.c */
+char			*ft_sanitize_enter(char *line);
+
 /* cub_slice.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
@@ -273,7 +276,7 @@ int				read_cub(char *cub, t_mlx *graphic);
 int				color_cub(char **split);
 
 /* cub_map.c */
-int				map_cub(char **line, int fd, t_map *map);
+int				map_cub(char *line, int fd, t_map *map);
 int				check_map_cub(char *line);
 
 /* cub_list.c */

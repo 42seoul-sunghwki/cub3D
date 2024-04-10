@@ -11,7 +11,7 @@ OBJ_DIR =	build
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		game_loop.c init_dda_data.c handle_keypress.c \
 		cub_check.c cub_helper.c cub_list.c cub_map.c cub_read.c cub_slice.c cub_valid.c \
-		open_file.c free_pointer.c
+		open_file.c free_pointer.c ft_lib.c
 
 SRCS =	$(addprefix src/, $(SRC))
 

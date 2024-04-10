@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 14:02:13 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:30:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 	split = ft_split(line, ' ');
 	if (!split)
 		return (FAIL);
-	if (split[0] == NULL)
+	if (split[0] == NULL || split[0][0] == '\0')
 	{
 		free_2d_ptr(split);
 		return (SUCCESS);
