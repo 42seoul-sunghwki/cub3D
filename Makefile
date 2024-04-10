@@ -2,7 +2,7 @@ NAME =	./bin/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Wextra -Werror
+FLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
 
 SRC_DIR =	src
 
@@ -12,11 +12,17 @@ SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		game_loop.c init_dda_data.c handle_keypress.c handle_mouse.c \
 		collision_check.c
 
+BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c frame_bonus.c init_struct_bonus.c \
+		game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c handle_mouse_bonus.c \
+		collision_check_bonus.c
+
 SRCS =	$(addprefix src/, $(SRC))
 
 OBJ =	$(addprefix build/, $(SRC))
 
 OBJS =	$(OBJ:.c=.o)
+
+BONUS_OBJS = $(BONUS_OBJ:.c=.o)
 
 MLX_DIR = ./lib/mlx
 

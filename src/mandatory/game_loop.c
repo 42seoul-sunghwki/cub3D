@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 21:30:17 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:36:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	calculate_texture(t_dda *dda, t_user *user)
 	calculate_texture_helper(dda, user);
 	dda->wall_pixel_x -= floor(dda->wall_pixel_x);
 	dda->texture_x = (int)(dda->wall_pixel_x * (float) IMG_W);
-	// printf("dda->texture_x: %d\n", dda->texture_x);
 	if ((dda->side == 0 && dda->raydir_x > 0)
 		|| (dda->side == 1 && dda->raydir_y < 0))
 		dda->texture_x = IMG_W - dda->texture_x - 1;
@@ -96,59 +95,6 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 		draw_vertical_line(graphic, dda);
 }
 
-static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
-{
-	int	j;
-	int	color;
-
-	j = -1;
-	while (++j < WINWIDTH)
-	{
-		floor->cell_x = (int)(floor->floor_x);
-		floor->cell_y = (int)(floor->floor_y);
-		floor->tx = (int)(IMG_W * (floor->floor_x - floor->cell_x)) % 160;
-		if (floor->tx < 0)
-			floor->tx *= -1;
-		floor->ty = (int)(IMG_H * (floor->floor_y - floor->cell_y)) % 160;
-		if (floor->ty < 0)
-			floor->ty *= -1;
-		// printf("tx: %d ty: %d\n", floor->tx, floor->ty);
-		// printf("block pic: [%p]\n", &graphic->block.pic[FLOOR].data);
-		floor->floor_x += floor->floor_step_x;
-		floor->floor_y += floor->floor_step_y;
-		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data, floor->tx, floor->ty);
-		my_mlx_pixel_put(&graphic->img_data[graphic->num_frame],
-			j, WINHEIGHT - 1 - i, color);
-	}
-}
-
-void	draw_floor(t_mlx *graphic)
-{
-	t_floor			floor;
-	t_user			*user;
-	int				i;
-
-	i = -1;
-	user = &graphic->user;
-	while (++i < WINHEIGHT / 2)
-	{
-		floor.raydir_x_start = user->dir_x - user->plane_x;
-		floor.raydir_y_start = user->dir_y - user->plane_y;
-		floor.raydir_x_end = user->dir_x + user->plane_x;
-		floor.raydir_y_end = user->dir_y + user->plane_y;
-		floor.p = i - HALF_WINHEIGHT;
-		floor.pos_z = WINHEIGHT * 0.5;
-		floor.row_distance = floor.pos_z / floor.p;
-		floor.floor_step_x = -floor.row_distance
-			* (floor.raydir_x_end - floor.raydir_x_start) / (WINWIDTH);
-		floor.floor_step_y = -floor.row_distance
-			* (floor.raydir_y_end - floor.raydir_y_start) / (WINWIDTH);
-		floor.floor_x = user->x - floor.row_distance * floor.raydir_x_start;
-		floor.floor_y = user->y - floor.row_distance * floor.raydir_y_start;
-		draw_floor_pixel(graphic, &floor, i);
-	}
-}
-
 int	game_loop(void *arg)
 {
 	t_dda			*dda;
@@ -160,16 +106,17 @@ int	game_loop(void *arg)
 	dda = &graphic->dda;
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
-	draw_floor(graphic);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
 		perform_dda(dda, user, &graphic->map);
 		draw_walls(dda, graphic, user, &graphic->map);
 	}
+	// sleep(1);
+	// printf("line_height %d\n", dda.line_height);
 	display_frame(graphic);
 	cur_time = get_time_in_us();
-	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
+	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
 	return (0);
 }

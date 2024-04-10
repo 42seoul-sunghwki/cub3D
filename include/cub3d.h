@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 13:35:42 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:11:01 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,25 @@ typedef struct s_pic {
 	int		h;
 	t_data	data;
 }	t_pic;
+
+typedef struct s_floor {
+	float	raydir_x_start;
+	float	raydir_y_start;
+	float	raydir_x_end;
+	float	raydir_y_end;
+	int		p;
+	float	pos_z;
+	float	row_distance;
+	float	floor_step_x;
+	float	floor_step_y;
+	float	floor_x;
+	float	floor_y;
+	int		cell_x;
+	int		cell_y;
+	int		tx;
+	int		ty;
+}	t_floor;
+
 
 /**
  * 

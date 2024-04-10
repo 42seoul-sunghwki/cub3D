@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 20:15:29 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:08:25 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,6 @@ void	init_block_temp(t_mlx *graphic)
 		pic = &block->pic[i];
 		data = &pic->data;
 		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
-	str = "./src/xpm_images/oak_plank.xpm";
-	i--;
-	while (++i < 6)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		printf("data->img %p\n", data->img);
 		get_img_addr(data);
 		printf("init_block data->img [%p]\n", data->img);
 	}
