@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:08:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:24:39 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_line_lst
 typedef struct s_pic {
 	int		w;
 	int		h;
+	char	*name;
 	t_data	data;
 }	t_pic;
 
@@ -274,6 +275,9 @@ int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
 
 /* cub_read.c */
 char			*read_cub(int fd, t_mlx *graphic);
+
+/* cub_dup_valid.c */
+void			cub_dup_valid(t_mlx *mlx);
 
 /* cub_helper.c */
 int				color_cub(char **split);

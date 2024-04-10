@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:06:27 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:22:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 		exit(1);
 	}
 	close_file(fd);
+	cub_dup_valid(mlx);
 	cub_map_valid(&(mlx->map));
 	map_to_user(mlx);
 	return (SUCCESS);

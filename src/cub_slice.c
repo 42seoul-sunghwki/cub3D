@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 14:30:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:33:42 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 	}
 	else if (ft_strncmp(split[0], "SO", 3) == 0)
 	{
-		if (check_img_cub(split, mlx, &(block->pic[NO])) == FAIL)
+		if (check_img_cub(split, mlx, &(block->pic[SO])) == FAIL)
 			return (FAIL);
 	}
 	else if (ft_strncmp(split[0], "WE", 3) == 0)
 	{
-		if (check_img_cub(split, mlx, &(block->pic)[NO]) == FAIL)
+		if (check_img_cub(split, mlx, &(block->pic)[WE]) == FAIL)
 			return (FAIL);
 	}
 	else if (ft_strncmp(split[0], "EA", 3) == 0)
 	{
-		if (check_img_cub(split, mlx, &(block->pic)[NO]) == FAIL)
+		if (check_img_cub(split, mlx, &(block->pic)[EA]) == FAIL)
 			return (FAIL);
 	}
 	else
