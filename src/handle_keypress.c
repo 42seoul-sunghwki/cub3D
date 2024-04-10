@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/09 21:21:45 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 12:52:52 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,24 @@ void	handle_left_arrow(t_mlx *graphic, int keycode)
 
 void	handle_right_arrow(t_mlx *graphic, int keycode)
 {
-	t_map	*map;
+	t_dda	*dda;
 	t_user	*user;
 	double	old_dir_x;
 	double	old_plane_x;
 
 	(void) keycode;
-	map = &graphic->map;
+	dda = &graphic->dda;
 	user = &graphic->user;
 	old_dir_x = user->dir_x;
 	old_plane_x = user->plane_x;
-	user->dir_x = user->dir_x * cos(-(user->rot_speed))
-		- user->dir_y * sin(-(user->rot_speed));
-	user->dir_y = old_dir_x * sin(-(user->rot_speed))
-		+ user->dir_y * cos(-(user->rot_speed));
-	user->plane_x = user->plane_x * cos(-(user->rot_speed))
-		- user->plane_y * sin(-(user->rot_speed));
-	user->plane_y = old_plane_x * sin(-(user->rot_speed))
-		+ user->plane_y * cos(-(user->rot_speed));
+	user->dir_x = user->dir_x * dda->cos_rot_speed
+		- user->dir_y * dda->sin_rot_speed;
+	user->dir_y = old_dir_x * dda->sin_rot_speed
+		+ user->dir_y * dda->cos_rot_speed;
+	user->plane_x = user->plane_x * dda->cos_rot_speed
+		- user->plane_y * dda->sin_rot_speed;
+	user->plane_y = old_plane_x * dda->sin_rot_speed
+		+ user->plane_y * dda->cos_rot_speed;
 }
 
 void	check_collision(t_mlx *graphic, int keycode)

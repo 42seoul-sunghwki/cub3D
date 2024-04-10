@@ -2,7 +2,7 @@ NAME =	./bin/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -pg -Wall -Wextra -Werror
+FLAGS =  -g -Wall -Wextra -Werror
 
 SRC_DIR =	src
 
