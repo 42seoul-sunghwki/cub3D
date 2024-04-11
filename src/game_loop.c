@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 21:40:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:26:50 by jacob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ void	calculate_texture(t_dda *dda, t_user *user)
 */
 static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
-	int		wall_index;
+	// int		wall_index;
 	float	half_line_height;
 
+	(void) map;
 	half_line_height = dda->line_height / 2;
 	dda->line_height = (int)(WINHEIGHT * WALL_RATIO / dda->perp_wall_dist);
 	dda->draw_start_y = -half_line_height + HALF_WINHEIGHT;
@@ -88,7 +89,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	dda->draw_end_y = half_line_height + HALF_WINHEIGHT;
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
-	wall_index = map->map[user->map_x][user->map_y] - '0';
+	// wall_index = map->map[user->map_x][user->map_y] - '0';
 	calculate_texture(dda, user);
 	if (dda->side == 1)
 		draw_vertical_line(graphic, dda);
@@ -137,7 +138,7 @@ void	draw_floor(t_mlx *graphic)
 		floor.raydir_x_end = user->dir_x + user->plane_x;
 		floor.raydir_y_end = user->dir_y + user->plane_y;
 		floor.p = i - HALF_WINHEIGHT;
-		floor.pos_z = WINHEIGHT * 0.5;
+		floor.pos_z = 1.34 * WINHEIGHT * 0.5;
 		floor.row_distance = floor.pos_z / floor.p;
 		floor.floor_step_x = -floor.row_distance
 			* (floor.raydir_x_end - floor.raydir_x_start) / (WINWIDTH);
@@ -169,7 +170,7 @@ int	game_loop(void *arg)
 	}
 	display_frame(graphic);
 	cur_time = get_time_in_us();
-	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
+	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
 	return (0);
 }

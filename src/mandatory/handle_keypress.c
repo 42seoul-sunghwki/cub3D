@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keypress.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 13:21:20 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:14:34 by jacob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,14 +148,26 @@ int	handle_keypress(int keycode, void *arg)
 		check_collision,
 		check_collision
 	};
-
+	static void	(*f_linux[4])(t_mlx *, int) = {
+		handle_left_arrow,
+		check_collision,
+		handle_right_arrow,
+		check_collision
+	};
+	// if (keycode > 5000)
+	// 	keyco
 	graphic = arg;
-	if (keycode == 53)
+	if (keycode == 53 || keycode == 65307)
 		on_escape(graphic);
 	if (keycode >= 123 && keycode <= 126)
 	{
 		keycode -= ARROW_OFFSET;
 		f[keycode]((t_mlx *)arg, keycode);
+	}
+	else if (keycode >= 65361 && keycode <= 65364)
+	{
+		keycode -= 65361;
+		f_linux[keycode]((t_mlx *)arg, keycode);
 	}
 	return (SUCCESS);
 }

@@ -37,7 +37,7 @@ fclean: clean
 re: fclean all bonus
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $< -o $@
 
 bonus: $(BONUS_OBJECTS) $(GNL_OBJECTS)
 	ar rucs $(NAME) $(BONUS_OBJECTS) $(GNL_OBJECTS)
