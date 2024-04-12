@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_file.c                                        :+:      :+:    :+:   */
+/*   cub_dup_valid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 14:45:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:00:46 by sunghwki         ###   ########.fr       */
+/*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
+/*   Updated: 2024/04/10 16:33:57 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	open_file(char *file)
+void	cub_dup_valid(t_mlx *mlx)
 {
-	int	fd;
+	int	i;
+	int	j;
+	int	size;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	i = -1;
+	while (++i < 4)
 	{
-		perror("Error\n");
-		perror("Failed to open file\n");
+		j = i;
+		size = ft_strlen(mlx->block.pic[i].name);
+		while (++j < 4)
+		{
+			if (ft_strncmp(mlx->block.pic[i].name,
+					mlx->block.pic[j].name, size) == 0)
+			{
+				perror("Error\nDuplicate texture");
+				exit(1);
+			}
+		}
+	}
+	if (mlx->block.f_trgb == mlx->block.c_trgb)
+	{
+		perror("Error\nDuplicate color");
 		exit(1);
 	}
-	return (fd);
-}
-
-int	close_file(int fd)
-{
-	if (close(fd) == -1)
-	{
-		perror("Error\n");
-		perror("Failed to close file\n");
-		exit(1);
-	}
-	return (SUCCESS);
 }

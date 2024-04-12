@@ -6,39 +6,29 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 14:55:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:37:52 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	read_cub(char *cub, t_mlx *graphic)
+char	*read_cub(int fd, t_mlx *graphic)
 {
-	int		fd;
-	int		ret;
 	char	*line;
 
-	fd = open_file(cub);
-	if (fd == UNDEFINED)
-		return (FAIL);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		ret = slice_cub(line, graphic, graphic->block);
-		if (ret == FAIL)
+		if (ft_sanitize_enter(line) == FAIL)
 		{
-			free(line);
-			close_file(fd);
-			return (FAIL);
+			perror("Error\nEnd of File before Map");
+			exit(1);
 		}
-		if (ret == UNDEFINED)
-		{
-			
-		}
+		if (slice_cub(line, graphic, &(graphic->block)) == UNDEFINED)
+			return (line);
 		free(line);
 	}
-	close_file(fd);
-	return (SUCCESS);
+	return (NULL);
 }
