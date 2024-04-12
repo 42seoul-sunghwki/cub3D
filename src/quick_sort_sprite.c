@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quick_sort_sprite.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:09:32 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/12 15:10:32 by jacob            ###   ########.fr       */
+/*   Updated: 2024/04/12 17:01:37 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ static int	partition(t_sprite_order *arr, int low, int high)
 	return (i + 1);
 }
 
-void	sort_sprite_quick(t_sprite_order *arr, int low, int high)
+void	quick_sort_sprite(t_sprite_order *arr, int low, int high)
 {
 	int	pivot;
 
 	if (low < high)
 	{
-		pivot = parition(arr, low, high);
-		sort_sprite_quick(arr, low, pivot - 1);
-		sort_sprite_quick(arr, pivot + 1, high);
+		pivot = partition(arr, low, high);
+		quick_sort_sprite(arr, low, pivot - 1);
+		quick_sort_sprite(arr, pivot + 1, high);
 	}
 }

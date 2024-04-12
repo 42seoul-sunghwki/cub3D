@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 16:35:23 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:02:03 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,8 +274,15 @@ typedef struct s_mlx {
 	t_user		user;
 	size_t		time;
 	t_dda		dda;
-	t_sprite	sprite[NUM_SPRITE];
 }	t_mlx;
+
+typedef struct	s_sprite_obj
+{
+	double	x;
+	double	y;
+	int		type;
+}	t_sprite_obj;
+
 
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
@@ -363,6 +370,9 @@ void			dir_x_check_n(t_map *map,
 
 /* draw_sprite.c */
 void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
+
+/* quick_sort_sprite.c */
+void			quick_sort_sprite(t_sprite_order *arr, int low, int high);
 
 /**
  * open_file.c
