@@ -1,8 +1,8 @@
-NO ./texture/bluestone.xpm
+NO ./texture/stone.xpm
 SO ./texture/eagle.xpm
-WE       ./texture/purplestone.xpm
+WE                 ./texture/purplestone.xpm          
 EA ./texture/redbrick.xpm   
-FI ./texture/mossy.xpm
+FI ./texture/stone.xpm
 
 F 220,100,0
 C 250,250,250

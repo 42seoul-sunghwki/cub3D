@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 20:29:52 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:51:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,30 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->map_y = 0;
 	user->dir_x = 0.0;
 	user->dir_y = 0.0;
+	user->plane_x = 0.0;
+	user->plane_y = 0.0;
 	if (pos == 'N')
+	{
 		user->dir_y = 1.0;
+		user->plane_x = 0.66;
+	}
 	else if (pos == 'S')
+	{
 		user->dir_y = -1.0;
+		user->plane_x = -0.66;
+	}
 	else if (pos == 'W')
+	{
 		user->dir_x = -1.0;
+		user->plane_y = 0.66;
+	}
 	else if (pos == 'E')
+	{
 		user->dir_x = 1.0;
-	user->plane_x = 1.0;
-	user->plane_y = -1.0;
-	user->move_speed = 0.2;
-	user->rot_speed = 0.2;
+		user->plane_y = -0.66;
+	}
+	user->move_speed = 0.5;
+	user->rot_speed = 0.8;
 }
 
 void	get_img_addr(t_data *data)
