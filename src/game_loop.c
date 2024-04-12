@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 17:03:57 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:09:05 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 			user->map_y += dda->step_y;
 			dda->side = 1;
 		}
-		if (map->map[user->map_x][user->map_y] != '0')
+		if (map->map[user->map_y][user->map_x] != '0')
 			dda->collision_flag = true;
 	}
 	if (dda->side == 0)
@@ -77,7 +77,7 @@ void	calculate_texture(t_dda *dda, t_user *user)
 */
 static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
-	// int		wall_index;
+	int		wall_index;
 	float	half_line_height;
 
 	(void) map;
@@ -89,7 +89,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	dda->draw_end_y = half_line_height + HALF_WINHEIGHT;
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
-	// wall_index = map->map[user->map_x][user->map_y] - '0';
+	wall_index = map->map[user->map_x][user->map_y] - '0';
 	calculate_texture(dda, user);
 	if (dda->side == 1)
 		draw_vertical_line(graphic, dda);

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 17:02:03 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:47:03 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE 1
+# define NUM_SPRITE_TYPE 1
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -71,7 +71,6 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
-
 
 /**
  * @var	void	*img
@@ -244,7 +243,7 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
-	t_sprite_order	sprite_order[NUM_SPRITE];
+	// t_sprite_order	sprite_list[NUM_SPRITE];
 }	t_dda;
 
 /**
@@ -270,7 +269,7 @@ typedef struct s_mlx {
 	size_t		total_frame;
 	t_map		map;
 	t_block		block;
-	t_sprite	sprite[NUM_SPRITE];
+	// t_sprite	sprite[NUM_SPRITE];
 	t_user		user;
 	size_t		time;
 	t_dda		dda;

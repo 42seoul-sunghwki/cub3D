@@ -67,7 +67,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -Iinclude -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
+	$(CC) $(FLAGS) $(OBJS) -L./lib/mlx/bin -lmlx -framework OpenGL -framework AppKit \
 	$(LIBFT) -o $(NAME)
 
 $(LIBFT):
