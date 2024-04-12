@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 20:37:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:28:42 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,21 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 
 void	calculate_texture_helper(t_dda *dda, t_user *user)
 {
-	if (dda->side == 0)
+	if (dda->side == 0 )
 	{
 		dda->wall_pixel_x = user->y + dda->perp_wall_dist * dda->raydir_y;
-		if (dda->raydir_y > 0)
-			dda->texture_num = WEST;
-		else
-			dda->texture_num = EAST;
-	}
-	else
-	{
-		dda->wall_pixel_x = user->x + dda->perp_wall_dist * dda->raydir_x;
 		if (dda->raydir_x > 0)
 			dda->texture_num = SOUTH;
 		else
 			dda->texture_num = NORTH;
+	}
+	else
+	{
+		dda->wall_pixel_x = user->x + dda->perp_wall_dist * dda->raydir_x;
+		if (dda->raydir_y > 0)
+			dda->texture_num = WEST;
+		else
+			dda->texture_num = EAST;
 	}
 }
 
