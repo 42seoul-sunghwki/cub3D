@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 18:11:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:33:05 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,10 @@ typedef struct s_floor {
 	float	floor_step_y;
 	float	floor_x;
 	float	floor_y;
-	int		cell_x;
-	int		cell_y;
-	int		tx;
-	int		ty;
+	float	ty;
+	float	tx;
+	float	cell_x;
+	float	cell_y;
 }	t_floor;
 
 

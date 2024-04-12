@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 21:50:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 23:03:35 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	init_block_temp(t_mlx *graphic)
 		get_img_addr(data);
 		printf("init_block data->img [%p]\n", data->img);
 	}
-	str = "./src/xpm_images/oak_plank.xpm";
+	str = "./src/xpm_images/stone.xpm";
 	i--;
 	while (++i < 6)
 	{

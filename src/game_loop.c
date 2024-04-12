@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 21:40:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/11 00:14:19 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,8 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 	{
 		floor->cell_x = (int)(floor->floor_x);
 		floor->cell_y = (int)(floor->floor_y);
-		floor->tx = (int)(IMG_W * (floor->floor_x - floor->cell_x)) % 160;
-		if (floor->tx < 0)
-			floor->tx *= -1;
-		floor->ty = (int)(IMG_H * (floor->floor_y - floor->cell_y)) % 160;
-		if (floor->ty < 0)
-			floor->ty *= -1;
+		floor->tx = (int)(64 * (floor->floor_x - floor->cell_x)) & (63);
+		floor->ty = (int)(64 * (floor->floor_y - floor->cell_y)) & (63);
 		// printf("tx: %d ty: %d\n", floor->tx, floor->ty);
 		// printf("block pic: [%p]\n", &graphic->block.pic[FLOOR].data);
 		floor->floor_x += floor->floor_step_x;
@@ -128,16 +124,16 @@ void	draw_floor(t_mlx *graphic)
 	t_user			*user;
 	int				i;
 
-	i = -1;
+	i = WINHEIGHT / 2;
 	user = &graphic->user;
-	while (++i < WINHEIGHT / 2)
+	while (--i > 0)
 	{
 		floor.raydir_x_start = user->dir_x - user->plane_x;
 		floor.raydir_y_start = user->dir_y - user->plane_y;
 		floor.raydir_x_end = user->dir_x + user->plane_x;
 		floor.raydir_y_end = user->dir_y + user->plane_y;
-		floor.p = i - HALF_WINHEIGHT;
-		floor.pos_z = WINHEIGHT * 0.5;
+		floor.p =  i - WINHEIGHT / 2;
+		floor.pos_z = WINHEIGHT * 0.5 * 1.34;
 		floor.row_distance = floor.pos_z / floor.p;
 		floor.floor_step_x = -floor.row_distance
 			* (floor.raydir_x_end - floor.raydir_x_start) / (WINWIDTH);
