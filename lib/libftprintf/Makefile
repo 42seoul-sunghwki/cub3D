@@ -11,7 +11,12 @@ OBJS = $(SRCS:.c=.o)
 
 FLAGS = -O3 -Wall -Werror -Wextra
 
+BIN_DIR = bin
+
 CC = cc
+
+$(BIN_DIR):
+	make -p bin
 
 %.o: %.c
 	$(CC) -c $(FLAGS) $< -o $@

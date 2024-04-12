@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   init_dda_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:45:07 by minsepar          #+#    #+#             */
 /*   Updated: 2024/04/10 22:33:22 by minsepar         ###   ########.fr       */
