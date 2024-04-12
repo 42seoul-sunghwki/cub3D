@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:24:39 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:44:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,14 +329,10 @@ void			free_lst(t_lst_head *head);
 int				cub_map_valid(t_map *map);
 
 /* init_struct.c */
-void			init_user(t_user *user);
 void			get_img_addr(t_data *data);
-void			init_block_temp(t_mlx *graphic);
-
 
 /* frame.c */
 void			display_frame(t_mlx *graphic);
-// size_t			get_time_in_us(void);
 
 /* game_loop.c */
 int				game_loop(void *arg);

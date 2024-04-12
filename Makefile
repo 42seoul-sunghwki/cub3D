@@ -10,7 +10,7 @@ OBJ_DIR =	build
 
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		cub_check.c cub_helper.c cub_list.c cub_map.c cub_read.c cub_slice.c cub_map_valid.c cub_dup_valid.c cub_to_struct.c\
-		open_file.c free_pointer.c ft_lib.c
+		open_file.c free_pointer.c ft_lib.c \
 		game_loop.c init_dda_data.c handle_keypress.c handle_mouse.c \
 		collision_check.c
 
@@ -65,7 +65,7 @@ fclean: clean
 re: fclean all
 
 run:
-	./$(NAME) ../test.cub
+	./$(NAME) ./test.cub
 
 debug:
 	lldb $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/09 22:10:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:44:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	init_pic(t_pic *pic)
 // 	pic->img = NULL;
 // 	return (pic);
 // }
-==
+
 
 void	init_user(t_user *user, int x, int y, char pos)
 {
@@ -105,29 +105,4 @@ void	get_img_addr(t_data *data)
 			&data->endian
 			);
 	printf("data->addr: [%p]\n", data->addr);
-}
-
-void	init_block_temp(t_mlx *graphic)
-{
-	t_pic	*pic;
-	t_data	*data;
-	char	*str;
-	int		i;
-	t_block	*block;
-
-	block = &graphic->block;
-	str = "./src/xpm_images/ender_block.xpm";
-	i = -1;
-	// pic = &block->pic[i];
-	// data = &pic->data;
-	// data->img = mlx_xpm_file_to_image(graphic, str, &pic->w, &pic->h);
-	// get_img_addr(data);
-	while (++i < 4)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
 }

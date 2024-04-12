@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 15:22:18 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:51:21 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_t_mlx(t_mlx *graphic)
 		get_img_addr(&graphic->img_data[i]);
 		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
-	init_user(&graphic->user);
 	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed);
 	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed);
 	graphic->num_frame = 0;
@@ -61,6 +60,16 @@ void	print_map(t_map *map)
 	}
 }
 
+void	print_struct(t_mlx *mlx)
+{
+	printf("mlx->map.w: %d\n", mlx->map.w);
+	printf("mlx->map.h: %d\n", mlx->map.h);
+	printf("mlx->user.x: %f\n", mlx->user.x);
+	printf("mlx->user.y: %f\n", mlx->user.y);
+	printf("mlx->user.rot_speed: %f\n", mlx->user.rot_speed);
+	print_map(&mlx->map);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
@@ -71,10 +80,7 @@ int	main(int argc, char **argv)
 	map = &graphic.map;
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
-	print_map(map);
-	init_user(&graphic.user, 1, 1, 'N');
-	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
-	mlx_hook(graphic.win, 02, 0L, key_down, &graphic);
+	print_struct(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 02, 0L, handle_keypress, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
