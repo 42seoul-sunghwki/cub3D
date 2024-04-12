@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 21:04:33 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:07:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cub_dup_valid(t_mlx *mlx)
 	{
 		j = i;
 		size = ft_strlen(mlx->block.pic[i].name);
-		while (++j < 6)
+		while (++j < 4)
 		{
 			if (mlx->block.pic[j].name == NULL)
 				break ;
