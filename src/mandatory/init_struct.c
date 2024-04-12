@@ -6,40 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 23:03:35 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:08:25 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_block(t_block *block)
-{
-	int		i;
-
-	i = -1;
-	while (++i < 6)
-	{
-		init_pic(&(block->pic[i]));
-	}
-	block->f_trgb = UNDEFINED;
-	block->c_trgb = UNDEFINED;
-}
-
-void	init_t_data(t_data *data)
-{
-	data->img = NULL;
-	data->addr = NULL;
-	data->bits_per_pixel = 0;
-	data->line_length = 0;
-	data->endian = 0;
-}
-
-void	init_pic(t_pic *pic)
-{
-	pic->w = IMG_W;
-	pic->h = IMG_H;
-	init_t_data(&(pic->data));
-}
 
 // t_block	*init_block(void)
 // {
@@ -71,29 +42,20 @@ void	init_pic(t_pic *pic)
 // 	pic->img = NULL;
 // 	return (pic);
 // }
-==
 
-void	init_user(t_user *user, int x, int y, char pos)
+void	init_user(t_user *user)
 {
-	user->x = (double)x;
-	user->y = (double)y;
+	user->x = 2;
+	user->y = 2;
 	user->z = 48.0;
 	user->map_x = 0;
 	user->map_y = 0;
-	user->dir_x = 0.0;
+	user->dir_x = 1.0;
 	user->dir_y = 0.0;
-	if (pos == 'N')
-		user->dir_y = 1.0;
-	else if (pos == 'S')
-		user->dir_y = -1.0;
-	else if (pos == 'W')
-		user->dir_x = -1.0;
-	else if (pos == 'E')
-		user->dir_x = 1.0;
-	user->plane_x = 1.0;
-	user->plane_y = -1.0;
-	user->move_speed = 0.2;
-	user->rot_speed = 0.2;
+	user->plane_x = 0.0;
+	user->plane_y = -0.66;
+	user->move_speed = 0.05;
+	user->rot_speed = 0.02;
 }
 
 void	get_img_addr(t_data *data)
@@ -127,17 +89,6 @@ void	init_block_temp(t_mlx *graphic)
 		pic = &block->pic[i];
 		data = &pic->data;
 		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
-	str = "./src/xpm_images/stone.xpm";
-	i--;
-	while (++i < 6)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		printf("data->img %p\n", data->img);
 		get_img_addr(data);
 		printf("init_block data->img [%p]\n", data->img);
 	}

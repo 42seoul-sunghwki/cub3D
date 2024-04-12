@@ -14,9 +14,9 @@
 
 int	terminate_program(t_mlx *graphic)
 {
-	// int	i;
+	int	i;
 
-	// i = -1;
+	i = -1;
 	(void) graphic;
 	// mlx_destroy_image(graphic->mlx, graphic->img_data[0].img);
 	// mlx_destroy_image(graphic->mlx, graphic->img_data[1].img);

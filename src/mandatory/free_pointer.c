@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   free_pointer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 12:09:06 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/11 21:20:40 by jacob            ###   ########.fr       */
+/*   Created: 2024/04/03 16:06:11 by sunghwki          #+#    #+#             */
+/*   Updated: 2024/04/03 16:06:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	free_2d_ptr(char **ptr)
 {
-	write(fd, &c, 1);
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
 }

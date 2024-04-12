@@ -4,6 +4,11 @@
 		"stdio.h": "c",
 		"mlx.h": "c",
 		"stdbool.h": "c",
-
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"cub3d.h": "c"
 	}
 }
