@@ -17,6 +17,7 @@ int	handle_mouse(int button, int x, int y, void *arg)
 	t_mlx	*graphic;
 
 	graphic = arg;
+	(void) graphic;
 	printf("button :[%d]\n", button);
 	printf("x: [%d] y: [%d]\n", x, y);
 	return (0);

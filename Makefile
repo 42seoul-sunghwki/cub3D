@@ -2,7 +2,7 @@ NAME =	./bin/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS =  -g -Wall -Werror -Wextra
 
 SRC_DIR =	src
 
@@ -34,6 +34,10 @@ LIBFT = $(LIBFT_DIR)/bin/libftprintf.a
 
 DEP = dependencies.d
 
+BIN_DIR = bin
+
+MLX_LINUX = mlx_Linux
+
 all: $(NAME)
 
 $(MLX):
@@ -42,12 +46,29 @@ $(MLX):
 $(OBJ_DIR):
 	mkdir -p build
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(FLAGS) -Iinclude -MMD -MF $(DEP) -c $< -o $@
+$(BIN_DIR):
+	mkdir -p bin
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
+#for linux
+
+$(MLX_LINUX): 
+	make -C ./lib/mlx_linux all
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(FLAGS) -Iinclude -Imlx_linux -O3 -c $< -o $@
+
+$(NAME): $(OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
+	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
 	$(LIBFT) -o $(NAME)
+
+#for MAC
+
+# $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+# 	$(CC) $(FLAGS) -Iinclude -MMD -MF $(DEP) -c $< -o $@
+
+# $(NAME): $(OBJS) $(LIBFT) $(MLX)
+# 	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
+# 	$(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus

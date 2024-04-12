@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 21:44:07 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:04:38 by jacob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	init_block_temp(&graphic);
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
-	mlx_hook(graphic.win, 02, 0L, handle_keypress, &graphic);
+	mlx_hook(graphic.win, 02, 1L, handle_keypress, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
 	mlx_loop(graphic.mlx);
 }

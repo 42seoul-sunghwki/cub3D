@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 22:33:05 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:35:23 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@
 # define UP_ARROW		126
 
 # define ARROW_OFFSET	123
+
+# define NUM_SPRITE 1
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -146,6 +148,11 @@ typedef struct s_floor {
 	float	cell_y;
 }	t_floor;
 
+typedef struct	s_sprite_order
+{
+	float	num;
+	int		index;
+}	t_sprite_order;
 
 /**
  * 
@@ -211,29 +218,33 @@ typedef struct s_user {
  * @var int		draw_end_y		the end y value of the vertical line drawing
 */
 typedef struct s_dda {
-	float	camera_x;
-	float	raydir_x;
-	float	raydir_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	float	delta_dist_x;
-	float	delta_dist_y;
-	float	perp_wall_dist;
-	float	wall_pixel_x;
-	float	text_step;
-	float	text_pos;
-	float	line_height;
-	float	cos_rot_speed;
-	float	sin_rot_speed;
-	int		step_x;
-	int		step_y;
-	int		collision_flag;
-	int		side;
-	int		draw_start_y;
-	int		draw_end_y;
-	int		cur_pixel_x;
-	int		texture_num;
-	int		texture_x;
+	float			camera_x;
+	float			raydir_x;
+	float			raydir_y;
+	float			side_dist_x;
+	float			side_dist_y;
+	float			delta_dist_x;
+	float			delta_dist_y;
+	float			perp_wall_dist;
+	float			wall_pixel_x;
+	float			text_step;
+	float			text_pos;
+	float			line_height;
+	float			cos_rot_speed;
+	float			sin_rot_speed;
+	float			z_buffer[WINWIDTH];
+	int				draw_start_x;
+	int				draw_end_x;
+	int				step_x;
+	int				step_y;
+	int				collision_flag;
+	int				side;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				cur_pixel_x;
+	int				texture_num;
+	int				texture_x;
+	t_sprite_order	sprite_order[NUM_SPRITE];
 }	t_dda;
 
 /**
@@ -259,10 +270,11 @@ typedef struct s_mlx {
 	size_t		total_frame;
 	t_map		map;
 	t_block		block;
-	t_sprite	*sprite;
+	t_sprite	sprite[NUM_SPRITE];
 	t_user		user;
 	size_t		time;
 	t_dda		dda;
+	t_sprite	sprite[NUM_SPRITE];
 }	t_mlx;
 
 /* mlx_hooks.c */
@@ -349,6 +361,8 @@ void			dir_x_check_p(t_map *map,
 void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
 
+/* draw_sprite.c */
+void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
 
 /**
  * open_file.c
