@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:22:08 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:11:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	map_to_user(t_mlx *mlx)
 			{
 				if (flag == 1)
 				{
-					perror("Error\nInvalid map");
+					printf("Error\nInvalid map\n");
 					exit(1);
 				}
 				init_user(&(mlx->user), x, y, mlx->map.map[y][x]);
@@ -50,12 +50,12 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 	line = read_cub(fd, mlx);
 	if (line == NULL)
 	{
-		perror("Error\nInvalid file");
+		printf("Error\nInvalid file");
 		exit(1);
 	}
 	if (map_cub(line, fd, &(mlx->map)) == FAIL)
 	{
-		perror("Error\nInvalid map");
+		printf("Error\nInvalid map\n");
 		exit(1);
 	}
 	close_file(fd);

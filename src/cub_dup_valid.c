@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:33:57 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:09:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	cub_dup_valid(t_mlx *mlx)
 			if (ft_strncmp(mlx->block.pic[i].name,
 					mlx->block.pic[j].name, size) == 0)
 			{
-				perror("Error\nDuplicate texture");
+				printf("Error\nDuplicate texture");
 				exit(1);
 			}
 		}
 	}
 	if (mlx->block.f_trgb == mlx->block.c_trgb)
 	{
-		perror("Error\nDuplicate color");
+		printf("Error\nDuplicate color");
 		exit(1);
 	}
 }

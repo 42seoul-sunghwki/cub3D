@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 22:33:22 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:58:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
 
 	pic = &graphic->block.pic[dda->texture_num].data;
 	// tex_y = (int)dda->text_pos & (IMG_H - 1); //IMG_H
-	tex_y = (int)dda->text_pos % 160; //IMG_H
+	tex_y = (int)dda->text_pos % IMG_H; //IMG_H
 	dda->text_pos += dda->text_step;
 	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
 	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);

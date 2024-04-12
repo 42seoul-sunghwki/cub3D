@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 18:51:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:58:34 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
 
-# define IMG_W	160
-# define IMG_H	160
+# define IMG_W	64
+# define IMG_H	64
 
 # define UNDEFINED	-1
 # define SUCCESS	0

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/10 13:26:28 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:14:04 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	*map;
-	(void) argc;
-	(void) argv;
+	//(void) argc;
+	//(void) argv;
 
-	map = &graphic.map;
-	map->w = 10;
-	map->h = 10;
-	map->map = malloc(sizeof(char *) * 10);
-	map->map[0] = "1234123412";
-	map->map[1] = "4000000003";
-	map->map[2] = "3000000004";
-	map->map[3] = "2000000001";
-	map->map[4] = "1000010002";
-	map->map[5] = "4000000003";
-	map->map[6] = "3000000004";
-	map->map[7] = "2000000001";
-	map->map[8] = "1000000002";
-	map->map[9] = "4321432143";
+	//map = &graphic.map;
+	//map->w = 10;
+	//map->h = 10;
+	//map->map = malloc(sizeof(char *) * 10);
+	//map->map[0] = "1234123412";
+	//map->map[1] = "4000000003";
+	//map->map[2] = "3000000004";
+	//map->map[3] = "2000000001";
+	//map->map[4] = "1000010002";
+	//map->map[5] = "4000000003";
+	//map->map[6] = "3000000004";
+	//map->map[7] = "2000000001";
+	//map->map[8] = "1000000002";
+	//map->map[9] = "4321432143";
 	init_t_mlx(&graphic);
 	init_block_temp(&graphic);
 	mlx_hook(graphic.win, 17, 0L, terminate_program, &graphic);

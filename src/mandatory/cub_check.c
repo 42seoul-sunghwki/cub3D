@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_cub.c                                        :+:      :+:    :+:   */
+/*   cub_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 19:23:22 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:09:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_img_cub(char **split, t_mlx *graphic, t_pic **org_img)
 
 	if (split[0] == NULL || split[1] == NULL || split[2] != NULL)
 	{
-		perror("Error\nInvalid cub file");
+		printf("Error\nInvalid cub file");
 		return (FAIL);
 	}
 	pic = init_pic();
@@ -30,7 +30,7 @@ int	check_img_cub(char **split, t_mlx *graphic, t_pic **org_img)
 	if (!(*org_img)->img)
 	{
 		free(pic);
-		perror("Error\nInvalid cub file in img");
+		printf("Error\nInvalid cub file in img");
 		return (FAIL);
 	}
 	return (SUCCESS);

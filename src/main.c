@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 18:25:29 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:09:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	init_main(int argc)
 {
 	if (argc != 2)
 	{
-		perror("Error\nInvalid number of arguments");
+		printf("Error\nInvalid number of arguments");
 		return (FAIL);
 	}
 	else
