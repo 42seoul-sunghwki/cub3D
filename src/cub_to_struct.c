@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 20:11:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:22:48 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	map_to_user(t_mlx *mlx)
 					exit(1);
 				}
 				init_user(&(mlx->user), x, y, mlx->map.map[y][x]);
+				mlx->dda.cos_rot_speed = cos(mlx->user.rot_speed);
+				mlx->dda.sin_rot_speed = sin(mlx->user.rot_speed);
 				mlx->map.map[y][x] = '0';
 				flag = 1;
 			}

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 20:52:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:21:30 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	init_t_mlx(t_mlx *graphic)
 		printf("%d\n", graphic->img_data[i].endian);
 		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
-	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed);
-	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed);
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
 	graphic->block.f_trgb = 0xced4da;
