@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 21:05:45 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:09:45 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	check_img_cub(char **split, t_mlx *graphic, t_pic *org_img)
 		printf("Error\nInvalid cub file\n");
 		exit (1);
 	}
-	if (org_img->data.img)
-	{
-		printf("Error\nDuplicate texture\n");
-		exit (1);
-	}
+	//if (org_img->data.img)
+	//{
+	//	printf("Error\nDuplicate texture\n");
+	//	exit (1);
+	//}
 	org_img->data.img = mlx_xpm_file_to_image(graphic->mlx, split[1],
 			&org_img->w, &org_img->h);
 	if (!org_img->data.img)

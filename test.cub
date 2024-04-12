@@ -1,6 +1,6 @@
-NO ./texture/stone.xpm
+NO ./texture/bluestone.xpm
 SO ./texture/eagle.xpm
-WE                 ./texture/purplestone.xpm          
+WE       ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 FI ./texture/stone.xpm
 
