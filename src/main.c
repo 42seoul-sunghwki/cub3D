@@ -6,10 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 17:14:53 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:25:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 
 void	init_t_mlx(t_mlx *graphic)
 {

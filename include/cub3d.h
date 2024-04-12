@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 17:18:32 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:51:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 
 # define NO			0
 # define SO			1
-# define WE			2
-# define EA			3
-# define FI			4
-# define CI			5
+# define EA			2
+# define WE			3
+# define CI			4
+# define FI			5
 
 # define NORTH	0
 # define SOUTH	1
