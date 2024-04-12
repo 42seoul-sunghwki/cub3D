@@ -6,7 +6,7 @@
 /*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/11 23:26:50 by jacob            ###   ########.fr       */
+/*   Updated: 2024/04/12 13:18:59 by jacob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ int	game_loop(void *arg)
 		init_data(dda, user, dda->cur_pixel_x);
 		perform_dda(dda, user, &graphic->map);
 		draw_walls(dda, graphic, user, &graphic->map);
+		draw_sprite(dda, graphic, user);
 	}
 	display_frame(graphic);
 	cur_time = get_time_in_us();
