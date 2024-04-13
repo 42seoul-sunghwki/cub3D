@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:50:42 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:55:53 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ void	init_user(t_user *user, float x, float y, char pos)
 	user->plane_y = 0.0;
 	user->move_speed = 0.2;
 	user->rot_speed = 0.05;
+	init_user_pos(user, pos);
 }

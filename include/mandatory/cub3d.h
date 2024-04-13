@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:28:39 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:57:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ typedef struct s_dda {
 	float			line_height;
 	float			cos_rot_speed;
 	float			sin_rot_speed;
-	float			z_buffer[WINWIDTH];
+	//float			z_buffer[WINWIDTH];
 	int				draw_start_x;
 	int				draw_end_x;
 	int				step_x;
@@ -297,6 +297,10 @@ void			free_line_lst(t_line_lst *lst);
 int				ft_sanitize_enter(char *line);
 void			ft_exit(char *str);
 
+/* open_file.c */
+int				open_file(char *file);
+int				close_file(int fd);
+
 /* cub_to_struct.c */
 /**
  * @brief	converts the cub file to the struct
@@ -360,11 +364,5 @@ void			dir_x_check_p(t_map *map,
 					t_user *user, float new_displacement_x);
 void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
-
-/**
- * open_file.c
-*/
-int				open_file(char *file);
-int				close_file(int fd);
 
 #endif
