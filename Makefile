@@ -85,16 +85,19 @@ $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(MANDATORY_OBJS) -L./lib/mlx/bin -lmlx -framework OpenGL -framework AppKit \
-	$(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
+	$(LIBFT) $(MLX) -o  $(NAME)
+	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(BONUS_OBJS) -L./lib/mlx/bin -lmlx -framework OpenGL -framework AppKit \
+	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
 	$(LIBFT) -o $(NAME_BONUS)
+	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
+	
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
