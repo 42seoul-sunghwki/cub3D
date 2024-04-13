@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 12:44:07 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:37:14 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 
 void	calculate_texture_helper(t_dda *dda, t_user *user)
 {
-	if (dda->side == 0 )
+	if (dda->side == 0)
 	{
 		dda->wall_pixel_x = user->y + dda->perp_wall_dist * dda->raydir_y;
 		if (dda->raydir_x > 0)
@@ -62,7 +62,6 @@ void	calculate_texture(t_dda *dda, t_user *user)
 	calculate_texture_helper(dda, user);
 	dda->wall_pixel_x -= floor(dda->wall_pixel_x);
 	dda->texture_x = (int)(dda->wall_pixel_x * (float) IMG_W);
-	// printf("dda->texture_x: %d\n", dda->texture_x);
 	if ((dda->side == 0 && dda->raydir_x > 0)
 		|| (dda->side == 1 && dda->raydir_y < 0))
 		dda->texture_x = IMG_W - dda->texture_x - 1;
@@ -109,11 +108,10 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 		floor->cell_y = (int)(floor->floor_y);
 		floor->tx = (int)(64 * (floor->floor_x - floor->cell_x)) & (63);
 		floor->ty = (int)(64 * (floor->floor_y - floor->cell_y)) & (63);
-		// printf("tx: %d ty: %d\n", floor->tx, floor->ty);
-		// printf("block pic: [%p]\n", &graphic->block.pic[FLOOR].data);
 		floor->floor_x += floor->floor_step_x;
 		floor->floor_y += floor->floor_step_y;
-		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data, floor->tx, floor->ty);
+		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data,
+			floor->tx, floor->ty);
 		my_mlx_pixel_put(&graphic->img_data[graphic->num_frame],
 			j, WINHEIGHT - 1 - i, color);
 	}
