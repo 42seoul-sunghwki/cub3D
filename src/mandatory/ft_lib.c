@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:27:04 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:07:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:50:55 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,14 @@ void	ft_exit(char *str)
 {
 	printf("Error\n%s\n", str);
 	exit (1);
+}
+
+void	get_img_addr(t_data *data)
+{
+	data->addr = mlx_get_data_addr(
+			data->img,
+			&data->bits_per_pixel,
+			&data->line_length,
+			&data->endian
+			);
 }

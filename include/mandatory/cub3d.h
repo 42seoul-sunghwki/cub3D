@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:23:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:28:39 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,12 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
-# define NO			0
-# define SO			1
-# define EA			2
-# define WE			3
-# define CI			4
-# define FI			5
-
 # define NORTH	0
 # define SOUTH	1
 # define EAST	2
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
-
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -238,7 +230,6 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
-	// t_sprite_order	sprite_list[NUM_SPRITE];
 }	t_dda;
 
 /**
@@ -264,7 +255,6 @@ typedef struct s_mlx {
 	size_t		total_frame;
 	t_map		map;
 	t_block		block;
-	// t_sprite	sprite[NUM_SPRITE];
 	t_user		user;
 	size_t		time;
 	t_dda		dda;
@@ -297,7 +287,7 @@ void			free_2d_ptr(char **ptr);
 /* init_struct.c */
 void			init_block(t_block *block);
 void			init_pic(t_pic *pic);
-void			init_user(t_user *user, int x, int y, char pos);
+void			init_user(t_user *user, float x, float y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
 /* free_struct.c */

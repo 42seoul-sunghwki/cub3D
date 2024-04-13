@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 16:58:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:50:42 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,8 @@ void	init_pic(t_pic *pic)
 	init_t_data(&(pic->data));
 }
 
-void	init_user(t_user *user, int x, int y, char pos)
+static void	init_user_pos(t_user *user, char pos)
 {
-	user->x = (double)x;
-	user->y = (double)y;
-	user->z = 48.0;
-	user->map_x = 0;
-	user->map_y = 0;
-	user->dir_x = 0.0;
-	user->dir_y = 0.0;
-	user->plane_x = 0.0;
-	user->plane_y = 0.0;
 	if (pos == 'N')
 	{
 		user->dir_y = 1.0;
@@ -72,17 +63,19 @@ void	init_user(t_user *user, int x, int y, char pos)
 		user->dir_x = 1.0;
 		user->plane_y = -0.66;
 	}
-	user->move_speed = 0.2;
-	user->rot_speed = 0.05;
 }
 
-void	get_img_addr(t_data *data)
+void	init_user(t_user *user, float x, float y, char pos)
 {
-	data->addr = mlx_get_data_addr(
-			data->img,
-			&data->bits_per_pixel,
-			&data->line_length,
-			&data->endian
-			);
-	printf("data->addr: [%p]\n", data->addr);
+	user->x = x;
+	user->y = y;
+	user->z = 48.0;
+	user->map_x = 0;
+	user->map_y = 0;
+	user->dir_x = 0.0;
+	user->dir_y = 0.0;
+	user->plane_x = 0.0;
+	user->plane_y = 0.0;
+	user->move_speed = 0.2;
+	user->rot_speed = 0.05;
 }

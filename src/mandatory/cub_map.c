@@ -6,13 +6,13 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:21:27 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:49:12 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_cub_lst_2(char *line, int *flag)
+static void	map_cub_lst_2(char *line, int *flag)
 {
 	char	*tmp;
 

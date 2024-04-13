@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 16:55:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:49:30 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 	return (UNDEFINED);
 }
 
-int	slice_color_cub(char **split, t_block *block)
+static int	slice_color_cub(char **split, t_block *block)
 {
 	if (ft_strncmp(split[0], "F", 2) == 0)
 	{

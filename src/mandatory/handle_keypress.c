@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 19:10:33 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:38:38 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,6 @@ int	handle_keypress(int keycode, void *arg)
 		handle_right_arrow,
 		check_collision
 	};
-	// if (keycode > 5000)
-	// 	keyco
 	graphic = arg;
 	if (keycode == 53 || keycode == 65307)
 		on_escape(graphic);

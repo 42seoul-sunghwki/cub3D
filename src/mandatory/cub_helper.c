@@ -6,13 +6,13 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:17:41 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:48:54 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*merge_split(char **split, int start)
+static char	*merge_split(char **split, int start)
 {
 	char	*ret;
 	char	*tmp;
@@ -38,7 +38,7 @@ char	*merge_split(char **split, int start)
 	return (ret);
 }
 
-char	**split_to_rgb(char **split)
+static char	**split_to_rgb(char **split)
 {
 	char	**rgb;
 	char	*tmp;
