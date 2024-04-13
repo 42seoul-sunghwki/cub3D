@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:52:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:26:25 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,3 +72,55 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 	map_to_user(mlx);
 	return (SUCCESS);
 }
+
+
+
+//int cub_to_st(char *file, t_mlx *mlx)
+//{
+//	int fd;
+//	int i;
+//	char *line;
+//	char** split;
+//	static char *cub[4] = {"NO", "SO", "WE", "EA"};
+//	static char *cub2[2] = {"F", "C"};
+
+//	fd = open_file(file);
+//	while (1)
+//	{
+//		line = get_next_line(fd);
+//		if (!line)
+//			break ;
+//		ft_sanitize_enter(line);
+//		split = ft_split(line, ' ');
+//		if (!split)
+//			return (FAIL);
+//		if (split[0] == NULL || split[0][0] == '\0')
+//		{
+//			free(line);
+//			free_2d_ptr(split);
+//			continue ;
+//		}
+//		i = -1;
+//		while (++i < 4)
+//		{
+//			if (ft_strncmp(split[0], cub[i], 3) == 0)
+//			{
+//				if (check_img_cub(split, mlx, &(mlx->block.pic[i])) == FAIL)
+//					return (FAIL);
+//				free(line);
+//				free_2d_ptr(split);
+//			}
+//		}
+//		i = -1;
+//		while (++i < 2)
+//		{
+//			if (ft_strncmp(split[0], cub2[i], 2) == 0)
+//			{
+//				if (slice_color_cub(split, &(mlx->block)) == FAIL)
+//					return (FAIL);
+//				free(line);
+//				free_2d_ptr(split);
+//			}
+//		}
+//	}
+//}

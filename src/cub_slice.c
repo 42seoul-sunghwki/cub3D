@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 12:14:17 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:31:03 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,20 @@
 
 static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 {
-	if (ft_strncmp(split[0], "NO", 3) == 0)
+	static char	*wait[6] = {"NO", "SO", "WE", "EA", "CI", "FI"};
+	int			i;
+
+	i = -1;
+	while (++i < 6)
 	{
-		if (check_img_cub(split, mlx, &(block->pic[NO])) == FAIL)
-			return (FAIL);
+		if (ft_strncmp(split[0], wait[i], 3) == 0)
+		{
+			if (check_img_cub(split, mlx, &(block->pic[i])) == FAIL)
+				return (FAIL);
+			return (SUCCESS);
+		}
 	}
-	else if (ft_strncmp(split[0], "SO", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic[SO])) == FAIL)
-			return (FAIL);
-	}
-	else if (ft_strncmp(split[0], "WE", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic)[WE]) == FAIL)
-			return (FAIL);
-	}
-	else if (ft_strncmp(split[0], "EA", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic)[EA]) == FAIL)
-			return (FAIL);
-	}
-	else if (ft_strncmp(split[0], "FI", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic)[FI]) == FAIL)
-			return (FAIL);
-	}
-	else if (ft_strncmp(split[0], "CI", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic)[CI]) == FAIL)
-			return (FAIL);
-	}
-	else
-		return (UNDEFINED);
-	return (SUCCESS);
+	return (UNDEFINED);
 }
 
 int	slice_color_cub(char **split, t_block *block)
@@ -77,8 +58,8 @@ int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 		return (FAIL);
 	if (split[0] == NULL || split[0][0] == '\0')
 	{
-		free_2d_ptr(split);
-		return (SUCCESS);
+		printf("Error\nEmpty Line with space\n");
+		exit (1);
 	}
 	if (slice_wall_cub(split, mlx, block) == SUCCESS)
 	{

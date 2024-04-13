@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:48:34 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:31:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ char	*read_cub(int fd, t_mlx *graphic)
 		printf("line : %s\n", line);
 		if (!line)
 			break ;
+		if (line[0] == '\n')
+		{
+			free(line);
+			continue ;
+		}
 		if (ft_sanitize_enter(line) == FAIL)
 		{
 			printf("Error\nEnd of File before Map\n");

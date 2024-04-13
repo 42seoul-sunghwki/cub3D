@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:54:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:59:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	check_map_cub(char *line)
 		if (line[i] == 'D' || line[i] == 'N'
 			|| line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 			flag = SUCCESS;
-		printf("line[i] : %c\n", line[i]);
 		if (flag == FAIL)
 		{
 			printf("Error\nInvalid map using not valid value\n");
