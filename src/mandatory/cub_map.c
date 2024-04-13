@@ -6,16 +6,28 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 16:01:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:54:54 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	map_cub_lst_2(char *line, int *flag)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim(line, " ");
+	if (*flag == true && tmp[0] == '\0')
+	{
+		printf("Error\nInvalid map in map_cub_lst\n");
+		exit (1);
+	}
+	free(tmp);
+}
+
 char	*map_cub_lst(int fd, t_lst_head *head)
 {
 	char		*line;
-	char		*tmp;
 	int			flag;
 	t_line_lst	*new;
 
@@ -32,13 +44,7 @@ char	*map_cub_lst(int fd, t_lst_head *head)
 			continue ;
 		}
 		ft_sanitize_enter(line);
-		tmp	= ft_strtrim(line, " ");
-		if (flag == true && tmp[0] == '\0')
-		{
-			printf("Error\nInvalid map in map_cub_lst\n");
-			exit (1);
-		}
-		free(tmp);
+		map_cub_lst_2(line, &flag);
 		if (check_map_cub(line) == FAIL)
 			return (line);
 		new = init_line_lst(line);
@@ -75,7 +81,6 @@ int	map_cub(char *line, int fd, t_map *map)
 	new = init_line_lst(line);
 	if (!new)
 		return (FAIL);
-	printf("line: [%s]\n", line);
 	head = push_lst(head, new);
 	map_cub_lst(fd, head);
 	if (map_cub_lst_to_arr(head, map) == FAIL)
