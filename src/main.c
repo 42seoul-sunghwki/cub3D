@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 21:21:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:18:55 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	main(int argc, char **argv)
 
 	if (init_main(argc) == FAIL)
 		return (1);
+	ft_memset(&graphic, 0, sizeof(t_mlx));
 	map = &graphic.map;
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);

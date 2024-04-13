@@ -6,26 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:58:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:14:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//static int	slice_wall_cub_up_down(char **split, t_mlx *mlx, t_block *block)
-//{
-//	if (ft_strncmp(split[0], "FI", 3) == 0)
-//	{
-//		if (check_img_cub(split, mlx, &(block->pic)[FI]) == FAIL)
-//			return (FAIL);
-//	}
-//	else if (ft_strncmp(split[0], "CI", 3) == 0)
-//	{
-//		if (check_img_cub(split, mlx, &(block->pic)[CI]) == FAIL)
-//			return (FAIL);
-//	}
-//	return (SUCCESS);
-//}
 
 static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 {
