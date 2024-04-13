@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 12:42:18 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:49:19 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	init_user(t_user *user, int x, int y, char pos)
 		user->dir_x = 1.0;
 		user->plane_y = -0.66;
 	}
-	user->move_speed = 0.5;
-	user->rot_speed = 0.3;
+	user->move_speed = 0.2;
+	user->rot_speed = 0.05;
 }
 
 void	get_img_addr(t_data *data)
