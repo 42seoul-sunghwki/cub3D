@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 12:18:55 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:00:04 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	init_t_mlx(t_mlx *graphic)
 	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
 	while (++i < 2)
 	{
-		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, WINHEIGHT);
+		graphic->img_data[i].img = mlx_new_image(graphic->mlx,
+				WINWIDTH, WINHEIGHT);
 		get_img_addr(&graphic->img_data[i]);
 		printf("%d\n", graphic->img_data[i].endian);
-		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
+		ft_memset(graphic->img_data[i].addr, 0,
+			sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
@@ -40,33 +42,7 @@ int	init_main(int argc)
 		return (FAIL);
 	}
 	else
-	{
 		return (SUCCESS);
-	}
-}
-//tmp
-void	print_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	printf("map width: %d\n", map->w);
-	printf("map height: %d\n", map->h);
-	while (i < map->h)
-	{
-		printf("%s\n", map->map[i]);
-		i++;
-	}
-}
-
-void	print_struct(t_mlx *mlx)
-{
-	printf("mlx->map.w: %d\n", mlx->map.w);
-	printf("mlx->map.h: %d\n", mlx->map.h);
-	printf("mlx->user.x: %f\n", mlx->user.x);
-	printf("mlx->user.y: %f\n", mlx->user.y);
-	printf("mlx->user.rot_speed: %f\n", mlx->user.rot_speed);
-	print_map(&mlx->map);
 }
 
 int	main(int argc, char **argv)
