@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 13:06:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:04:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE_TYPE 1
+# define NUM_SPRITE_TYPE 4
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -157,19 +157,30 @@ typedef struct s_floor {
 	float	cell_y;
 }	t_floor;
 
-typedef struct	s_sprite_obj
+typedef struct s_sprite_node
 {
-	float	x;
-	float	y;
-	int		index;
-}	t_sprite_obj; 
+	float			x;
+	float			y;
+	int				sprite_type;
+	size_t			last_movement;
+	t_sprite_node	*prev;
+	t_sprite_node	*next;
+}	t_sprite_node;
+
+typedef struct s_sprite_list
+{
+	t_sprite_node	*head;
+	t_sprite_node	*tail;
+	int				size;
+}	t_sprite_list;
 
 /**
  * 
 */
 typedef struct s_sprite {
-	int		l;
-	t_pic	*size;
+	int		num_img;
+	t_pic	*img;
+	size_t	frame_per_movement;
 }	t_sprite;
 
 /**
@@ -254,7 +265,6 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
-	// t_sprite_order	sprite_list[NUM_SPRITE];
 }	t_dda;
 
 /**
@@ -287,7 +297,7 @@ typedef struct s_mlx {
 }	t_mlx;
 
 //tmp
-void	print_map(t_map *map);
+void			print_map(t_map *map);
 
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
