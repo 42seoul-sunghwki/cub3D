@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_valid.c                                        :+:      :+:    :+:   */
+/*   cub_map_valid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 16:06:27 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:11:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	cub_valid_right_side(t_map *map, int x, int y)
 	else if (!(map->map[y][x] == ' ' || map->map[y][x] == 0 || map->map[y][x] == 1))
 	{
 		printf("map[%d][%d] = %c\n", y, x, map->map[y][x]);
-		perror("Error\nInvalid map");
+		printf("Error\nInvalid map\n");
 		exit (1);
 	}
 	if (x - 1 >= 0)
@@ -42,7 +42,7 @@ static int	cub_valid_left_side(t_map *map, int x, int y)
 	else if (!(map->map[y][x] == ' ' || map->map[y][x] == 0 || map->map[y][x] == 1))
 	{
 		printf("map[%d][%d] = %c\n", y, x, map->map[y][x]);
-		perror("Error\nInvalid map");
+		printf("Error\nInvalid map\n");
 		exit (1);
 	}
 	if (x + 1 < map->w)

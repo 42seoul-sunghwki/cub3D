@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/04 20:27:42 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:09:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	color_cub(char **split)
 		return (UNDEFINED);
 	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
 	{
-		perror("Error\nInvalid cub file");
+		printf("Error\nInvalid cub file");
 		free_2d_ptr(rgb);
 		return (UNDEFINED);
 	}

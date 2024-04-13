@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 17:03:57 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:28:42 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,21 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 
 void	calculate_texture_helper(t_dda *dda, t_user *user)
 {
-	if (dda->side == 0)
+	if (dda->side == 0 )
 	{
 		dda->wall_pixel_x = user->y + dda->perp_wall_dist * dda->raydir_y;
-		if (dda->raydir_y > 0)
-			dda->texture_num = WEST;
-		else
-			dda->texture_num = EAST;
-	}
-	else
-	{
-		dda->wall_pixel_x = user->x + dda->perp_wall_dist * dda->raydir_x;
 		if (dda->raydir_x > 0)
 			dda->texture_num = SOUTH;
 		else
 			dda->texture_num = NORTH;
+	}
+	else
+	{
+		dda->wall_pixel_x = user->x + dda->perp_wall_dist * dda->raydir_x;
+		if (dda->raydir_y > 0)
+			dda->texture_num = WEST;
+		else
+			dda->texture_num = EAST;
 	}
 }
 
@@ -77,7 +77,7 @@ void	calculate_texture(t_dda *dda, t_user *user)
 */
 static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
-	// int		wall_index;
+	int		wall_index;
 	float	half_line_height;
 
 	(void) map;
@@ -89,7 +89,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	dda->draw_end_y = half_line_height + HALF_WINHEIGHT;
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
-	// wall_index = map->map[user->map_x][user->map_y] - '0';
+	wall_index = map->map[user->map_x][user->map_y] - '0';
 	calculate_texture(dda, user);
 	if (dda->side == 1)
 		draw_vertical_line(graphic, dda);

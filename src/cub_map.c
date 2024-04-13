@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 15:59:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:11:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*map_cub_lst(int fd, t_lst_head *head)
 		tmp = ft_strtrim(line, " ");
 		if (tmp[0] == '\0')
 		{
-			printf("Error\nInvalid map\n");
+			printf("Error\nInvalid map\n\n");
 			exit (1);
 		}
 		if (check_map_cub(line) == FAIL)
@@ -48,7 +48,7 @@ int	map_cub_lst_to_arr(t_lst_head *head, t_map *map)
 	arr = lst_to_arr(head);
 	if (!arr)
 	{
-		perror("Error\nInvalid map");
+		printf("Error\nInvalid map\n");
 		return (FAIL);
 	}
 	map->map = arr;
@@ -71,7 +71,7 @@ int	map_cub(char *line, int fd, t_map *map)
 	map_cub_lst(fd, head);
 	if (map_cub_lst_to_arr(head, map) == FAIL)
 	{
-		perror("Error\nInvalid map");
+		printf("Error\nInvalid map\n");
 		exit (1);
 	}
 	free_lst(head);
