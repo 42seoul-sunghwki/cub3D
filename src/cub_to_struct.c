@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:27:51 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:52:48 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	map_to_user_x(t_mlx *mlx, int *flag, int y)
 		{
 			if (*flag == 1)
 			{
-				printf("Error\nInvalid map\n");
+				printf("Error\nInvalid map in duplicate user\n");
 				exit(1);
 			}
 			init_user(&(mlx->user), x, y, mlx->map.map[y][x]);
