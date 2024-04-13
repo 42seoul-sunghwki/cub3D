@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 13:15:19 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:58:36 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@
 # define WINWIDTH 1600
 # define WINHEIGHT 900
 # define HALF_WINHEIGHT 450
-
-# define YELLOW 0xFFFF << 8
-# define RED 0xFF << 16
-# define GREEN 0xFF << 8
-# define BLUE  0xFF
 
 # define IMG_W	64
 # define IMG_H	64
@@ -68,8 +63,6 @@
 # define UP_ARROW		126
 
 # define ARROW_OFFSET	123
-
-# define NUM_SPRITE_TYPE 1
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -227,7 +220,6 @@ typedef struct s_dda {
 	float			line_height;
 	float			cos_rot_speed;
 	float			sin_rot_speed;
-	float			z_buffer[WINWIDTH];
 	int				draw_start_x;
 	int				draw_end_x;
 	int				step_x;
@@ -239,7 +231,6 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
-	// t_sprite_order	sprite_list[NUM_SPRITE];
 }	t_dda;
 
 /**
@@ -265,7 +256,6 @@ typedef struct s_mlx {
 	size_t		total_frame;
 	t_map		map;
 	t_block		block;
-	// t_sprite	sprite[NUM_SPRITE];
 	t_user		user;
 	size_t		time;
 	t_dda		dda;
@@ -355,12 +345,15 @@ int				game_loop(void *arg);
 /* init_dda_data.c */
 void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
+void			draw_floor(t_mlx *graphic);
+
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
+void			check_collision(t_mlx *graphic, int keycode);
+void			handle_left_arrow(t_mlx *graphic, int keycode);
+void			handle_right_arrow(t_mlx *graphic, int keycode);
 
-/* handle_mouse.c */
-int				handle_mouse(int button, int x, int y, void *arg);
 
 /* collision_check.c */
 void			dir_y_check_p(t_map *map,
