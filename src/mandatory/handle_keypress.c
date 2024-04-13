@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keypress.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 16:35:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:10:33 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	check_collision(t_mlx *graphic, int keycode)
 	// printf("keycode: %d\n", keycode);
 	if (keycode == 3)
 		flag = 1;
+	else if (keycode > 3)
+	{
+		keycode -= 65361;
+		if (keycode == 1)
+			flag = 1;
+	}
 	new_displacement_y = user->dir_y * flag * user->move_speed;
 	new_displacement_x = user->dir_x * flag * user->move_speed;
 	// printf("displacement x: [%f] displacement y: [%f]\n", new_displacement_x, new_displacement_y);
@@ -166,8 +172,7 @@ int	handle_keypress(int keycode, void *arg)
 	}
 	else if (keycode >= 65361 && keycode <= 65364)
 	{
-		keycode -= 65361;
-		f_linux[keycode]((t_mlx *)arg, keycode);
+		f_linux[keycode - 65361]((t_mlx *)arg, keycode);
 	}
 	return (SUCCESS);
 }

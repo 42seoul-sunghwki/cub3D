@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/12 18:58:51 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:43:24 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
 	t_data	*pic;
 
 	pic = &graphic->block.pic[dda->texture_num].data;
-	// tex_y = (int)dda->text_pos & (IMG_H - 1); //IMG_H
-	tex_y = (int)dda->text_pos % IMG_H; //IMG_H
+	tex_y = (int)dda->text_pos % IMG_H;
+	if (tex_y < 0)
+		tex_y *= -1;
 	dda->text_pos += dda->text_step;
+	// printf("tex_x: [%d] tex_y: [%d]\n", dda->texture_x, tex_y);
 	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
 	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);
 }
@@ -86,11 +88,11 @@ void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
 	while (++i < WINHEIGHT)
 	{
 		if (i < dda->draw_start_y)
-			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.c_trgb);
-		else if (i <= dda->draw_end_y)
-			// my_mlx_pixel_put(data, dda->cur_pixel_x, i, RED);
-			draw_texture_line(graphic, data, dda, i);
-		else
 			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.f_trgb);
+		else if (i >= dda->draw_start_y && i < dda->draw_end_y)
+			draw_texture_line(graphic, data, dda, i);
+		else if (i < dda->draw_start_y)
+			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.c_trgb);
 	}
+	dda->z_buffer[dda->cur_pixel_x] = dda->perp_wall_dist;
 }
