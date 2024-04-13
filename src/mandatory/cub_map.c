@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 14:17:16 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:01:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,30 @@
 char	*map_cub_lst(int fd, t_lst_head *head)
 {
 	char		*line;
-	//char		*tmp;
+	char		*tmp;
+	int			flag;
 	t_line_lst	*new;
 
+	flag = false;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		if (line[0] == '\n')
+		{
+			free(line);
+			flag = true;
+			continue ;
+		}
 		ft_sanitize_enter(line);
-		//tmp = ft_strtrim(line, " ");
-		//if (tmp[0] == '\0')
-		//{
-		//	printf("Error\nInvalid map tmp[0] == 0\n");
-		//	exit (1);
-		//}
+		tmp	= ft_strtrim(line, " ");
+		if (flag == true && tmp[0] == '\0')
+		{
+			printf("Error\nInvalid map in map_cub_lst\n");
+			exit (1);
+		}
+		free(tmp);
 		if (check_map_cub(line) == FAIL)
 			return (line);
 		new = init_line_lst(line);
