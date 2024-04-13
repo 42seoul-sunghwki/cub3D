@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 14:21:21 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:59:47 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 */
 int	my_mlx_pixel_get(t_data *data, int x, int y)
 {
-	(void) x;
-	(void) y;
-	
-	// return (*(unsigned int *)(data->addr
-	// 	+ (y * data->line_length)
-	// 	+ (x * (data->bits_per_pixel / 8))));
-	return (*(unsigned int *)(data->addr + (y * data->line_length) + (x * (data->bits_per_pixel / 8))));
+	return (*(unsigned int *)(data->addr
+		+ (y * data->line_length)
+		+ (x * (data->bits_per_pixel / 8))));
 }
 
 /**
@@ -73,7 +69,6 @@ void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
 	if (tex_y < 0)
 		tex_y *= -1;
 	dda->text_pos += dda->text_step;
-	// printf("tex_x: [%d] tex_y: [%d]\n", dda->texture_x, tex_y);
 	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
 	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);
 }
