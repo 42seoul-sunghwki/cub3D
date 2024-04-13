@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:16:08 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:23:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define SUCCESS	0
 # define FAIL		1
 # define WALL_RATIO 1.34
-
 
 # define NO			0
 # define SO			1
@@ -271,9 +270,6 @@ typedef struct s_mlx {
 	t_dda		dda;
 }	t_mlx;
 
-//tmp
-void			print_map(t_map *map);
-
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
 
@@ -312,6 +308,9 @@ int				ft_sanitize_enter(char *line);
 void			ft_exit(char *str);
 
 /* cub_to_struct.c */
+/**
+ * @brief	converts the cub file to the struct
+*/
 int				cub_to_struct(char *file, t_mlx *mlx);
 
 /* cub_slice.c */
@@ -374,7 +373,6 @@ void			dir_x_check_n(t_map *map,
 
 /**
  * open_file.c
- * 
 */
 int				open_file(char *file);
 int				close_file(int fd);

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:19:19 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:21:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ int	map_cub(char *line, int fd, t_map *map)
 		return (FAIL);
 	head = push_lst(head, new);
 	map_cub_lst(fd, head);
-	if (map_cub_lst_to_arr(head, map) == FAIL)
-		exit (1);
+	map_cub_lst_to_arr(head, map);
 	free_lst(head);
 	return (SUCCESS);
 }

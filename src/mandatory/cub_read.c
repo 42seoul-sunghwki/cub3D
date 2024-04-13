@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:04:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:19:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:19:55 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*read_cub(int fd, t_mlx *graphic)
 	while (1)
 	{
 		line = get_next_line(fd);
-		printf("line : %s\n", line);
 		if (!line)
 			break ;
 		if (ft_sanitize_enter(line) == FAIL)

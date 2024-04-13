@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:52:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:20:39 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,9 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 	fd = open_file(file);
 	line = read_cub(fd, mlx);
 	if (line == NULL)
-	{
-		printf("Error\nInvalid file\n");
-		exit(1);
-	}
+		ft_exit("No map in cub file");
 	if (map_cub(line, fd, &(mlx->map)) == FAIL)
-	{
-		printf("Error\nInvalid map\n");
-		exit(1);
-	}
+		ft_exit("Invalid map in cub file");
 	close_file(fd);
 	cub_dup_valid(mlx);
 	cub_map_valid(&(mlx->map));
