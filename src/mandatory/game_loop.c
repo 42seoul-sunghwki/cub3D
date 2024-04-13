@@ -37,7 +37,7 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 		dda->perp_wall_dist = (dda->side_dist_y - dda->delta_dist_y);
 }
 
-void	calculate_texture_helper(t_dda *dda, t_user *user)
+static void	calculate_texture_helper(t_dda *dda, t_user *user)
 {
 	if (dda->side == 0)
 	{
@@ -96,60 +96,11 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 		draw_vertical_line(graphic, dda);
 }
 
-static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
-{
-	int	j;
-	int	color;
-
-	j = -1;
-	while (++j < WINWIDTH)
-	{
-		floor->cell_x = (int)(floor->floor_x);
-		floor->cell_y = (int)(floor->floor_y);
-		floor->tx = (int)(64 * (floor->floor_x - floor->cell_x)) & (63);
-		floor->ty = (int)(64 * (floor->floor_y - floor->cell_y)) & (63);
-		floor->floor_x += floor->floor_step_x;
-		floor->floor_y += floor->floor_step_y;
-		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data,
-				floor->tx, floor->ty);
-		my_mlx_pixel_put(&graphic->img_data[graphic->num_frame],
-			j, WINHEIGHT - 1 - i, color);
-	}
-}
-
-void	draw_floor(t_mlx *graphic)
-{
-	t_floor			floor;
-	t_user			*user;
-	int				i;
-
-	i = WINHEIGHT / 2;
-	user = &graphic->user;
-	while (--i > 0)
-	{
-		floor.raydir_x_start = user->dir_x - user->plane_x;
-		floor.raydir_y_start = user->dir_y - user->plane_y;
-		floor.raydir_x_end = user->dir_x + user->plane_x;
-		floor.raydir_y_end = user->dir_y + user->plane_y;
-		floor.p = i - HALF_WINHEIGHT;
-		floor.pos_z = 1.34 * WINHEIGHT * 0.5;
-		floor.row_distance = floor.pos_z / floor.p;
-		floor.floor_step_x = -floor.row_distance
-			* (floor.raydir_x_end - floor.raydir_x_start) / (WINWIDTH);
-		floor.floor_step_y = -floor.row_distance
-			* (floor.raydir_y_end - floor.raydir_y_start) / (WINWIDTH);
-		floor.floor_x = user->x - floor.row_distance * floor.raydir_x_start;
-		floor.floor_y = user->y - floor.row_distance * floor.raydir_y_start;
-		draw_floor_pixel(graphic, &floor, i);
-	}
-}
-
 int	game_loop(void *arg)
 {
 	t_dda			*dda;
 	t_mlx			*graphic;
 	t_user			*user;
-	size_t			cur_time;
 
 	graphic = arg;
 	dda = &graphic->dda;
@@ -163,7 +114,5 @@ int	game_loop(void *arg)
 		draw_walls(dda, graphic, user, &graphic->map);
 	}
 	display_frame(graphic);
-	cur_time = get_time_in_us();
-	graphic->time = cur_time;
 	return (0);
 }

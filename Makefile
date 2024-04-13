@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
+#    Updated: 2024/04/13 17:59:33 by minsepar         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME =	./bin/mandatory/cub3D
 
 NAME_BONUS = ./bin/bonus/cub3D
@@ -101,10 +113,6 @@ $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
-
-release: $(OBJS) $(LIBFT) $(MLX)
-	$(CC) -O3 $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
-	$(LIBFT) -o $(NAME)
 
 clean:
 	rm -rf $(MANDATORY_OBJS)

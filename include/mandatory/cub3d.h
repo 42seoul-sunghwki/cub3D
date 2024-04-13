@@ -29,11 +29,6 @@
 # define WINHEIGHT 900
 # define HALF_WINHEIGHT 450
 
-# define YELLOW 0xFFFF << 8
-# define RED 0xFF << 16
-# define GREEN 0xFF << 8
-# define BLUE  0xFF
-
 # define IMG_W	64
 # define IMG_H	64
 
@@ -59,8 +54,6 @@
 # define UP_ARROW		126
 
 # define ARROW_OFFSET	123
-
-# define NUM_SPRITE_TYPE 1
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -218,7 +211,6 @@ typedef struct s_dda {
 	float			line_height;
 	float			cos_rot_speed;
 	float			sin_rot_speed;
-	//float			z_buffer[WINWIDTH];
 	int				draw_start_x;
 	int				draw_end_x;
 	int				step_x;
@@ -348,12 +340,15 @@ int				game_loop(void *arg);
 /* init_dda_data.c */
 void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
+void			draw_floor(t_mlx *graphic);
+
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
+void			check_collision(t_mlx *graphic, int keycode);
+void			handle_left_arrow(t_mlx *graphic, int keycode);
+void			handle_right_arrow(t_mlx *graphic, int keycode);
 
-/* handle_mouse.c */
-int				handle_mouse(int button, int x, int y, void *arg);
 
 /* collision_check.c */
 void			dir_y_check_p(t_map *map,
