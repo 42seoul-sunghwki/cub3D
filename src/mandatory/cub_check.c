@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 16:49:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:09:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	check_map_cub(char *line)
 			|| line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 			flag = SUCCESS;
 		if (flag == FAIL)
-		{
-			printf("Error\nInvalid map using not valid value\n");
-			exit (1);
-		}
+			ft_exit("Invalid map using not valid value");
 	}
 	return (SUCCESS);
 }

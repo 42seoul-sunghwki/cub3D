@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:27:04 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/10 15:59:13 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:07:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,10 @@ int	ft_sanitize_enter(char *line)
 	if (line[i - 1] == '\n')
 		line[i - 1] = '\0';
 	return (SUCCESS);
+}
+
+void	ft_exit(char *str)
+{
+	printf("Error\n%s\n", str);
+	exit (1);
 }

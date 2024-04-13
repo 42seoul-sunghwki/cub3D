@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 12:09:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:18:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static int	cub_valid_right_side(t_map *map, int x, int y)
 		return (SUCCESS);
 	else if (!(map->map[y][x] == ' '
 		|| map->map[y][x] == 0 || map->map[y][x] == 1))
-	{
-		printf("Error\nInvalid map\nIt isn't surround by 1\n");
-		exit (1);
-	}
+		ft_exit("Invalid map\nIt isn't surround by 1");
 	if (x - 1 >= 0)
 		cub_valid_right_side(map, x - 1, y);
 	if (map->map[y][x] != 1)
@@ -41,10 +38,7 @@ static int	cub_valid_left_side(t_map *map, int x, int y)
 		return (SUCCESS);
 	else if (!(map->map[y][x] == ' '
 		|| map->map[y][x] == 0 || map->map[y][x] == 1))
-	{
-		printf("Error\nInvalid map surround by 1\n");
-		exit (1);
-	}
+		ft_exit("Invalid map\nIt isn't surround by 1");
 	if (x + 1 < map->w)
 		cub_valid_left_side(map, x + 1, y);
 	if (map->map[y][x] != 0)

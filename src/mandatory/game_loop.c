@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 16:37:14 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:07:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 		floor->floor_x += floor->floor_step_x;
 		floor->floor_y += floor->floor_step_y;
 		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data,
-			floor->tx, floor->ty);
+				floor->tx, floor->ty);
 		my_mlx_pixel_put(&graphic->img_data[graphic->num_frame],
 			j, WINHEIGHT - 1 - i, color);
 	}

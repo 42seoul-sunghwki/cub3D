@@ -443,4 +443,8 @@ MigrationBackup/
 .vscode/
 .vscode
 
+*.swiftsourceinfo
+
+
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,vs,c

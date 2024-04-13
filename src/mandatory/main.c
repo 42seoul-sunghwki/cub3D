@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 17:00:04 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:05:36 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ int	main(int argc, char **argv)
 	map = &graphic.map;
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
-	print_struct(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 02, 1L, handle_keypress, &graphic);
-	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
 	mlx_loop(graphic.mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 13:15:19 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:16:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ void			free_line_lst(t_line_lst *lst);
 
 /* ft_lib.c */
 int				ft_sanitize_enter(char *line);
+void			ft_exit(char *str);
 
 /* cub_to_struct.c */
 int				cub_to_struct(char *file, t_mlx *mlx);
@@ -338,7 +339,6 @@ char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
-
 
 /* cub_map_valid.c */
 int				cub_map_valid(t_map *map);
