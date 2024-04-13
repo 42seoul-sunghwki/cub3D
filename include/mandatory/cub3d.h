@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:57:37 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:05:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,7 +348,6 @@ size_t			get_time_in_us(void);
 void			check_collision(t_mlx *graphic, int keycode);
 void			handle_left_arrow(t_mlx *graphic, int keycode);
 void			handle_right_arrow(t_mlx *graphic, int keycode);
-
 
 /* collision_check.c */
 void			dir_y_check_p(t_map *map,
