@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 13:15:19 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:20:11 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,9 +358,6 @@ void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
-
-/* handle_mouse.c */
-int				handle_mouse(int button, int x, int y, void *arg);
 
 /* collision_check.c */
 void			dir_y_check_p(t_map *map,
