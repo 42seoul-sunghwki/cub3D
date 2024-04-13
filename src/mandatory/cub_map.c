@@ -6,20 +6,28 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:49:12 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:23:07 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	map_cub_lst_2(char *line, int *flag)
+static int	map_cub_lst_2(char *line, int *flag)
 {
 	char	*tmp;
 
 	tmp = ft_strtrim(line, " ");
-	if (*flag == true && tmp[0] == '\0')
-		ft_exit("Invalid map in map_cub_lst");
+	if (tmp[0] == '\0' && *flag == false)
+	{
+		*flag = true;
+		free(tmp);
+		free(line);
+		return (SUCCESS);
+	}
+	if (tmp[0] != '\0' && *flag == true)
+		ft_exit("Invalid map in enter");
 	free(tmp);
+	return (FAIL);
 }
 
 char	*map_cub_lst(int fd, t_lst_head *head)
@@ -34,14 +42,9 @@ char	*map_cub_lst(int fd, t_lst_head *head)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line[0] == '\n')
-		{
-			free(line);
-			flag = true;
-			continue ;
-		}
 		ft_sanitize_enter(line);
-		map_cub_lst_2(line, &flag);
+		if (map_cub_lst_2(line, &flag) == SUCCESS)
+			continue ;
 		if (check_map_cub(line) == FAIL)
 			return (line);
 		new = init_line_lst(line);
