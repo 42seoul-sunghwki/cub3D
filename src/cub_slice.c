@@ -6,11 +6,26 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 18:54:17 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:28:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	slice_wall_cub_up_down(char **split, t_mlx *mlx, t_block *block)
+{
+	if (ft_strncmp(split[0], "FI", 3) == 0)
+	{
+		if (check_img_cub(split, mlx, &(block->pic)[FI]) == FAIL)
+			return (FAIL);
+	}
+	else if (ft_strncmp(split[0], "CI", 3) == 0)
+	{
+		if (check_img_cub(split, mlx, &(block->pic)[CI]) == FAIL)
+			return (FAIL);
+	}
+	return (SUCCESS);
+}
 
 static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 {
@@ -34,16 +49,8 @@ static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 		if (check_img_cub(split, mlx, &(block->pic)[EA]) == FAIL)
 			return (FAIL);
 	}
-	else if (ft_strncmp(split[0], "FI", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic)[FI]) == FAIL)
-			return (FAIL);
-	}
-	else if (ft_strncmp(split[0], "CI", 3) == 0)
-	{
-		if (check_img_cub(split, mlx, &(block->pic)[CI]) == FAIL)
-			return (FAIL);
-	}
+	else if (slice_wall_cub_up_down(split, mlx, block) == SUCCESS)
+		return (SUCCESS);
 	else
 		return (UNDEFINED);
 	return (SUCCESS);
@@ -71,9 +78,7 @@ int	slice_color_cub(char **split, t_block *block)
 int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 {
 	char	**split;
-	int		ret;
 
-	ret = FAIL;
 	split = ft_split(line, ' ');
 	if (!split)
 		return (FAIL);
