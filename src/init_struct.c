@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 21:21:49 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:17:04 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->plane_y = 0.0;
 	if (pos == 'N')
 	{
-		user->dir_y = 1.0;
+		user->dir_y = -1.0;
 		user->plane_x = 0.66;
 	}
 	else if (pos == 'S')
 	{
-		user->dir_y = -1.0;
+		user->dir_y = 1.0;
 		user->plane_x = -0.66;
 	}
 	else if (pos == 'W')
