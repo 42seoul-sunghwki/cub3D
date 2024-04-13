@@ -18,7 +18,8 @@ SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		cub_check.c cub_helper.c cub_list.c cub_map.c cub_read.c cub_slice.c \
 		cub_map_valid.c cub_dup_valid.c cub_to_struct.c open_file.c \
 		free_pointer.c ft_lib.c game_loop.c init_dda_data.c handle_keypress.c \
-		collision_check.c quick_sort_sprite.c
+		collision_check.c quick_sort_sprite.c collision_check_dir.c \
+		draw_floor.c
 
 BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
@@ -102,12 +103,8 @@ $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
 
-release: $(OBJS) $(LIBFT) $(MLX)
-	$(CC) -O3 $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit \
-	$(LIBFT) -o $(NAME)
-
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(MANDATORY_OBJS)
 	rm -rf $(BONUS_OBJS)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:20:11 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:52:04 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,9 +355,15 @@ int				game_loop(void *arg);
 /* init_dda_data.c */
 void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
+void			draw_floor(t_mlx *graphic);
+
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
+void			check_collision(t_mlx *graphic, int keycode);
+void			handle_left_arrow(t_mlx *graphic, int keycode);
+void			handle_right_arrow(t_mlx *graphic, int keycode);
+
 
 /* collision_check.c */
 void			dir_y_check_p(t_map *map,
