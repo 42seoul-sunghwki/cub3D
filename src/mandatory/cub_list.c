@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 20:47:42 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/05 15:31:57 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:30:14 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**lst_to_arr(t_lst_head *head)
 	if (!arr)
 		return (NULL);
 	tmp = head->head;
-	i = 0;
+	i = head->h - 1;
 	while (tmp)
 	{
 		arr[i] = (char *)malloc(sizeof(char) * (head->w + 1));
@@ -53,7 +53,7 @@ char	**lst_to_arr(t_lst_head *head)
 		arr[i][head->w] = '\0';
 		ft_strlcpy(arr[i], tmp->line, head->w + 1);
 		tmp = tmp->next;
-		i++;
+		i--;
 	}
 	return (arr);
 }
@@ -95,8 +95,11 @@ void	free_lst(t_lst_head *head)
 	{
 		next = tmp->next;
 		free(tmp->line);
+		tmp->line = NULL;
 		free(tmp);
+		tmp = NULL;
 		tmp = next;
 	}
 	free(head);
+	head = NULL;
 }
