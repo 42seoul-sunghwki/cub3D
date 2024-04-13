@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/13 18:04:33 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/04/13 18:09:18 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,7 +129,7 @@ fclean: clean
 re: fclean all
 
 run:
-	$(NAME) ./test.cub
+	@$(NAME) ./test.cub
 
 runb:
 	$(NAME_BONUS) ./test.cub
@@ -138,4 +138,4 @@ bonus: $(NAME_BONUS)
 
 -include $(DEP)
 
-.PHONY: clean fclean all re bonus
+.PHONY: clean fclean all re bonus run runb
