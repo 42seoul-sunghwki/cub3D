@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/12 20:11:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:23:14 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static int	cub_valid_right_side(t_map *map, int x, int y)
 {
 	if (map->map[y][x] == '1')
 		return (SUCCESS);
-	else if (!(map->map[y][x] == ' ' || map->map[y][x] == 0 || map->map[y][x] == 1))
+	else if (!(map->map[y][x] == ' '
+		|| map->map[y][x] == 0 || map->map[y][x] == 1))
 	{
-		printf("map[%d][%d] = %c\n", y, x, map->map[y][x]);
 		printf("Error\nInvalid map\n");
 		exit (1);
 	}
@@ -39,9 +39,9 @@ static int	cub_valid_left_side(t_map *map, int x, int y)
 {
 	if (map->map[y][x] == '1')
 		return (SUCCESS);
-	else if (!(map->map[y][x] == ' ' || map->map[y][x] == 0 || map->map[y][x] == 1))
+	else if (!(map->map[y][x] == ' '
+		|| map->map[y][x] == 0 || map->map[y][x] == 1))
 	{
-		printf("map[%d][%d] = %c\n", y, x, map->map[y][x]);
 		printf("Error\nInvalid map\n");
 		exit (1);
 	}
@@ -61,7 +61,7 @@ static int	cub_valid_left_side(t_map *map, int x, int y)
 
 int	cub_map_valid(t_map *map)
 {
-	int x;
+	int	x;
 	int	y;
 
 	x = -1;
