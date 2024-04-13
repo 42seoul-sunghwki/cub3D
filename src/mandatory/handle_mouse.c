@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:56:15 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/07 23:24:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:00:19 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 int	handle_mouse(int button, int x, int y, void *arg)
 {
