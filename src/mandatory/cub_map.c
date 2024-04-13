@@ -6,22 +6,19 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 16:54:54 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:49:12 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_cub_lst_2(char *line, int *flag)
+static void	map_cub_lst_2(char *line, int *flag)
 {
 	char	*tmp;
 
 	tmp = ft_strtrim(line, " ");
 	if (*flag == true && tmp[0] == '\0')
-	{
-		printf("Error\nInvalid map in map_cub_lst\n");
-		exit (1);
-	}
+		ft_exit("Invalid map in map_cub_lst");
 	free(tmp);
 }
 
@@ -61,10 +58,7 @@ int	map_cub_lst_to_arr(t_lst_head *head, t_map *map)
 	map->h = head->h;
 	arr = lst_to_arr(head);
 	if (!arr)
-	{
-		printf("Error\nInvalid map in map_cub_lst_to_arr\n");
-		return (FAIL);
-	}
+		ft_exit("Invalid map in map_cub_lst_to_arr");
 	map->map = arr;
 	return (SUCCESS);
 }
@@ -83,8 +77,7 @@ int	map_cub(char *line, int fd, t_map *map)
 		return (FAIL);
 	head = push_lst(head, new);
 	map_cub_lst(fd, head);
-	if (map_cub_lst_to_arr(head, map) == FAIL)
-		exit (1);
+	map_cub_lst_to_arr(head, map);
 	free_lst(head);
 	return (SUCCESS);
 }

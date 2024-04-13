@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:58:36 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:57:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,12 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
-
-# define NO			0
-# define SO			1
-# define EA			2
-# define WE			3
-# define CI			4
-# define FI			5
-
 # define NORTH	0
 # define SOUTH	1
 # define EAST	2
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
-
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -261,9 +252,6 @@ typedef struct s_mlx {
 	t_dda		dda;
 }	t_mlx;
 
-//tmp
-void			print_map(t_map *map);
-
 /* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
 
@@ -291,7 +279,7 @@ void			free_2d_ptr(char **ptr);
 /* init_struct.c */
 void			init_block(t_block *block);
 void			init_pic(t_pic *pic);
-void			init_user(t_user *user, int x, int y, char pos);
+void			init_user(t_user *user, float x, float y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
 /* free_struct.c */
@@ -299,8 +287,16 @@ void			free_line_lst(t_line_lst *lst);
 
 /* ft_lib.c */
 int				ft_sanitize_enter(char *line);
+void			ft_exit(char *str);
+
+/* open_file.c */
+int				open_file(char *file);
+int				close_file(int fd);
 
 /* cub_to_struct.c */
+/**
+ * @brief	converts the cub file to the struct
+*/
 int				cub_to_struct(char *file, t_mlx *mlx);
 
 /* cub_slice.c */
@@ -328,7 +324,6 @@ char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
-
 
 /* cub_map_valid.c */
 int				cub_map_valid(t_map *map);
@@ -364,12 +359,5 @@ void			dir_x_check_p(t_map *map,
 					t_user *user, float new_displacement_x);
 void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
-
-/**
- * open_file.c
- * 
-*/
-int				open_file(char *file);
-int				close_file(int fd);
 
 #endif
