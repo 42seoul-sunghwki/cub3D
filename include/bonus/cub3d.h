@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 18:09:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:03:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,6 +357,8 @@ void			cub_valid_door_user_zombie(t_map *map);
 /* cub_map_bonus.c */
 int				map_cub(char *line, int fd, t_map *map);
 int				check_map_cub(char *line);
+int				check_sprite_cub(char **split, t_mlx *graphic,
+					t_pic *org_img, t_sprite *sprite);
 
 /* cub_list_bonus.c */
 t_lst_head		*push_lst(t_lst_head *head, t_line_lst *new);
