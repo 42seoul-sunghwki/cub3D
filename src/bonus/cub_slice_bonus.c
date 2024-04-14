@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_slice.c                                        :+:      :+:    :+:   */
+/*   cub_slice_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:49:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:53:14 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,24 @@ static int	slice_color_cub(char **split, t_block *block)
 	return (SUCCESS);
 }
 
+static int	slice_sprite_cub(char **split, t_mlx *mlx)
+{
+	static char	*sp[4] = {"DO", "ZO", "ME", "GU"};
+	int			i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		if (ft_strncmp(split[0], sp[i], 3) == 0)
+		{
+			if (check_img_cub(split, mlx, (mlx->sprite[i]).img) == FAIL)
+				return (FAIL);
+			return (SUCCESS);
+		}
+	}
+	return (UNDEFINED);
+}
+
 int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 {
 	char	**split;
@@ -61,12 +79,9 @@ int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 		free_2d_ptr(split);
 		return (SUCCESS);
 	}
-	if (slice_wall_cub(split, mlx, block) == SUCCESS)
-	{
-		free_2d_ptr(split);
-		return (SUCCESS);
-	}
-	if (slice_color_cub(split, block) == SUCCESS)
+	if (slice_wall_cub(split, mlx, block) == SUCCESS || \
+		slice_sprite_cub(split, mlx) == SUCCESS || \
+		slice_color_cub(split, block) == SUCCESS)
 	{
 		free_2d_ptr(split);
 		return (SUCCESS);

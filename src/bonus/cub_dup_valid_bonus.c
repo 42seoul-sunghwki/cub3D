@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_dup_valid.c                                    :+:      :+:    :+:   */
+/*   cub_dup_valid_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:10:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:08:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ void	cub_dup_valid(t_mlx *mlx)
 	}
 	if (mlx->block.f_trgb == mlx->block.c_trgb)
 		ft_exit("Duplicate color");
+	i = 3;
+	while (++i < 6)
+	{
+		if (mlx->block.pic[i].name == NULL)
+			continue ;
+		else
+		{
+			size = ft_strlen(mlx->block.pic[i].name);
+			cub_dup_valid_2(mlx, i, size);
+		}
+	}
 }
