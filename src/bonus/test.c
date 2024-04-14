@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:08:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/14 20:19:05 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:38:01 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main()
 {
 	t_sprite_node	*temp;
 	t_sprite_vec	vec;
-	t_sprite_node	**list;
+	//t_sprite_node	**list;
 
 	init_sprite_vec(&vec);
 	printf("vec: %p\n", vec.list);
@@ -27,7 +27,7 @@ int main()
 		temp->distance = i;
 		push_sprite(&vec, temp);
 	}
-	list = mergesort_sprite_vec(&vec, 0, vec.size, vec.size / 2);
+	mergesort_sprite_vec(&vec, 0, vec.size);
 	for (int i = 0; i < 10; i++)
 	{
 		temp = get_sprite(&vec, i);

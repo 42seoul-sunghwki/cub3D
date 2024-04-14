@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 20:10:45 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:37:30 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,8 +401,7 @@ void			dir_x_check_n(t_map *map,
 void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
 
 /* quick_sort_sprite_bonus.c */
-t_sprite_node	**mergesort_sprite_vec(t_sprite_vec *vec, int start, int end,
-					int right_start);
+void	mergesort_sprite_vec(t_sprite_vec *vec, int start, int end);
 
 /* handle_arrow_bonus.c */
 void			handle_left_arrow(t_mlx *graphic, int keycode);

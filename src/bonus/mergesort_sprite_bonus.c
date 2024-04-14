@@ -3,58 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   mergesort_sprite_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:09:32 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/14 20:36:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:39:45 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_sprite_node	**mergesort_sprite_vec(t_sprite_vec *vec, int start, int end,
-	int right_start)
+void	swap_sprite(t_sprite_node *a, t_sprite_node *b)
 {
-	t_sprite_node	**temp_list;
-	t_sprite_node	**left_list;
-	t_sprite_node	**right_list;
-	int				mid;
-	int				list_i;
+	t_sprite_node	temp;
 
-	mid = (end + start) / 2;
-	right_start = mid;
-	list_i = 0;
-	left_list = 0;
-	right_list = 0;
-	if ((end - start) > 1)
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+t_sprite_node	**merge_sort_sprite_node(t_sprite_node **tmp, int size)
+{
+	t_sprite_node	**left;
+	t_sprite_node	**right;
+	int				i;
+	int				j;
+
+	//divide
+	if (size <= 1)
+		return (tmp);
+	left = (t_sprite_node **)malloc(sizeof(t_sprite_node *) * (size / 2));
+	right = (t_sprite_node **)malloc(sizeof(t_sprite_node *) * (size - size / 2));
+	i = -1;
+	while (++i < size / 2)
+		left[i] = tmp[i];
+	j = -1;
+	while (++j < size - size / 2)
+		right[j] = tmp[i + j];
+	//conquer
+	left = merge_sort_sprite_node(left, size / 2);
+	right = merge_sort_sprite_node(right, size - size / 2);
+	//merge
+	i = 0;
+	j = 0;
+	while (i < size / 2 && j < size - size / 2)
 	{
-		left_list = mergesort_sprite_vec(vec, start, mid, (mid + start) / 2);
-		right_list = mergesort_sprite_vec(vec, mid, end, (mid + end) / 2);
-	}
-	temp_list = malloc(sizeof(t_sprite_node *) * (end - start));
-	while (start < mid && right_start < end)
-	{
-		if (left_list[start]->distance <= right_list[right_start]->distance)
-			temp_list[list_i++] = left_list[start++];
+		if (left[i]->distance < right[j]->distance)
+		{
+			tmp[i + j] = left[i];
+			i++;
+		}
 		else
-			temp_list[list_i++] = right_list[right_start++];
+		{
+			tmp[i + j] = right[j];
+			j++;
+		}
 	}
-	while (start < mid)
+	while (i < size / 2)
 	{
-		temp_list[list_i++] = vec->list[start++];
+		tmp[i + j] = left[i];
+		i++;
 	}
-	while (right_start < end)
+	while (j < size - size / 2)
 	{
-		temp_list[list_i++] = vec->list[right_start++];
+		tmp[i + j] = right[j];
+		j++;
 	}
-	printf("---------\n");
-	for (int i = 0; i < list_i; i++)
-	{
-		printf("[%f]\n", temp_list[i]->distance);
-	}
-	if (left_list)
-		free(left_list);
-	if (right_list)
-		free(right_list);
-	return (temp_list);
+	free(left);
+	free(right);
+	return (tmp);
+}
+
+void	mergesort_sprite_vec(t_sprite_vec *vec, int start, int end)
+{
+	t_sprite_node	**tmp;
+
+	tmp = vec->list;
+	tmp = merge_sort_sprite_node(tmp, end - start);
 }
