@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct.c                                      :+:      :+:    :+:   */
+/*   init_struct_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 12:49:19 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:03:54 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	init_user(t_user *user, int x, int y, char pos)
 		user->dir_x = 1.0;
 		user->plane_y = -0.66;
 	}
-	user->move_speed = 0.2;
-	user->rot_speed = 0.05;
+	user->move_speed = MOVE_SPEED;
+	user->rot_speed = ROT_SPEED;
 }
 
 void	get_img_addr(t_data *data)
@@ -117,40 +117,4 @@ void	get_img_addr(t_data *data)
 			&data->endian
 			);
 	printf("data->addr: [%p]\n", data->addr);
-}
-
-void	init_block_temp(t_mlx *graphic)
-{
-	t_pic	*pic;
-	t_data	*data;
-	char	*str;
-	int		i;
-	t_block	*block;
-
-	block = &graphic->block;
-	str = "./src/xpm_images/ender_block.xpm";
-	i = -1;
-	// pic = &block->pic[i];
-	// data = &pic->data;
-	// data->img = mlx_xpm_file_to_image(graphic, str, &pic->w, &pic->h);
-	// get_img_addr(data);
-	while (++i < 4)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
-	str = "./src/xpm_images/stone.xpm";
-	i--;
-	while (++i < 6)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		printf("data->img %p\n", data->img);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 18:05:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:23:47 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct s_block {
  * @var	float	x			x position of the user
  * @var	float	y			y position of the user
  * @var	float	z			z position of the user
- * @var	int		map_x		x position of the square the user is currently in
+ * @var	int		 ap_x		x position of the square the user is currently in
  * @var	int		map_y		y position of the square the user is currently in
  * @var	float	dir_x		x component of direction vector of the user
  * @var	float	dir_y		y component of direction vector of the user

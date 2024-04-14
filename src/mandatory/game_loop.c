@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 17:38:12 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:30:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 			user->map_y += dda->step_y;
 			dda->side = 1;
 		}
-		if (map->map[user->map_y][user->map_x] != '0')
+		if (map->map[user->map_y][user->map_x] == '1')
 			dda->collision_flag = true;
 	}
 	if (dda->side == 0)
