@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 15:45:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:09:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,9 @@ void			cub_dup_valid(t_mlx *mlx);
 
 /* cub_helper_bonus.c */
 int				color_cub(char **split);
+
+/* cub_map_valid_helper_bonus.c*/
+void			cub_valid_door_user_zombie(t_map *map);
 
 /* cub_map_bonus.c */
 int				map_cub(char *line, int fd, t_map *map);
