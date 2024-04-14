@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 19:01:43 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:05:33 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	check_img_sprite_file(char **split, t_mlx *graphic, t_pic *org_img)
 int	check_img_cub(char **split, t_mlx *graphic, t_pic *org_img)
 {
 	if (split[0] == NULL || split[1] == NULL || split[2] != NULL)
- 		ft_exit("Img input is not valid");
+		ft_exit("Img input is not valid");
 	check_img_sprite_file(split, graphic, org_img);
 	return (SUCCESS);
 }
