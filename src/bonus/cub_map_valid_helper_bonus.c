@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 18:09:26 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:11:03 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	cub_valid_zombie(char **map, int x, int y)
 {
 	if (map[y][x] == 'Z')
 	{
-		if (map[y -1][x] == '1' && map[y + 1][x] == '1' 
+		if (map[y -1][x] == '1' && map[y + 1][x] == '1'
 			&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
 			ft_exit("Invalid map\nZombie is surrounded by wall");
 	}

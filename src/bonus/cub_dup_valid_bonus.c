@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 17:57:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:23:34 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	cub_dup_valid_sprite(t_mlx *mlx, int i, char *name)
 	len = ft_strlen(name);
 	while (++j < i)
 	{
-		if (mlx->sprite[j].img->name == NULL)
+		if (mlx->sprite[j].img == NULL || mlx->sprite[j].img->name == NULL)
 			ft_exit("Not input sprite");
 		if (ft_strncmp(name, mlx->sprite[j].img->name, len) == 0)
 			ft_exit("Duplicate sprite");
@@ -69,7 +69,7 @@ void	cub_dup_valid(t_mlx *mlx)
 	i = -1;
 	while (++i < 4)
 	{
-		if (mlx->sprite[i].img->name == NULL)
+		if (mlx->sprite[i].img == NULL)
 			ft_exit("Not input sprite");
 		cub_dup_valid_img(mlx, 6, mlx->sprite[i].img->name);
 		cub_dup_valid_sprite(mlx, i, mlx->sprite[i].img->name);

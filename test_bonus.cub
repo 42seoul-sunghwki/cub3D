@@ -4,7 +4,7 @@ WE       ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 FI ./texture/stone.xpm
 
-DO ./texture/barrel.xpm
+
 ZO ./texture/btninet.xpm
 ME ./texture/greenlight.xpm
 GU ./texture/nazi.xpm
