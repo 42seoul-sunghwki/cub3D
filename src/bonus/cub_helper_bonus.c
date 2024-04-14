@@ -6,13 +6,13 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:23:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:48:54 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*merge_split(char **split, int start)
+static char	*merge_split(char **split, int start)
 {
 	char	*ret;
 	char	*tmp;
@@ -38,7 +38,7 @@ char	*merge_split(char **split, int start)
 	return (ret);
 }
 
-char	**split_to_rgb(char **split)
+static char	**split_to_rgb(char **split)
 {
 	char	**rgb;
 	char	*tmp;
@@ -72,10 +72,7 @@ int	color_cub(char **split)
 	if (!rgb)
 		return (UNDEFINED);
 	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
-	{
-		printf("Error\nInvalid cub file\n");
-		exit (1);
-	}
+		ft_exit("Invalid cub file in color");
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);

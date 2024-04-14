@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 11:52:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:30:00 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	map_to_user_x(t_mlx *mlx, int *flag, int y)
 				printf("Error\nInvalid map in duplicate user\n");
 				exit(1);
 			}
-			init_user(&(mlx->user), x, y, mlx->map.map[y][x]);
+			init_user(&(mlx->user), (float)(x + 0.5),
+				(float)(y + 0.5), mlx->map.map[y][x]);
 			mlx->dda.cos_rot_speed = cos(mlx->user.rot_speed);
 			mlx->dda.sin_rot_speed = sin(mlx->user.rot_speed);
 			mlx->map.map[y][x] = '0';
@@ -57,15 +58,9 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 	fd = open_file(file);
 	line = read_cub(fd, mlx);
 	if (line == NULL)
-	{
-		printf("Error\nInvalid file\n");
-		exit(1);
-	}
+		ft_exit("No map in cub file");
 	if (map_cub(line, fd, &(mlx->map)) == FAIL)
-	{
-		printf("Error\nInvalid map\n");
-		exit(1);
-	}
+		ft_exit("Invalid map in cub file");
 	close_file(fd);
 	cub_dup_valid(mlx);
 	cub_map_valid(&(mlx->map));
