@@ -1,0 +1,19 @@
+NO ./texture/bluestone.xpm
+SO ./texture/eagle.xpm
+WE       ./texture/purplestone.xpm
+EA ./texture/redbrick.xpm   
+FI ./texture/stone.xpm
+
+DO ./texture/barrel.xpm
+ZO ./texture/btninet.xpm
+ME ./texture/greenlight.xpm
+GU ./texture/nazi.xpm
+
+F 0,0,0
+C 255,255,255
+
+11111111111
+100D0001111
+1001    01
+11  S101111
+11111111111

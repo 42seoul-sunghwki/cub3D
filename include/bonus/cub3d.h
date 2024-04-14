@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 14:59:08 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:45:36 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
+
+# define DOOR	0
+# define ZOMBIE	1
+# define MELEE	2
+# define GUN	3
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
