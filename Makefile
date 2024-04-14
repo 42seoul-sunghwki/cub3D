@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
+#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/13 18:09:18 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/04/14 13:03:27 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,13 @@ BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
-BONUS_SRCS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC))
+BONUS_SRCS = $(addprefix $(SRC_BONUS_DIR)/, $(BONUS_SRC))
 
 MANDATORY_OBJ =	$(addprefix $(OBJ_MANDATORY_DIR)/, $(SRC))
 
 MANDATORY_OBJS = $(MANDATORY_OBJ:.c=.o)
 
-BONUS_OBJ = $(addprefix $(OBJ_BONUS_DIR)/, $(SRC))
+BONUS_OBJ = $(addprefix $(OBJ_BONUS_DIR)/, $(BONUS_SRC))
 
 BONUS_OBJS = $(BONUS_OBJ:.c=.o)
 
@@ -103,7 +103,7 @@ $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 19:04:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 12:56:51 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
-
 # define NO			0
 # define SO			1
 # define EA			2
@@ -56,7 +55,6 @@
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
-
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -159,12 +157,12 @@ typedef struct s_floor {
 
 typedef struct s_sprite_node
 {
-	float			x;
-	float			y;
-	int				sprite_type;
-	size_t			last_movement;
-	t_sprite_node	*prev;
-	t_sprite_node	*next;
+	float					x;
+	float					y;
+	int						sprite_type;
+	size_t					last_movement;
+	struct s_sprite_node	*prev;
+	struct s_sprite_node	*next;
 }	t_sprite_node;
 
 typedef struct s_sprite_list
@@ -364,7 +362,6 @@ t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
 
-
 /* cub_map_valid.c */
 int				cub_map_valid(t_map *map);
 
@@ -401,7 +398,7 @@ void			dir_x_check_n(t_map *map,
 void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
 
 /* quick_sort_sprite.c */
-void			quick_sort_sprite(t_sprite_obj *arr, int low, int high);
+void			quick_sort_sprite(t_sprite_list *arr, int low, int high);
 
 /**
  * open_file.c
