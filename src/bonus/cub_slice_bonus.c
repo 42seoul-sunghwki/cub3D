@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 14:53:14 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:03:25 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,12 @@ static int	slice_sprite_cub(char **split, t_mlx *mlx)
 	{
 		if (ft_strncmp(split[0], sp[i], 3) == 0)
 		{
+			mlx->sprite[i].img = (t_pic *)malloc(sizeof(t_pic));
 			if (check_img_cub(split, mlx, (mlx->sprite[i]).img) == FAIL)
+			{
+				free(mlx->sprite[i].img);
 				return (FAIL);
+			}
 			return (SUCCESS);
 		}
 	}
