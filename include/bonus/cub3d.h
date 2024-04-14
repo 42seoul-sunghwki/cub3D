@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 15:06:45 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:36:19 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,16 +165,14 @@ typedef struct s_sprite_node
 	float					y;
 	int						sprite_type;
 	size_t					last_movement;
-	struct s_sprite_node	*prev;
-	struct s_sprite_node	*next;
 }	t_sprite_node;
 
-typedef struct s_sprite_list
+typedef struct s_sprite_vec
 {
-	t_sprite_node	*head;
-	t_sprite_node	*tail;
 	int				size;
-}	t_sprite_list;
+	int				malloc_size;
+	t_sprite_node	**list;
+}	t_sprite_vec;
 
 /**
  * 
