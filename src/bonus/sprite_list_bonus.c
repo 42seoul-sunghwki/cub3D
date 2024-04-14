@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/14 20:10:52 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:41:47 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_sprite_vec(t_sprite_vec *vec)
 void	push_sprite(t_sprite_vec *vec, t_sprite_node *node)
 {
 	t_sprite_node	**new_list;
-	int				i;
+	unsigned int	i;
 
 	if (vec->size == vec->malloc_size)
 	{
@@ -37,14 +37,14 @@ void	push_sprite(t_sprite_vec *vec, t_sprite_node *node)
 	vec->size++;
 }
 
-t_sprite_node	*get_sprite(t_sprite_vec *vec, int index)
+t_sprite_node	*get_sprite(t_sprite_vec *vec, unsigned int index)
 {
 	if (index >= vec->size)
 		return (NULL);
 	return (vec->list[index]);
 }
 
-void	delete_sprite(t_sprite_vec *vec, int index)
+void	delete_sprite(t_sprite_vec *vec, unsigned int index)
 {
 	if (index >= vec->size)
 		return ;

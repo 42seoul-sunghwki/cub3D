@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 21:37:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:41:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,8 @@ typedef struct s_sprite_node
 
 typedef struct s_sprite_vec
 {
-	int				size;
-	int				malloc_size;
+	unsigned int	size;
+	unsigned int	malloc_size;
 	t_sprite_node	**list;
 }	t_sprite_vec;
 
@@ -400,8 +400,8 @@ void			dir_x_check_n(t_map *map,
 /* draw_sprite_bonus.c */
 void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
 
-/* quick_sort_sprite_bonus.c */
-void	mergesort_sprite_vec(t_sprite_vec *vec, int start, int end);
+/* mergesort_sprite_bonus.c */
+t_sprite_node	**mergesort_sprite_list(t_sprite_node **list, int size);
 
 /* handle_arrow_bonus.c */
 void			handle_left_arrow(t_mlx *graphic, int keycode);
@@ -411,8 +411,8 @@ void			check_collision(t_mlx *graphic, int keycode);
 /* sprite_list_bonus.c */
 void			init_sprite_vec(t_sprite_vec *vec);
 void			push_sprite(t_sprite_vec *vec, t_sprite_node *node);
-t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
-void			delete_sprite(t_sprite_vec *vec, int index);
+t_sprite_node	*get_sprite(t_sprite_vec *vec, unsigned int index);
+void			delete_sprite(t_sprite_vec *vec, unsigned int index);
 t_sprite_node	*create_sprite_node(float x, float y,
 					int sprite_type);
 
