@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_check.c                                        :+:      :+:    :+:   */
+/*   cub_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 13:37:31 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:06:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_map_cub(char *line)
 		flag = FAIL;
 		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
 			flag = SUCCESS;
-		if (line[i] == 'D' || line[i] == 'N'
+		if (line[i] == 'D' || line[i] == 'Z' || line[i] == 'N'
 			|| line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 			flag = SUCCESS;
 		if (flag == FAIL)

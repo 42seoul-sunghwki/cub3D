@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 12:56:51 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:50:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@
 # define SUCCESS	0
 # define FAIL		1
 # define WALL_RATIO 1.34
-
-# define NO			0
-# define SO			1
-# define EA			2
-# define WE			3
-# define CI			4
-# define FI			5
 
 # define NORTH	0
 # define SOUTH	1
@@ -332,6 +325,7 @@ void			free_line_lst(t_line_lst *lst);
 
 /* ft_lib.c */
 int				ft_sanitize_enter(char *line);
+void			ft_exit(char *str);
 
 /* cub_to_struct.c */
 int				cub_to_struct(char *file, t_mlx *mlx);
