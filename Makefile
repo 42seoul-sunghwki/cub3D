@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/16 11:47:15 by codespace        ###   ########.fr        #
+#    Updated: 2024/04/16 11:48:38 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c \
-			quick_sort_sprite_bonus.c handle_arrow_bonus.c
+			handle_arrow_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -97,10 +97,10 @@ $(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
 
 #bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -Imlx_linux -O3 -c $< -o $@
+	$(CC) -Iinclude -Iinclude/bonus -Imlx_linux -O3 -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
-	$(CC) $(FLAGS) $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
+	$(CC) $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
 	$(LIBFT) -o $(NAME)
 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 
