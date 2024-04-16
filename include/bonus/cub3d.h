@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 23:41:15 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:01:56 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@
 # define RED 0xFF << 16
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
-
-# define IMG_W	64
-# define IMG_H	64
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -67,10 +64,11 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE_TYPE 4
+# define NUM_SPRITE	1
+# define NUM_SPRITE_TYPE	4
 
 /* user */
-# define MOVE_SPEED	0.3
+# define MOVE_SPEED	0.2
 # define ROT_SPEED	0.05
 
 typedef struct s_mlx		t_mlx;
@@ -161,17 +159,17 @@ typedef struct s_floor {
 
 typedef struct s_sprite_node
 {
-	float					x;
-	float					y;
-	int						sprite_type;
-	float					distance;
-	size_t					start_frame;
+	float	x;
+	float	y;
+	int		sprite_type;
+	float	distance;
+	size_t	start_frame;
 }	t_sprite_node;
 
 typedef struct s_sprite_vec
 {
-	unsigned int	size;
-	unsigned int	malloc_size;
+	int	size;
+	int	malloc_size;
 	t_sprite_node	**list;
 }	t_sprite_vec;
 
@@ -268,6 +266,24 @@ typedef struct s_dda {
 	int				texture_x;
 }	t_dda;
 
+typedef struct s_sprite_info
+{
+	float	sprite_x;
+	float	sprite_y;
+	float	inv_det;
+	float	transform_x;
+	float	transform_y;
+	int		sprite_screen_x;
+	int		sprite_height;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		sprite_width;
+	int		draw_start_x;
+	int		draw_end_x;
+	int		tex_x;
+	int		tex_y;
+}	t_sprite_info;
+
 /**
  * t_mlx struct gets passed to the game_loop function which renders each frame
  * 
@@ -284,17 +300,19 @@ typedef struct s_dda {
  * 
 */
 typedef struct s_mlx {
-	void		*mlx;
-	void		*win;
-	t_data		img_data[2];
-	int			num_frame;
-	size_t		total_frame;
-	t_map		map;
-	t_block		block;
-	// t_sprite	sprite[NUM_SPRITE];
-	t_user		user;
-	size_t		time;
-	t_dda		dda;
+	void			*mlx;
+	void			*win;
+	t_data			img_data[2];
+	int				num_frame;
+	size_t			total_frame;
+	t_map			map;
+	t_block			block;
+	t_sprite		sprite[NUM_SPRITE];
+	t_sprite_vec	sprite_vec;
+	t_sprite_info	sprite_info;
+	t_user			user;
+	size_t			time;
+	t_dda			dda;
 }	t_mlx;
 
 //tmp
@@ -398,7 +416,7 @@ void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
 
 /* draw_sprite_bonus.c */
-void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
+void			update_sprite(t_mlx *graphic, t_user *user);
 
 /* mergesort_sprite_bonus.c */
 t_sprite_node	**mergesort_sprite_list(t_sprite_node **list, int size);
@@ -411,8 +429,8 @@ void			check_collision(t_mlx *graphic, int keycode);
 /* sprite_list_bonus.c */
 void			init_sprite_vec(t_sprite_vec *vec);
 void			push_sprite(t_sprite_vec *vec, t_sprite_node *node);
-t_sprite_node	*get_sprite(t_sprite_vec *vec, unsigned int index);
-void			delete_sprite(t_sprite_vec *vec, unsigned int index);
+t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
+void			delete_sprite(t_sprite_vec *vec, int index);
 t_sprite_node	*create_sprite_node(float x, float y,
 					int sprite_type);
 

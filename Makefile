@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/16 11:48:38 by codespace        ###   ########.fr        #
+#    Updated: 2024/04/16 11:52:59 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra
+FLAGS =  -g -Wall -Werror -Wextra -fprofile-instr-generate -fcoverage-mapping
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -39,8 +39,9 @@ BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
-			handle_mouse_bonus.c collision_check_bonus.c \
-			handle_arrow_bonus.c
+			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
+			mergesort_sprite_bonus.c sprite_list_bonus.c \
+			update_sprite_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
