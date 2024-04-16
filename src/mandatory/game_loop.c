@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/14 14:30:07 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:47:39 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,18 @@ static void	calculate_texture_helper(t_dda *dda, t_user *user)
 	}
 }
 
-void	calculate_texture(t_dda *dda, t_user *user)
+static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
 {
+	t_pic	*texture;
+
 	calculate_texture_helper(dda, user);
+	texture = &graphic->block.pic[dda->texture_num];
 	dda->wall_pixel_x -= floor(dda->wall_pixel_x);
-	dda->texture_x = (int)(dda->wall_pixel_x * (float) IMG_W);
+	dda->texture_x = (int)(dda->wall_pixel_x * (float) texture->w);
 	if ((dda->side == 0 && dda->raydir_x > 0)
 		|| (dda->side == 1 && dda->raydir_y < 0))
-		dda->texture_x = IMG_W - dda->texture_x - 1;
-	dda->text_step = 1.0 * IMG_H / dda->line_height;
+		dda->texture_x = texture->w - dda->texture_x - 1;
+	dda->text_step = 1.0 * texture->h / dda->line_height;
 	dda->text_pos = (dda->draw_start_y - (WINHEIGHT) / 2
 			+ dda->line_height / 2) * dda->text_step;
 }
@@ -89,7 +92,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
 	wall_index = map->map[user->map_y][user->map_x] - '0';
-	calculate_texture(dda, user);
+	calculate_texture(graphic, dda, user);
 	if (dda->side == 1)
 		draw_vertical_line(graphic, dda);
 	else
