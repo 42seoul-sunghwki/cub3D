@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mergesort_sprite_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:09:32 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/14 23:38:59 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:10:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	mergesort_sprite_sub_helper(t_sprite_node **list,
 	t_sprite_node **fill, int size)

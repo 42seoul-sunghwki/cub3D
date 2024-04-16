@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collision_check.c                                  :+:      :+:    :+:   */
+/*   collision_check_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 22:51:37 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 12:52:05 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:10:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	dir_y_check_p(t_map *map, t_user *user, float new_displacement_y)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/16 16:02:09 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:38:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	perform_dda(t_dda *dda, t_user *user, t_map *map)
 {
@@ -100,6 +100,9 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 		draw_vertical_line(graphic, dda);
 }
 
+/**
+ * change 64 to img_w or set floor xpm to 64
+*/
 static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 {
 	int	j;
@@ -160,14 +163,15 @@ int	game_loop(void *arg)
 	dda = &graphic->dda;
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
+	// printf("start loop\n");
 	draw_floor(graphic);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
 		perform_dda(dda, user, &graphic->map);
 		draw_walls(dda, graphic, user, &graphic->map);
-		update_sprite(graphic, user);
 	}
+	update_sprite(graphic, user);
 	display_frame(graphic);
 	cur_time = get_time_in_us();
 	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));

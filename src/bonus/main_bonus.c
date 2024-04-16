@@ -6,11 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/16 11:53:05 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/16 13:33:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_t_mlx(t_mlx *graphic)
 {
@@ -55,6 +55,7 @@ void	init_t_mlx(t_mlx *graphic)
 			sprite->img[i].name, &sprite->img[i].w, &sprite->img[i].h);
 		get_img_addr(&sprite->img[i].data);
 	}
+	sprite->fpm = 4;
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	init_sprite_vec(vec);
 	push_sprite(vec, create_sprite_node(2, 2, 0));

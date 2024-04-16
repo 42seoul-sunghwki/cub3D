@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/16 16:52:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:55:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	calculate_sprite(t_sprite_info *sprite,
 	t_sprite_node *node, t_user *user)
@@ -25,7 +25,7 @@ static void	calculate_sprite(t_sprite_info *sprite,
 			* sprite->sprite_x + user->plane_x * sprite->sprite_y);
 	sprite->sprite_screen_x = (int)((WINWIDTH / 2)
 			* (1 + sprite->transform_x / sprite->transform_y));
-	sprite->sprite_height = abs((int)(WINHEIGHT / (sprite->transform_y)));
+	sprite->sprite_height = abs((int)(WINHEIGHT / (sprite->transform_y))) * 1.34;
 	sprite->draw_start_y = -sprite->sprite_height / 2 + WINHEIGHT / 2;
 	if (sprite->draw_start_y < 0)
 		sprite->draw_start_y = 0;
@@ -90,8 +90,9 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 {
 	t_sprite_node	*cur_sprite;
 	t_sprite_vec	*vec;
-	t_pic			*texture;
+	t_sprite		*sprite;
 	int				i;
+	int				frame_num;
 
 	i = -1;
 	vec = &graphic->sprite_vec;
@@ -100,10 +101,12 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 	{
 		cur_sprite = get_sprite(vec, i);
 		// printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
-		texture = graphic->sprite[cur_sprite->sprite_type].img;
-		// printf("texture: %p\n", texture);
+		sprite = &graphic->sprite[cur_sprite->sprite_type];
+		frame_num = graphic->total_frame % (sprite->num_img * sprite->fpm) / sprite->fpm;
+		// printf("start_frame: %ld, total_frame: [%ld] tex_num: %ld num_img %d\n", cur_sprite->start_frame, graphic->total_frame, frame_diff / sprite->fpm, sprite->num_img);
 		calculate_sprite(&graphic->sprite_info ,cur_sprite, user);
-		draw_sprite(&graphic->sprite_info, graphic, texture, &graphic->dda);
+		draw_sprite(&graphic->sprite_info, graphic,
+			&sprite->img[frame_num], &graphic->dda);
 	}
 }
 
@@ -117,5 +120,6 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 	//update distance
 	//sort
 	//access or draw
+	// printf("print sprite\n");
 	project_sprite(graphic, user);
 }

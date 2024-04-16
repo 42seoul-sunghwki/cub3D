@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/16 13:38:40 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:38:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_block(t_block *block)
 {
@@ -78,8 +78,8 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->x = (double)x;
 	user->y = (double)y;
 	user->z = 48.0;
-	user->map_x = 0;
-	user->map_y = 0;
+	user->map_x = (int) user->x;
+	user->map_y = (int) user->y;
 	user->dir_x = 0.0;
 	user->dir_y = 0.0;
 	user->plane_x = 0.0;
