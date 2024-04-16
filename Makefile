@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/16 17:12:25 by minsepar         ###   ########.fr        #
+#    Updated: 2024/04/16 20:50:39 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ CC	=	cc
 
 FLAGS =  -g -Wall -Werror -Wextra -fprofile-instr-generate -fcoverage-mapping
 
-SRC_MANDATORY_DIR =	src/mandatory
+SRC_MANDATORY_DIR :=	src/mandatory
 
-SRC_BONUS_DIR =	src/bonus
+SRC_BONUS_DIR :=	src/bonus
 
-OBJ_MANDATORY_DIR =	build/mandatory
+OBJ_MANDATORY_DIR :=	build/mandatory
 
-OBJ_BONUS_DIR = build/bonus
+OBJ_BONUS_DIR := build/bonus
 
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		cub_check.c cub_helper.c cub_list.c cub_map.c cub_read.c cub_slice.c \
@@ -55,17 +55,17 @@ BONUS_OBJ = $(addprefix $(OBJ_BONUS_DIR)/, $(BONUS_SRC))
 
 BONUS_OBJS = $(BONUS_OBJ:.c=.o)
 
-MLX_DIR = ./lib/mlx
+MLX_DIR := ./lib/mlx
 
 MLX =	$(MLX_DIR)/bin/libmlx.dylib
 
-LIBFT_DIR = ./lib/libftprintf
+LIBFT_DIR := ./lib/libftprintf
 
 LIBFT = $(LIBFT_DIR)/bin/libftprintf.a
 
 DEP = dependencies.d
 
-BIN_DIR = bin
+BIN_DIR := bin
 
 MLX_LINUX = mlx_Linux
 
@@ -75,41 +75,54 @@ $(MLX):
 	make -C ./lib/mlx all
 
 $(OBJ_DIR):
-	mkdir -p build
+	mkdir -p $@
 
 $(BIN_DIR):
-	mkdir -p bin
+	mkdir -p $@
+
+$(OBJ_BONUS_DIR):
+	mkdir -p $@
 
 #for linux
 
-# $(MLX_LINUX): 
-# 	make -C ./lib/mlx_linux all
+$(MLX_LINUX): 
+	make -C ./lib/mlx_linux all
 
-# $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Imlx_linux -O3 -c $< -o $@
+$(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
+	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -Imlx_linux -O3 -c $< -o $@
 
-# $(NAME): $(OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
-# 	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
-# 	$(LIBFT) -o $(NAME)
+$(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
+	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
+	$(LIBFT) -o $(NAME)
+	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
+
+#bonus
+$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
+	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -Imlx_linux -O3 -c $< -o $@
+
+$(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
+	$(CC) $(FLAGS) $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
+	$(LIBFT) -o $(NAME)
+	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 
 #for MAC
 # mandatory
-$(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
+# $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
+# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
-	$(LIBFT) $(MLX) -o  $(NAME)
-	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
+# $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
+# 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
+# 	$(LIBFT) $(MLX) -o  $(NAME)
+# 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
 
 # bonus
-$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
+# $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
+# 	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
-	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
-	$(LIBFT) -o $(NAME_BONUS)
-	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
+# $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
+# 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
+# 	$(LIBFT) -o $(NAME_BONUS)
+# 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
 
 $(LIBFT):
