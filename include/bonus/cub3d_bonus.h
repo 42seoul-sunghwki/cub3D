@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/16 13:32:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/17 21:20:21 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -27,6 +27,7 @@
 
 # define WINWIDTH 1600
 # define WINHEIGHT 900
+# define HALF_WINWIDTH 800
 # define HALF_WINHEIGHT 450
 
 # define YELLOW 0xFFFF << 8
@@ -69,7 +70,7 @@
 
 /* user */
 # define MOVE_SPEED	0.2
-# define ROT_SPEED	0.05
+# define ROT_SPEED	0.0005
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -403,7 +404,7 @@ int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
 
 /* handle_mouse_bonus.c */
-int				handle_mouse(int button, int x, int y, void *arg);
+int				handle_mouse_click(int button, int x, int y, void *arg);
 
 /* collision_check_bonus.c */
 void			dir_y_check_p(t_map *map,
@@ -433,6 +434,9 @@ t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
 void			delete_sprite(t_sprite_vec *vec, int index);
 t_sprite_node	*create_sprite_node(float x, float y,
 					int sprite_type);
+
+/* mouse_move_bonus.c */
+int				handle_mouse_move(int x, int y, void *arg);
 
 /**
  * open_file.c

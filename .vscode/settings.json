@@ -17,6 +17,8 @@
 		"ios": "c",
 		"unordered_map": "c",
 		"time.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"bitset": "c",
+		"cub3d_bonus.h": "c"
 	}
 }

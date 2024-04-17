@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/16 13:33:25 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/17 15:49:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,19 @@ void	print_struct(t_mlx *mlx)
 	print_map(&mlx->map);
 }
 
+void	check()
+{
+	system("leaks cub3D");
+}
+
+void	mlx_setup(t_mlx *graphic)
+{
+	mlx_mouse_hide(graphic->mlx);
+}
+
 int	main(int argc, char **argv)
 {
+	// atexit(check);
 	t_mlx	graphic;
 	t_map	*map;
 
@@ -110,8 +121,11 @@ int	main(int argc, char **argv)
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
 	print_struct(&graphic);
+	// mlx_setup(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
-	mlx_hook(graphic.win, 02, 1L, handle_keypress, &graphic);
-	mlx_mouse_hook(graphic.win, handle_mouse, &graphic);
+	mlx_hook(graphic.win, 2, 1L, handle_keypress, &graphic);
+	mlx_hook(graphic.win, 17, 1L << 17, terminate_program, &graphic);
+	mlx_hook(graphic.win, 6, 1L << 6, handle_mouse_move, &graphic);
+	mlx_mouse_hook(graphic.win, handle_mouse_click, &graphic);
 	mlx_loop(graphic.mlx);
 }
