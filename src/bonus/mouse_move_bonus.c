@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:40:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/17 21:23:57 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 00:24:18 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	handle_mouse_move_x(t_mlx *graphic, int displace_x)
 	t_dda	*dda;
 	float	old_dir_x;
 	float	old_plane_x;
-	int		flag;
 
-	flag = 1;
-	if (displace_x < 0)
-		flag = -1;
 	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed * displace_x);
 	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed * displace_x);
 	user = &graphic->user;
@@ -39,14 +35,43 @@ void	handle_mouse_move_x(t_mlx *graphic, int displace_x)
 		+ user->plane_y * dda->cos_rot_speed;
 }
 
-int	handle_mouse_move(int x, int y, void *arg)
+void	handle_mouse_move_z(t_mlx *graphic, int displace_z)
+{
+	t_user	*user;
+	t_dda	*dda;
+	float	old_zx;
+
+	user = &graphic->user;
+	dda = &graphic->dda;
+	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed * displace_z);
+	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed * displace_z);
+	old_zx = user->zx;
+	user->zx = user->zx * dda->cos_rot_speed
+		- user->zy * -dda->sin_rot_speed;
+	user->zy = old_zx * -dda->sin_rot_speed
+		+ user->zy * dda->cos_rot_speed;
+	if (user->zx < 0 && user->zy > 0)
+	{
+		user->zx = 0.0;
+		user->zy = 1.0;
+	}
+	else if (user->zx < 0 && user->zy < 0)
+	{
+		user->zx = 0.0;
+		user->zy = -1.0;
+	}
+	printf("user->zy [%f]\n", user->zy);
+}
+
+int	handle_mouse_move(int x, int z, void *arg)
 {
 	t_mlx	*graphic;
 
 	graphic = (t_mlx *)arg;
 	(void)arg;
 	handle_mouse_move_x(graphic, x - HALF_WINWIDTH);
+	handle_mouse_move_z(graphic, z - HALF_WINHEIGHT);
 	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	printf("y: [%d] x: [%d]\n", y, x);
+	printf("y: [%d] x: [%d]\n", z, x);
 	return (0);
 }

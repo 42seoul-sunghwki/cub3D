@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/17 21:20:21 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 00:11:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/time.h>
 # include <stdbool.h>
 # include <math.h>
+# include <float.h>
 
 # include "mlx.h"
 # include "../lib/libftprintf/ft_printf.h"
@@ -69,7 +70,7 @@
 # define NUM_SPRITE_TYPE	4
 
 /* user */
-# define MOVE_SPEED	0.2
+# define MOVE_SPEED	0.15
 # define ROT_SPEED	0.0005
 
 typedef struct s_mlx		t_mlx;
@@ -217,6 +218,8 @@ typedef struct s_user {
 	float	plane_y;
 	float	move_speed;
 	float	rot_speed;
+	float	zx;
+	float	zy;
 }	t_user;
 
 /**

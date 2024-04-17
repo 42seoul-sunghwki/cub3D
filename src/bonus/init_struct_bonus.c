@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/16 13:38:00 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/18 00:18:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->dir_y = 0.0;
 	user->plane_x = 0.0;
 	user->plane_y = 0.0;
+	user->zx = 1.0;
+	user->zy = 0;
 	if (pos == 'N')
 	{
 		user->dir_y = 1.0;

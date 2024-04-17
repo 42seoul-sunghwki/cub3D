@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/16 13:38:59 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/18 00:39:50 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 		dda->draw_end_y = WINHEIGHT - 1;
 	wall_index = map->map[user->map_y][user->map_x] - '0';
 	calculate_texture(graphic, dda, user);
-	if (dda->side == 1)
-		draw_vertical_line(graphic, dda);
-	else
-		draw_vertical_line(graphic, dda);
+	draw_vertical_line(graphic, dda);
 }
 
 /**
@@ -164,7 +161,7 @@ int	game_loop(void *arg)
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
 	// printf("start loop\n");
-	draw_floor(graphic);
+	// draw_floor(graphic);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
@@ -176,5 +173,6 @@ int	game_loop(void *arg)
 	cur_time = get_time_in_us();
 	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
+	printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
 	return (0);
 }

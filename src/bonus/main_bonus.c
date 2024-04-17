@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/17 15:49:15 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/17 22:04:01 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	check()
 void	mlx_setup(t_mlx *graphic)
 {
 	mlx_mouse_hide(graphic->mlx);
+	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 }
 
 int	main(int argc, char **argv)
@@ -121,7 +122,7 @@ int	main(int argc, char **argv)
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
 	print_struct(&graphic);
-	// mlx_setup(&graphic);
+	mlx_setup(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 2, 1L, handle_keypress, &graphic);
 	mlx_hook(graphic.win, 17, 1L << 17, terminate_program, &graphic);
