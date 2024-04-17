@@ -9,6 +9,16 @@
 		"string": "c",
 		"string_view": "c",
 		"vector": "c",
-		"cub3d.h": "c"
+		"cub3d.h": "c",
+		"__bit_reference": "c",
+		"__hash_table": "c",
+		"__split_buffer": "c",
+		"initializer_list": "c",
+		"ios": "c",
+		"unordered_map": "c",
+		"time.h": "c",
+		"unistd.h": "c",
+		"bitset": "c",
+		"cub3d_bonus.h": "c"
 	}
 }

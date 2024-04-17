@@ -6,11 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 15:03:54 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 00:18:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_block(t_block *block)
 {
@@ -36,8 +36,8 @@ void	init_t_data(t_data *data)
 
 void	init_pic(t_pic *pic)
 {
-	pic->w = IMG_W;
-	pic->h = IMG_H;
+	pic->w = 0;
+	pic->h = 0;
 	init_t_data(&(pic->data));
 }
 
@@ -78,12 +78,14 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->x = (double)x;
 	user->y = (double)y;
 	user->z = 48.0;
-	user->map_x = 0;
-	user->map_y = 0;
+	user->map_x = (int) user->x;
+	user->map_y = (int) user->y;
 	user->dir_x = 0.0;
 	user->dir_y = 0.0;
 	user->plane_x = 0.0;
 	user->plane_y = 0.0;
+	user->zx = 1.0;
+	user->zy = 0;
 	if (pos == 'N')
 	{
 		user->dir_y = 1.0;

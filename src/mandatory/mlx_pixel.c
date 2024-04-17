@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 17:57:55 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:48:55 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,21 @@ int	blend_trgb(int fg_color, int bg_color)
 /**
  * TODO: need to work on sky and floor, if done with color, add texture
 */
-void	draw_texture_line(t_mlx *graphic, t_data *data, t_dda *dda, int y)
+void	draw_texture_line(t_mlx *graphic, t_data *frame, t_dda *dda, int y)
 {
 	int		tex_y;
 	int		color;
-	t_data	*pic;
+	t_data	*data;
+	t_pic	*pic;
 
-	pic = &graphic->block.pic[dda->texture_num].data;
-	tex_y = (int)dda->text_pos % IMG_H;
+	data = &graphic->block.pic[dda->texture_num].data;
+	pic = &graphic->block.pic[dda->texture_num];
+	tex_y = (int)dda->text_pos % pic->h;
 	if (tex_y < 0)
 		tex_y *= -1;
 	dda->text_pos += dda->text_step;
-	color = my_mlx_pixel_get(pic, dda->texture_x, tex_y);
-	my_mlx_pixel_put(data, dda->cur_pixel_x, y, color);
+	color = my_mlx_pixel_get(data, dda->texture_x, tex_y);
+	my_mlx_pixel_put(frame, dda->cur_pixel_x, y, color);
 }
 
 void	draw_vertical_line(t_mlx *graphic, t_dda *dda)

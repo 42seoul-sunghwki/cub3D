@@ -6,11 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 14:10:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/14 14:10:50 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/17 22:00:12 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	handle_left_arrow(t_mlx *graphic, int keycode)
 {
@@ -24,14 +24,14 @@ void	handle_left_arrow(t_mlx *graphic, int keycode)
 	dda = &graphic->dda;
 	old_dir_x = user->dir_x;
 	old_plane_x = user->plane_x;
-	user->dir_x = user->dir_x * dda->cos_rot_speed
-		- user->dir_y * dda->sin_rot_speed;
-	user->dir_y = old_dir_x * dda->sin_rot_speed
-		+ user->dir_y * dda->cos_rot_speed;
-	user->plane_x = user->plane_x * dda->cos_rot_speed
-		- user->plane_y * dda->sin_rot_speed;
-	user->plane_y = old_plane_x * dda->sin_rot_speed
-		+ user->plane_y * dda->cos_rot_speed;
+	user->dir_x = user->dir_x * dda->cos_rot_speed * 2
+		- user->dir_y * dda->sin_rot_speed * 2;
+	user->dir_y = old_dir_x * dda->sin_rot_speed * 2
+		+ user->dir_y * dda->cos_rot_speed * 2;
+	user->plane_x = user->plane_x * dda->cos_rot_speed * 2
+		- user->plane_y * dda->sin_rot_speed * 2;
+	user->plane_y = old_plane_x * dda->sin_rot_speed * 2
+		+ user->plane_y * dda->cos_rot_speed * 2;
 }
 
 void	handle_right_arrow(t_mlx *graphic, int keycode)
@@ -68,7 +68,7 @@ void	check_collision(t_mlx *graphic, int keycode)
 	map = &graphic->map;
 	flag = -1;
 	// printf("keycode: %d\n", keycode);
-	if (keycode == 3)
+	if (keycode - ARROW_OFFSET == 3 || keycode == 65362 || keycode == 13)
 		flag = 1;
 	new_displacement_y = user->dir_y * flag * user->move_speed;
 	new_displacement_x = user->dir_x * flag * user->move_speed;

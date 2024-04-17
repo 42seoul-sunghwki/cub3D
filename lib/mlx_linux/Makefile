@@ -11,9 +11,14 @@
 ## Please use configure script
 
 
+BIN_DIR = bin
+
+$(BIN_DIR):
+	mkdir -p $@
+
 all	: do_configure
 
-do_configure	:
+do_configure	: | $(BIN_DIR)
 	./configure
 
 clean	:
