@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keypress_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/16 13:10:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/17 14:03:53 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_keypress(int keycode, void *arg)
 		on_escape(graphic);
 	if (keycode >= 123 && keycode <= 126)
 	{
-		f[keycode]((t_mlx *)arg, keycode);
+		f[keycode - ARROW_OFFSET]((t_mlx *)arg, keycode);
 	}
 	else if(keycode >= 65361 && keycode <= 65364)
 	{

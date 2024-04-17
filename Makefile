@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/16 13:34:18 by codespace        ###   ########.fr        #
+#    Updated: 2024/04/17 14:00:21 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,44 +90,44 @@ $(OBJ_BONUS_DIR):
 
 #for linux
 
-$(MLX_LINUX): 
-	make -C ./lib/mlx_linux all
+# $(MLX_LINUX): 
+# 	make -C ./lib/mlx_linux all
 
-$(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -Imlx_linux -O3 -c $< -o $@
+# $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
+# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -Imlx_linux -O3 -c $< -o $@
 
-$(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(MANDATORY_BIN_DIR)
-	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
-	$(LIBFT) -o $(NAME)
+# $(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(MANDATORY_BIN_DIR)
+# 	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
+# 	$(LIBFT) -o $(NAME)
 #	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
 
 #bonus
-$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) -pg -g -Iinclude -Iinclude/bonus -Imlx_linux -O3 -c $< -o $@
+# $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
+# 	$(CC) -pg -g -Iinclude -Iinclude/bonus -Imlx_linux -O3 -c $< -o $@
 
-$(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BONUS_BIN_DIR)
-	$(CC) -pg -p $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
-	$(LIBFT) -o $(NAME_BONUS)
+# $(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BONUS_BIN_DIR)
+# 	$(CC) -pg -p $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
+# 	$(LIBFT) -o $(NAME_BONUS)
 # install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 
 #for MAC
 # mandatory
-# $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
+$(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
+	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
 
-# $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
-# 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
-# 	$(LIBFT) $(MLX) -o  $(NAME)
-# 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
+$(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
+	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
+	$(LIBFT) $(MLX) -o  $(NAME)
+	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
 
 # bonus
-# $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
+$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
+	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
 
-# $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
-# 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
-# 	$(LIBFT) -o $(NAME_BONUS)
-# 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
+$(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
+	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
+	$(LIBFT) -o $(NAME_BONUS)
+	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
 
 $(LIBFT):
