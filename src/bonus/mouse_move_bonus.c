@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:40:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/18 00:24:18 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:38:54 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	handle_mouse_move_z(t_mlx *graphic, int displace_z)
 		user->zx = 0.0;
 		user->zy = -1.0;
 	}
-	printf("user->zy [%f]\n", user->zy);
+	// printf("user->zy [%f]\n", user->zy);
 }
 
 int	handle_mouse_move(int x, int z, void *arg)
@@ -72,6 +72,6 @@ int	handle_mouse_move(int x, int z, void *arg)
 	handle_mouse_move_x(graphic, x - HALF_WINWIDTH);
 	handle_mouse_move_z(graphic, z - HALF_WINHEIGHT);
 	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	printf("y: [%d] x: [%d]\n", z, x);
+	// printf("y: [%d] x: [%d]\n", z, x);
 	return (0);
 }

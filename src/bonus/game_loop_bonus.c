@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/18 00:39:50 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:05:26 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
 		|| (dda->side == 1 && dda->raydir_y < 0))
 		dda->texture_x = texture->w - dda->texture_x - 1;
 	dda->text_step = 1.0 * texture->h / dda->line_height;
-	dda->text_pos = (dda->draw_start_y - (WINHEIGHT) / 2
+	dda->text_pos = (dda->draw_start_y - ((WINHEIGHT) / 2 + WINWIDTH * user->zy)
 			+ dda->line_height / 2) * dda->text_step;
 }
 
@@ -86,10 +86,11 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	(void) map;
 	half_line_height = dda->line_height / 2;
 	dda->line_height = (int)(WINHEIGHT * WALL_RATIO / dda->perp_wall_dist);
-	dda->draw_start_y = -half_line_height + HALF_WINHEIGHT;
+	dda->draw_start_y = -half_line_height + HALF_WINHEIGHT
+		+ WINWIDTH * user->zy;
 	if (dda->draw_start_y < 0)
 		dda->draw_start_y = 0;
-	dda->draw_end_y = half_line_height + HALF_WINHEIGHT;
+	dda->draw_end_y = half_line_height + HALF_WINHEIGHT + WINWIDTH * user->zy;
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
 	wall_index = map->map[user->map_y][user->map_x] - '0';
@@ -122,6 +123,10 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 	}
 }
 
+/**
+ * z component added when calculating floor.p (current z position)
+ * TODO: fix - wall doesn't get drawn over horizontal line
+*/
 void	draw_floor(t_mlx *graphic)
 {
 	t_floor			floor;
@@ -136,7 +141,7 @@ void	draw_floor(t_mlx *graphic)
 		floor.raydir_y_start = user->dir_y - user->plane_y;
 		floor.raydir_x_end = user->dir_x + user->plane_x;
 		floor.raydir_y_end = user->dir_y + user->plane_y;
-		floor.p = i - HALF_WINHEIGHT;
+		floor.p = i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy); // adding z compomenet to make floor with z change
 		floor.pos_z = 1.34 * WINHEIGHT * 0.5;
 		floor.row_distance = floor.pos_z / floor.p;
 		floor.floor_step_x = -floor.row_distance
@@ -161,7 +166,7 @@ int	game_loop(void *arg)
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
 	// printf("start loop\n");
-	// draw_floor(graphic);
+	draw_floor(graphic);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
@@ -173,6 +178,6 @@ int	game_loop(void *arg)
 	cur_time = get_time_in_us();
 	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
-	printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
+	// printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
 	return (0);
 }

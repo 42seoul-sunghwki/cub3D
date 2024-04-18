@@ -5,7 +5,7 @@ EA ./texture/redbrick.xpm
 FI ./texture/stone.xpm
 
 F 0,0,0
-C 1,1,1
+C 255,255,255
 
 111111111111111111111
 10000S000000000000001

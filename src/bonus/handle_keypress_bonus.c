@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/17 22:37:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:40:34 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	handle_keypress(int keycode, void *arg)
 		check_collision
 	};
 
-	printf("keycode: %d\n", keycode);
+	// printf("keycode: %d\n", keycode);
 	if (keycode == 53 || keycode == 65307)
 		on_escape((t_mlx *)arg);
 	if (keycode >= 123 && keycode <= 126)
