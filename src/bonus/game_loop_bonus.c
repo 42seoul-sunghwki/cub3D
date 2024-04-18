@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/18 21:05:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:08:33 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 
 /**
  * z component added when calculating floor.p (current z position)
- * TODO: fix - wall doesn't get drawn over horizontal line
+ * TODO: fix - wall doesn't get drawn over horizontal line (o)
+ * fixed above by remove / 2 for i
+ * 
 */
 void	draw_floor(t_mlx *graphic)
 {
@@ -133,7 +135,7 @@ void	draw_floor(t_mlx *graphic)
 	t_user			*user;
 	int				i;
 
-	i = WINHEIGHT / 2;
+	i = WINHEIGHT;
 	user = &graphic->user;
 	while (--i > 0)
 	{

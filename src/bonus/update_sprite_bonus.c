@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/16 13:55:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/18 21:32:20 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ static void	calculate_sprite(t_sprite_info *sprite,
 			* sprite->sprite_x + user->plane_x * sprite->sprite_y);
 	sprite->sprite_screen_x = (int)((WINWIDTH / 2)
 			* (1 + sprite->transform_x / sprite->transform_y));
-	sprite->sprite_height = abs((int)(WINHEIGHT / (sprite->transform_y))) * 1.34;
-	sprite->draw_start_y = -sprite->sprite_height / 2 + WINHEIGHT / 2;
+	sprite->sprite_height = abs((int)(WINHEIGHT
+				/ (sprite->transform_y))) * 1.34;
+	sprite->draw_start_y = -(sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy;
 	if (sprite->draw_start_y < 0)
 		sprite->draw_start_y = 0;
-	sprite->draw_end_y = sprite->sprite_height / 2 + WINHEIGHT / 2;
+	sprite->draw_end_y = (sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy;
 	if (sprite->draw_end_y >= WINHEIGHT)
 		sprite->draw_end_y = WINHEIGHT - 1;
 	sprite->sprite_width = abs((int)(WINHEIGHT / sprite->transform_y));
@@ -54,7 +55,7 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 	// printf("draw sprite pixel\n");
 	while (++j < sprite->draw_end_y)
 	{
-		d = (j) * 256 - WINHEIGHT * 128 + sprite->sprite_height * 128;
+		d = (j - WINWIDTH * graphic->user.zy) * 256 - (WINHEIGHT * 128) + sprite->sprite_height * 128;
 		sprite->tex_y = ((d * texture->h) / sprite->sprite_height) / 256;
 		// printf("%p\n", &texture->data);
 		color = my_mlx_pixel_get(&texture->data, sprite->tex_x, sprite->tex_y);
