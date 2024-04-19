@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/17 22:04:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:46:56 by jacob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,18 @@ void	print_struct(t_mlx *mlx)
 	print_map(&mlx->map);
 }
 
-void	check()
-{
-	system("leaks cub3D");
-}
+// void	check()
+// {
+// 	system("leaks cub3D");
+// }
 
 void	mlx_setup(t_mlx *graphic)
 {
-	mlx_mouse_hide(graphic->mlx);
-	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
+	//Mac
+	// mlx_mouse_hide(graphic->mlx);
+	// mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
+	mlx_mouse_hide(graphic->mlx, graphic->win);
+	mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 }
 
 int	main(int argc, char **argv)
@@ -115,6 +118,7 @@ int	main(int argc, char **argv)
 	t_mlx	graphic;
 	t_map	*map;
 
+	// (void) map;
 	if (init_main(argc) == FAIL)
 		return (1);
 	ft_memset(&graphic, 0, sizeof(t_mlx));
@@ -122,7 +126,7 @@ int	main(int argc, char **argv)
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
 	print_struct(&graphic);
-	mlx_setup(&graphic);
+	// mlx_setup(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 2, 1L, handle_keypress, &graphic);
 	mlx_hook(graphic.win, 17, 1L << 17, terminate_program, &graphic);
