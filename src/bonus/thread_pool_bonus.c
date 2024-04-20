@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 22:27:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:56:05 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ static void	*worker_thread(void *arg)
 		task = pop_task(pool);
 		pthread_mutex_unlock(&pool->mutex);
 		task->function(task->arg);
+		pthread_mutex_lock(&pool->mutex);
+		pool->task_complete++;
+		pthread_cond_signal(&pool->synchronize);
+		pthread_mutex_unlock(&pool->mutex);
 	}
 }
 
@@ -68,10 +72,20 @@ void	thread_pool_shutdown(t_thread_pool *pool)
 	pthread_cond_destroy(&pool->condition);
 }
 
-// void	wait_for_threads(t_thread_pool *pool)
-// {
-// 	while (pool->task_complete < pool->total_task)
-// 	{
-// 		pthread_cond_wait(&pool->synchronize);
-// 	}
-// }
+void	start_wait_for_threads(t_thread_pool *pool, int total_task)
+{
+	pthread_mutex_lock(&pool->mutex);
+	pool->total_task = total_task;
+	pool->task_complete = 0;
+	pthread_mutex_unlock(&pool->mutex);
+}
+
+void	wait_for_threads(t_thread_pool *pool)
+{
+	pthread_mutex_lock(&pool->mutex);
+	while (pool->task_complete < pool->total_task)
+	{
+		pthread_cond_wait(&pool->synchronize, &pool->mutex);
+	}
+	pthread_mutex_unlock(&pool->mutex);
+}

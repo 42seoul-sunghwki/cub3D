@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/20 22:20:43 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 00:11:25 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,8 +247,6 @@ typedef struct s_user {
 	float	x;
 	float	y;
 	float	z;
-	int		map_x;
-	int		map_y;
 	float	dir_x;
 	float	dir_y;
 	float	plane_x;
@@ -279,6 +277,7 @@ typedef struct s_user {
  * @var int		draw_end_y		the end y value of the vertical line drawing
 */
 typedef struct s_dda {
+	t_mlx			*mlx;
 	float			camera_x;
 	float			raydir_x;
 	float			raydir_y;
@@ -294,6 +293,8 @@ typedef struct s_dda {
 	float			cos_rot_speed;
 	float			sin_rot_speed;
 	float			z_buffer[WINWIDTH];
+	int				map_x;
+	int				map_y;
 	int				draw_start_x;
 	int				draw_end_x;
 	int				step_x;
@@ -305,6 +306,7 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
+	int				end_pixel_x;
 }	t_dda;
 
 typedef struct s_sprite_info
@@ -488,6 +490,14 @@ t_task			*pop_task(t_thread_pool *pool);
 /* thread_pool_bonus.c */
 void			thread_pool_init(t_thread_pool *pool, int num_threads);
 void			thread_pool_shutdown(t_thread_pool *pool);
+void			start_wait_for_threads(t_thread_pool *pool, int total_task);
+void			wait_for_threads(t_thread_pool *pool);
+
+/* draw_wall_bonus.c */
+void			draw_wall_routine(void *arg);
+
+/* draw_walls_thread.c */
+void			draw_wall_thread(t_mlx *graphic);
 
 /**
  * open_file.c
