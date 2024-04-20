@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 21:34:06 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:27:26 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	thread_pool_init(t_thread_pool *pool, int num_threads)
 	pool->threads = malloc(sizeof(pthread_t) * num_threads);
 	pthread_mutex_init(&pool->mutex, NULL);
 	pthread_cond_init(&pool->condition, NULL);
+	pthread_cond_init(&pool->synchronize, NULL);
 	i = -1;
 	while (++i < num_threads)
 	{
@@ -66,3 +67,11 @@ void	thread_pool_shutdown(t_thread_pool *pool)
 	pthread_mutex_destroy(&pool->mutex);
 	pthread_cond_destroy(&pool->condition);
 }
+
+// void	wait_for_threads(t_thread_pool *pool)
+// {
+// 	while (pool->task_complete < pool->total_task)
+// 	{
+// 		pthread_cond_wait(&pool->synchronize);
+// 	}
+// }

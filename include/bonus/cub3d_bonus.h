@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/20 21:35:43 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:20:43 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ typedef struct s_thread_pool
 	int				num_threads;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	condition;
+	pthread_cond_t	synchronize;
+	int				task_complete;
+	int				total_task;
 	bool			shutdown;
 }	t_thread_pool;
 

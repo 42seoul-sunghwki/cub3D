@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 21:45:24 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:03:43 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,6 @@ void	draw_floor(t_mlx *graphic)
 		if (i == graphic->num_threads - 1)
 			floor->end_i = WINHEIGHT;
 		add_task(&graphic->pool, create_task(draw_floor_routine, floor));
-	}
-	i = -1;
-	while (++i < graphic->num_threads)
-	{
-		pthread_join(graphic->pool.threads[i], NULL);
 	}
 }
 

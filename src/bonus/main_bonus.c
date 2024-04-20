@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 20:51:59 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:32:26 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_t_mlx(t_mlx *graphic)
 	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	if (graphic->num_threads < 0)
 		perror("sysconf");
+	printf("num_threads: [%ld]\n", graphic->num_threads);
 	thread_pool_init(&graphic->pool, graphic->num_threads);
 }
 
@@ -131,7 +132,7 @@ int	main(int argc, char **argv)
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
 	print_struct(&graphic);
-	// mlx_setup(&graphic);
+	mlx_setup(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
 	mlx_hook(graphic.win, 2, 1L, handle_keypress, &graphic);
 	mlx_hook(graphic.win, 17, 1L << 17, terminate_program, &graphic);
