@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/19 15:46:56 by jacob            ###   ########.fr       */
+/*   Updated: 2024/04/20 17:44:31 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	init_t_mlx(t_mlx *graphic)
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	init_sprite_vec(vec);
 	push_sprite(vec, create_sprite_node(2, 2, 0));
+	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
+	if (graphic->num_threads < 0)
+		perror("sysconf");
 }
 
 int	init_main(int argc)
@@ -106,10 +109,11 @@ void	print_struct(t_mlx *mlx)
 void	mlx_setup(t_mlx *graphic)
 {
 	//Mac
-	// mlx_mouse_hide(graphic->mlx);
-	// mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	mlx_mouse_hide(graphic->mlx, graphic->win);
-	mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
+	mlx_mouse_hide(graphic->mlx);
+	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
+	//linux
+	// mlx_mouse_hide(graphic->mlx, graphic->win);
+	// mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/18 00:11:15 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:50:54 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <float.h>
+# include <pthread.h>
 
 # include "mlx.h"
 # include "../lib/libftprintf/ft_printf.h"
@@ -82,6 +83,36 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
+
+/**
+ * Thread testing
+*/
+
+typedef struct s_task
+{
+	void			(*function)(void *);
+	void			*arg;
+	struct s_task	*next;
+	struct s_task	*prev;
+}	t_task;
+
+typedef struct s_task_queue
+{
+	t_task	*head;
+	t_task	*tail;
+	int		size;
+}	t_task_queue;
+
+typedef struct s_thread_pool
+{
+	pthread_t		*threads;
+	t_task_queue	*queue;
+	int				num_threads;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	condition;
+	bool			shutdown;
+}	t_thread_pool;
+
 
 /**
  * @var	void	*img
@@ -308,6 +339,7 @@ typedef struct s_mlx {
 	void			*win;
 	t_data			img_data[2];
 	int				num_frame;
+	long			num_threads;
 	size_t			total_frame;
 	t_map			map;
 	t_block			block;

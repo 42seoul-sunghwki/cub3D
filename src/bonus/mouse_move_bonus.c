@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_move_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jacob <jacob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:40:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/19 15:46:43 by jacob            ###   ########.fr       */
+/*   Updated: 2024/04/20 16:13:30 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ int	handle_mouse_move(int x, int z, void *arg)
 	handle_mouse_move_x(graphic, x - HALF_WINWIDTH);
 	handle_mouse_move_z(graphic, z - HALF_WINHEIGHT);
 	//mac
-	// mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
+	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
+	//linux
+	// mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 	// printf("y: [%d] x: [%d]\n", z, x);
 	return (0);
 }
