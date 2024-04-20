@@ -6,11 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 19:08:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:34:06 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "cub3d_bonus.h"
 
 static void	*worker_thread(void *arg)
 {

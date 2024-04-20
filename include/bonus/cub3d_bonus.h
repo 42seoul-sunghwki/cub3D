@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/20 18:50:54 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:35:43 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_task_queue
 typedef struct s_thread_pool
 {
 	pthread_t		*threads;
-	t_task_queue	*queue;
+	t_task_queue	queue;
 	int				num_threads;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	condition;
@@ -173,6 +173,7 @@ typedef struct s_pic {
 }	t_pic;
 
 typedef struct s_floor {
+	t_mlx	*mlx;
 	float	raydir_x_start;
 	float	raydir_y_start;
 	float	raydir_x_end;
@@ -188,6 +189,8 @@ typedef struct s_floor {
 	float	tx;
 	float	cell_x;
 	float	cell_y;
+	int		start_i;
+	int		end_i;
 }	t_floor;
 
 typedef struct s_sprite_node
@@ -341,6 +344,7 @@ typedef struct s_mlx {
 	int				num_frame;
 	long			num_threads;
 	size_t			total_frame;
+	t_thread_pool	pool;
 	t_map			map;
 	t_block			block;
 	t_sprite		sprite[NUM_SPRITE];
@@ -472,6 +476,15 @@ t_sprite_node	*create_sprite_node(float x, float y,
 
 /* mouse_move_bonus.c */
 int				handle_mouse_move(int x, int y, void *arg);
+
+/* task_queue_bonus.c */
+t_task			*create_task(void (*function)(void *), void *arg);
+void			add_task(t_thread_pool *pool, t_task *task);
+t_task			*pop_task(t_thread_pool *pool);
+
+/* thread_pool_bonus.c */
+void			thread_pool_init(t_thread_pool *pool, int num_threads);
+void			thread_pool_shutdown(t_thread_pool *pool);
 
 /**
  * open_file.c

@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/20 18:55:41 by minsepar         ###   ########.fr        #
+#    Updated: 2024/04/20 20:48:53 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
 			mergesort_sprite_bonus.c sprite_list_bonus.c \
-			update_sprite_bonus.c mouse_move_bonus.c
+			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
+			thread_pool_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 16:14:42 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:45:24 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,30 +129,53 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
  * fixed above by remove / 2 for i
  * 
 */
+void	draw_floor_routine(void *arg)
+{
+	t_floor			*floor;
+	t_user			*user;
+
+	floor = arg;
+	user = &floor->mlx->user;
+	while (--floor->end_i >= floor->start_i)
+	{
+		floor->raydir_x_start = user->dir_x - user->plane_x;
+		floor->raydir_y_start = user->dir_y - user->plane_y;
+		floor->raydir_x_end = user->dir_x + user->plane_x;
+		floor->raydir_y_end = user->dir_y + user->plane_y;
+		floor->p = floor->end_i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy); // adding z compomenet to make floor with z change
+		floor->pos_z = 1.34 * WINHEIGHT * 0.5;
+		floor->row_distance = floor->pos_z / floor->p;
+		floor->floor_step_x = -floor->row_distance
+			* (floor->raydir_x_end - floor->raydir_x_start) / (WINWIDTH);
+		floor->floor_step_y = -floor->row_distance
+			* (floor->raydir_y_end - floor->raydir_y_start) / (WINWIDTH);
+		floor->floor_x = user->x - floor->row_distance * floor->raydir_x_start;
+		floor->floor_y = user->y - floor->row_distance * floor->raydir_y_start;
+		draw_floor_pixel(floor->mlx, floor, floor->end_i);
+	}
+	free(floor);
+}
+
 void	draw_floor(t_mlx *graphic)
 {
-	t_floor			floor;
-	t_user			*user;
-	int				i;
+	int		i;
+	t_floor	*floor;
 
-	i = WINHEIGHT;
-	user = &graphic->user;
-	while (--i > 0)
+	i = -1;
+	while (++i < graphic->num_threads)
 	{
-		floor.raydir_x_start = user->dir_x - user->plane_x;
-		floor.raydir_y_start = user->dir_y - user->plane_y;
-		floor.raydir_x_end = user->dir_x + user->plane_x;
-		floor.raydir_y_end = user->dir_y + user->plane_y;
-		floor.p = i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy); // adding z compomenet to make floor with z change
-		floor.pos_z = 1.34 * WINHEIGHT * 0.5;
-		floor.row_distance = floor.pos_z / floor.p;
-		floor.floor_step_x = -floor.row_distance
-			* (floor.raydir_x_end - floor.raydir_x_start) / (WINWIDTH);
-		floor.floor_step_y = -floor.row_distance
-			* (floor.raydir_y_end - floor.raydir_y_start) / (WINWIDTH);
-		floor.floor_x = user->x - floor.row_distance * floor.raydir_x_start;
-		floor.floor_y = user->y - floor.row_distance * floor.raydir_y_start;
-		draw_floor_pixel(graphic, &floor, i);
+		floor = malloc(sizeof(t_floor));
+		floor->mlx = graphic;
+		floor->start_i = WINHEIGHT / graphic->num_threads * i;
+		floor->end_i = WINHEIGHT / graphic->num_threads * (i + 1);
+		if (i == graphic->num_threads - 1)
+			floor->end_i = WINHEIGHT;
+		add_task(&graphic->pool, create_task(draw_floor_routine, floor));
+	}
+	i = -1;
+	while (++i < graphic->num_threads)
+	{
+		pthread_join(graphic->pool.threads[i], NULL);
 	}
 }
 

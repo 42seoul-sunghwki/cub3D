@@ -6,11 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:10:01 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 19:11:27 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:35:56 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "cub3d_bonus.h"
 
 t_task	*create_task(void (*function)(void *), void *arg)
 {
