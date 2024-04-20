@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/21 00:11:25 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 01:33:03 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,6 @@ typedef struct s_dda {
 	float			line_height;
 	float			cos_rot_speed;
 	float			sin_rot_speed;
-	float			z_buffer[WINWIDTH];
 	int				map_x;
 	int				map_y;
 	int				draw_start_x;
@@ -348,6 +347,7 @@ typedef struct s_mlx {
 	t_data			img_data[2];
 	int				num_frame;
 	long			num_threads;
+	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
 	t_thread_pool	pool;
 	t_map			map;

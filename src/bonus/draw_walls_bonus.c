@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 00:26:08 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 02:16:26 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
 */
 static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
-	int		wall_index;
+	// int		wall_index;
 	float	half_line_height;
 
 	(void) map;
@@ -93,7 +93,7 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	dda->draw_end_y = half_line_height + HALF_WINHEIGHT + WINWIDTH * user->zy;
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
-	wall_index = map->map[dda->map_y][dda->map_x] - '0';
+	// wall_index = map->map[dda->map_y][dda->map_x] - '0';
 	calculate_texture(graphic, dda, user);
 	draw_vertical_line(graphic, dda);
 }

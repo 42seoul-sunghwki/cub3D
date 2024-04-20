@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/21 00:43:12 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 01:34:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 }
 
 static void	draw_sprite(t_sprite_info *sprite,
-	t_mlx *graphic, t_pic *texture, t_dda *dda)
+	t_mlx *graphic, t_pic *texture)
 {
 	int		i;
 	t_user	*user;
@@ -82,7 +82,7 @@ static void	draw_sprite(t_sprite_info *sprite,
 				* (i - (-sprite->sprite_width / 2 + sprite->sprite_screen_x)))
 			* texture->w / sprite->sprite_width / 256;
 		if (sprite->transform_y > 0 && i > 0 && i < WINWIDTH
-			&& sprite->transform_y < dda->z_buffer[i])
+			&& sprite->transform_y < graphic->z_buffer[i])
 			draw_sprite_pixel(sprite, graphic, texture, i);
 	}
 }
@@ -106,8 +106,7 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 		frame_num = graphic->total_frame % (sprite->num_img * sprite->fpm) / sprite->fpm;
 		// printf("start_frame: %ld, total_frame: [%ld] tex_num: %ld num_img %d\n", cur_sprite->start_frame, graphic->total_frame, frame_diff / sprite->fpm, sprite->num_img);
 		calculate_sprite(&graphic->sprite_info ,cur_sprite, user);
-		draw_sprite(&graphic->sprite_info, graphic,
-			&sprite->img[frame_num], &graphic->dda);
+		draw_sprite(&graphic->sprite_info, graphic, &sprite->img[frame_num]);
 	}
 }
 
