@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 23:04:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:39:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	game_loop(void *arg)
 	// printf("start loop\n");
 	// cur_time = get_time_in_us();
 	pthread_mutex_lock(&graphic->counter_mutex);
-	while (graphic->frame_sync_counter >= 1)
+	while (graphic->frame_sync_counter > 1)
 		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
 	pthread_mutex_unlock(&graphic->counter_mutex);
 	draw_floor_thread(graphic);
