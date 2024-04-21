@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/18 00:11:15 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:32:11 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <float.h>
 
 # include "mlx.h"
-# include "../lib/libftprintf/ft_printf.h"
+# include "ft_printf.h"
 
 # define WINWIDTH 1600
 # define WINHEIGHT 900
