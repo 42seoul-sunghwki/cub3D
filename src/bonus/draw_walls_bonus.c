@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 02:16:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 02:40:01 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,17 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	float	half_line_height;
 
 	(void) map;
-	half_line_height = dda->line_height / 2;
 	dda->line_height = (int)(WINHEIGHT * WALL_RATIO / dda->perp_wall_dist);
+	half_line_height = dda->line_height / 2;
 	dda->draw_start_y = -half_line_height + HALF_WINHEIGHT
 		+ WINWIDTH * user->zy;
 	if (dda->draw_start_y < 0)
 		dda->draw_start_y = 0;
 	dda->draw_end_y = half_line_height + HALF_WINHEIGHT + WINWIDTH * user->zy;
+	// if (dda->draw_end_y < 0)
+	// {
+	// 	printf("half_line_height: %f\n", half_line_height);
+	// }
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
 	// wall_index = map->map[dda->map_y][dda->map_x] - '0';

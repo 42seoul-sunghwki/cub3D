@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 01:48:51 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 02:21:33 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,11 @@ void	draw_floor_thread(t_mlx *graphic)
 
 int	game_loop(void *arg)
 {
-	t_dda			*dda;
 	t_mlx			*graphic;
 	t_user			*user;
 	size_t			cur_time;
 
 	graphic = arg;
-	dda = &graphic->dda;
 	user = &graphic->user;
 	// printf("start loop\n");
 	// cur_time = get_time_in_us();
