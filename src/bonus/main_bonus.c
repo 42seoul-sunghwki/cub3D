@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 22:32:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:03:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ void	init_t_mlx(t_mlx *graphic)
 	i = -1;
 	graphic->mlx = mlx_init();
 	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
-	while (++i < 2)
+	while (++i < 3)
 	{
 		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, WINHEIGHT);
 		get_img_addr(&graphic->img_data[i]);
 		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
 	graphic->num_frame = 0;
+	graphic->num_frame_render = 0;
 	graphic->total_frame = 0;
 	graphic->block.f_trgb = 0xced4da;
 	graphic->block.c_trgb = 0;
@@ -64,6 +65,7 @@ void	init_t_mlx(t_mlx *graphic)
 		perror("sysconf");
 	printf("num_threads: [%ld]\n", graphic->num_threads);
 	thread_pool_init(&graphic->pool, graphic->num_threads);
+	init_frame_thread(graphic);
 }
 
 int	init_main(int argc)
