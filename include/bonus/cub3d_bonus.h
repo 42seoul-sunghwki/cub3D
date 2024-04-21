@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/21 19:55:38 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:53:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,16 +352,11 @@ typedef struct s_sprite_info
 typedef struct s_mlx {
 	void			*mlx;
 	void			*win;
-	t_data			img_data[3];
-	int				frame_sync_counter;
+	t_data			img_data[2];
 	int				num_frame;
-	int				num_frame_render;
 	long			num_threads;
 	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
-	pthread_t		render_thread;
-	pthread_cond_t	render_cond;
-	pthread_mutex_t	counter_mutex;
 	t_thread_pool	pool;
 	t_map			map;
 	t_block			block;
@@ -449,7 +444,6 @@ void			get_img_addr(t_data *data);
 
 /* frame_bonus.c */
 void			display_frame(t_mlx *graphic);
-void			init_frame_thread(t_mlx *graphic);
 
 /* game_loop_bonus.c */
 int				game_loop(void *arg);

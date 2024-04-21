@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 23:04:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:03:31 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,25 +100,13 @@ int	game_loop(void *arg)
 	user = &graphic->user;
 	// printf("start loop\n");
 	// cur_time = get_time_in_us();
-	pthread_mutex_lock(&graphic->counter_mutex);
-	while (graphic->frame_sync_counter >= 1)
-		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
-	pthread_mutex_unlock(&graphic->counter_mutex);
 	draw_floor_thread(graphic);
 	// printf("time taken: [%lu]us\n", get_time_in_us() - cur_time);
 	// cur_time = get_time_in_us();
 	draw_wall_thread(graphic);
 	// printf("draw_wall: [%lu]\n", get_time_in_us() - cur_time);
 	update_sprite(graphic, user);
-	// printf("game loop %d %d\n", graphic->num_frame, graphic->num_frame_render);
-	pthread_mutex_lock(&graphic->counter_mutex);
-	graphic->frame_sync_counter++;
-	pthread_cond_signal(&graphic->render_cond);
-	pthread_mutex_unlock(&graphic->counter_mutex);
-	graphic->num_frame += 1;
-	graphic->num_frame %= 3;
-	// printf("graphic->num_frame %d\n", graphic->num_frame);
-	graphic->total_frame++;
+	display_frame(graphic);
 	cur_time = get_time_in_us();
 	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;

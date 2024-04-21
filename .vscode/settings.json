@@ -20,8 +20,6 @@
 		"unistd.h": "c",
 		"bitset": "c",
 		"cub3d_bonus.h": "c",
-		"test.h": "c",
-		"__locale": "c",
-		"_pthread_types.h": "c"
+		"test.h": "c"
 	}
 }

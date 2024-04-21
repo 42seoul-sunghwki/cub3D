@@ -6,16 +6,12 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 16:09:35 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 01:48:12 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-/**
- * worker routine function
- * t_task will be freed after task is done
-*/
 static void	*worker_thread(void *arg)
 {
 	t_thread_pool	*pool;
@@ -40,7 +36,6 @@ static void	*worker_thread(void *arg)
 		// printf("task complete: %d\n", pool->task_complete);
 		pthread_cond_signal(&pool->synchronize);
 		pthread_mutex_unlock(&pool->mutex);
-		free(task);
 	}
 }
 
