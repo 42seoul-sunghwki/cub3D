@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/21 01:33:03 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:53:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,15 @@ typedef struct s_dda {
 	int				end_pixel_x;
 }	t_dda;
 
+typedef struct s_sprite_thread
+{
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
+	t_mlx	*mlx;
+}	t_sprite_thread;
+
 typedef struct s_sprite_info
 {
 	float	sprite_x;
@@ -322,8 +331,7 @@ typedef struct s_sprite_info
 	int		sprite_width;
 	int		draw_start_x;
 	int		draw_end_x;
-	int		tex_x;
-	int		tex_y;
+	t_pic	*texture;
 }	t_sprite_info;
 
 /**
@@ -353,8 +361,8 @@ typedef struct s_mlx {
 	t_map			map;
 	t_block			block;
 	t_sprite		sprite[NUM_SPRITE];
-	t_sprite_vec	sprite_vec;
 	t_sprite_info	sprite_info;
+	t_sprite_vec	sprite_vec;
 	t_user			user;
 	size_t			time;
 	t_dda			dda;
@@ -461,6 +469,7 @@ void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
 
 /* draw_sprite_bonus.c */
+void			draw_sprite(void *arg);
 void			update_sprite(t_mlx *graphic, t_user *user);
 
 /* mergesort_sprite_bonus.c */
@@ -499,6 +508,8 @@ void			draw_wall_routine(void *arg);
 /* draw_walls_thread.c */
 void			draw_wall_thread(t_mlx *graphic);
 
+/* draw_sprite_thread.c */
+void			draw_sprite_thread(t_mlx *graphic, t_pic *texture);
 /**
  * open_file.c
  * 

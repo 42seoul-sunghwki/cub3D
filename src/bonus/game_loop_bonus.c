@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 02:21:33 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:03:31 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,13 @@ int	game_loop(void *arg)
 	// cur_time = get_time_in_us();
 	draw_floor_thread(graphic);
 	// printf("time taken: [%lu]us\n", get_time_in_us() - cur_time);
-	// while (++dda->cur_pixel_x < WINWIDTH)
-	// {
-	// 	init_data(dda, user, dda->cur_pixel_x);
-	// 	perform_dda(dda, user, &graphic->map);
-	// 	draw_walls(dda, graphic, user, &graphic->map);
-	// }
+	// cur_time = get_time_in_us();
 	draw_wall_thread(graphic);
+	// printf("draw_wall: [%lu]\n", get_time_in_us() - cur_time);
 	update_sprite(graphic, user);
 	display_frame(graphic);
 	cur_time = get_time_in_us();
-	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
+	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
 	// printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
 	return (0);
