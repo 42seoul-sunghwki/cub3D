@@ -25,7 +25,7 @@
 # include <pthread.h>
 
 # include "mlx.h"
-# include "ft_printf.h"
+# include "../lib/libftprintf/ft_printf.h"
 
 # define WINWIDTH 1600
 # define WINHEIGHT 900
