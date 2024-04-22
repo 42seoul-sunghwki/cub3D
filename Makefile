@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/21 23:39:30 by minsepar         ###   ########.fr        #
+#    Updated: 2024/04/22 14:39:33 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,7 +115,7 @@ $(OBJ_BONUS_DIR):
 #for MAC
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
@@ -124,7 +124,7 @@ $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
