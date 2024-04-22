@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/21 19:55:38 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:41:46 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <sys/time.h>
 # include <stdbool.h>
 # include <math.h>
-# include <float.h>
 # include <pthread.h>
 
 # include "mlx.h"
@@ -56,6 +55,11 @@
 # define SKY	4
 # define FLOOR	5
 
+# define A 0
+# define S 1
+# define D 2
+# define W 13
+
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
 
@@ -73,6 +77,8 @@
 /* user */
 # define MOVE_SPEED	0.15
 # define ROT_SPEED	0.0005
+
+# define JUMP 1
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -115,7 +121,6 @@ typedef struct s_thread_pool
 	int				total_task;
 	bool			shutdown;
 }	t_thread_pool;
-
 
 /**
  * @var	void	*img
@@ -255,6 +260,7 @@ typedef struct s_user {
 	float	rot_speed;
 	float	zx;
 	float	zy;
+	bool	flag;
 }	t_user;
 
 /**
@@ -352,6 +358,7 @@ typedef struct s_sprite_info
 typedef struct s_mlx {
 	void			*mlx;
 	void			*win;
+	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
 	int				frame_sync_counter;
 	int				num_frame;
@@ -484,7 +491,7 @@ t_sprite_node	**mergesort_sprite_list(t_sprite_node **list, int size);
 /* handle_arrow_bonus.c */
 void			handle_left_arrow(t_mlx *graphic, int keycode);
 void			handle_right_arrow(t_mlx *graphic, int keycode);
-void			check_collision(t_mlx *graphic, int keycode);
+void			check_collision(t_mlx *graphic);
 
 /* sprite_list_bonus.c */
 void			init_sprite_vec(t_sprite_vec *vec);
@@ -516,6 +523,13 @@ void			draw_wall_thread(t_mlx *graphic);
 
 /* draw_sprite_thread.c */
 void			draw_sprite_thread(t_mlx *graphic, t_pic *texture);
+
+/* handle_keyrelease.c */
+int				handle_keyrelease(int keycode, void *arg);
+
+/* handle_keys_bonus.c */
+void			handle_keys_loop(t_mlx *graphic);
+
 /**
  * open_file.c
  * 

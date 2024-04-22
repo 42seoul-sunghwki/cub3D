@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/20 23:58:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:43:10 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	init_user(t_user *user, int x, int y, char pos)
 {
 	user->x = (double)x;
 	user->y = (double)y;
-	user->z = 48.0;
+	user->z = 0.0;
 	// user->map_x = (int) user->x;
 	// user->map_y = (int) user->y;
 	user->dir_x = 0.0;
@@ -86,6 +86,7 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->plane_y = 0.0;
 	user->zx = 1.0;
 	user->zy = 0;
+	user->flag = 0;
 	if (pos == 'N')
 	{
 		user->dir_y = 1.0;
