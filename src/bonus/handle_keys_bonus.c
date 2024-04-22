@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:26:20 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/22 21:43:30 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:56:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	handle_keys_loop(t_mlx *graphic)
 	t_user	*user;
 
 	user = &graphic->user;
-	if ((user->flag & JUMP) == true)
-		return ;
 	if ((graphic->key_states[A] && !graphic->key_states[D])
 		|| (graphic->key_states[D] && !graphic->key_states[A])
 		|| (graphic->key_states[W] && !graphic->key_states[S])

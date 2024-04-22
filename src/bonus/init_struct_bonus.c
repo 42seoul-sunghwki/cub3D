@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/22 21:43:10 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 22:02:18 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	init_pic(t_pic *pic)
 // 	pic->img = NULL;
 // 	return (pic);
 // }
-
 
 void	init_user(t_user *user, int x, int y, char pos)
 {

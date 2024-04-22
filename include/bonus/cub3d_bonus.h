@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/22 21:41:46 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:13:23 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,14 @@
 # define NUM_SPRITE_TYPE	4
 
 /* user */
-# define MOVE_SPEED	0.15
+# define MOVE_SPEED	0.08
 # define ROT_SPEED	0.0005
 
+/* user->flag */
 # define JUMP 1
+# define DIAGONAL 2
+
+# define DIAGONAL_SCALE 0.7071
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -254,13 +258,15 @@ typedef struct s_user {
 	float	z;
 	float	dir_x;
 	float	dir_y;
+	float	new_displacement_y;
+	float	new_displacement_x;
 	float	plane_x;
 	float	plane_y;
 	float	move_speed;
 	float	rot_speed;
 	float	zx;
 	float	zy;
-	bool	flag;
+	int		flag;
 }	t_user;
 
 /**
@@ -472,14 +478,10 @@ size_t			get_time_in_us(void);
 int				handle_mouse_click(int button, int x, int y, void *arg);
 
 /* collision_check_bonus.c */
-void			dir_y_check_p(t_map *map,
-					t_user *user, float new_displacement_y);
-void			dir_y_check_n(t_map *map,
-					t_user *user, float new_displacement_y);
-void			dir_x_check_p(t_map *map,
-					t_user *user, float new_displacement_x);
-void			dir_x_check_n(t_map *map,
-					t_user *user, float new_displacement_x);
+void			dir_y_check_p(t_map *map, t_user *user);
+void			dir_y_check_n(t_map *map, t_user *user);
+void			dir_x_check_p(t_map *map, t_user *user);
+void			dir_x_check_n(t_map *map, t_user *user);
 
 /* draw_sprite_bonus.c */
 void			draw_sprite(void *arg);
