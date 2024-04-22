@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/18 20:44:39 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 02:39:21 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
 		// else if (i >= dda->draw_end_y)
 		// 	my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.c_trgb);
 	}
-	dda->z_buffer[dda->cur_pixel_x] = dda->perp_wall_dist;
+	graphic->z_buffer[dda->cur_pixel_x] = dda->perp_wall_dist;
 }

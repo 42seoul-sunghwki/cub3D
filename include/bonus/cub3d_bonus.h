@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/21 14:32:11 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:55:38 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <float.h>
+# include <pthread.h>
 
 # include "mlx.h"
 # include "ft_printf.h"
@@ -84,6 +85,39 @@ typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
 
 /**
+ * Thread testing
+*/
+
+typedef struct s_task
+{
+	void			(*function)(void *);
+	void			*arg;
+	struct s_task	*next;
+	struct s_task	*prev;
+}	t_task;
+
+typedef struct s_task_queue
+{
+	t_task	*head;
+	t_task	*tail;
+	int		size;
+}	t_task_queue;
+
+typedef struct s_thread_pool
+{
+	pthread_t		*threads;
+	t_task_queue	queue;
+	int				num_threads;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	condition;
+	pthread_cond_t	synchronize;
+	int				task_complete;
+	int				total_task;
+	bool			shutdown;
+}	t_thread_pool;
+
+
+/**
  * @var	void	*img
  * @var	char	*addr			the address to the first pixel to the image
  * @var	int		bits_per_pixel	the number of bits per pixel
@@ -142,6 +176,7 @@ typedef struct s_pic {
 }	t_pic;
 
 typedef struct s_floor {
+	t_mlx	*mlx;
 	float	raydir_x_start;
 	float	raydir_y_start;
 	float	raydir_x_end;
@@ -157,6 +192,8 @@ typedef struct s_floor {
 	float	tx;
 	float	cell_x;
 	float	cell_y;
+	int		start_i;
+	int		end_i;
 }	t_floor;
 
 typedef struct s_sprite_node
@@ -210,8 +247,6 @@ typedef struct s_user {
 	float	x;
 	float	y;
 	float	z;
-	int		map_x;
-	int		map_y;
 	float	dir_x;
 	float	dir_y;
 	float	plane_x;
@@ -242,6 +277,7 @@ typedef struct s_user {
  * @var int		draw_end_y		the end y value of the vertical line drawing
 */
 typedef struct s_dda {
+	t_mlx			*mlx;
 	float			camera_x;
 	float			raydir_x;
 	float			raydir_y;
@@ -256,7 +292,8 @@ typedef struct s_dda {
 	float			line_height;
 	float			cos_rot_speed;
 	float			sin_rot_speed;
-	float			z_buffer[WINWIDTH];
+	int				map_x;
+	int				map_y;
 	int				draw_start_x;
 	int				draw_end_x;
 	int				step_x;
@@ -268,7 +305,17 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
+	int				end_pixel_x;
 }	t_dda;
+
+typedef struct s_sprite_thread
+{
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
+	t_mlx	*mlx;
+}	t_sprite_thread;
 
 typedef struct s_sprite_info
 {
@@ -284,8 +331,7 @@ typedef struct s_sprite_info
 	int		sprite_width;
 	int		draw_start_x;
 	int		draw_end_x;
-	int		tex_x;
-	int		tex_y;
+	t_pic	*texture;
 }	t_sprite_info;
 
 /**
@@ -306,14 +352,22 @@ typedef struct s_sprite_info
 typedef struct s_mlx {
 	void			*mlx;
 	void			*win;
-	t_data			img_data[2];
+	t_data			img_data[3];
+	int				frame_sync_counter;
 	int				num_frame;
+	int				num_frame_render;
+	long			num_threads;
+	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
+	pthread_t		render_thread;
+	pthread_cond_t	render_cond;
+	pthread_mutex_t	counter_mutex;
+	t_thread_pool	pool;
 	t_map			map;
 	t_block			block;
 	t_sprite		sprite[NUM_SPRITE];
-	t_sprite_vec	sprite_vec;
 	t_sprite_info	sprite_info;
+	t_sprite_vec	sprite_vec;
 	t_user			user;
 	size_t			time;
 	t_dda			dda;
@@ -395,6 +449,7 @@ void			get_img_addr(t_data *data);
 
 /* frame_bonus.c */
 void			display_frame(t_mlx *graphic);
+void			init_frame_thread(t_mlx *graphic);
 
 /* game_loop_bonus.c */
 int				game_loop(void *arg);
@@ -420,6 +475,7 @@ void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
 
 /* draw_sprite_bonus.c */
+void			draw_sprite(void *arg);
 void			update_sprite(t_mlx *graphic, t_user *user);
 
 /* mergesort_sprite_bonus.c */
@@ -441,6 +497,25 @@ t_sprite_node	*create_sprite_node(float x, float y,
 /* mouse_move_bonus.c */
 int				handle_mouse_move(int x, int y, void *arg);
 
+/* task_queue_bonus.c */
+t_task			*create_task(void (*function)(void *), void *arg);
+void			add_task(t_thread_pool *pool, t_task *task);
+t_task			*pop_task(t_thread_pool *pool);
+
+/* thread_pool_bonus.c */
+void			thread_pool_init(t_thread_pool *pool, int num_threads);
+void			thread_pool_shutdown(t_thread_pool *pool);
+void			start_wait_for_threads(t_thread_pool *pool, int total_task);
+void			wait_for_threads(t_thread_pool *pool);
+
+/* draw_wall_bonus.c */
+void			draw_wall_routine(void *arg);
+
+/* draw_walls_thread.c */
+void			draw_wall_thread(t_mlx *graphic);
+
+/* draw_sprite_thread.c */
+void			draw_sprite_thread(t_mlx *graphic, t_pic *texture);
 /**
  * open_file.c
  * 

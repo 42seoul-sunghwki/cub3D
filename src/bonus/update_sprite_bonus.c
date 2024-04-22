@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/18 21:32:20 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:02:16 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ static void	calculate_sprite(t_sprite_info *sprite,
 }
 
 static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
-	t_pic *texture, int x)
+	int x, t_sprite_thread *sprite_thread)
 {
 	int		j;
 	int		d;
 	int		color;
+	int		tex_y;
 	t_data	*frame;
 
 	j = sprite->draw_start_y - 1;
@@ -55,36 +56,41 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 	// printf("draw sprite pixel\n");
 	while (++j < sprite->draw_end_y)
 	{
-		d = (j - WINWIDTH * graphic->user.zy) * 256 - (WINHEIGHT * 128) + sprite->sprite_height * 128;
-		sprite->tex_y = ((d * texture->h) / sprite->sprite_height) / 256;
+		d = (j - WINWIDTH * graphic->user.zy) * 256 - (WINHEIGHT * 128)
+			+ sprite->sprite_height * 128;
+		tex_y = ((d * sprite->texture->h) / sprite->sprite_height) / 256;
 		// printf("%p\n", &texture->data);
-		color = my_mlx_pixel_get(&texture->data, sprite->tex_x, sprite->tex_y);
+		color = my_mlx_pixel_get(&sprite->texture->data,
+			sprite_thread->tex_x, tex_y);
 		//color if it isn't invisible
 		if (get_t(color) != 0xFF)
 			my_mlx_pixel_put(frame, x, j, color);
 	}
 }
 
-static void	draw_sprite(t_sprite_info *sprite,
-	t_mlx *graphic, t_pic *texture, t_dda *dda)
+void	draw_sprite(void *arg)
 {
-	int		i;
-	t_user	*user;
+	int				i;
+	t_user			*user;
+	t_sprite_thread	*sprite_thread;
+	t_sprite_info	*sprite;
 
-	user = &graphic->user;
-	i = sprite->draw_start_x - 1;
+	sprite_thread = arg;
+	user = &sprite_thread->mlx->user;
+	sprite = &sprite_thread->mlx->sprite_info;
+	i = sprite_thread->draw_start - 1;
 	// printf("sprite->draw_start_x [%d]\n", sprite->draw_start_x);
 	// printf("sprite->draw_end_x [%d]\n", sprite->draw_end_x);
-	while (++i < sprite->draw_end_x)
+	while (++i < sprite_thread->draw_end)
 	{
-		// printf("draw_sprite\n");
-		sprite->tex_x = (256
+		sprite_thread->tex_x = (256
 				* (i - (-sprite->sprite_width / 2 + sprite->sprite_screen_x)))
-			* texture->w / sprite->sprite_width / 256;
+			* sprite->texture->w / sprite->sprite_width / 256;
 		if (sprite->transform_y > 0 && i > 0 && i < WINWIDTH
-			&& sprite->transform_y < dda->z_buffer[i])
-			draw_sprite_pixel(sprite, graphic, texture, i);
+			&& sprite->transform_y < sprite_thread->mlx->z_buffer[i])
+			draw_sprite_pixel(sprite, sprite_thread->mlx, i, sprite_thread);
 	}
+	free(sprite_thread);
 }
 
 void	project_sprite(t_mlx *graphic, t_user *user)
@@ -103,11 +109,12 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 		cur_sprite = get_sprite(vec, i);
 		// printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
-		frame_num = graphic->total_frame % (sprite->num_img * sprite->fpm) / sprite->fpm;
+		frame_num = graphic->total_frame
+			% (sprite->num_img * sprite->fpm) / sprite->fpm;
 		// printf("start_frame: %ld, total_frame: [%ld] tex_num: %ld num_img %d\n", cur_sprite->start_frame, graphic->total_frame, frame_diff / sprite->fpm, sprite->num_img);
-		calculate_sprite(&graphic->sprite_info ,cur_sprite, user);
-		draw_sprite(&graphic->sprite_info, graphic,
-			&sprite->img[frame_num], &graphic->dda);
+		calculate_sprite(&graphic->sprite_info, cur_sprite, user);
+		draw_sprite_thread(graphic, &sprite->img[frame_num]);
+		// draw_sprite(&graphic->sprite_info, graphic, &sprite->img[frame_num]);
 	}
 }
 

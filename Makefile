@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/21 14:32:33 by minsepar         ###   ########.fr        #
+#    Updated: 2024/04/21 23:39:30 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra
+FLAGS =  -g -Wall -Werror -Wextra -O3
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -41,7 +41,9 @@ BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
 			mergesort_sprite_bonus.c sprite_list_bonus.c \
-			update_sprite_bonus.c mouse_move_bonus.c
+			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
+			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
+			sprite_thread_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -94,7 +96,7 @@ $(OBJ_BONUS_DIR):
 # 	make -C ./lib/mlx_linux all
 
 # $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -Imlx_linux -O3 -c $< -o $@
+# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -I./lib/mlx_linux -O3 -c $< -o $@
 
 # $(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(MANDATORY_BIN_DIR)
 # 	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
@@ -103,7 +105,7 @@ $(OBJ_BONUS_DIR):
 
 #bonus
 # $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-# 	$(CC) -pg -g -Iinclude -Iinclude/bonus -I./lib/mlx_linux -O3 -c $< -o $@
+# 	$(CC) -pg -g -Iinclude -I./include/bonus -I./lib/mlx_linux -O3 -c $< -o $@
 
 # $(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BONUS_BIN_DIR)
 # 	$(CC) -pg -p $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -I./lib/mlx_linux -lXext -lX11 -lm -lz \
@@ -113,7 +115,7 @@ $(OBJ_BONUS_DIR):
 #for MAC
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-	$(CC) $(FLAGS) -I./lib/mlx -I./lib/libftprintf -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
@@ -122,7 +124,7 @@ $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -I./lib/mlx -I./lib/libftprintf -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
