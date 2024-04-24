@@ -4,10 +4,10 @@ WE       ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 FI ./texture/stone.xpm
 
-DO ./texture/barrel.xpm 8
-ZO ./texture/btninet.xpm 8
-ME ./texture/greenlight.xpm 8 
-GU ./texture/nazi.xpm 12
+DO ./texture/barrel
+ZO ./texture/btninet
+ME ./texture/greenlight
+GU ./texture/nazi
 
 F 0,0,0
 C 255,255,255

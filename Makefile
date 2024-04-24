@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/24 12:58:28 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/04/24 13:37:29 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		free_pointer.c ft_lib.c game_loop.c init_dda_data.c handle_keypress.c \
 		collision_check.c collision_check_dir.c draw_floor.c
 
-BONUS_SRC =	test.c \
+BONUS_SRC =	main_bonus.c \
 			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
 			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c cub_sprite_split_bonus.c \

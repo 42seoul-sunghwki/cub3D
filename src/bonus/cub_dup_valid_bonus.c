@@ -6,11 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:00:29 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:35:35 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	cub_dup_valid_img(t_mlx *mlx, int i, char *name)
 {

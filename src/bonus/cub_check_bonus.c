@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:00:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:32:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_sprite_cub(char **split, t_mlx *graphic,
 		if (split[2][i] < '0' || split[2][i] > '9')
 			ft_exit("Invalid sprite frame per movement");
 	}
-	sprite->frame_per_movement = ft_atoi(split[2]);
+	sprite->num_img = ft_atoi(split[2]);
 	return (SUCCESS);
 }
 

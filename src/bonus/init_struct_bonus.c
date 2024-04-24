@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:02:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:11:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	init_pic(t_pic *pic)
 
 static void	init_user_pos(t_user *user, char pos)
 {
-	user->x = (double)x;
-	user->y = (double)y;
+	//user->x = (double)x;
+	//user->y = (double)y;
 	user->z = 48.0;
 	// user->map_x = (int) user->x;
 	// user->map_y = (int) user->y;
@@ -112,8 +112,6 @@ void	init_user(t_user *user, float x, float y, char pos)
 	user->x = x;
 	user->y = y;
 	user->z = 48.0;
-	user->map_x = 0;
-	user->map_y = 0;
 	user->dir_x = 0.0;
 	user->dir_y = 0.0;
 	user->plane_x = 0.0;

@@ -6,11 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:01:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:32:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int	map_cub_lst_2(char *line, int *flag)
 {

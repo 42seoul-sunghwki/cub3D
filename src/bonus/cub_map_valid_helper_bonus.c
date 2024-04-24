@@ -6,11 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 18:11:03 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:35:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 {

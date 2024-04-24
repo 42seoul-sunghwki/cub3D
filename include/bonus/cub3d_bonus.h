@@ -6,12 +6,12 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 12:59:47 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:35:23 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -21,21 +21,21 @@
 # include <sys/time.h>
 # include <stdbool.h>
 # include <math.h>
+# include <float.h>
+# include <pthread.h>
 
 # include "mlx.h"
-# include "../lib/libftprintf/ft_printf.h"
+# include "ft_printf.h"
 
 # define WINWIDTH 1600
 # define WINHEIGHT 900
+# define HALF_WINWIDTH 800
 # define HALF_WINHEIGHT 450
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
 # define GREEN 0xFF << 8
 # define BLUE  0xFF
-
-# define IMG_W	64
-# define IMG_H	64
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -48,6 +48,19 @@
 # define WE			3
 # define CI			4
 # define FI			5
+
+# define ZOM_ATTACK		0
+# define ZOM_DIE		1
+# define ZOM_IDLE		2
+# define ZOM_WALK		3
+# define DOOR_CLOSE		4
+# define DOOR_OPEN		5	
+# define MELEE_IDLE		6
+# define MELEE_ATTACK	7
+# define MELEE_WALK		8
+# define GUN_IDLE		9
+# define GUN_SHOOT		10
+# define GUN_WALK		11
 
 # define NORTH	0
 # define SOUTH	1
@@ -67,7 +80,12 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE_TYPE 4
+# define NUM_SPRITE	1
+# define NUM_SPRITE_TYPE	4
+
+/* user */
+# define MOVE_SPEED	0.15
+# define ROT_SPEED	0.0005
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -78,6 +96,39 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
+
+/**
+ * Thread testing
+*/
+
+typedef struct s_task
+{
+	void			(*function)(void *);
+	void			*arg;
+	struct s_task	*next;
+	struct s_task	*prev;
+}	t_task;
+
+typedef struct s_task_queue
+{
+	t_task	*head;
+	t_task	*tail;
+	int		size;
+}	t_task_queue;
+
+typedef struct s_thread_pool
+{
+	pthread_t		*threads;
+	t_task_queue	queue;
+	int				num_threads;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	condition;
+	pthread_cond_t	synchronize;
+	int				task_complete;
+	int				total_task;
+	bool			shutdown;
+}	t_thread_pool;
+
 
 /**
  * @var	void	*img
@@ -138,6 +189,7 @@ typedef struct s_pic {
 }	t_pic;
 
 typedef struct s_floor {
+	t_mlx	*mlx;
 	float	raydir_x_start;
 	float	raydir_y_start;
 	float	raydir_x_end;
@@ -153,24 +205,25 @@ typedef struct s_floor {
 	float	tx;
 	float	cell_x;
 	float	cell_y;
+	int		start_i;
+	int		end_i;
 }	t_floor;
 
 typedef struct s_sprite_node
 {
-	float					x;
-	float					y;
-	int						sprite_type;
-	size_t					last_movement;
-	struct s_sprite_node	*prev;
-	struct s_sprite_node	*next;
+	float	x;
+	float	y;
+	int		sprite_type;
+	float	distance;
+	size_t	start_frame;
 }	t_sprite_node;
 
-typedef struct s_sprite_list
+typedef struct s_sprite_vec
 {
-	t_sprite_node	*head;
-	t_sprite_node	*tail;
-	int				size;
-}	t_sprite_list;
+	int	size;
+	int	malloc_size;
+	t_sprite_node	**list;
+}	t_sprite_vec;
 
 /**
  * 
@@ -178,7 +231,7 @@ typedef struct s_sprite_list
 typedef struct s_sprite {
 	int		num_img;
 	t_pic	*img;
-	size_t	frame_per_movement;
+	size_t	fpm;
 }	t_sprite;
 
 /**
@@ -207,14 +260,14 @@ typedef struct s_user {
 	float	x;
 	float	y;
 	float	z;
-	int		map_x;
-	int		map_y;
 	float	dir_x;
 	float	dir_y;
 	float	plane_x;
 	float	plane_y;
 	float	move_speed;
 	float	rot_speed;
+	float	zx;
+	float	zy;
 }	t_user;
 
 /**
@@ -237,6 +290,7 @@ typedef struct s_user {
  * @var int		draw_end_y		the end y value of the vertical line drawing
 */
 typedef struct s_dda {
+	t_mlx			*mlx;
 	float			camera_x;
 	float			raydir_x;
 	float			raydir_y;
@@ -251,7 +305,8 @@ typedef struct s_dda {
 	float			line_height;
 	float			cos_rot_speed;
 	float			sin_rot_speed;
-	float			z_buffer[WINWIDTH];
+	int				map_x;
+	int				map_y;
 	int				draw_start_x;
 	int				draw_end_x;
 	int				step_x;
@@ -263,7 +318,34 @@ typedef struct s_dda {
 	int				cur_pixel_x;
 	int				texture_num;
 	int				texture_x;
+	int				end_pixel_x;
 }	t_dda;
+
+typedef struct s_sprite_thread
+{
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
+	t_mlx	*mlx;
+}	t_sprite_thread;
+
+typedef struct s_sprite_info
+{
+	float	sprite_x;
+	float	sprite_y;
+	float	inv_det;
+	float	transform_x;
+	float	transform_y;
+	int		sprite_screen_x;
+	int		sprite_height;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		sprite_width;
+	int		draw_start_x;
+	int		draw_end_x;
+	t_pic	*texture;
+}	t_sprite_info;
 
 /**
  * t_mlx struct gets passed to the game_loop function which renders each frame
@@ -281,32 +363,42 @@ typedef struct s_dda {
  * 
 */
 typedef struct s_mlx {
-	void		*mlx;
-	void		*win;
-	t_data		img_data[2];
-	int			num_frame;
-	size_t		total_frame;
-	t_map		map;
-	t_block		block;
-	// t_sprite	sprite[NUM_SPRITE];
-	t_user		user;
-	size_t		time;
-	t_dda		dda;
+	void			*mlx;
+	void			*win;
+	t_data			img_data[3];
+	int				frame_sync_counter;
+	int				num_frame;
+	int				num_frame_render;
+	long			num_threads;
+	float			z_buffer[WINWIDTH];
+	size_t			total_frame;
+	pthread_t		render_thread;
+	pthread_cond_t	render_cond;
+	pthread_mutex_t	counter_mutex;
+	t_thread_pool	pool;
+	t_map			map;
+	t_block			block;
+	t_sprite		sprite[NUM_SPRITE];
+	t_sprite_info	sprite_info;
+	t_sprite_vec	sprite_vec;
+	t_user			user;
+	size_t			time;
+	t_dda			dda;
 }	t_mlx;
 
 //tmp
 void			print_map(t_map *map);
 
-/* mlx_hooks.c */
+/* mlx_hooks_bonus.c */
 int				terminate_program(t_mlx *graphic);
 
-/* mlx_pixel.c */
+/* mlx_pixel_bonus.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
 int				blend_trgb(int fg_color, int bg_color);
 void			draw_vertical_line(t_mlx *mlx, t_dda *dda);
 
-/* mlx_color.c */
+/* mlx_color_bonus.c */
 int				create_trgb(unsigned char t, unsigned char r,
 					unsigned char g, unsigned char b);
 unsigned char	get_t(int trgb);
@@ -314,77 +406,82 @@ unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
-/* open_file.c */
+/* open_file_bonus.c */
 int				open_file(char *file);
 int				close_file(int fd);
 
-/* free_pointer.c */
+/* free_pointer_bonus.c */
 void			free_2d_ptr(char **ptr);
 
-/* init_struct.c */
+/* init_struct_bonus.c */
 void			init_block(t_block *block);
 void			init_pic(t_pic *pic);
-void			init_user(t_user *user, int x, int y, char pos);
+void			init_user(t_user *user, float x, float y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
-/* free_struct.c */
+/* free_struct_bonus.c */
 void			free_line_lst(t_line_lst *lst);
 
-/* ft_lib.c */
+/* ft_lib_bonus.c */
 int				ft_sanitize_enter(char *line);
+void			ft_exit(char *str);
 
-/* cub_to_struct.c */
+/* cub_to_struct_bonus.c */
 int				cub_to_struct(char *file, t_mlx *mlx);
 
-/* cub_slice.c */
+/* cub_slice_bonus.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
-/* cub_check.c */
+/* cub_check_bonus.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
+int				check_sprite_cub(char **split, t_mlx *graphic,
+					t_pic *org_img, t_sprite *sprite);
 
-/* cub_read.c */
+/* cub_read_bonus.c */
 char			*read_cub(int fd, t_mlx *graphic);
 
-/* cub_dup_valid.c */
+/* cub_dup_valid_bonus.c */
 void			cub_dup_valid(t_mlx *mlx);
 
-/* cub_helper.c */
+/* cub_helper_bonus.c */
 int				color_cub(char **split);
 
-/* cub_map.c */
+/* cub_map_bonus.c */
 int				map_cub(char *line, int fd, t_map *map);
 int				check_map_cub(char *line);
 
-/* cub_list.c */
+/* cub_list_bonus.c */
 t_lst_head		*push_lst(t_lst_head *head, t_line_lst *new);
 char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
 
-/* cub_map_valid.c */
+/* cub_map_valid_bonus.c */
 int				cub_map_valid(t_map *map);
+void			cub_valid_door_user_zombie(t_map *map);
 
-/* init_struct.c */
+/* init_struct_bonus.c */
 void			get_img_addr(t_data *data);
 
-/* frame.c */
+/* frame_bonus.c */
 void			display_frame(t_mlx *graphic);
+void			init_frame_thread(t_mlx *graphic);
 
-/* game_loop.c */
+/* game_loop_bonus.c */
 int				game_loop(void *arg);
 
-/* init_dda_data.c */
+/* init_dda_data_bonus.c */
 void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
-/* handle_keypress.c */
+/* handle_keypress_bonus.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
 
-/* handle_mouse.c */
-int				handle_mouse(int button, int x, int y, void *arg);
+/* handle_mouse_bonus.c */
+int				handle_mouse_click(int button, int x, int y, void *arg);
 
-/* collision_check.c */
+/* collision_check_bonus.c */
 void			dir_y_check_p(t_map *map,
 					t_user *user, float new_displacement_y);
 void			dir_y_check_n(t_map *map,
@@ -394,12 +491,48 @@ void			dir_x_check_p(t_map *map,
 void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
 
-/* draw_sprite.c */
-void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
+/* draw_sprite_bonus.c */
+void			draw_sprite(void *arg);
+void			update_sprite(t_mlx *graphic, t_user *user);
 
-/* quick_sort_sprite.c */
-void			quick_sort_sprite(t_sprite_list *arr, int low, int high);
+/* mergesort_sprite_bonus.c */
+t_sprite_node	**mergesort_sprite_list(t_sprite_node **list, int size);
 
+/* handle_arrow_bonus.c */
+void			handle_left_arrow(t_mlx *graphic, int keycode);
+void			handle_right_arrow(t_mlx *graphic, int keycode);
+void			check_collision(t_mlx *graphic, int keycode);
+
+/* sprite_list_bonus.c */
+void			init_sprite_vec(t_sprite_vec *vec);
+void			push_sprite(t_sprite_vec *vec, t_sprite_node *node);
+t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
+void			delete_sprite(t_sprite_vec *vec, int index);
+t_sprite_node	*create_sprite_node(float x, float y,
+					int sprite_type);
+
+/* mouse_move_bonus.c */
+int				handle_mouse_move(int x, int y, void *arg);
+
+/* task_queue_bonus.c */
+t_task			*create_task(void (*function)(void *), void *arg);
+void			add_task(t_thread_pool *pool, t_task *task);
+t_task			*pop_task(t_thread_pool *pool);
+
+/* thread_pool_bonus.c */
+void			thread_pool_init(t_thread_pool *pool, int num_threads);
+void			thread_pool_shutdown(t_thread_pool *pool);
+void			start_wait_for_threads(t_thread_pool *pool, int total_task);
+void			wait_for_threads(t_thread_pool *pool);
+
+/* draw_wall_bonus.c */
+void			draw_wall_routine(void *arg);
+
+/* draw_walls_thread.c */
+void			draw_wall_thread(t_mlx *graphic);
+
+/* draw_sprite_thread.c */
+void			draw_sprite_thread(t_mlx *graphic, t_pic *texture);
 /**
  * open_file.c
  * 
