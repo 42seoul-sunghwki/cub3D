@@ -16,12 +16,12 @@ BIN_DIR = bin
 CC = cc
 
 $(BIN_DIR):
-	make -p bin
+	mkdir -p bin
 
 %.o: %.c
 	$(CC) -c $(FLAGS) $< -o $@
 
-all: $(OBJS)
+all: $(OBJS) | $(BIN_DIR)
 	make -C ./libft bonus
 	ar rucs $(NAME) $(OBJS)
 

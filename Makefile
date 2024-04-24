@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/14 20:25:41 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/04/24 12:58:28 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,15 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra
+FLAGS =  -g -Wall -Werror -Wextra -O3
 
-SRC_MANDATORY_DIR =	src/mandatory
+SRC_MANDATORY_DIR :=	src/mandatory
 
-SRC_BONUS_DIR =	src/bonus
+SRC_BONUS_DIR :=	src/bonus
 
-OBJ_MANDATORY_DIR =	build/mandatory
+OBJ_MANDATORY_DIR :=	build/mandatory
 
-OBJ_BONUS_DIR = build/bonus
+OBJ_BONUS_DIR := build/bonus
 
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		cub_check.c cub_helper.c cub_list.c cub_map.c cub_read.c cub_slice.c \
@@ -40,8 +40,11 @@ BONUS_SRC =	test.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
-			handle_mouse_bonus.c collision_check_bonus.c \
-			quick_sort_sprite_bonus.c
+			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
+			mergesort_sprite_bonus.c sprite_list_bonus.c \
+			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
+			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
+			sprite_thread_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -55,17 +58,19 @@ BONUS_OBJ = $(addprefix $(OBJ_BONUS_DIR)/, $(BONUS_SRC))
 
 BONUS_OBJS = $(BONUS_OBJ:.c=.o)
 
-MLX_DIR = ./lib/mlx
+MLX_DIR := ./lib/mlx
 
 MLX =	$(MLX_DIR)/bin/libmlx.dylib
 
-LIBFT_DIR = ./lib/libftprintf
+LIBFT_DIR := ./lib/libftprintf
 
 LIBFT = $(LIBFT_DIR)/bin/libftprintf.a
 
 DEP = dependencies.d
 
-BIN_DIR = bin
+MANDATORY_BIN_DIR = bin/mandatory
+
+BONUS_BIN_DIR = bin/bonus
 
 MLX_LINUX = mlx_Linux
 
@@ -75,27 +80,43 @@ $(MLX):
 	make -C ./lib/mlx all
 
 $(OBJ_DIR):
-	mkdir -p build
+	mkdir -p $@
 
-$(BIN_DIR):
-	mkdir -p bin
+$(MANDATORY_BIN_DIR):
+	mkdir -p $@
+
+$(BONUS_BIN_DIR):
+	mkdir -p $@
+
+$(OBJ_BONUS_DIR):
+	mkdir -p $@
 
 #for linux
 
 # $(MLX_LINUX): 
 # 	make -C ./lib/mlx_linux all
 
-# $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Imlx_linux -O3 -c $< -o $@
+# $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
+# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -I./lib/mlx_linux -O3 -c $< -o $@
 
-# $(NAME): $(OBJS) $(MLX_LINUX) $(LIBFT) | $(BIN_DIR)
+# $(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(MANDATORY_BIN_DIR)
 # 	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
 # 	$(LIBFT) -o $(NAME)
+#	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
+
+#bonus
+# $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
+# 	$(CC) -pg -g -Iinclude -I./include/bonus -I./lib/mlx_linux -O3 -c $< -o $@
+
+# $(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BONUS_BIN_DIR)
+# 	$(CC) -pg -p $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -I./lib/mlx_linux -lXext -lX11 -lm -lz \
+# 	$(LIBFT) -o $(NAME_BONUS)
+# install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 
 #for MAC
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
@@ -104,7 +125,7 @@ $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Iinclude -Iinclude/bonus -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
@@ -128,6 +149,8 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+reb: fclean bonus
 
 run:
 	@$(NAME) ./test_man.cub

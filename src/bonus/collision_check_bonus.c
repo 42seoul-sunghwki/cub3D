@@ -6,11 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 22:51:37 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/14 14:27:43 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:00:02 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	dir_y_check_p(t_map *map, t_user *user, float new_displacement_y)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:55:53 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:48:04 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	init_t_data(t_data *data)
 
 void	init_pic(t_pic *pic)
 {
-	pic->w = IMG_W;
-	pic->h = IMG_H;
+	pic->w = 0;
+	pic->h = 0;
 	init_t_data(&(pic->data));
 }
 

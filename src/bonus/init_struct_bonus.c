@@ -6,11 +6,11 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 14:19:12 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:02:36 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_block(t_block *block)
 {
@@ -36,8 +36,8 @@ void	init_t_data(t_data *data)
 
 void	init_pic(t_pic *pic)
 {
-	pic->w = IMG_W;
-	pic->h = IMG_H;
+	pic->w = 0;
+	pic->h = 0;
 	init_t_data(&(pic->data));
 }
 
@@ -74,6 +74,17 @@ void	init_pic(t_pic *pic)
 
 static void	init_user_pos(t_user *user, char pos)
 {
+	user->x = (double)x;
+	user->y = (double)y;
+	user->z = 48.0;
+	// user->map_x = (int) user->x;
+	// user->map_y = (int) user->y;
+	user->dir_x = 0.0;
+	user->dir_y = 0.0;
+	user->plane_x = 0.0;
+	user->plane_y = 0.0;
+	user->zx = 1.0;
+	user->zy = 0;
 	if (pos == 'N')
 	{
 		user->dir_y = 1.0;
@@ -107,44 +118,8 @@ void	init_user(t_user *user, float x, float y, char pos)
 	user->dir_y = 0.0;
 	user->plane_x = 0.0;
 	user->plane_y = 0.0;
-	user->move_speed = 0.2;
-	user->rot_speed = 0.05;
+	user->move_speed = MOVE_SPEED;
+	user->rot_speed = ROT_SPEED;
 	init_user_pos(user, pos);
 }
 
-
-void	init_block_temp(t_mlx *graphic)
-{
-	t_pic	*pic;
-	t_data	*data;
-	char	*str;
-	int		i;
-	t_block	*block;
-
-	block = &graphic->block;
-	str = "./src/xpm_images/ender_block.xpm";
-	i = -1;
-	// pic = &block->pic[i];
-	// data = &pic->data;
-	// data->img = mlx_xpm_file_to_image(graphic, str, &pic->w, &pic->h);
-	// get_img_addr(data);
-	while (++i < 4)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
-	str = "./src/xpm_images/stone.xpm";
-	i--;
-	while (++i < 6)
-	{
-		pic = &block->pic[i];
-		data = &pic->data;
-		data->img = mlx_xpm_file_to_image(graphic->mlx, str, &pic->w, &pic->h);
-		printf("data->img %p\n", data->img);
-		get_img_addr(data);
-		printf("init_block data->img [%p]\n", data->img);
-	}
-}

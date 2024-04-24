@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 19:03:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:59:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,19 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
+# define NO			0
+# define SO			1
+# define EA			2
+# define WE			3
+# define CI			4
+# define FI			5
+
 # define NORTH	0
 # define SOUTH	1
 # define EAST	2
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
-
-# define DOOR	0
-# define ZOMBIE	1
-# define MELEE	2
-# define GUN	3
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -65,7 +67,7 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE 4
+# define NUM_SPRITE_TYPE 4
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -286,7 +288,7 @@ typedef struct s_mlx {
 	size_t		total_frame;
 	t_map		map;
 	t_block		block;
-	t_sprite	sprite[NUM_SPRITE];
+	// t_sprite	sprite[NUM_SPRITE];
 	t_user		user;
 	size_t		time;
 	t_dda		dda;
@@ -295,16 +297,16 @@ typedef struct s_mlx {
 //tmp
 void			print_map(t_map *map);
 
-/* mlx_hooks_bonus.c */
+/* mlx_hooks.c */
 int				terminate_program(t_mlx *graphic);
 
-/* mlx_pixel_bonus.c */
+/* mlx_pixel.c */
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				my_mlx_pixel_get(t_data *data, int x, int y);
 int				blend_trgb(int fg_color, int bg_color);
 void			draw_vertical_line(t_mlx *mlx, t_dda *dda);
 
-/* mlx_color_bonus.c */
+/* mlx_color.c */
 int				create_trgb(unsigned char t, unsigned char r,
 					unsigned char g, unsigned char b);
 unsigned char	get_t(int trgb);
@@ -312,84 +314,77 @@ unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
-/* open_file_bonus.c */
+/* open_file.c */
 int				open_file(char *file);
 int				close_file(int fd);
 
-/* free_pointer_bonus.c */
+/* free_pointer.c */
 void			free_2d_ptr(char **ptr);
 
-/* init_struct_bonus.c */
+/* init_struct.c */
 void			init_block(t_block *block);
 void			init_pic(t_pic *pic);
-void			init_user(t_user *user, float x, float y, char pos);
+void			init_user(t_user *user, int x, int y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
-/* free_struct_bonus.c */
+/* free_struct.c */
 void			free_line_lst(t_line_lst *lst);
 
-/* ft_lib_bonus.c */
+/* ft_lib.c */
 int				ft_sanitize_enter(char *line);
-void			ft_exit(char *str);
-void			get_img_addr(t_data *data);
 
-/* cub_to_struct_bonus.c */
+/* cub_to_struct.c */
 int				cub_to_struct(char *file, t_mlx *mlx);
 
-/* cub_slice_bonus.c */
+/* cub_slice.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
-/* cub_check_bonus.c */
+/* cub_check.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
 
-/* cub_read_bonus.c */
+/* cub_read.c */
 char			*read_cub(int fd, t_mlx *graphic);
 
-/* cub_dup_valid_bonus.c */
+/* cub_dup_valid.c */
 void			cub_dup_valid(t_mlx *mlx);
 
-/* cub_helper_bonus.c */
+/* cub_helper.c */
 int				color_cub(char **split);
 
-/* cub_map_valid_helper_bonus.c*/
-void			cub_valid_door_user_zombie(t_map *map);
-
-/* cub_map_bonus.c */
+/* cub_map.c */
 int				map_cub(char *line, int fd, t_map *map);
 int				check_map_cub(char *line);
-int				check_sprite_cub(char **split, t_mlx *graphic,
-					t_pic *org_img, t_sprite *sprite);
 
-/* cub_list_bonus.c */
+/* cub_list.c */
 t_lst_head		*push_lst(t_lst_head *head, t_line_lst *new);
 char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
 
-/* cub_map_valid_bonus.c */
+/* cub_map_valid.c */
 int				cub_map_valid(t_map *map);
 
-/* init_struct_bonus.c */
+/* init_struct.c */
+void			get_img_addr(t_data *data);
 
-
-/* frame_bonus.c */
+/* frame.c */
 void			display_frame(t_mlx *graphic);
 
-/* game_loop_bonus.c */
+/* game_loop.c */
 int				game_loop(void *arg);
 
-/* init_dda_data_bonus.c */
+/* init_dda_data.c */
 void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
-/* handle_keypress_bonus.c */
+/* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
 
-/* handle_mouse_bonus.c */
+/* handle_mouse.c */
 int				handle_mouse(int button, int x, int y, void *arg);
 
-/* collision_check_bonus.c */
+/* collision_check.c */
 void			dir_y_check_p(t_map *map,
 					t_user *user, float new_displacement_y);
 void			dir_y_check_n(t_map *map,
@@ -399,14 +394,14 @@ void			dir_x_check_p(t_map *map,
 void			dir_x_check_n(t_map *map,
 					t_user *user, float new_displacement_x);
 
-/* draw_sprite_bonus.c */
+/* draw_sprite.c */
 void			draw_sprite(t_dda *dda, t_mlx *graphic, t_user *user);
 
-/* quick_sort_sprite_bonus.c */
+/* quick_sort_sprite.c */
 void			quick_sort_sprite(t_sprite_list *arr, int low, int high);
 
 /**
- * open_file_bonus.c
+ * open_file.c
  * 
 */
 int		open_file(char *file);
