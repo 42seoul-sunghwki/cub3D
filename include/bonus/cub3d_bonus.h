@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:35:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:51:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include <float.h>
 # include <pthread.h>
+# include <dirent.h>
 
 # include "mlx.h"
 # include "ft_printf.h"
@@ -49,9 +50,16 @@
 # define CI			4
 # define FI			5
 
-# define ZOM_ATTACK		0
+/**
+ * Short Form of the sprite type
+ * ZOMBIE : ZO
+ * DOOR : DO
+ * MELEE : ME
+ * GUN : GU
+*/
+# define ZOM_IDLE		0
 # define ZOM_DIE		1
-# define ZOM_IDLE		2
+# define ZOM_ATTACK		2
 # define ZOM_WALK		3
 # define DOOR_CLOSE		4
 # define DOOR_OPEN		5	
@@ -59,8 +67,15 @@
 # define MELEE_ATTACK	7
 # define MELEE_WALK		8
 # define GUN_IDLE		9
-# define GUN_SHOOT		10
+# define GUN_ATTACK		10
 # define GUN_WALK		11
+
+# define ATTACK			"Attack"
+# define DIE			"Die"
+# define IDLE			"Idle"
+# define WALK			"Walk"
+# define CLOSE			"Close"
+# define OPEN			"Open"
 
 # define NORTH	0
 # define SOUTH	1
@@ -226,7 +241,7 @@ typedef struct s_sprite_vec
 }	t_sprite_vec;
 
 /**
- * 
+ * @var int		num_img		number of img, dynamic init
 */
 typedef struct s_sprite {
 	int		num_img;
@@ -409,6 +424,8 @@ unsigned char	get_b(int trgb);
 /* open_file_bonus.c */
 int				open_file(char *file);
 int				close_file(int fd);
+DIR				*open_folder(char *path);
+int				count_folder_file(DIR *dir);
 
 /* free_pointer_bonus.c */
 void			free_2d_ptr(char **ptr);
@@ -434,8 +451,8 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
 /* cub_check_bonus.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
-int				check_sprite_cub(char **split, t_mlx *graphic,
-					t_pic *org_img, t_sprite *sprite);
+void			check_img_sprite_file(char *file,
+					t_mlx *graphic, t_pic *org_img);
 
 /* cub_read_bonus.c */
 char			*read_cub(int fd, t_mlx *graphic);

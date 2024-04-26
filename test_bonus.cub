@@ -4,10 +4,8 @@ WE       ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 FI ./texture/stone.xpm
 
-DO ./texture/barrel
-ZO ./texture/btninet
-ME ./texture/greenlight
-GU ./texture/nazi
+ZO ./texture/zombie
+DO ./texture/door
 
 F 0,0,0
 C 255,255,255
@@ -15,5 +13,5 @@ C 255,255,255
 11111111111
 100D0001111
 10010000001
-1100S101111
+1100N101111
 11111111111
