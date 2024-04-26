@@ -6,23 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 14:10:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/22 23:41:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:59:38 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-void	handle_left_arrow(t_mlx *graphic, int keycode)
-{
-	graphic->key_states[keycode] = true;
-	printf("left_arrow [%d]\n", keycode);
-}
-
-void	handle_right_arrow(t_mlx *graphic, int keycode)
-{
-	graphic->key_states[keycode] = true;
-	printf("right_arrow [%d]\n", keycode);
-}
 
 static void	calculate_new_displacement_xy(t_user *user, t_mlx *graphic,
 	float ws_flag, float ad_flag)

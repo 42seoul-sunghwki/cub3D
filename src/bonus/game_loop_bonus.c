@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/22 21:53:35 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:14:49 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	game_loop(void *arg)
 	user = &graphic->user;
 	// printf("start loop\n");
 	// cur_time = get_time_in_us();
+	// printf("user->z: [%f]\n", user->z);
 	pthread_mutex_lock(&graphic->counter_mutex);
 	while (graphic->frame_sync_counter > 1)
 		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
@@ -117,7 +118,7 @@ int	game_loop(void *arg)
 	// printf("graphic->num_frame %d\n", graphic->num_frame);
 	graphic->total_frame++;
 	cur_time = get_time_in_us();
-	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
+	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
 	// printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
 	return (0);

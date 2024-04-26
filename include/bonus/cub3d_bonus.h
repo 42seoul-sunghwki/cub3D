@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/22 23:13:23 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:25:23 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # include "mlx.h"
 # include "ft_printf.h"
 
-# define WINWIDTH 1600
-# define WINHEIGHT 900
-# define HALF_WINWIDTH 800
-# define HALF_WINHEIGHT 450
+# define WINWIDTH 1920
+# define WINHEIGHT 1080
+# define HALF_WINWIDTH 960
+# define HALF_WINHEIGHT 540
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -55,10 +55,13 @@
 # define SKY	4
 # define FLOOR	5
 
-# define A 0
-# define S 1
-# define D 2
-# define W 13
+# define A	0
+# define S	1
+# define D	2
+# define W	13
+
+# define ESC	53
+# define SPACE	49
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -267,6 +270,8 @@ typedef struct s_user {
 	float	zx;
 	float	zy;
 	int		flag;
+	float	z_velocity;
+	float	z_gravity;
 }	t_user;
 
 /**
@@ -322,11 +327,12 @@ typedef struct s_dda {
 
 typedef struct s_sprite_thread
 {
-	int		draw_start;
-	int		draw_end;
-	int		tex_x;
-	int		tex_y;
-	t_mlx	*mlx;
+	int				draw_start;
+	int				draw_end;
+	int				tex_x;
+	int				tex_y;
+	t_mlx			*mlx;
+	t_sprite_node	*node;
 }	t_sprite_thread;
 
 typedef struct s_sprite_info
@@ -524,13 +530,21 @@ void			draw_wall_routine(void *arg);
 void			draw_wall_thread(t_mlx *graphic);
 
 /* draw_sprite_thread.c */
-void			draw_sprite_thread(t_mlx *graphic, t_pic *texture);
+void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
+					t_sprite_node *cur_sprite);
 
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
 
 /* handle_keys_bonus.c */
 void			handle_keys_loop(t_mlx *graphic);
+
+/* handle_jump_bonus.c */
+void			handle_jump(t_mlx *graphic, t_user *user);
+
+/* sprite_distance_bonus.c */
+void			update_sprite_distance(t_mlx *graphic,
+					t_user *user, t_sprite_vec *vec);
 
 /**
  * open_file.c

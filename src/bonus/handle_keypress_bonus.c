@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/22 22:46:14 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:00:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ static void	on_escape(t_mlx *graphic)
 	terminate_program(graphic);
 }
 
+static void	handle_key_space(t_user *user)
+{
+	if (user->flag & JUMP)
+		return ;
+	user->flag |= JUMP;
+	user->z_velocity = 40;
+}
+
 int	handle_keypress(int keycode, void *arg)
 {
 	t_mlx	*graphic;
@@ -26,13 +34,10 @@ int	handle_keypress(int keycode, void *arg)
 	graphic = arg;
 	user = &graphic->user;
 	printf("keycode: %d\n", keycode);
-	if (keycode == 53)
+	if (keycode == ESC)
 		on_escape((t_mlx *)arg);
-	else if (user->flag & JUMP)
-	{
-		printf("flag: %d\n", user->flag);
-		return (SUCCESS);
-	}
+	else if (keycode == SPACE)
+		handle_key_space(user);
 	else
 		graphic->key_states[keycode] = true;
 	return (SUCCESS);
