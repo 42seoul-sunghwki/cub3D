@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 18:55:10 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 20:04:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,15 @@ typedef struct s_block {
 	int		f_trgb;
 	int		c_trgb;
 }	t_block;
+
+typedef struct	s_minimap {
+	t_mlx	*mlx;
+	float	pixel_y;
+	float	pixel_size;
+	int		map_position_y;
+	int		start_y;
+	int		end_y;
+}	t_minimap;
 
 /**
  * @var	float	x			x position of the user
@@ -573,6 +582,8 @@ void			draw_wall_thread(t_mlx *graphic);
 /* draw_sprite_thread.c */
 void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 					t_sprite_node *cur_sprite);
+/* draw_minimap_thread.c */
+void			draw_minimap_thread(t_mlx *graphic);
 
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
@@ -590,6 +601,7 @@ void			update_sprite_distance(t_mlx *graphic,
 
 /* draw_minimap_bonus.c */
 void			draw_minimap(t_mlx *mlx);
+void			draw_minimap_routine(void *in);
 
 /**
  * open_file.c

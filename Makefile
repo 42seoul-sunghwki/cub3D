@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/26 18:54:25 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/04/26 20:07:05 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ BONUS_SRC =	main_bonus.c \
 			mergesort_sprite_bonus.c sprite_list_bonus.c \
 			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
 			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
+			draw_minimap_bonus.c minimap_thread_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
 			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c
 
