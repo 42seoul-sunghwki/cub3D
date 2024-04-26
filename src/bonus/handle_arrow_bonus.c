@@ -6,79 +6,81 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 14:10:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/17 22:00:12 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:59:38 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	handle_left_arrow(t_mlx *graphic, int keycode)
+static void	calculate_new_displacement_xy(t_user *user, t_mlx *graphic,
+	float ws_flag, float ad_flag)
 {
-	t_user	*user;
-	t_dda	*dda;
-	float	old_dir_x;
-	float	old_plane_x;
-
-	(void) keycode;
-	user = &graphic->user;
-	dda = &graphic->dda;
-	old_dir_x = user->dir_x;
-	old_plane_x = user->plane_x;
-	user->dir_x = user->dir_x * dda->cos_rot_speed * 2
-		- user->dir_y * dda->sin_rot_speed * 2;
-	user->dir_y = old_dir_x * dda->sin_rot_speed * 2
-		+ user->dir_y * dda->cos_rot_speed * 2;
-	user->plane_x = user->plane_x * dda->cos_rot_speed * 2
-		- user->plane_y * dda->sin_rot_speed * 2;
-	user->plane_y = old_plane_x * dda->sin_rot_speed * 2
-		+ user->plane_y * dda->cos_rot_speed * 2;
+	if (graphic->key_states[W] || graphic->key_states[S])
+	{
+		if (graphic->key_states[W])
+			ws_flag *= -1;
+		user->new_displacement_y += user->dir_y * ws_flag * user->move_speed;
+		user->new_displacement_x += user->dir_x * ws_flag * user->move_speed;
+	}
+	if (graphic->key_states[A] || graphic->key_states[D])
+	{
+		if (graphic->key_states[D])
+			ad_flag *= -1;
+		user->new_displacement_y += -user->dir_x * ad_flag * user->move_speed;
+		user->new_displacement_x += user->dir_y * ad_flag * user->move_speed;
+	}
 }
 
-void	handle_right_arrow(t_mlx *graphic, int keycode)
+static void	calculate_new_displacement(t_mlx *graphic)
 {
-	t_dda	*dda;
 	t_user	*user;
-	float	old_dir_x;
-	float	old_plane_x;
+	float	ws_flag;
+	float	ad_flag;
 
-	(void) keycode;
-	dda = &graphic->dda;
 	user = &graphic->user;
-	old_dir_x = user->dir_x;
-	old_plane_x = user->plane_x;
-	user->dir_x = user->dir_x * dda->cos_rot_speed
-		- user->dir_y * -dda->sin_rot_speed;
-	user->dir_y = old_dir_x * -dda->sin_rot_speed
-		+ user->dir_y * dda->cos_rot_speed;
-	user->plane_x = user->plane_x * dda->cos_rot_speed
-		- user->plane_y * -dda->sin_rot_speed;
-	user->plane_y = old_plane_x * -dda->sin_rot_speed
-		+ user->plane_y * dda->cos_rot_speed;
+	ws_flag = -1;
+	ad_flag = -1;
+	if (user->flag & DIAGONAL)
+	{
+		ws_flag *= DIAGONAL_SCALE;
+		ad_flag *= DIAGONAL_SCALE;
+	}
+	user->new_displacement_x = 0;
+	user->new_displacement_y = 0;
+	calculate_new_displacement_xy(user, graphic, ws_flag, ad_flag);
 }
 
-void	check_collision(t_mlx *graphic, int keycode)
+static void	check_diagonal(t_mlx *graphic, t_user *user)
 {
-	float	new_displacement_y;
-	float	new_displacement_x;
-	int		flag;
-	t_user	*user;
-	t_map	*map;
+	static int	arrows[] = {W, A, S, D};
+	int			i;
+	int			counter;
+
+	user->flag &= ~DIAGONAL;
+	i = -1;
+	counter = 0;
+	while (++i < 4)
+	{
+		if (graphic->key_states[arrows[i]])
+			counter++;
+	}
+	if (counter == 2)
+		user->flag |= DIAGONAL;
+}
+
+void	check_collision(t_mlx *graphic)
+{
+	t_user		*user;
 
 	user = &graphic->user;
-	map = &graphic->map;
-	flag = -1;
-	// printf("keycode: %d\n", keycode);
-	if (keycode - ARROW_OFFSET == 3 || keycode == 65362 || keycode == 13)
-		flag = 1;
-	new_displacement_y = user->dir_y * flag * user->move_speed;
-	new_displacement_x = user->dir_x * flag * user->move_speed;
-	// printf("displacement x: [%f] displacement y: [%f]\n", new_displacement_x, new_displacement_y);
-	if (new_displacement_y <= 0)
-		dir_y_check_n(map, user, new_displacement_y);
+	check_diagonal(graphic, user);
+	calculate_new_displacement(graphic);
+	if (user->new_displacement_y <= 0)
+		dir_y_check_n(&graphic->map, user);
 	else
-		dir_y_check_p(map, user, new_displacement_y);
-	if (new_displacement_x <= 0)
-		dir_x_check_n(map, user, new_displacement_x);
+		dir_y_check_p(&graphic->map, user);
+	if (user->new_displacement_x <= 0)
+		dir_x_check_n(&graphic->map, user);
 	else
-		dir_x_check_p(map, user, new_displacement_x);
+		dir_x_check_p(&graphic->map, user);
 }

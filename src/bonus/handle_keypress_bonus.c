@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 16:10:53 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:00:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,27 @@ static void	on_escape(t_mlx *graphic)
 	terminate_program(graphic);
 }
 
+static void	handle_key_space(t_user *user)
+{
+	if (user->flag & JUMP)
+		return ;
+	user->flag |= JUMP;
+	user->z_velocity = 40;
+}
+
 int	handle_keypress(int keycode, void *arg)
 {
-	static void	(*f[4])(t_mlx *, int) = {
-		handle_left_arrow,
-		handle_right_arrow,
-		check_collision,
-		check_collision
-	};
-	static void	(*f_l[4])(t_mlx *, int) = {
-		handle_left_arrow,
-		check_collision,
-		handle_right_arrow,
-		check_collision
-	};
+	t_mlx	*graphic;
+	t_user	*user;
 
+	graphic = arg;
+	user = &graphic->user;
 	printf("keycode: %d\n", keycode);
-	if (keycode == 53 || keycode == 65307)
+	if (keycode == ESC)
 		on_escape((t_mlx *)arg);
-	if (keycode >= 123 && keycode <= 126)
-		f[keycode - ARROW_OFFSET]((t_mlx *)arg, keycode);
-	else if (keycode >= 65361 && keycode <= 65364)
-		f_l[keycode - 65361]((t_mlx *)arg, keycode);
-	else if ((keycode >= 0 && keycode <= 3) || keycode == 13)
-	{
-		if (keycode == 13)
-			f[2]((t_mlx *)arg, keycode);
-		else
-			f_l[keycode]((t_mlx *)arg, keycode);
-	}
+	else if (keycode == SPACE)
+		handle_key_space(user);
+	else
+		graphic->key_states[keycode] = true;
 	return (SUCCESS);
 }

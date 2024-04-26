@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/26 18:37:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:55:42 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	i = -1;
 	graphic->mlx = mlx_init();
 	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
+	ft_memset(graphic->key_states, 0, sizeof(bool) * UINT16_MAX);
 	while (++i < 3)
 	{
 		graphic->img_data[i].img = mlx_new_image(graphic->mlx, WINWIDTH, WINHEIGHT);
@@ -181,9 +182,10 @@ int	main(int argc, char **argv)
 	print_struct(&graphic);
 	mlx_setup(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
-	mlx_hook(graphic.win, 2, 1L, handle_keypress, &graphic);
-	mlx_hook(graphic.win, 17, 1L << 17, terminate_program, &graphic);
-	mlx_hook(graphic.win, 6, 1L << 6, handle_mouse_move, &graphic);
+	mlx_hook(graphic.win, 2, 0, handle_keypress, &graphic);
+	mlx_hook(graphic.win, 3, 0, handle_keyrelease, &graphic);
+	mlx_hook(graphic.win, 17, 0, terminate_program, &graphic);
+	mlx_hook(graphic.win, 6, 0, handle_mouse_move, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse_click, &graphic);
 	mlx_loop(graphic.mlx);
 }

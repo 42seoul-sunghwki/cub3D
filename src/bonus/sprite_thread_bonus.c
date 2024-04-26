@@ -6,13 +6,14 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:01:15 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 15:56:52 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:11:55 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	draw_sprite_thread(t_mlx *graphic, t_pic *texture)
+void	draw_sprite_thread(t_mlx *graphic, t_pic *texture,
+	t_sprite_node *cur_node)
 {
 	t_sprite_thread	*sprite_temp_info;
 	t_sprite_info	*sprite;
@@ -27,6 +28,7 @@ void	draw_sprite_thread(t_mlx *graphic, t_pic *texture)
 	while (++i < graphic->num_threads)
 	{
 		sprite_temp_info = malloc(sizeof(t_sprite_thread));
+		sprite_temp_info->node = cur_node;
 		sprite_temp_info->mlx = graphic;
 		sprite_temp_info->draw_start = sprite->draw_start_x
 			+ (diff / graphic->num_threads) * (i);

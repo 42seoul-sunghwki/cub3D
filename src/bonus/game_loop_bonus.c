@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 23:39:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:14:49 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_floor_routine(void *arg)
 		floor->raydir_x_end = user->dir_x + user->plane_x;
 		floor->raydir_y_end = user->dir_y + user->plane_y;
 		floor->p = floor->end_i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy); // adding z compomenet to make floor with z change
-		floor->pos_z = 1.34 * WINHEIGHT * 0.5;
+		floor->pos_z = 1.34 * WINHEIGHT * 0.5 + user->z;
 		floor->row_distance = floor->pos_z / floor->p;
 		floor->floor_step_x = -floor->row_distance
 			* (floor->raydir_x_end - floor->raydir_x_start) / (WINWIDTH);
@@ -100,17 +100,15 @@ int	game_loop(void *arg)
 	user = &graphic->user;
 	// printf("start loop\n");
 	// cur_time = get_time_in_us();
+	// printf("user->z: [%f]\n", user->z);
 	pthread_mutex_lock(&graphic->counter_mutex);
 	while (graphic->frame_sync_counter > 1)
 		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
 	pthread_mutex_unlock(&graphic->counter_mutex);
+	handle_keys_loop(graphic);
 	draw_floor_thread(graphic);
-	// printf("time taken: [%lu]us\n", get_time_in_us() - cur_time);
-	// cur_time = get_time_in_us();
 	draw_wall_thread(graphic);
-	// printf("draw_wall: [%lu]\n", get_time_in_us() - cur_time);
 	update_sprite(graphic, user);
-	// printf("game loop %d %d\n", graphic->num_frame, graphic->num_frame_render);
 	pthread_mutex_lock(&graphic->counter_mutex);
 	graphic->frame_sync_counter++;
 	pthread_cond_signal(&graphic->render_cond);

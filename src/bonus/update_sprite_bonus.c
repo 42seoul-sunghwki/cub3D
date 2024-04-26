@@ -6,15 +6,17 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/21 16:02:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:13:58 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
 static void	calculate_sprite(t_sprite_info *sprite,
-	t_sprite_node *node, t_user *user)
+	t_sprite_node *node, t_user *user, t_mlx *graphic)
 {
+	(void) graphic;
+
 	sprite->sprite_x = node->x - user->x;
 	sprite->sprite_y = node->y - user->y;
 	sprite->inv_det = 1.0 / ((user->plane_x * user->dir_y)
@@ -27,10 +29,11 @@ static void	calculate_sprite(t_sprite_info *sprite,
 			* (1 + sprite->transform_x / sprite->transform_y));
 	sprite->sprite_height = abs((int)(WINHEIGHT
 				/ (sprite->transform_y))) * 1.34;
-	sprite->draw_start_y = -(sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy;
+	sprite->draw_start_y = -(sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy + user->z / node->distance;
 	if (sprite->draw_start_y < 0)
 		sprite->draw_start_y = 0;
-	sprite->draw_end_y = (sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy;
+	// printf("node->distance: %f\n", node->distance);
+	sprite->draw_end_y = (sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy + user->z / node->distance;
 	if (sprite->draw_end_y >= WINHEIGHT)
 		sprite->draw_end_y = WINHEIGHT - 1;
 	sprite->sprite_width = abs((int)(WINHEIGHT / sprite->transform_y));
@@ -56,8 +59,9 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 	// printf("draw sprite pixel\n");
 	while (++j < sprite->draw_end_y)
 	{
-		d = (j - WINWIDTH * graphic->user.zy) * 256 - (WINHEIGHT * 128)
-			+ sprite->sprite_height * 128;
+		d = (j - WINWIDTH * graphic->user.zy - graphic->user.z /
+				sprite_thread->node->distance) * 256 - (WINHEIGHT * 128) + 
+			(sprite->sprite_height) * 128;
 		tex_y = ((d * sprite->texture->h) / sprite->sprite_height) / 256;
 		// printf("%p\n", &texture->data);
 		color = my_mlx_pixel_get(&sprite->texture->data,
@@ -112,8 +116,8 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
 		// printf("start_frame: %ld, total_frame: [%ld] tex_num: %ld num_img %d\n", cur_sprite->start_frame, graphic->total_frame, frame_diff / sprite->fpm, sprite->num_img);
-		calculate_sprite(&graphic->sprite_info, cur_sprite, user);
-		draw_sprite_thread(graphic, &sprite->img[frame_num]);
+		calculate_sprite(&graphic->sprite_info, cur_sprite, user, graphic);
+		draw_sprite_thread(graphic, &sprite->img[frame_num], cur_sprite);
 		// draw_sprite(&graphic->sprite_info, graphic, &sprite->img[frame_num]);
 	}
 }
@@ -126,6 +130,7 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 	//check for respawn? add sprite
 	//delete sprite - dead sprite
 	//update distance
+	update_sprite_distance(graphic, user, vec);
 	//sort
 	//access or draw
 	// printf("print sprite\n");
