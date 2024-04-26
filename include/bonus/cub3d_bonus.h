@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 12:51:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:45:13 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define WINHEIGHT 900
 # define HALF_WINWIDTH 800
 # define HALF_WINHEIGHT 450
+
+# define MINIMAP_SCALE 10
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -392,6 +394,7 @@ typedef struct s_mlx {
 	pthread_mutex_t	counter_mutex;
 	t_thread_pool	pool;
 	t_map			map;
+	t_pic			minimap;
 	t_block			block;
 	t_sprite		sprite[NUM_SPRITE];
 	t_sprite_info	sprite_info;
