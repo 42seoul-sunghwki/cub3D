@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 12:55:37 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:08:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char		*read_folder_token(DIR *dir)
 	while (1)
 	{
 		entry = readdir(dir);
-		if (entry->d_type == DT_REG || entry == NULL)
+		if (entry == NULL || entry->d_type == DT_REG)
 			break ;
 	}
 	if (entry)
