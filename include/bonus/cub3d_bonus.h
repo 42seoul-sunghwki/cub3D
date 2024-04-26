@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 15:45:13 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:42:30 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 # define HALF_WINHEIGHT 450
 
 # define MINIMAP_SCALE 10
+
+# define MINIMAP_WALL	0x00800000
+# define MINIMAP_FLOOR	0xFFFF0000
+# define MINIMAP_BG		0x33333333
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -553,6 +557,10 @@ void			draw_wall_thread(t_mlx *graphic);
 
 /* draw_sprite_thread.c */
 void			draw_sprite_thread(t_mlx *graphic, t_pic *texture);
+
+/* draw_minimap_bonus.c */
+void			draw_minimap(t_mlx *mlx);
+
 /**
  * open_file.c
  * 
