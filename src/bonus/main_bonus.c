@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/26 17:22:06 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:37:02 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@
 void	init_t_mlx(t_mlx *graphic, char **argv)
 {
 	int			i;
-	t_sprite	*sprite;
+	//t_sprite	*sprite;
 
 	i = -1;
 	graphic->mlx = mlx_init();
@@ -98,7 +98,7 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	//		sprite->img[i].name, &sprite->img[i].w, &sprite->img[i].h);
 	//	get_img_addr(&sprite->img[i].data);
 	//}
-	sprite->fpm = 4;
+	graphic->sprite[0].fpm = 4;
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	t_pic			*minimap = &graphic->minimap;
 	minimap->h = WINWIDTH / MINIMAP_SCALE;
@@ -176,8 +176,8 @@ int	main(int argc, char **argv)
 		return (1);
 	ft_memset(&graphic, 0, sizeof(t_mlx));
 	map = &graphic.map;
-	init_t_mlx(&graphic);
-	cub_to_struct(argv[1], &graphic);
+	init_t_mlx(&graphic, argv);
+	//cub_to_struct(argv[1], &graphic);
 	print_struct(&graphic);
 	mlx_setup(&graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);
