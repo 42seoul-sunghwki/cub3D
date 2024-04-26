@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 02:40:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:11:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
 		|| (dda->side == 1 && dda->raydir_y < 0))
 		dda->texture_x = texture->w - dda->texture_x - 1;
 	dda->text_step = 1.0 * texture->h / dda->line_height;
-	dda->text_pos = (dda->draw_start_y - ((WINHEIGHT) / 2 + WINWIDTH * user->zy)
+	dda->text_pos = (dda->draw_start_y - ((WINHEIGHT) / 2 + WINWIDTH * user->zy
+			+ user->z / dda->perp_wall_dist)
 			+ dda->line_height / 2) * dda->text_step;
 }
 
@@ -87,10 +88,11 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	dda->line_height = (int)(WINHEIGHT * WALL_RATIO / dda->perp_wall_dist);
 	half_line_height = dda->line_height / 2;
 	dda->draw_start_y = -half_line_height + HALF_WINHEIGHT
-		+ WINWIDTH * user->zy;
+		+ WINWIDTH * user->zy + user->z / dda->perp_wall_dist;
 	if (dda->draw_start_y < 0)
 		dda->draw_start_y = 0;
-	dda->draw_end_y = half_line_height + HALF_WINHEIGHT + WINWIDTH * user->zy;
+	dda->draw_end_y = half_line_height + HALF_WINHEIGHT + WINWIDTH * user->zy
+		+ user->z / dda->perp_wall_dist;
 	// if (dda->draw_end_y < 0)
 	// {
 	// 	printf("half_line_height: %f\n", half_line_height);
