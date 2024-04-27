@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 20:15:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 21:30:53 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,16 @@ static void	draw_rotate_minimap(t_mlx *mlx, float pixel_x, float pixel_y,
 		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_WALL);
 	else
 		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_FLOOR);
-	if (pixel_y - HITBOX < mlx->user.y && mlx->user.y < pixel_y + HITBOX
-		&& pixel_x - HITBOX < mlx->user.x && mlx->user.x < pixel_x + HITBOX)
+	if (minimap_x > mlx->minimap.w / 2 - NYANCAT_X && minimap_x < mlx->minimap.w / 2 + NYANCAT_X
+		&& minimap_y > mlx->minimap.h / 2 - NYANCAT_Y && minimap_y < mlx->minimap.h / 2 + NYANCAT_Y)
 	{
-		
-		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_USER);
+		get_trgb = my_mlx_pixel_get(&(mlx->block.bonus[BONUS_US].data), (int)((float)mlx->block.bonus[BONUS_US].w / (NYANCAT_X * 2) * (minimap_x - mlx->minimap.w / 2 + NYANCAT_X)), (int)((float)mlx->block.bonus[BONUS_US].h / (NYANCAT_Y * 2) * (minimap_y - mlx->minimap.h / 2 + NYANCAT_Y)));
+		//printf("get_trgb : %d, minimap_x : %d, minimap_y : %d\n", get_trgb, minimap_x, minimap_y);
+		//printf("pic_x : %d, pic_y : %d\n", mlx->minimap.w / 2 - NYANCAT_X, mlx->minimap.h / 2 - NYANCAT_Y);
+		//printf("NYANCAT_X : %d, NYANCAT_Y : %d\n", mlx->block.bonus[BONUS_US].w / (NYANCAT_X * 2) * (minimap_x - mlx->minimap.w / 2 + NYANCAT_X), mlx->block.bonus[BONUS_US].h / (NYANCAT_Y * 2) * (minimap_y - mlx->minimap.h / 2 + NYANCAT_Y));
+		//printf("nyancat w : %d, nyancat h : %d\n", mlx->block.bonus[BONUS_US].w, mlx->block.bonus[BONUS_US].h);
+		if (get_trgb > 0)
+			my_mlx_pixel_put(minimap, minimap_x, minimap_y, get_trgb);
 	}
 }
 
