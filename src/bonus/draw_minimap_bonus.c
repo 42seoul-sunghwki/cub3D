@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 20:10:29 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:15:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ static void	draw_rotate_minimap(t_mlx *mlx, float pixel_x, float pixel_y,
 		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_FLOOR);
 	if (pixel_y - HITBOX < mlx->user.y && mlx->user.y < pixel_y + HITBOX
 		&& pixel_x - HITBOX < mlx->user.x && mlx->user.x < pixel_x + HITBOX)
+	{
+		
 		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_USER);
+	}
 }
 
 static void	rotate_minimap(t_minimap *minimap, float pixel_x, float *rotate_x, float *rotate_y)
