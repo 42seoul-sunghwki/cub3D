@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 12:23:54 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:43:01 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	cub_dup_valid(t_mlx *mlx)
 	int	i;
 
 	i = -1;
-	while (++i < 6)
+	while (++i < IMG_COUNT)
 	{
-		if (i == 4 || i == 5)
+		if (i == FI || i == CI)
 		{
 			if (mlx->block.pic[i].name == NULL)
 				continue ;

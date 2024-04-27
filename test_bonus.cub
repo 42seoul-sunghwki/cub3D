@@ -4,6 +4,7 @@ WE       ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 FI ./texture/stone.xpm
 
+
 ZO ./texture/zombie
 DO ./texture/door
 

@@ -6,14 +6,14 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 14:48:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:50:14 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
 static void	draw_xline_minimap(t_mlx *mlx, float pixel_y,
-	float pixel_size, int start_y)
+		float pixel_size, int start_y)
 {
 	float	i;
 	int		j;
@@ -36,13 +36,10 @@ static void	draw_xline_minimap(t_mlx *mlx, float pixel_y,
 		else
 			my_mlx_pixel_put(minimap,
 				j, start_y, MINIMAP_FLOOR);
-		//user position pixel
+		
 		if (pixel_y - HITBOX < mlx->user.y && mlx->user.y < pixel_y + HITBOX
 			&& pixel_x - HITBOX < mlx->user.x && mlx->user.x < pixel_x + HITBOX)
-		{
-			//printf("pixel_size : %f, minimap_x : %d, minimap_y : %d, pixel_x: %f pixel_y: %f, user_x : %f, user_y : %f\n", pixel_size, j, start_y, pixel_x, pixel_y, mlx->user.x, mlx->user.y);
 			my_mlx_pixel_put(minimap, j, start_y, MINIMAP_USER);
-		}
 		i += pixel_size;
 		j++;
 	}
@@ -73,26 +70,3 @@ void	init_minimap(t_pic *minimap)
 	minimap->h = WINWIDTH / MINIMAP_SCALE;
 	minimap->w = WINWIDTH / MINIMAP_SCALE;
 }
-
-//void	draw_minimap(t_mlx *mlx)
-//{
-//	float	pixel_size;
-//	float	pixel_y;
-//	int		range;
-//	int		i;
-//	int		j;
-
-//	pixel_size = 100 / WINHEIGHT;
-//	range = MINIMAP_SCALE / 2;
-//	i = -range;
-//	j = 0;
-//	while (j < mlx->minimap.h)
-//	{
-//		pixel_y = mlx->user.y - i;
-//		if (pixel_y < 0 || pixel_y > mlx->map.h)
-//			continue ;
-//		draw_xline_minimap(mlx, pixel_y, pixel_size, j);
-//		i += pixel_size;
-//		j += 1;
-//	}
-//}

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 19:29:34 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 14:41:42 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:09:13 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@ void	draw_minimap_thread(t_mlx *graphic)
 	int			i;
 	float		pixel_y_start;
 	float		pixel_size;
+	float		sin_user;
+	float		cos_user;
 
 	i = -1;
 	pixel_y_start = graphic->user.y - MINIMAP_SCALE / 2;
 	pixel_size = (float)(MINIMAP_SCALE * MINIMAP_SCALE) / WINWIDTH;
+	sin_user = graphic->user.dir_y / sqrt(graphic->user.dir_x * graphic->user.dir_x + graphic->user.dir_y * graphic->user.dir_y);
+	cos_user = graphic->user.dir_x / sqrt(graphic->user.dir_x * graphic->user.dir_x + graphic->user.dir_y * graphic->user.dir_y);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{
 		minimap = malloc(sizeof(t_minimap));
 		minimap->mlx = graphic;
+		minimap->sin_user = sin_user;
+		minimap->cos_user = cos_user;
 		minimap->start_y = graphic->minimap.h - graphic->minimap.h / graphic->num_threads * i;
 		minimap->end_y = graphic->minimap.h - graphic->minimap.h / graphic->num_threads * (i + 1);
 		minimap->pixel_y = pixel_y_start + (float)MINIMAP_SCALE / graphic->num_threads * i;

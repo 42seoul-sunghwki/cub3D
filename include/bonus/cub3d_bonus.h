@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 13:12:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:07:38 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
+# define BONUS_COUNT	2
+# define BONUS_US		0
+
+# define IMG_COUNT	6
 # define NO			0
 # define SO			1
 # define EA			2
@@ -271,13 +275,16 @@ typedef struct s_sprite {
  * 
 */
 typedef struct s_block {
-	t_pic	pic[6];
+	t_pic	pic[IMG_COUNT];
+	t_pic	bonus[BONUS_COUNT];
 	int		f_trgb;
 	int		c_trgb;
 }	t_block;
 
 typedef struct	s_minimap {
 	t_mlx	*mlx;
+	float	sin_user;
+	float	cos_user;
 	float	pixel_y;
 	float	pixel_size;
 	int		map_position_y;
@@ -483,6 +490,9 @@ int				cub_to_struct(char *file, t_mlx *mlx);
 
 /* cub_slice_bonus.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
+
+/* cub_slice_sprite_bonus.c */
+int				slice_sprite_cub(char **split, t_mlx *mlx);
 
 /* cub_check_bonus.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
