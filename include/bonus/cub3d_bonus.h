@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 16:07:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:25:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define MINIMAP_SCALE	8
 # define MINIMAP_WALL	0x33008000
 # define MINIMAP_FLOOR	0x33000000
-# define MINIMAP_BG		0x33FFFFFF
+# define MINIMAP_BG		0x80FFFFFF
 # define MINIMAP_USER	0x33FF0000
 
 # define YELLOW 0xFFFF << 8
@@ -290,6 +290,8 @@ typedef struct	s_minimap {
 	int		map_position_y;
 	int		start_y;
 	int		end_y;
+	int		start_x;
+	int		end_x;
 }	t_minimap;
 
 /**
