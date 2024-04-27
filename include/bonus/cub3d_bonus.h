@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 20:04:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 10:56:58 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@
 
 # define MINIMAP_SCALE 10
 
-# define MINIMAP_WALL	0x00800000
-# define MINIMAP_FLOOR	0xFFFF0000
-# define MINIMAP_BG		0x33333333
+# define MINIMAP_WALL	0x008000
+# define MINIMAP_FLOOR	0x000000
+# define MINIMAP_BG		0xFFFFFF
+# define MINIMAP_USER	0xFF0000
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
