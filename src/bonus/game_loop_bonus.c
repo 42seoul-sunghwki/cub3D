@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/26 20:17:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:27:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int	game_loop(void *arg)
 	handle_keys_loop(graphic);
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
-	draw_minimap_thread(graphic);
 	update_sprite(graphic, user);
+	draw_minimap_thread(graphic);
 	pthread_mutex_lock(&graphic->counter_mutex);
 	graphic->frame_sync_counter++;
 	pthread_cond_signal(&graphic->render_cond);

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 12:15:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 13:12:30 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@
 # define HALF_WINWIDTH 960
 # define HALF_WINHEIGHT 540
 
-# define MINIMAP_SCALE 8
-
-# define MINIMAP_WALL	0x008000
-# define MINIMAP_FLOOR	0x000000
-# define MINIMAP_BG		0xFFFFFF
-# define MINIMAP_USER	0xFF0000
+# define MINIMAP_SCALE	8
+# define MINIMAP_WALL	0x33008000
+# define MINIMAP_FLOOR	0x33000000
+# define MINIMAP_BG		0x33FFFFFF
+# define MINIMAP_USER	0x33FF0000
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -605,11 +604,8 @@ void			update_sprite_distance(t_mlx *graphic,
 void			draw_minimap_routine(void *in);
 void			init_minimap(t_pic *minimap);
 
-/**
- * open_file.c
- * 
-*/
-int		open_file(char *file);
-int		close_file(int fd);
+/* open_file.c */
+int				open_file(char *file);
+int				close_file(int fd);
 
 #endif
