@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 10:56:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 12:15:48 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define HALF_WINWIDTH 960
 # define HALF_WINHEIGHT 540
 
-# define MINIMAP_SCALE 10
+# define MINIMAP_SCALE 8
 
 # define MINIMAP_WALL	0x008000
 # define MINIMAP_FLOOR	0x000000
@@ -583,6 +583,7 @@ void			draw_wall_thread(t_mlx *graphic);
 /* draw_sprite_thread.c */
 void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 					t_sprite_node *cur_sprite);
+
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
 
@@ -601,8 +602,8 @@ void			update_sprite_distance(t_mlx *graphic,
 
 
 /* draw_minimap_bonus.c */
-void			draw_minimap(t_mlx *mlx);
 void			draw_minimap_routine(void *in);
+void			init_minimap(t_pic *minimap);
 
 /**
  * open_file.c

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/26 19:18:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/27 12:15:19 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,7 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	//}
 	graphic->sprite[0].fpm = 4;
 	t_sprite_vec	*vec = &graphic->sprite_vec;
-	t_pic			*minimap = &graphic->minimap;
-	minimap->h = WINWIDTH / MINIMAP_SCALE;
-	minimap->w = WINWIDTH / MINIMAP_SCALE;
+	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
 	push_sprite(vec, create_sprite_node(2, 2, 0));
 	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
