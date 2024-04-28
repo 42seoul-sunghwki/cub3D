@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 16:25:23 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:44:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdbool.h>
 # include <math.h>
 # include <pthread.h>
+# include <dirent.h>
+# include <string.h>
 
 # include "mlx.h"
 # include "ft_printf.h"
@@ -30,6 +32,25 @@
 # define WINHEIGHT 1080
 # define HALF_WINWIDTH 960
 # define HALF_WINHEIGHT 540
+
+# define MINIMAP_SCALE	8
+# define MINIMAP_WALL	0x33008000
+# define MINIMAP_FLOOR	0x33000000
+# define MINIMAP_BG		0x80FFFFFF
+# define MINIMAP_USER	0x33FF0000
+
+# define NYANCAT_X				30
+# define NYANCAT_Y				15
+# define NYANCAT_RAINBOW_SIZE	0.1
+# define NYANCAT_RED	0xFD0000
+# define NYANCAT_ORANGE	0xFD9800
+# define NYANCAT_YELLOW	0xFDFD00
+# define NYANCAT_GREEN	0x33FD00
+# define NYANCAT_BLUE	0x0098FD
+# define NYANCAT_PURPLE	0x6633FD
+
+# define PREV_COOR_SIZE	30
+# define UPDATE_COOR	10
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -41,12 +62,43 @@
 # define FAIL		1
 # define WALL_RATIO 1.34
 
+# define BONUS_COUNT	2
+# define BONUS_US		0
+
+# define IMG_COUNT	6
 # define NO			0
 # define SO			1
 # define EA			2
 # define WE			3
 # define CI			4
 # define FI			5
+
+/**
+ * Short Form of the sprite type
+ * ZOMBIE : ZO
+ * DOOR : DO
+ * MELEE : ME
+ * GUN : GU
+*/
+# define ZOM_IDLE		0
+# define ZOM_DIE		1
+# define ZOM_ATTACK		2
+# define ZOM_WALK		3
+# define DOOR_CLOSE		4
+# define DOOR_OPEN		5	
+# define MELEE_IDLE		6
+# define MELEE_ATTACK	7
+# define MELEE_WALK		8
+# define GUN_IDLE		9
+# define GUN_ATTACK		10
+# define GUN_WALK		11
+
+# define ATTACK			"Attack"
+# define DIE			"Die"
+# define IDLE			"Idle"
+# define WALK			"Walk"
+# define CLOSE			"Close"
+# define OPEN			"Open"
 
 # define NORTH	0
 # define SOUTH	1
@@ -225,7 +277,7 @@ typedef struct s_sprite_vec
 }	t_sprite_vec;
 
 /**
- * 
+ * @var int		num_img		number of img, dynamic init
 */
 typedef struct s_sprite {
 	int		num_img;
@@ -237,41 +289,69 @@ typedef struct s_sprite {
  * 
 */
 typedef struct s_block {
-	t_pic	pic[6];
+	t_pic	pic[IMG_COUNT];
+	t_pic	bonus[BONUS_COUNT];
 	int		f_trgb;
 	int		c_trgb;
 }	t_block;
 
-/**
- * @var	float	x			x position of the user
- * @var	float	y			y position of the user
- * @var	float	z			z position of the user
- * @var	int		map_x		x position of the square the user is currently in
- * @var	int		map_y		y position of the square the user is currently in
- * @var	float	dir_x		x component of direction vector of the user
- * @var	float	dir_y		y component of direction vector of the user
- * @var	float	plane_x		x component of direction vector of the plane
- * @var	float	plane_y		y component of direction vector of the plane
- * @var	float	move_speed	the move_speed of the user when up, down ey pressed
- * @var	float	rot_speed	the rotation speed of the user
-*/
-typedef struct s_user {
+typedef struct	s_minimap {
+	t_mlx	*mlx;
+	float	sin_user;
+	float	cos_user;
+	float	pixel_y;
+	float	pixel_size;
+	int		map_position_y;
+	int		start_y;
+	int		end_y;
+	int		start_x;
+	int		end_x;
+	int		coord_start;
+	int		coord_end;
+}	t_minimap;
+
+typedef struct	s_coord {
 	float	x;
 	float	y;
-	float	z;
-	float	dir_x;
-	float	dir_y;
-	float	new_displacement_y;
-	float	new_displacement_x;
-	float	plane_x;
-	float	plane_y;
-	float	move_speed;
-	float	rot_speed;
-	float	zx;
-	float	zy;
-	int		flag;
-	float	z_velocity;
-	float	z_gravity;
+}	t_coord;
+
+/**
+ * @var	float		x			x position of the user
+ * @var	float		y			y position of the user
+ * @var	float		z			z position of the user
+ * @var	int			map_x		x position of the square the user is currently in
+ * @var	int			map_y		y position of the square the user is currently in
+ * @var	float		dir_x		x component of direction vector of the user
+ * @var	float		dir_y		y component of direction vector of the user
+ * @var	float		plane_x		x component of direction vector of the plane
+ * @var	float		plane_y		y component of direction vector of the plane
+ * @var	float		move_speed	the move_speed of the user when up, down ey pressed
+ * @var	float		rot_speed	the rotation speed of the user
+ * @var float 		z_velocity	the velocity of the user in the z direction
+ * @var float		z_gravity	the gravity of the user in the z direction
+ * @var t_coordi	last_coor	the last 30 coordinate of the user
+ * @var int			last_coor_idx	the index of the last_coordinate
+ * @var int			last_coor_size	the size of the last_coordinate
+*/
+typedef struct s_user {
+	float		x;
+	float		y;
+	float		z;
+	float		dir_x;
+	float		dir_y;
+	float		new_displacement_y;
+	float		new_displacement_x;
+	float		plane_x;
+	float		plane_y;
+	float		move_speed;
+	float		rot_speed;
+	float		zx;
+	float		zy;
+	int			flag;
+	float		z_velocity;
+	float		z_gravity;
+	t_coord		last_coor[PREV_COOR_SIZE];
+	int			last_coor_idx;
 }	t_user;
 
 /**
@@ -383,6 +463,7 @@ typedef struct s_mlx {
 	pthread_mutex_t	counter_mutex;
 	t_thread_pool	pool;
 	t_map			map;
+	t_pic			minimap;
 	t_block			block;
 	t_sprite		sprite[NUM_SPRITE];
 	t_sprite_info	sprite_info;
@@ -415,6 +496,8 @@ unsigned char	get_b(int trgb);
 /* open_file_bonus.c */
 int				open_file(char *file);
 int				close_file(int fd);
+DIR				*open_folder(char *path);
+int				count_folder_file(DIR *dir);
 
 /* free_pointer_bonus.c */
 void			free_2d_ptr(char **ptr);
@@ -422,7 +505,7 @@ void			free_2d_ptr(char **ptr);
 /* init_struct_bonus.c */
 void			init_block(t_block *block);
 void			init_pic(t_pic *pic);
-void			init_user(t_user *user, int x, int y, char pos);
+void			init_user(t_user *user, float x, float y, char pos);
 t_line_lst		*init_line_lst(char *line);
 
 /* free_struct_bonus.c */
@@ -430,6 +513,7 @@ void			free_line_lst(t_line_lst *lst);
 
 /* ft_lib_bonus.c */
 int				ft_sanitize_enter(char *line);
+void			ft_exit(char *str);
 
 /* cub_to_struct_bonus.c */
 int				cub_to_struct(char *file, t_mlx *mlx);
@@ -437,8 +521,13 @@ int				cub_to_struct(char *file, t_mlx *mlx);
 /* cub_slice_bonus.c */
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
+/* cub_slice_sprite_bonus.c */
+int				slice_sprite_cub(char **split, t_mlx *mlx);
+
 /* cub_check_bonus.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
+void			check_img_sprite_file(char *file,
+					t_mlx *graphic, t_pic *org_img);
 
 /* cub_read_bonus.c */
 char			*read_cub(int fd, t_mlx *graphic);
@@ -462,6 +551,7 @@ void			free_lst(t_lst_head *head);
 
 /* cub_map_valid_bonus.c */
 int				cub_map_valid(t_map *map);
+void			cub_valid_door_user_zombie(t_map *map);
 
 /* init_struct_bonus.c */
 void			get_img_addr(t_data *data);
@@ -533,6 +623,11 @@ void			draw_wall_thread(t_mlx *graphic);
 void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 					t_sprite_node *cur_sprite);
 
+/* draw_minimap_thread.c */
+void			draw_minimap_thread(t_mlx *graphic);
+void			count_user_coordinate(t_mlx *mlx);
+t_minimap		*draw_minimap_thread_helper(t_minimap *info, t_mlx *graphic, int i);
+
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
 
@@ -546,11 +641,13 @@ void			handle_jump(t_mlx *graphic, t_user *user);
 void			update_sprite_distance(t_mlx *graphic,
 					t_user *user, t_sprite_vec *vec);
 
-/**
- * open_file.c
- * 
-*/
-int		open_file(char *file);
-int		close_file(int fd);
+
+/* draw_minimap_bonus.c */
+void			draw_minimap_routine(void *in);
+void			init_minimap(t_pic *minimap);
+
+/* open_file.c */
+int				open_file(char *file);
+int				close_file(int fd);
 
 #endif

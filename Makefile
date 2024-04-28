@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
+#    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/24 15:53:12 by minsepar         ###   ########.fr        #
+#    Updated: 2024/04/28 18:40:14 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra -O3
+FLAGS =  -g -Wall -Werror -Wextra
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -32,10 +32,11 @@ SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		free_pointer.c ft_lib.c game_loop.c init_dda_data.c handle_keypress.c \
 		collision_check.c collision_check_dir.c draw_floor.c
 
-BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
+BONUS_SRC =	main_bonus.c \
+			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
-			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
-			cub_read_bonus.c cub_slice_bonus.c cub_map_valid_bonus.c \
+			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c cub_slice_sprite_bonus.c \
+			cub_read_bonus.c cub_slice_bonus.c cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
@@ -43,6 +44,7 @@ BONUS_SRC =	main_bonus.c mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			mergesort_sprite_bonus.c sprite_list_bonus.c \
 			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
 			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
+			draw_minimap_bonus.c minimap_thread_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
 			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c
 
@@ -153,10 +155,10 @@ re: fclean all
 reb: fclean bonus
 
 run:
-	@$(NAME) ./test.cub
+	@$(NAME) ./test_man.cub
 
 runb:
-	$(NAME_BONUS) ./test.cub
+	$(NAME_BONUS) ./test_bonus.cub
 
 bonus: $(NAME_BONUS)
 

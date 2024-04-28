@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_move_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:40:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/20 16:13:30 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:14:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	handle_mouse_move(int x, int z, void *arg)
 
 	graphic = (t_mlx *)arg;
 	(void)arg;
+	//printf("handle_mouse_move");
 	handle_mouse_move_x(graphic, x - HALF_WINWIDTH);
 	handle_mouse_move_z(graphic, z - HALF_WINHEIGHT);
 	//mac

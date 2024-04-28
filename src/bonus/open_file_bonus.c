@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/16 13:10:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/26 12:32:36 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,32 @@ int	close_file(int fd)
 		exit(1);
 	}
 	return (SUCCESS);
+}
+
+DIR	*open_folder(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	printf("path: %s\n", path);
+	if (!dir)
+		ft_exit("Failed to open folder");
+	return (dir);
+}
+
+int	count_folder_file(DIR *dir)
+{
+	int				ret;
+	struct dirent	*entry;
+
+	ret = 0;
+	entry = readdir(dir);
+	while (entry)
+	{
+		if (entry->d_type == DT_REG)
+			ret++;
+		entry = readdir(dir);
+	}
+	rewinddir(dir);
+	return (ret);
 }
