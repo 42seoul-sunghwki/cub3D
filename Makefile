@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
+#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/28 18:40:14 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/04/28 18:58:17 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ BONUS_SRC =	main_bonus.c \
 			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
 			draw_minimap_bonus.c minimap_thread_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
-			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c
+			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c \
+			bg_sound_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -127,11 +128,11 @@ $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -Ilib/bass24-osx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
-	$(LIBFT) -o $(NAME_BONUS)
+	$(LIBFT) -Wl,-rpath,/Users/minsepar/cub3d/lib/bass24-osx/intel -Llib/bass24-osx/intel -lbass -o $(NAME_BONUS)
 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
 
