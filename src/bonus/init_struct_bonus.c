@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 19:19:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 14:47:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void	init_pic(t_pic *pic)
 
 void	init_user(t_user *user, float x, float y, char pos)
 {
+	int	i;
+
+	i = 0;
 	user->x = (double)x;
 	user->y = (double)y;
 	user->z = 0.0;
@@ -110,4 +113,12 @@ void	init_user(t_user *user, float x, float y, char pos)
 		user->dir_x = 1.0;
 		user->plane_y = -0.66;
 	}
+	memset(user->last_coor, 0, sizeof(t_coord) * PREV_COOR_SIZE);
+	while (i < PREV_COOR_SIZE)
+	{
+		user->last_coor[i].x = user->x;
+		user->last_coor[i].y = user->y;
+		i++;
+	}
+	user->last_coor_idx = 1;
 }

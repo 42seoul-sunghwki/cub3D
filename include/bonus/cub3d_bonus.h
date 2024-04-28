@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 20:55:45 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:24:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include <pthread.h>
 # include <dirent.h>
+# include <string.h>
 
 # include "mlx.h"
 # include "ft_printf.h"
@@ -38,8 +39,18 @@
 # define MINIMAP_BG		0x80FFFFFF
 # define MINIMAP_USER	0x33FF0000
 
-# define NYANCAT_X	30
-# define NYANCAT_Y	15
+# define NYANCAT_X				30
+# define NYANCAT_Y				15
+# define NYANCAT_RAINBOW_SIZE	0.1
+# define NYANCAT_RED	0xFD0000
+# define NYANCAT_ORANGE	0xFD9800
+# define NYANCAT_YELLOW	0xFDFD00
+# define NYANCAT_GREEN	0x33FD00
+# define NYANCAT_BLUE	0x0098FD
+# define NYANCAT_PURPLE	0x6633FD
+
+# define PREV_COOR_SIZE	30
+# define UPDATE_COOR	10
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -297,36 +308,48 @@ typedef struct	s_minimap {
 	int		end_x;
 }	t_minimap;
 
-/**
- * @var	float	x			x position of the user
- * @var	float	y			y position of the user
- * @var	float	z			z position of the user
- * @var	int		map_x		x position of the square the user is currently in
- * @var	int		map_y		y position of the square the user is currently in
- * @var	float	dir_x		x component of direction vector of the user
- * @var	float	dir_y		y component of direction vector of the user
- * @var	float	plane_x		x component of direction vector of the plane
- * @var	float	plane_y		y component of direction vector of the plane
- * @var	float	move_speed	the move_speed of the user when up, down ey pressed
- * @var	float	rot_speed	the rotation speed of the user
-*/
-typedef struct s_user {
+typedef struct	s_coord {
 	float	x;
 	float	y;
-	float	z;
-	float	dir_x;
-	float	dir_y;
-	float	new_displacement_y;
-	float	new_displacement_x;
-	float	plane_x;
-	float	plane_y;
-	float	move_speed;
-	float	rot_speed;
-	float	zx;
-	float	zy;
-	int		flag;
-	float	z_velocity;
-	float	z_gravity;
+}	t_coord;
+
+/**
+ * @var	float		x			x position of the user
+ * @var	float		y			y position of the user
+ * @var	float		z			z position of the user
+ * @var	int			map_x		x position of the square the user is currently in
+ * @var	int			map_y		y position of the square the user is currently in
+ * @var	float		dir_x		x component of direction vector of the user
+ * @var	float		dir_y		y component of direction vector of the user
+ * @var	float		plane_x		x component of direction vector of the plane
+ * @var	float		plane_y		y component of direction vector of the plane
+ * @var	float		move_speed	the move_speed of the user when up, down ey pressed
+ * @var	float		rot_speed	the rotation speed of the user
+ * @var float 		z_velocity	the velocity of the user in the z direction
+ * @var float		z_gravity	the gravity of the user in the z direction
+ * @var t_coordi	last_coor	the last 30 coordinate of the user
+ * @var int			last_coor_idx	the index of the last_coordinate
+ * @var int			last_coor_size	the size of the last_coordinate
+*/
+typedef struct s_user {
+	float		x;
+	float		y;
+	float		z;
+	float		dir_x;
+	float		dir_y;
+	float		new_displacement_y;
+	float		new_displacement_x;
+	float		plane_x;
+	float		plane_y;
+	float		move_speed;
+	float		rot_speed;
+	float		zx;
+	float		zy;
+	int			flag;
+	float		z_velocity;
+	float		z_gravity;
+	t_coord		last_coor[PREV_COOR_SIZE];
+	int			last_coor_idx;
 }	t_user;
 
 /**
@@ -600,6 +623,7 @@ void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
+void			count_user_coordinate(t_mlx *mlx);
 
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
