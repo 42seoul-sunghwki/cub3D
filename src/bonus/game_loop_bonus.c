@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/24 16:14:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:27:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	game_loop(void *arg)
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
 	update_sprite(graphic, user);
+	draw_minimap_thread(graphic);
 	pthread_mutex_lock(&graphic->counter_mutex);
 	graphic->frame_sync_counter++;
 	pthread_cond_signal(&graphic->render_cond);
@@ -118,7 +119,7 @@ int	game_loop(void *arg)
 	// printf("graphic->num_frame %d\n", graphic->num_frame);
 	graphic->total_frame++;
 	cur_time = get_time_in_us();
-	printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
+	//printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
 	graphic->time = cur_time;
 	// printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
 	return (0);

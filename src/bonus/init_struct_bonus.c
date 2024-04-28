@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 14:01:19 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/28 14:47:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void	init_pic(t_pic *pic)
 // 	return (pic);
 // }
 
-void	init_user(t_user *user, int x, int y, char pos)
+void	init_user(t_user *user, float x, float y, char pos)
 {
+	int	i;
+
+	i = 0;
 	user->x = (double)x;
 	user->y = (double)y;
 	user->z = 0.0;
@@ -83,6 +86,8 @@ void	init_user(t_user *user, int x, int y, char pos)
 	user->dir_y = 0.0;
 	user->plane_x = 0.0;
 	user->plane_y = 0.0;
+	user->move_speed = MOVE_SPEED;
+	user->rot_speed = ROT_SPEED;
 	user->zx = 1.0;
 	user->zy = 0;
 	user->flag = 0;
@@ -108,17 +113,12 @@ void	init_user(t_user *user, int x, int y, char pos)
 		user->dir_x = 1.0;
 		user->plane_y = -0.66;
 	}
-	user->move_speed = MOVE_SPEED;
-	user->rot_speed = ROT_SPEED;
-}
-
-void	get_img_addr(t_data *data)
-{
-	data->addr = mlx_get_data_addr(
-			data->img,
-			&data->bits_per_pixel,
-			&data->line_length,
-			&data->endian
-			);
-	printf("data->addr: [%p]\n", data->addr);
+	memset(user->last_coor, 0, sizeof(t_coord) * PREV_COOR_SIZE);
+	while (i < PREV_COOR_SIZE)
+	{
+		user->last_coor[i].x = user->x;
+		user->last_coor[i].y = user->y;
+		i++;
+	}
+	user->last_coor_idx = 1;
 }
