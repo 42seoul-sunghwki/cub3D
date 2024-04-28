@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/22 20:09:22 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:03:08 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,6 @@ int	main(int argc, char **argv)
 	mlx_hook(graphic.win, 17, 0, terminate_program, &graphic);
 	mlx_hook(graphic.win, 6, 0, handle_mouse_move, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse_click, &graphic);
+	set_bg_sound();
 	mlx_loop(graphic.mlx);
 }

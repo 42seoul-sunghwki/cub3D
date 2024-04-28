@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 16:25:23 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:14:28 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # include "mlx.h"
 # include "ft_printf.h"
+# include "bass.h"
 
 # define WINWIDTH 1920
 # define WINHEIGHT 1080
@@ -390,6 +391,7 @@ typedef struct s_mlx {
 	t_user			user;
 	size_t			time;
 	t_dda			dda;
+	HSTREAM			sound_stream;
 }	t_mlx;
 
 //tmp
@@ -545,6 +547,9 @@ void			handle_jump(t_mlx *graphic, t_user *user);
 /* sprite_distance_bonus.c */
 void			update_sprite_distance(t_mlx *graphic,
 					t_user *user, t_sprite_vec *vec);
+
+/* bg_sound_bonus.c */
+void			set_bg_sound();
 
 /**
  * open_file.c
