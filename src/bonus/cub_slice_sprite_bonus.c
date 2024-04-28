@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_slice_sprite_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 15:44:46 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/27 15:51:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:21:22 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ char	*join_path(char *path, char *dir_name)
 	char	*dir_path;
 	char	*tmp;
 
+	if (dir_name[0] == '\0')
+	{
+		return (ft_strdup(path));
+	}
 	tmp = ft_strjoin(path, "/");
 	dir_path = ft_strjoin(tmp, dir_name);
 	free(tmp);
@@ -106,13 +110,25 @@ static void	slice_sprite_door(char **split, t_mlx *mlx)
 	read_folder(split[1], CLOSE, DOOR_CLOSE, mlx);
 }
 
+static void	slice_sprite_bear(char **split, t_mlx *mlx)
+{
+	DIR		*dir;
+
+	if (split[0] == NULL || split[1] == NULL
+		|| split[2] != NULL)
+		ft_exit("Sprite input is not valid");
+	dir = open_folder(split[1]);
+	closedir(dir);
+	read_folder(split[1], "", DANCING_BEAR, mlx);
+}
+
 int	slice_sprite_cub(char **split, t_mlx *mlx)
 {
-	static char	*sp[4] = {"ZO", "DO", "ME", "GU"};
+	static char	*sp[] = {"ZO", "DO", "ME", "GU", "DB"};
 	int			i;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 	{
 		if (ft_strncmp(split[0], sp[i], 3) == 0)
 		{
@@ -121,9 +137,14 @@ int	slice_sprite_cub(char **split, t_mlx *mlx)
 				slice_sprite_zombie(split, mlx);
 				return (SUCCESS);
 			}
-			if (i == 1)
+			else if (i == 1)
 			{
 				slice_sprite_door(split, mlx);
+				return (SUCCESS);
+			}
+			else if (i == 4)
+			{
+				slice_sprite_bear(split, mlx);
 				return (SUCCESS);
 			}
 		}

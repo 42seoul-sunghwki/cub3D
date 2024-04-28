@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/28 18:58:38 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:23:43 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,11 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	//		sprite->img[i].name, &sprite->img[i].w, &sprite->img[i].h);
 	//	get_img_addr(&sprite->img[i].data);
 	//}
-	graphic->sprite[0].fpm = 4;
+	graphic->sprite[12].fpm = 3;
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
-	push_sprite(vec, create_sprite_node(2, 2, 0));
+	push_sprite(vec, create_sprite_node(2, 2, DANCING_BEAR));
 	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	if (graphic->num_threads < 0)
 		perror("sysconf");

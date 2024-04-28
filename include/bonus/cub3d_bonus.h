@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 18:58:31 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:56:39 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@
 # define GUN_IDLE		9
 # define GUN_ATTACK		10
 # define GUN_WALK		11
+# define DANCING_BEAR	12
 
 # define ATTACK			"Attack"
 # define DIE			"Die"
@@ -127,7 +128,7 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE	1
+# define NUM_SPRITE	20
 # define NUM_SPRITE_TYPE	4
 
 /* user */
