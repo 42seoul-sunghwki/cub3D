@@ -6,14 +6,13 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 19:29:34 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 15:21:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:43:59 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static t_minimap	*draw_minimap_thread_helper(t_minimap *info,
-	t_mlx *graphic, int i)
+t_minimap	*draw_minimap_thread_helper(t_minimap *info, t_mlx *graphic, int i)
 {
 	t_minimap	*minimap;
 

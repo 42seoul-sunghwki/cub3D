@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 16:24:17 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:44:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,8 @@ typedef struct	s_minimap {
 	int		end_y;
 	int		start_x;
 	int		end_x;
+	int		coord_start;
+	int		coord_end;
 }	t_minimap;
 
 typedef struct	s_coord {
@@ -624,6 +626,7 @@ void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
 void			count_user_coordinate(t_mlx *mlx);
+t_minimap		*draw_minimap_thread_helper(t_minimap *info, t_mlx *graphic, int i);
 
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
