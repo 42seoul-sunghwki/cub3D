@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 16:31:09 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:41:06 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,80 +62,82 @@ t_coord	*get_next_user_last_coor(t_mlx *mlx, int *idx)
 	return (NULL);
 }
 
-//static float	get_distance(t_coord *start, t_coord *end, t_coord *coor)
-//{
-//	float	a;
-//	float	b;
-//	float	c;
+static float	get_distance(t_coord *start, t_coord *end, t_coord *coor)
+{
+	float	a;
+	float	b;
+	float	c;
 
-//	a = end->y - start->y;
-//	b = start->x - end->x;
-//	c = b * start->y - a * start->x;
-//	return (fabs(a * coor->x + b * coor->y + c) / sqrt(a * a + b * b));
-//}
+	a = end->y - start->y;
+	b = start->x - end->x;
+	c = b * start->y - a * start->x;
+	return (fabs(a * coor->x + b * coor->y + c) / sqrt(a * a + b * b));
+}
 
-//static float	get_right_left_vec(t_coord *start, t_coord *end, t_coord *coor)
-//{
-//	float	vec_x;
-//	float	vec_y;
-//	float	coor_vec_x;
-//	float	coor_vec_y;
+static float	get_right_left_vec(t_coord *start, t_coord *end, t_coord *coor)
+{
+	float	vec_x;
+	float	vec_y;
+	float	coor_vec_x;
+	float	coor_vec_y;
 
-//	vec_x = end->x - start->x;
-//	vec_y = end->y - start->y;
-//	coor_vec_x = coor->x - start->x;
-//	coor_vec_y = coor->y - start->y;
-//	return (vec_x * coor_vec_y - vec_y * coor_vec_x);
-//}
+	vec_x = end->x - start->x;
+	vec_y = end->y - start->y;
+	coor_vec_x = coor->x - start->x;
+	coor_vec_y = coor->y - start->y;
+	return (vec_x * coor_vec_y - vec_y * coor_vec_x);
+}
 
-//static void	draw_rainbow_minimap(t_mlx *mlx, t_coord *pixel, int minimap_x, int minimap_y)
-//{
-//	int		i;
-//	int		start;
-//	float	distance;
-//	float	right_left;
-//	t_user	*user;
-//	t_coord	*coor;
+static void	draw_rainbow_minimap(t_mlx *mlx, t_coord *pixel, int minimap_x, int minimap_y)
+{
+	int		i;
+	int		start;
+	float	distance;
+	float	right_left;
+	t_user	*user;
+	t_coord	*coor;
 
-//	user = &mlx->user;
-//	i = (user->last_coor_idx + 1) % PREV_COOR_SIZE;
-//	start = i;
-//	while (i != mlx->user.last_coor_idx)
-//	{
-//		coor = get_next_user_last_coor(mlx, &i);
-//		if (coor == NULL)
-//			break ;
-//		distance = get_distance(&mlx->user.last_coor[start], coor, pixel);
-//		right_left = get_right_left_vec(&mlx->user.last_coor[start], coor, pixel);
-//		if (distance <= NYANCAT_RAINBOW_SIZE * 3)
-//		{
-//			if (distance > NYANCAT_RAINBOW_SIZE * 2)
-//			{
-//				if (right_left > 0)
-//					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_RED);
-//				else
-//					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_PURPLE);
-//			}
-//			else if (distance > NYANCAT_RAINBOW_SIZE)
-//			{
-//				if (right_left > 0)
-//					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_ORANGE);
-//				else
-//					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_BLUE);
-//			}
-//			else
-//			{
-//				if (right_left > 0)
-//					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_YELLOW);
-//				else
-//					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_GREEN);
-//			}
-//			return ;
-//		}
-//		start = i;
-//		i = (i + 1) % PREV_COOR_SIZE;
-//	}
-//}
+	user = &mlx->user;
+	i = (user->last_coor_idx + 1) % PREV_COOR_SIZE;
+	start = i;
+	while (i != mlx->user.last_coor_idx)
+	{
+		coor = get_next_user_last_coor(mlx, &i);
+		if (coor == NULL)
+			break ;
+		distance = get_distance(&mlx->user.last_coor[start], coor, pixel);
+		right_left = get_right_left_vec(&mlx->user.last_coor[start], coor, pixel);
+		printf("distance : %f, right_left : %f, last_coor_idx : %d\n", distance, right_left, mlx->user.last_coor_idx);
+		
+		if (distance <= NYANCAT_RAINBOW_SIZE * 3)
+		{
+			if (distance > NYANCAT_RAINBOW_SIZE * 2)
+			{
+				if (right_left > 0)
+					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_RED);
+				else
+					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_PURPLE);
+			}
+			else if (distance > NYANCAT_RAINBOW_SIZE)
+			{
+				if (right_left > 0)
+					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_ORANGE);
+				else
+					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_BLUE);
+			}
+			else
+			{
+				if (right_left > 0)
+					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_YELLOW);
+				else
+					my_mlx_pixel_put(&mlx->img_data[mlx->num_frame], minimap_x, minimap_y, NYANCAT_GREEN);
+			}
+			return ;
+		}
+		start = i;
+		i = (i + 1) % PREV_COOR_SIZE;
+	}
+}
 
 static void	draw_rotate_minimap(t_mlx *mlx, t_coord *pixel,
 		int minimap_x, int minimap_y)
@@ -156,7 +158,7 @@ static void	draw_rotate_minimap(t_mlx *mlx, t_coord *pixel,
 		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_WALL);
 	else
 		my_mlx_pixel_put(minimap, minimap_x, minimap_y, MINIMAP_FLOOR);
-	
+	draw_rainbow_minimap(mlx, pixel, minimap_x, minimap_y);
 	if (minimap_x > mlx->minimap.w / 2 - NYANCAT_X && minimap_x < mlx->minimap.w / 2 + NYANCAT_X
 		&& minimap_y > mlx->minimap.h / 2 - NYANCAT_Y && minimap_y < mlx->minimap.h / 2 + NYANCAT_Y)
 	{
@@ -165,6 +167,8 @@ static void	draw_rotate_minimap(t_mlx *mlx, t_coord *pixel,
 			my_mlx_pixel_put(minimap, minimap_x, minimap_y, get_trgb);
 	}
 }
+
+
 
 //static void	draw_rotate_minimap(t_mlx *mlx, float pixel_x, float pixel_y,
 //		int minimap_x, int minimap_y)
