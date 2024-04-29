@@ -9,6 +9,8 @@ US ./texture/nyan_cat.xpm
 ZO ./texture/zombie
 DO ./texture/door
 DB ./texture/dancing_bear
+DD ./texture/dancing_dog
+DC ./texture/dancing_cat
 
 F 0,0,0
 C 255,255,255

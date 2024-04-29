@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 19:56:39 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:49:37 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,27 @@
  * MELEE : ME
  * GUN : GU
 */
-# define ZOM_IDLE		0
-# define ZOM_DIE		1
-# define ZOM_ATTACK		2
-# define ZOM_WALK		3
-# define DOOR_CLOSE		4
-# define DOOR_OPEN		5	
-# define MELEE_IDLE		6
-# define MELEE_ATTACK	7
-# define MELEE_WALK		8
-# define GUN_IDLE		9
-# define GUN_ATTACK		10
-# define GUN_WALK		11
-# define DANCING_BEAR	12
+# define ZOM_IDLE				0
+# define ZOM_DIE				1
+# define ZOM_ATTACK				2
+# define ZOM_WALK				3
+# define DOOR_CLOSE				4
+# define DOOR_OPEN				5	
+# define MELEE_IDLE				6
+# define MELEE_ATTACK			7
+# define MELEE_WALK				8
+# define GUN_IDLE				9
+# define GUN_ATTACK				10
+# define GUN_WALK				11
+# define DANCING_BEAR			12
+# define DANCING_DOG			13
+# define DANCING_CAT			14
+# define PEPSI_DRAW				15
+# define PEPSI_DRINK			16
+# define PEPSI_IDLE				17
+# define PEPSI_OPEN_AND_DRINK	18
+# define PEPSI_RUN				19
+# define PEPSI_WALK				20
 
 # define ATTACK			"Attack"
 # define DIE			"Die"
@@ -101,6 +109,14 @@
 # define WALK			"Walk"
 # define CLOSE			"Close"
 # define OPEN			"Open"
+
+/* pepsi */
+# define DRAW			"DRAW"
+# define DRINK			"DRINK"
+# define IDLE			"IDLE"
+# define OPEN_AND_DRINK	"OPEN_AND_DRINK"
+# define RUN			"RUN"
+# define WALK			"WALK"
 
 # define NORTH	0
 # define SOUTH	1
@@ -113,9 +129,12 @@
 # define S	1
 # define D	2
 # define W	13
-
 # define ESC	53
 # define SPACE	49
+# define ONE	18
+# define TWO	19
+# define THREE	20
+# define FOUR	21
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -150,10 +169,6 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
-
-/**
- * Thread testing
-*/
 
 typedef struct s_task
 {
@@ -268,6 +283,8 @@ typedef struct s_sprite_node
 	float	y;
 	int		sprite_type;
 	float	distance;
+	int		v_move_screen;
+	float	v_move;
 	size_t	start_frame;
 }	t_sprite_node;
 
@@ -407,6 +424,16 @@ typedef struct s_dda {
 	int				end_pixel_x;
 }	t_dda;
 
+typedef struct s_weapon_thread
+{
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
+	t_mlx	*mlx;
+	t_pic	*texture;
+}	t_weapon_thread;
+
 typedef struct s_sprite_thread
 {
 	int				draw_start;
@@ -457,6 +484,10 @@ typedef struct s_mlx {
 	int				frame_sync_counter;
 	int				num_frame;
 	int				num_frame_render;
+	int				weapon_num;
+	int				change_weapon_num;
+	size_t			start_frame;
+	int				user_state;
 	long			num_threads;
 	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
@@ -600,7 +631,7 @@ void			push_sprite(t_sprite_vec *vec, t_sprite_node *node);
 t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
 void			delete_sprite(t_sprite_vec *vec, int index);
 t_sprite_node	*create_sprite_node(float x, float y,
-					int sprite_type);
+					int sprite_type, float v_move);
 
 /* mouse_move_bonus.c */
 int				handle_mouse_move(int x, int y, void *arg);
@@ -645,8 +676,7 @@ void			update_sprite_distance(t_mlx *graphic,
 					t_user *user, t_sprite_vec *vec);
 
 /* bg_sound_bonus.c */
-void			set_bg_sound();
-
+void			set_bg_sound(t_mlx *graphic);
 
 /* draw_minimap_bonus.c */
 void			draw_minimap_routine(void *in);
