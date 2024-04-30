@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/29 18:29:09 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:27:32 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,15 @@ void	draw_floor_thread(t_mlx *graphic)
 	wait_for_threads(&graphic->pool);
 }
 
+void	mlx_sync_render(t_mlx *graphic)
+{
+	t_data	*data;
+
+	data = &graphic->img_data[graphic->num_frame];
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
+}
+
 int	game_loop(void *arg)
 {
 	t_mlx			*graphic;
@@ -105,7 +114,9 @@ int	game_loop(void *arg)
 	while (graphic->frame_sync_counter > 1)
 		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
 	pthread_mutex_unlock(&graphic->counter_mutex);
+	// printf("frame_sync_counter: %d\n", graphic->frame_sync_counter);
 	handle_keys_loop(graphic);
+	mlx_sync_render(graphic);
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
 	update_sprite(graphic, user);

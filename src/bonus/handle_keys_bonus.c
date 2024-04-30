@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:26:20 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/24 13:06:40 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:59:41 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,16 @@ void	handle_keys_loop(t_mlx *graphic)
 		|| (graphic->key_states[D] && !graphic->key_states[A])
 		|| (graphic->key_states[W] && !graphic->key_states[S])
 		|| (graphic->key_states[S] && !graphic->key_states[W]))
+	{
+		graphic->user_state = STATE_WALK;
+		graphic->weapon_start_frame = 0;
 		check_collision(graphic);
+	}
+	else
+	{
+		graphic->user_state = STATE_IDLE;
+		graphic->weapon_start_frame = 0;
+	}
 	if (user->flag & JUMP)
 		handle_jump(graphic, user);
 }

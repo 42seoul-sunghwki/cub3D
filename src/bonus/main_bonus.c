@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/29 19:43:58 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:27:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	graphic->block.f_trgb = 0xced4da;
 	graphic->block.c_trgb = 0;
 	graphic->weapon_num = 0;
+	//weapon setting
 	graphic->change_weapon_num = 1;
+	graphic->weapon_sprite[1] = PEPSI_DRAW;
+	graphic->weapon_start_frame = 0;
 	cub_to_struct(argv[1], graphic);
 	//i = -1;
 	//while (++i < 15)
@@ -45,6 +48,12 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	graphic->sprite[DANCING_BEAR].fpm = 2;
 	graphic->sprite[DANCING_DOG].fpm = 2;
 	graphic->sprite[DANCING_CAT].fpm = 2;
+	// graphic->sprite[PEPSI_DRAW].fpm = 2;
+	// graphic->sprite[PEPSI_IDLE].fpm = 2;
+	// graphic->sprite[PEPSI_DRINK].fpm = 2;
+	// graphic->sprite[PEPSI_OPEN_AND_DRINK].fpm = 2;
+	// graphic->sprite[PEPSI_WALK].fpm = 2;
+	// graphic->sprite[PEPSI_RUN].fpm = 2;
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
@@ -103,21 +112,15 @@ void	print_struct(t_mlx *mlx)
 
 void	mlx_setup(t_mlx *graphic)
 {
-	//Mac
 	mlx_mouse_hide(graphic->mlx);
 	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	//linux
-	// mlx_mouse_hide(graphic->mlx, graphic->win);
-	// mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 }
 
 int	main(int argc, char **argv)
 {
-	// atexit(check);
 	t_mlx	graphic;
 	t_map	*map;
 
-	// (void) map;
 	if (init_main(argc) == FAIL)
 		return (1);
 	ft_memset(&graphic, 0, sizeof(t_mlx));
@@ -132,6 +135,6 @@ int	main(int argc, char **argv)
 	mlx_hook(graphic.win, 17, 0, terminate_program, &graphic);
 	mlx_hook(graphic.win, 6, 0, handle_mouse_move, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse_click, &graphic);
-	set_bg_sound(&graphic);
+	// set_bg_sound(&graphic);
 	mlx_loop(graphic.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/29 20:49:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:51:03 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,22 @@
 # define DANCING_DOG			13
 # define DANCING_CAT			14
 # define PEPSI_DRAW				15
-# define PEPSI_DRINK			16
-# define PEPSI_IDLE				17
+# define PEPSI_IDLE				16
+# define PEPSI_DRINK			17
 # define PEPSI_OPEN_AND_DRINK	18
 # define PEPSI_RUN				19
 # define PEPSI_WALK				20
+
+/* user_states */
+# define STATE_DRAW				0
+# define STATE_IDLE				1
+# define STATE_DRINK			2
+# define STATE_OPEN_AND_DRINK	3
+# define STATE_RUN				4
+# define STATE_WALK				5
+
+/* mouse_buttons */
+# define LEFT_CLICK				1
 
 # define ATTACK			"Attack"
 # define DIE			"Die"
@@ -111,12 +122,10 @@
 # define OPEN			"Open"
 
 /* pepsi */
-# define DRAW			"DRAW"
-# define DRINK			"DRINK"
-# define IDLE			"IDLE"
-# define OPEN_AND_DRINK	"OPEN_AND_DRINK"
-# define RUN			"RUN"
-# define WALK			"WALK"
+# define DRAW			"Draw"
+# define DRINK			"Drink"
+# define OPEN_AND_DRINK	"Open_and_drink"
+# define RUN			"Run"
 
 # define NORTH	0
 # define SOUTH	1
@@ -147,11 +156,11 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE	20
+# define NUM_SPRITE	21
 # define NUM_SPRITE_TYPE	4
 
 /* user */
-# define MOVE_SPEED	0.08
+# define MOVE_SPEED	0.05
 # define ROT_SPEED	0.0005
 
 /* user->flag */
@@ -486,8 +495,10 @@ typedef struct s_mlx {
 	int				num_frame_render;
 	int				weapon_num;
 	int				change_weapon_num;
-	size_t			start_frame;
+	int				pepsi_open;
+	size_t			weapon_start_frame;
 	int				user_state;
+	int				weapon_sprite[5];
 	long			num_threads;
 	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
@@ -681,6 +692,9 @@ void			set_bg_sound(t_mlx *graphic);
 /* draw_minimap_bonus.c */
 void			draw_minimap_routine(void *in);
 void			init_minimap(t_pic *minimap);
+
+/* draw_user_bonus.c */
+void			draw_user(t_mlx *graphic);
 
 /* open_file.c */
 int				open_file(char *file);

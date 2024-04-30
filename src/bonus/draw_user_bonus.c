@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:29:27 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/29 20:56:25 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:04:50 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,20 @@ void	draw_weapon_pixel(t_weapon_thread *weapon_thread, t_pic *texture,
 	int y, int x)
 {
 	t_mlx	*graphic;
+	t_data	*frame;
 	int		color;
 
+	color = my_mlx_pixel_get(&texture->data,
+			weapon_thread->tex_x, weapon_thread->tex_y);
+	if (get_t(color) == 0xFF)
+		return ;
 	graphic = weapon_thread->mlx;
-	color = my_mlx_pixel_get(&texture->data, x, y);
+	frame = &graphic->img_data[graphic->num_frame];
+	my_mlx_pixel_put(frame, x, y, color);
 }
-
+/**
+ * TODO: either set w and h for weapon texture or set define for each weapon
+*/
 void	draw_weapon(void *arg)
 {
 	t_weapon_thread	*weapon_thread;
@@ -29,20 +37,25 @@ void	draw_weapon(void *arg)
 	int				j;
 
 	weapon_thread = arg;
-	j = -1;
 	texture = weapon_thread->texture;
 	while (--weapon_thread->draw_end >= weapon_thread->draw_start)
 	{
-		weapon_thread->tex_x = weapon_thread->draw_end / WINWIDTH * texture->w;
+		j = -1;
+		weapon_thread->tex_x = (float) weapon_thread->draw_end
+			/ WINWIDTH * 1920;
+		weapon_thread->tex_x %= 1920;
 		while (++j < WINHEIGHT)
 		{
-			weapon_thread->tex_y = j / WINHEIGHT * texture->h;
-			
+			weapon_thread->tex_y = (float) j / WINHEIGHT * 1080;
+			weapon_thread->tex_y %= 1080;
+			draw_weapon_pixel(weapon_thread,
+				texture, j, weapon_thread->draw_end);
 		}
 	}
+	free(weapon_thread);
 }
 
-void	draw_weapon_thread(t_mlx *graphic, t_sprite *sprite, t_pic *texture)
+void	draw_weapon_thread(t_mlx *graphic, t_pic *texture)
 {
 	t_weapon_thread	*weapon_thread;
 	int				i;
@@ -54,28 +67,65 @@ void	draw_weapon_thread(t_mlx *graphic, t_sprite *sprite, t_pic *texture)
 		weapon_thread = malloc(sizeof(t_weapon_thread));
 		weapon_thread->mlx = graphic;
 		weapon_thread->texture = texture;
-		weapon_thread->draw_start = WINWIDTH * (i / graphic->num_threads);
-		weapon_thread->draw_end = WINWIDTH * (i + 1) / graphic->num_threads;
+		weapon_thread->draw_start = WINWIDTH / graphic->num_threads * i;
+		weapon_thread->draw_end = WINWIDTH / graphic->num_threads * (i + 1);
 		if (i == graphic->num_threads - 1)
 			weapon_thread->draw_end = WINWIDTH;
 		add_task(&graphic->pool, create_task(draw_weapon, weapon_thread));
 	}
+	wait_for_threads(&graphic->pool);
 }
 
 void	change_weapon(t_mlx *graphic)
 {
-	static int	weapon_sprite[] = {0, PEPSI_DRAW};
+	graphic->weapon_num = graphic->change_weapon_num;
+	graphic->user_state = STATE_DRAW;
+	graphic->weapon_start_frame = graphic->total_frame;
+	if (graphic->weapon_num == 1)
+		graphic->pepsi_open = 0;
+}
+
+void	change_state(t_mlx *graphic, int user_state)
+{
+	graphic->weapon_start_frame = graphic->total_frame;
+	graphic->user_state = user_state;
+}
+
+void	weapon_render(t_mlx *graphic)
+{
 	t_sprite	*sprite;
 	t_pic		*pic;
+	int			*weapon_sprite;
+	int			num_frame;
 
-	graphic->weapon_num = graphic->change_weapon_num;
-	sprite = &graphic->sprite[weapon_sprite[graphic->weapon_num]];
-	pic = &sprite->img[0];
-	draw_weapon_thread(graphic, sprite, pic);
+	weapon_sprite = graphic->weapon_sprite;
+	sprite = &graphic->sprite[weapon_sprite[graphic->weapon_num]
+		+ graphic->user_state];
+	num_frame = (graphic->total_frame - graphic->weapon_start_frame)
+		% sprite->num_img;
+	// printf("num_img: %d\n", sprite->num_img);
+	pic = &sprite->img[num_frame];
+	draw_weapon_thread(graphic, pic);
 }
 
 void	draw_user(t_mlx *graphic)
 {
+	t_sprite	*sprite;
+	int			*weapon_sprite;
+	int			user_state;
+
+	weapon_sprite = graphic->weapon_sprite;
+	user_state = graphic->user_state;
+	sprite = &graphic->sprite[weapon_sprite[graphic->weapon_num] + user_state];
 	if (graphic->change_weapon_num != graphic->weapon_num)
 		change_weapon(graphic);
+	else if ((user_state == STATE_DRINK || user_state == STATE_DRAW
+			|| user_state == STATE_OPEN_AND_DRINK)
+		&& (int)(graphic->total_frame - graphic->weapon_start_frame)
+		> sprite->num_img)
+	{
+		graphic->user_state = STATE_IDLE;
+		change_state(graphic, STATE_IDLE);
+	}
+	weapon_render(graphic);
 }

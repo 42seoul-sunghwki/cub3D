@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 15:44:46 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/29 19:48:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:29:56 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	slice_sprite_zombie(char **split, t_mlx *mlx)
 	read_folder(split[1], WALK, ZOM_WALK, mlx);
 }
 
-static void	slice_sprite_zombie(char **split, t_mlx *mlx)
+static void	slice_sprite_pepsi(char **split, t_mlx *mlx)
 {
 	DIR		*dir;
 
@@ -106,10 +106,12 @@ static void	slice_sprite_zombie(char **split, t_mlx *mlx)
 		ft_exit("Sprite input is not valid");
 	dir = open_folder(split[1]);
 	closedir(dir);
-	read_folder(split[1], ATTACK, ZOM_ATTACK, mlx);
-	read_folder(split[1], DIE, ZOM_DIE, mlx);
-	read_folder(split[1], IDLE, ZOM_IDLE, mlx);
-	read_folder(split[1], WALK, ZOM_WALK, mlx);
+	read_folder(split[1], DRAW, 15, mlx);
+	read_folder(split[1], IDLE, 16, mlx);
+	read_folder(split[1], DRINK, 17, mlx);
+	read_folder(split[1], OPEN_AND_DRINK, 18, mlx);
+	read_folder(split[1], RUN, 19, mlx);
+	read_folder(split[1], WALK, 20, mlx);
 }
 
 static void	slice_sprite_door(char **split, t_mlx *mlx)
@@ -121,12 +123,8 @@ static void	slice_sprite_door(char **split, t_mlx *mlx)
 		ft_exit("Sprite input is not valid");
 	dir = open_folder(split[1]);
 	closedir(dir);
-	read_folder(split[1], DRAW, 15, mlx);
-	read_folder(split[1], DRINK, 16, mlx);
-	read_folder(split[1], IDLE, 17, mlx);
-	read_folder(split[1], OPEN_AND_DRINK, 18, mlx);
-	read_folder(split[1], RUN, 19, mlx);
-	read_folder(split[1], WALK, 20, mlx);
+	read_folder(split[1], OPEN, DOOR_OPEN, mlx);
+	read_folder(split[1], CLOSE, DOOR_CLOSE, mlx);
 }
 
 static void	slice_sprite_bear(char **split, t_mlx *mlx)
@@ -167,11 +165,11 @@ static void	slice_sprite_cat(char **split, t_mlx *mlx)
 
 int	slice_sprite_cub(char **split, t_mlx *mlx)
 {
-	static char	*sp[] = {"ZO", "DO", "ME", "GU", "DB", "DD", "DC"};
+	static char	*sp[] = {"ZO", "DO", "ME", "GU", "DB", "DD", "DC", "PS"};
 	int			i;
 
 	i = -1;
-	while (++i < 7)
+	while (++i < 8)
 	{
 		if (ft_strncmp(split[0], sp[i], 3) == 0)
 		{
@@ -198,6 +196,11 @@ int	slice_sprite_cub(char **split, t_mlx *mlx)
 			else if (i == 6)
 			{
 				slice_sprite_cat(split, mlx);
+				return (SUCCESS);
+			}
+			else if (i == 7)
+			{
+				slice_sprite_pepsi(split, mlx);
 				return (SUCCESS);
 			}
 		}

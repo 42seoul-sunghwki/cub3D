@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/29 16:46:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:30:11 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static void	calculate_sprite(t_sprite_info *sprite,
 	if (sprite->draw_end_x >= WINWIDTH)
 		sprite->draw_end_x = WINWIDTH - 1;
 }
-
+/**
+ * TODO: norm, change tex_y ?
+*/
 static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 	int x, t_sprite_thread *sprite_thread)
 {
@@ -61,10 +63,14 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 	while (++j < sprite->draw_end_y)
 	{
 		d = (j - WINWIDTH * graphic->user.zy - graphic->user.z
-				/ sprite_thread->node->distance
-				- sprite_thread->node->v_move_screen)
+				/ sprite_thread->node->distance)
 			* 256 - (WINHEIGHT * 128) + (sprite->sprite_height) * 128;
 		tex_y = ((d * sprite->texture->h) / sprite->sprite_height) / 256;
+		if (tex_y < 0)
+		{
+			tex_y *= -1;
+			tex_y %= sprite->sprite_height;
+		}
 		// printf("%p\n", &texture->data);
 		color = my_mlx_pixel_get(&sprite->texture->data,
 			sprite_thread->tex_x, tex_y);

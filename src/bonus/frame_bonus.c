@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:57:58 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/21 23:02:31 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:24:47 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	display_frame(t_mlx *graphic)
 	// printf("frame_num: [%d]\n", graphic->num_frame_render);
 	data = &graphic->img_data[graphic->num_frame_render];
 	// printf("graphic->render %d graphic->calc %d\n", graphic->num_frame_render, graphic->num_frame);
+	// printf("sync_counter: %d\n", graphic->frame_sync_counter);
 	// printf("data->img [%p]\n", data->img);
-	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
-	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
 	mlx_put_image_to_window(graphic->mlx, graphic->win, data->img, 0, 0);
 	// printf("x: [%f] y: [%f]\n", graphic->user.x, graphic->user.y);
 }
