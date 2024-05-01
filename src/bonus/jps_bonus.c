@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:41:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 19:58:03 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:05:33 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,12 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 		printf("tmp->x : %d, tmp->y : %d, tmp->f_cost : %f, tmp->direction : %d, open_list->size : %d user->x : %f, user->y : %f\n", tmp->position.x, tmp->position.y, tmp->f_cost, tmp->direction, node->open_list.size, mlx->user.x, mlx->user.y);
 		x = tmp->position.x;
 		y = tmp->position.y;
+		if (x == (int)mlx->user.x && y == (int)mlx->user.y)
+		{
+			tmp = init_t_node((t_position){x, y}, 0, 0, 0);
+			enqueue(&node->open_list, tmp);
+			return (true);
+		}
 		if (tmp->direction & LEFT)
 		{
 			while (1)
@@ -224,7 +230,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 					//add forced neighbor
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x, y - 1}, g_cost, f_cost, UP & LEFT);
+					tmp = init_t_node((t_position){x, y - 1}, g_cost, f_cost, UP | LEFT);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -233,7 +239,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 					//add forced neighbor
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x, y + 1}, f_cost, g_cost, DOWN & LEFT);
+					tmp = init_t_node((t_position){x, y + 1}, f_cost, g_cost, DOWN | LEFT);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -269,7 +275,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 					//add forced neighbor
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x, y - 1}, f_cost, g_cost, UP & RIGHT);
+					tmp = init_t_node((t_position){x, y - 1}, f_cost, g_cost, UP | RIGHT);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -278,7 +284,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 					//add forced neighbor
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x, y + 1}, f_cost, g_cost, DOWN & RIGHT);
+					tmp = init_t_node((t_position){x, y + 1}, f_cost, g_cost, DOWN | RIGHT);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -313,7 +319,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				{
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x - 1, y}, f_cost, g_cost, LEFT & UP);
+					tmp = init_t_node((t_position){x - 1, y}, f_cost, g_cost, LEFT | UP);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -321,7 +327,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				{
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x + 1, y}, f_cost, g_cost, RIGHT & UP);
+					tmp = init_t_node((t_position){x + 1, y}, f_cost, g_cost, RIGHT | UP);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -356,7 +362,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				{
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x - 1, y}, f_cost, g_cost, LEFT & DOWN);
+					tmp = init_t_node((t_position){x - 1, y}, f_cost, g_cost, LEFT | DOWN);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
@@ -364,7 +370,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				{
 					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
 					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
-					tmp = init_t_node((t_position){x + 1, y}, f_cost, g_cost, RIGHT & DOWN);
+					tmp = init_t_node((t_position){x + 1, y}, f_cost, g_cost, RIGHT | DOWN);
 					enqueue(&node->open_list, tmp);
 					break ;
 				}
