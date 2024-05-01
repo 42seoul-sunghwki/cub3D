@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 14:47:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:46:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	init_user(t_user *user, float x, float y, char pos)
 	memset(user->last_coor, 0, sizeof(t_coord) * PREV_COOR_SIZE);
 	while (i < PREV_COOR_SIZE)
 	{
-		user->last_coor[i].x = user->x;
-		user->last_coor[i].y = user->y;
+		user->last_coor[i].x = -1;
+		user->last_coor[i].y = -1;
 		i++;
 	}
 	user->last_coor_idx = 1;

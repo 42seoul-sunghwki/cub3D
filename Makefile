@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/04/28 18:40:14 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/01 15:16:08 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 BONUS_SRC =	main_bonus.c \
 			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
+			jps_bonus.c p_queue_bonus.c p_queue_helper.c queue_bonus.c \
 			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c cub_slice_sprite_bonus.c \
 			cub_read_bonus.c cub_slice_bonus.c cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \

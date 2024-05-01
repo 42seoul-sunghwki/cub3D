@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 18:44:16 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:57:38 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
+
+# define SPRITE_MOVE_SPEED	0.05
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -107,6 +109,15 @@
 # define SKY	4
 # define FLOOR	5
 
+# define LEFT		1
+# define RIGHT		2
+# define UP			4
+# define DOWN		8
+# define LEFT_UP	16
+# define LEFT_DOWN	32
+# define RIGHT_UP	64
+# define RIGHT_DOWN	128
+
 # define A	0
 # define S	1
 # define D	2
@@ -148,6 +159,19 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
+typedef struct s_node		t_node;
+typedef struct s_p_queue	t_p_queue;
+
+/**
+ * arr size is vector
+*/
+typedef struct s_p_queue
+{
+	t_node	**arr;
+	int		size;
+	int		max_size;
+}	t_p_queue;
+
 
 /**
  * Thread testing
@@ -262,17 +286,20 @@ typedef struct s_floor {
 
 typedef struct s_sprite_node
 {
-	float	x;
-	float	y;
-	int		sprite_type;
-	float	distance;
-	size_t	start_frame;
+	float		x;
+	float		y;
+	float		distance;
+	int			sprite_type;
+	size_t		start_frame;
+	t_p_queue	open_list;
+	t_p_queue	close_list;
+	t_node		*next_node;
 }	t_sprite_node;
 
 typedef struct s_sprite_vec
 {
-	int	size;
-	int	malloc_size;
+	int				size;
+	int				malloc_size;
 	t_sprite_node	**list;
 }	t_sprite_vec;
 
@@ -310,10 +337,25 @@ typedef struct	s_minimap {
 	int		coord_end;
 }	t_minimap;
 
-typedef struct	s_coord {
+typedef struct s_coord {
 	float	x;
 	float	y;
 }	t_coord;
+
+typedef struct s_position {
+	int		x;
+	int		y;
+}	t_position;
+
+typedef struct s_node
+{
+	t_position	coord;
+	float		f_cost;
+	float		g_cost;
+	int			direction;
+	t_node		*next;
+}	t_node;
+
 
 /**
  * @var	float		x			x position of the user
@@ -579,6 +621,22 @@ void			dir_y_check_n(t_map *map, t_user *user);
 void			dir_x_check_p(t_map *map, t_user *user);
 void			dir_x_check_n(t_map *map, t_user *user);
 
+/* p_queue_bonus.c */
+void			node_swap(t_node **arr, int i, int j);
+void			max_heapify(t_p_queue *heap, int i);
+t_node			*dequeue(t_p_queue *heap);
+void			increase_value(t_p_queue *heap, int i, t_node *node);
+void			enqueue(t_p_queue *heap, t_node *node);
+
+/*p_queue_helper.c */
+float			distance(float x, float y, float dest_x, float dest_y);
+t_p_queue		*init_p_queue(int size);
+/* queue_bonus.c */
+t_node			*pop(t_p_queue *heap);
+void			push(t_p_queue *heap, t_node *node);
+t_p_queue		*init_p_queue(int size);
+void			sanitize_p_queue(t_p_queue *heap);
+
 /* draw_sprite_bonus.c */
 void			draw_sprite(void *arg);
 void			update_sprite(t_mlx *graphic, t_user *user);
@@ -598,6 +656,9 @@ t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
 void			delete_sprite(t_sprite_vec *vec, int index);
 t_sprite_node	*create_sprite_node(float x, float y,
 					int sprite_type);
+
+/* jps_bonus.c */
+void			jps(t_mlx *mlx);
 
 /* mouse_move_bonus.c */
 int				handle_mouse_move(int x, int y, void *arg);
@@ -625,7 +686,7 @@ void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
-void			count_user_coordinate(t_mlx *mlx);
+void			count_user_coordinate(t_mlx *mlx, t_minimap *info);
 t_minimap		*draw_minimap_thread_helper(t_minimap *info, t_mlx *graphic, int i);
 
 /* handle_keyrelease.c */

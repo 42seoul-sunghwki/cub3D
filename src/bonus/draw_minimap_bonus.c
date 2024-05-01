@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 18:48:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:27:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,33 @@ static void	rotate_minimap(t_minimap *minimap, float pixel_x, float *rotate_x, f
 	*rotate_y = rotate_vec_y + minimap->mlx->user.y;
 }
 
-void	count_user_coordinate(t_mlx *mlx)
+static void	rotate_minimap_coord(t_minimap *minimap, t_coord *pixel, t_coord *rotate)
 {
-	t_user	*user;
+	float	vec_x;
+	float	vec_y;
+	float	rotate_vec_x;
+	float	rotate_vec_y;
 
-	user = &mlx->user;
+	vec_x = pixel->x - minimap->mlx->user.x;
+	vec_y = pixel->y - minimap->mlx->user.y;
+	rotate_vec_x = minimap->cos_user * vec_y
+		+ minimap->sin_user * vec_x;
+	rotate_vec_y = minimap->sin_user * vec_y
+		- minimap->cos_user * vec_x;
+	rotate->x = rotate_vec_x + minimap->mlx->user.x;
+	rotate->y = rotate_vec_y + minimap->mlx->user.y;
+}
+
+void	count_user_coordinate(t_mlx *mlx, t_minimap *info)
+{
+	//t_user	*user;
+	t_coord	coor;
+
+	coor.x = mlx->user.x;
+	coor.y = mlx->user.y;
 	if (mlx->total_frame % UPDATE_COOR == 0)
 	{
-		mlx->user.last_coor[user->last_coor_idx].x = mlx->user.x;
-		mlx->user.last_coor[user->last_coor_idx].y = mlx->user.y;
+		rotate_minimap_coord(info, &coor, &mlx->user.last_coor[mlx->user.last_coor_idx]);
 		mlx->user.last_coor_idx = (mlx->user.last_coor_idx + 1)
 			% PREV_COOR_SIZE;
 	}
@@ -56,6 +74,8 @@ void	count_user_coordinate(t_mlx *mlx)
 //	while (*idx != mlx->user.last_coor_idx)
 //	{
 //		*idx = (*idx + 1) % PREV_COOR_SIZE;
+//		if (coor[i].x == -1 && coor[i].y == -1)
+//			return (NULL);
 //		if (coor[i].x != coor[*idx].x && coor[i].y != coor[*idx].y)
 //			return (&coor[*idx]);
 //	}
@@ -108,7 +128,6 @@ void	count_user_coordinate(t_mlx *mlx)
 //		distance = get_distance(&mlx->user.last_coor[start], coor, pixel);
 //		right_left = get_right_left_vec(&mlx->user.last_coor[start], coor, pixel);
 //		//printf("distance : %f, right_left : %f, last_coor_idx : %d\n", distance, right_left, mlx->user.last_coor_idx);
-		
 //		if (distance <= NYANCAT_RAINBOW_SIZE * 3)
 //		{
 //			if (distance > NYANCAT_RAINBOW_SIZE * 2)
@@ -135,7 +154,6 @@ void	count_user_coordinate(t_mlx *mlx)
 //			return ;
 //		}
 //		start = i;
-//		i = (i + 1) % PREV_COOR_SIZE;
 //	}
 //}
 

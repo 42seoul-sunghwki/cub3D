@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/24 16:13:58 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:54:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,19 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 void	update_sprite(t_mlx *graphic, t_user *user)
 {
 	t_sprite_vec	*vec;
+	int				i;
 
 	vec = &graphic->sprite_vec;
 	//check for respawn? add sprite
 	//delete sprite - dead sprite
 	//update distance
+	jps(graphic);
+	i = 0;
+	while (i < vec->size)
+	{
+		sanitize_p_queue(&vec->list[i]->open_list);
+		sanitize_p_queue(&vec->list[i]->close_list);
+	}
 	update_sprite_distance(graphic, user, vec);
 	//sort
 	//access or draw

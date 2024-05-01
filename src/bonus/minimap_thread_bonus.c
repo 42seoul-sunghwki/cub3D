@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 19:29:34 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 18:43:59 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:48:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	draw_minimap_thread(t_mlx *graphic)
 	i = -1;
 	info.pixel_y = graphic->user.y - MINIMAP_SCALE / 2;
 	info.pixel_size = (float)(MINIMAP_SCALE * MINIMAP_SCALE) / WINWIDTH;
-	count_user_coordinate(graphic);
 	radius = sqrt(graphic->user.dir_x * graphic->user.dir_x
 			+ graphic->user.dir_y * graphic->user.dir_y);
 	info.sin_user = graphic->user.dir_y / radius;
 	info.cos_user = graphic->user.dir_x / radius;
+	count_user_coordinate(graphic, &info);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{
