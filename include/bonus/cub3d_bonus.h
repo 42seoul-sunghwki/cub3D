@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 16:57:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:48:00 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,7 @@ typedef struct s_position {
 
 typedef struct s_node
 {
-	t_position	coord;
+	t_position	position;
 	float		f_cost;
 	float		g_cost;
 	int			direction;

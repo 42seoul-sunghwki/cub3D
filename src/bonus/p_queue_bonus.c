@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:47:22 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 16:58:12 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:15:18 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_node	*dequeue(t_p_queue *heap)
 	heap->arr[1] = heap->arr[heap->size];
 	heap->size -= 1;
 	max_heapify(heap, 1);
-	printf("dequeue ret->coordx : %d, ret->coordy : %d, ret->f_cost : %f, size : %d\n", ret->coord.x, ret->coord.y, ret->f_cost, heap->size);
+	//printf("dequeue ret->coordx : %d, ret->coordy : %d, ret->f_cost : %f, size : %d\n", ret->position.x, ret->position.y, ret->f_cost, heap->size);
 	return (ret);
 }
 

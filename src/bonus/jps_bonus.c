@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:41:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 18:33:28 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:58:03 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,32 +163,247 @@ void	direction(t_coord *coord)
 //	}
 //}
 
-void	
-
-void	jps(t_mlx *mlx)
+t_node	*init_t_node(t_position position, float f_cost, float g_cost, int direction)
 {
-	t_sprite_vec	*vec;
-	t_sprite_node	*node;
-	t_node			*n;
-	int				i;
+	t_node	*node;
 
-	vec = &(mlx->sprite_vec);
+	node = (t_node *)malloc(sizeof(t_node));
+	node->position = position;
+	node->f_cost = f_cost;
+	node->g_cost = g_cost;
+	node->direction = direction;
+	node->next = NULL;
+	return (node);
+}
+
+int	jps_search(t_sprite_node *node, t_mlx *mlx)
+{
+	t_node	*tmp;
+	t_node	*tmp2;
+	t_map	*map;
+	float	f_cost;
+	float	g_cost;
+	int		i;
+	int		x;
+	int		y;
+
 	i = 0;
-	while (i < vec->size)
+	map = &mlx->map;
+	while (1)
 	{
-		n = (t_node *)malloc(sizeof(t_node));
-		node = vec->list[i];
-		n->coord.x = node->x;
-		n->coord.y = node->y;
-		n->f_cost = -distance(node->x, node->y, mlx->user.x, mlx->user.y);
-		n->g_cost = 0;
-		n->direction = LEFT | UP | RIGHT | DOWN;
-		n->next = NULL;
-		enqueue(&node->open_list, n);
-		jps_search(node, mlx);
-		update_node(node);
-		i++;
+		tmp = dequeue(&node->open_list);
+		push(&node->close_list, tmp);
+		printf("tmp->x : %d, tmp->y : %d, tmp->f_cost : %f, tmp->direction : %d, open_list->size : %d user->x : %f, user->y : %f\n", tmp->position.x, tmp->position.y, tmp->f_cost, tmp->direction, node->open_list.size, mlx->user.x, mlx->user.y);
+		x = tmp->position.x;
+		y = tmp->position.y;
+		if (tmp->direction & LEFT)
+		{
+			while (1)
+			{
+				//check halt
+				x += -1;
+				if (x < 0 || y < 0 || x >= map->w || y >= map->h)
+				{
+					pop(&node->close_list);
+					break;
+				}
+				if (map->map[y][x] == '1')
+				{
+					pop(&node->close_list);
+					break ;
+				}
+				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
+				{
+					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
+					enqueue(&node->open_list, tmp);
+					return (true);
+				}
+				//check up and down forced neighbor
+				if (y - 1 > 0 && x - 1 > 0 && map->map[y - 1][x] == '1' && map->map[y - 1][x - 1] != '1') //maybe occur error in door
+				{
+					//add forced neighbor
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x, y - 1}, g_cost, f_cost, UP & LEFT);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+				if (y + 1 < map->h && x - 1 > 0 && map->map[y + 1][x] == '1' && map->map[y + 1][x - 1] != '1')
+				{
+					//add forced neighbor
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x, y + 1}, f_cost, g_cost, DOWN & LEFT);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+			}
+		}
+		x = tmp->position.x;
+		y = tmp->position.y;
+		if (tmp->direction & RIGHT)
+		{
+			while (1)
+			{
+				//check right
+				x += 1;
+				if (x < 0 || y < 0 || x >= map->w || y >= map->h)
+				{
+					pop(&node->close_list);
+					break;
+				}
+				if (map->map[y][x] == '1')
+				{
+					pop(&node->close_list);
+					break ;
+				}
+				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
+				{
+					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
+					enqueue(&node->open_list, tmp);
+					return (true);
+				}
+				//check up and down forced neighbor
+				if (y - 1 > 0 && x + 1 < map->w && map->map[y - 1][x] == '1' && map->map[y - 1][x + 1] != '1') //maybe occur error in door
+				{
+					//add forced neighbor
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x, y - 1}, f_cost, g_cost, UP & RIGHT);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+				if (y + 1 < map->h && x + 1 < map->w && map->map[y + 1][x] == '1' && map->map[y + 1][x + 1] != '1')
+				{
+					//add forced neighbor
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x, y + 1}, f_cost, g_cost, DOWN & RIGHT);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+			}
+		}
+		x = tmp->position.x;
+		y = tmp->position.y;
+		if (tmp->direction & UP)
+		{
+			while (1)
+			{
+				//check up
+				y += -1;
+				if (x < 0 || y < 0 || x >= map->w || y >= map->h)
+				{
+					pop(&node->close_list);
+					break;
+				}
+				if (map->map[y][x] == '1')
+				{
+					pop(&node->close_list);
+					break ;
+				}
+				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
+				{
+					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
+					enqueue(&node->open_list, tmp);
+					return (true);
+				}
+				//check left and right forced neighbor
+				if (x - 1 > 0 && y - 1 > 0 && map->map[y][x - 1] == '1' && map->map[y - 1][x - 1] != '1') 
+				{
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x - 1, y}, f_cost, g_cost, LEFT & UP);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+				if (x + 1 < map->w && y - 1 > 0 && map->map[y][x + 1] == '1' && map->map[y - 1][x + 1] != '1')
+				{
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x + 1, y}, f_cost, g_cost, RIGHT & UP);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+			}
+		}
+		x = tmp->position.x;
+		y = tmp->position.y;
+		if (tmp->direction & DOWN)
+		{
+			while (1)
+			{
+				//check down
+				y += 1;
+				if (x < 0 || y < 0 || x >= map->w || y >= map->h)
+				{
+					pop(&node->close_list);
+					break;
+				}
+				if (map->map[y][x] == '1')
+				{
+					pop(&node->close_list);
+					break ;
+				}
+				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
+				{
+					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
+					enqueue(&node->open_list, tmp);
+					return (true);
+				}
+				//check left and right forced neighbor
+				if (x - 1 > 0 && y + 1 < map->h && map->map[y][x - 1] == '1' && map->map[y + 1][x - 1] != '1') 
+				{
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x - 1, y}, f_cost, g_cost, LEFT & DOWN);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+				if (x + 1 < map->w && y + 1 < map->h && map->map[y][x + 1] == '1' && map->map[y + 1][x + 1] != '1')
+				{
+					g_cost = tmp->g_cost + distance(tmp->position.x, tmp->position.y, x, y);
+					f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+					tmp = init_t_node((t_position){x + 1, y}, f_cost, g_cost, RIGHT & DOWN);
+					enqueue(&node->open_list, tmp);
+					break ;
+				}
+			}
+		}
+		x = tmp->position.x;
+		y = tmp->position.y;
+		if (tmp->direction & LEFT && tmp->direction & UP && x - 1 > 0 && y - 1 > 0)
+		{
+			g_cost = tmp->g_cost + 1.414;
+			f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+			tmp2 = init_t_node((t_position){x - 1, y - 1}, f_cost, g_cost, LEFT | UP);
+			enqueue(&node->open_list, tmp2);
+		}
+		if (tmp->direction & LEFT && tmp->direction & DOWN && x - 1 > 0 && y + 1 < map->h)
+		{
+			g_cost = tmp->g_cost + 1.414;
+			f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+			tmp2 = init_t_node((t_position){x - 1, y + 1}, f_cost, g_cost, LEFT | DOWN);
+			enqueue(&node->open_list, tmp2);
+		}
+		if (tmp->direction & RIGHT && tmp->direction & UP && x + 1 < map->w && y - 1 > 0)
+		{
+			g_cost = tmp->g_cost + 1.414;
+			f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+			tmp2 = init_t_node((t_position){x + 1, y - 1}, f_cost, g_cost, RIGHT | UP);
+			enqueue(&node->open_list, tmp2);
+		}
+		if (tmp->direction & RIGHT && tmp->direction & DOWN && x + 1 < map->w && y + 1 < map->h)
+		{
+			g_cost = tmp->g_cost + 1.414;
+			f_cost = -(g_cost + distance(x, y, mlx->user.x, mlx->user.y));
+			tmp2 = init_t_node((t_position){x + 1, y + 1}, f_cost, g_cost, RIGHT | DOWN);
+			enqueue(&node->open_list, tmp2);
+		}
+		if (node->open_list.size == 0)
+			break ;
 	}
+	return (false);
 }
 
 void	sanitize_p_queue(t_p_queue *queue)
@@ -205,4 +420,37 @@ void	sanitize_p_queue(t_p_queue *queue)
 		i++;
 	}
 	queue->size = 0;
+}
+
+void	jps(t_mlx *mlx)
+{
+	t_sprite_vec	*vec;
+	t_sprite_node	*node;
+	t_node			*n;
+	float			dis;
+	int				i;
+
+	vec = &(mlx->sprite_vec);
+	i = 0;
+	while (i < vec->size)
+	{
+		n = (t_node *)malloc(sizeof(t_node));
+		node = vec->list[i];
+		n->position.x = (int)node->x;
+		n->position.y = (int)node->y;
+		n->f_cost = -distance(node->x, node->y, mlx->user.x, mlx->user.y);
+		n->g_cost = 0;
+		n->direction = LEFT | UP | RIGHT | DOWN;
+		n->next = NULL;
+		enqueue(&node->open_list, n);
+		if(jps_search(node, mlx) == false)
+		{
+			ft_exit("jps_search failed\n");
+		} //tmporary
+		dis = distance(node->x, node->y, node->close_list.arr[0]->position.x + 0.5, node->close_list.arr[0]->position.y + 0.5);
+		node->x += (SPRITE_MOVE_SPEED / dis) * (node->close_list.arr[0]->position.x - node->x);
+		node->y += (SPRITE_MOVE_SPEED / dis) * (node->close_list.arr[0]->position.y - node->y);
+		sanitize_p_queue(&node->open_list);
+		i++;
+	}
 }

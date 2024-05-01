@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/01 16:54:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:49:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 	{
 		sanitize_p_queue(&vec->list[i]->open_list);
 		sanitize_p_queue(&vec->list[i]->close_list);
+		i++;
 	}
 	update_sprite_distance(graphic, user, vec);
 	//sort
