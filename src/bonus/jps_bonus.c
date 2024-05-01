@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:41:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 20:05:33 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:03:20 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,13 +193,23 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 	{
 		tmp = dequeue(&node->open_list);
 		push(&node->close_list, tmp);
-		printf("tmp->x : %d, tmp->y : %d, tmp->f_cost : %f, tmp->direction : %d, open_list->size : %d user->x : %f, user->y : %f\n", tmp->position.x, tmp->position.y, tmp->f_cost, tmp->direction, node->open_list.size, mlx->user.x, mlx->user.y);
+		//printf("tmp->x : %d, tmp->y : %d, tmp->f_cost : %f, tmp->direction : %d, open_list->size : %d user->x : %f, user->y : %f\n", tmp->position.x, tmp->position.y, tmp->f_cost, tmp->direction, node->open_list.size, mlx->user.x, mlx->user.y);
 		x = tmp->position.x;
 		y = tmp->position.y;
+		if (x < 0 || y < 0 || x >= map->w || y >= map->h)
+		{
+			pop(&node->close_list);
+			continue;
+		}
+		if (map->map[y][x] == '1')
+		{
+			pop(&node->close_list);
+			continue ;
+		}
 		if (x == (int)mlx->user.x && y == (int)mlx->user.y)
 		{
 			tmp = init_t_node((t_position){x, y}, 0, 0, 0);
-			enqueue(&node->open_list, tmp);
+			push(&node->close_list, tmp);
 			return (true);
 		}
 		if (tmp->direction & LEFT)
@@ -221,7 +231,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
 				{
 					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
-					enqueue(&node->open_list, tmp);
+					push(&node->close_list, tmp);
 					return (true);
 				}
 				//check up and down forced neighbor
@@ -266,7 +276,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
 				{
 					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
-					enqueue(&node->open_list, tmp);
+					push(&node->close_list, tmp);
 					return (true);
 				}
 				//check up and down forced neighbor
@@ -311,7 +321,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
 				{
 					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
-					enqueue(&node->open_list, tmp);
+					push(&node->close_list, tmp);
 					return (true);
 				}
 				//check left and right forced neighbor
@@ -354,7 +364,7 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 				if (x == (int)mlx->user.x && y == (int)mlx->user.y)
 				{
 					tmp = init_t_node((t_position){x, y}, 0, 0, 0);
-					enqueue(&node->open_list, tmp);
+					push(&node->close_list, tmp);
 					return (true);
 				}
 				//check left and right forced neighbor
@@ -453,9 +463,21 @@ void	jps(t_mlx *mlx)
 		{
 			ft_exit("jps_search failed\n");
 		} //tmporary
-		dis = distance(node->x, node->y, node->close_list.arr[0]->position.x + 0.5, node->close_list.arr[0]->position.y + 0.5);
-		node->x += (SPRITE_MOVE_SPEED / dis) * (node->close_list.arr[0]->position.x - node->x);
-		node->y += (SPRITE_MOVE_SPEED / dis) * (node->close_list.arr[0]->position.y - node->y);
+		dis = distance(node->x, node->y, node->close_list.arr[0]->position.x + 0.5, node->close_list.arr[0]->position.y + 0.5); 
+		//if (dis > SPRITE_MOVE_SPEED)
+		//{
+		if ((int)node->x != node->close_list.arr[0]->position.x)
+			node->x += (SPRITE_MOVE_SPEED * dis) / (node->close_list.arr[0]->position.x + 0.5 - node->x);
+		if ((int)node->y != node->close_list.arr[0]->position.y)
+			node->y += (SPRITE_MOVE_SPEED * dis) / (node->close_list.arr[0]->position.y + 0.5 - node->y); //error occur
+		//}
+		//else
+		//{
+		//	node->x = node->close_list.arr[0]->position.x + 0.5;
+		//	node->y = node->close_list.arr[0]->position.y + 0.5;
+		//}
+		printf("node->close_list->x : %d, node->close_list->y : %d\n", node->close_list.arr[0]->position.x, node->close_list.arr[0]->position.y);
+		printf("node->x : %f, node->y : %f, user->x : %f, user->y : %f, dis : %f\n", node->x, node->y, mlx->user.x, mlx->user.y, dis);
 		sanitize_p_queue(&node->open_list);
 		i++;
 	}
