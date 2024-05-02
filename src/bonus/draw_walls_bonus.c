@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 17:03:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:22:06 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 static void	dda_door(t_dda *dda, t_map *map)
 {
 	if (!(map->map[dda->map_y][dda->map_x] == 'V'
-			|| map->map[dda->map_y][dda->map_x] == 'H'
-			|| map->map[dda->map_y][dda->map_x] == 'D'))
+			|| map->map[dda->map_y][dda->map_x] == 'H'))
 		return ;
 	if (map->map[dda->map_y][dda->map_x] == 'V')
 		dda->side_dist_x -= dda->delta_dist_x / 2;
@@ -32,7 +31,7 @@ static void	dda_door(t_dda *dda, t_map *map)
 		dda->side_dist_y += dda->delta_dist_y;
 		dda->side = 1;
 	}
-	printf("map: %c\n", map->map[dda->map_y][dda->map_x]);
+	// printf("map: %c\n", map->map[dda->map_y][dda->map_x]);
 }
 
 static void	perform_dda(t_dda *dda, t_map *map)
@@ -53,8 +52,7 @@ static void	perform_dda(t_dda *dda, t_map *map)
 		}
 		if (map->map[dda->map_y][dda->map_x] == '1'
 			|| map->map[dda->map_y][dda->map_x] == 'V'
-			|| map->map[dda->map_y][dda->map_x] == 'H'
-			|| map->map[dda->map_y][dda->map_x] == 'D')
+			|| map->map[dda->map_y][dda->map_x] == 'H')
 			dda->collision_flag = true;
 	}
 	dda_door(dda, map);
@@ -64,10 +62,8 @@ static void	perform_dda(t_dda *dda, t_map *map)
 		dda->perp_wall_dist = (dda->side_dist_y - dda->delta_dist_y);
 }
 
-static void	calculate_texture_helper(t_map *map, t_dda *dda, t_user *user)
+static void	calculate_texture_helper(t_mlx *graphic, t_map *map, t_dda *dda, t_user *user)
 {
-	(void) map;
-	// printf("y: %f, x: %f\n", dda->raydir_y, dda->raydir_x);
 	if (dda->side == 0)
 	{
 		dda->wall_pixel_x = user->y + dda->perp_wall_dist * dda->raydir_y;
@@ -75,6 +71,10 @@ static void	calculate_texture_helper(t_map *map, t_dda *dda, t_user *user)
 			dda->texture_num = WEST;
 		else
 			dda->texture_num = EAST;
+		if (map->map[dda->map_y][dda->map_x] == 'V')
+			dda->texture = &graphic->sprite[DOOR_OPEN].img[8];
+		else
+			dda->texture = &graphic->block.pic[dda->texture_num];
 	}
 	else
 	{
@@ -83,6 +83,10 @@ static void	calculate_texture_helper(t_map *map, t_dda *dda, t_user *user)
 			dda->texture_num = SOUTH;
 		else
 			dda->texture_num = NORTH;
+		if (map->map[dda->map_y][dda->map_x] == 'H')
+			dda->texture = &graphic->sprite[DOOR_OPEN].img[8];
+		else
+			dda->texture = &graphic->block.pic[dda->texture_num];
 	}
 }
 
@@ -90,8 +94,8 @@ static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
 {
 	t_pic	*texture;
 
-	calculate_texture_helper(&graphic->map, dda, user);
-	texture = &graphic->block.pic[dda->texture_num];
+	calculate_texture_helper(graphic, &graphic->map, dda, user);
+	texture = dda->texture;
 	dda->wall_pixel_x -= floor(dda->wall_pixel_x);
 	dda->texture_x = (int)(dda->wall_pixel_x * (float) texture->w);
 	// printf("dda->texture_x: %d\n", dda->texture_x);

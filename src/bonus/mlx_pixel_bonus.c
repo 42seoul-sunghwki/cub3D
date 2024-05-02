@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 00:08:54 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:09:37 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void	draw_texture_line(t_mlx *graphic, t_data *frame, t_dda *dda, int y)
 	t_data	*data;
 	t_pic	*pic;
 
-	data = &graphic->block.pic[dda->texture_num].data;
-	pic = &graphic->block.pic[dda->texture_num];
+	(void) graphic;
+	pic = dda->texture;
+	// data = &graphic->block.pic[dda->texture_num].data;
+	data = &pic->data;
 	tex_y = (int)dda->text_pos % pic->h;
 	if (tex_y < 0)
 		tex_y *= -1;

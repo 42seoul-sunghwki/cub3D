@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 00:05:46 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:53:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,10 @@
 # define OPEN_AND_DRINK_SOUND	2
 # define WALK_SOUND				3
 # define RUN_SOUND				4
+
+/* Map Texture */
+# define VDOOR_OPEN	2
+# define HDOOR_OPEN 3
 
 # define SKY_WIDTH	2560
 # define SKY_HEIGHT	1920
@@ -444,6 +448,7 @@ typedef struct s_dda {
 	int				texture_num;
 	int				texture_x;
 	int				end_pixel_x;
+	t_pic			*texture;
 }	t_dda;
 
 typedef struct s_weapon_thread
