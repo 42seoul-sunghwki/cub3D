@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:41:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 15:18:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:43:03 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ int	jps_search(t_sprite_node *node, t_mlx *mlx)
 	while (1)
 	{
 		tmp = dequeue(&node->open_list);
+		if (tmp == NULL)
+			ft_exit("open_list is empty\n");
 		//push(&node->close_list, tmp);
 		//printf("tmp->x : %d, tmp->y : %d, tmp->f_cost : %f, tmp->direction : %d, open_list->size : %d user->x : %f, user->y : %f\n", tmp->position.x, tmp->position.y, tmp->f_cost, tmp->direction, node->open_list.size, mlx->user.x, mlx->user.y);
 		x = tmp->position.x;

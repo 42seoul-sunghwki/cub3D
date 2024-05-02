@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/30 19:27:47 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:43:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	rotate_minimap_coord(t_minimap *minimap, t_coord *pixel, t_coord *ro
 	float	rotate_vec_x;
 	float	rotate_vec_y;
 
+	//printf("pixel->x : %f, pixel->y : %f, user->x : %f, user->y : %f\n", pixel->x, pixel->y, minimap->mlx->user.x, minimap->mlx->user.y);
 	vec_x = pixel->x - minimap->mlx->user.x;
 	vec_y = pixel->y - minimap->mlx->user.y;
 	rotate_vec_x = minimap->cos_user * vec_y
@@ -55,6 +56,10 @@ void	count_user_coordinate(t_mlx *mlx, t_minimap *info)
 	coor.y = mlx->user.y;
 	if (mlx->total_frame % UPDATE_COOR == 0)
 	{
+		printf("mlx->total_frame : %zu\n", mlx->total_frame);
+		printf("coor.x : %f, coor.y : %f\n", coor.x, coor.y);
+		printf("mlx->user.x : %f, mlx->user.y : %f\n", mlx->user.x, mlx->user.y);
+		printf("info.pixel_x : %f, info.pixel_y : %f\n", info->mlx->user.x, info->mlx->user.y);
 		rotate_minimap_coord(info, &coor, &mlx->user.last_coor[mlx->user.last_coor_idx]);
 		mlx->user.last_coor_idx = (mlx->user.last_coor_idx + 1)
 			% PREV_COOR_SIZE;
