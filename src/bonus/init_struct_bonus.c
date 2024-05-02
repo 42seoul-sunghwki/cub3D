@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:47 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 14:47:50 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/01 00:37:41 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	init_user(t_user *user, float x, float y, char pos)
 	user->zy = 0;
 	user->flag = 0;
 	user->z_velocity = 0;
-	user->z_gravity = -2;
+	user->z_gravity = -4;
 	if (pos == 'N')
 	{
 		user->dir_y = 1.0;

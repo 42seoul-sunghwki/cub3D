@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 18:58:31 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:53:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,38 @@
  * MELEE : ME
  * GUN : GU
 */
-# define ZOM_IDLE		0
-# define ZOM_DIE		1
-# define ZOM_ATTACK		2
-# define ZOM_WALK		3
-# define DOOR_CLOSE		4
-# define DOOR_OPEN		5	
-# define MELEE_IDLE		6
-# define MELEE_ATTACK	7
-# define MELEE_WALK		8
-# define GUN_IDLE		9
-# define GUN_ATTACK		10
-# define GUN_WALK		11
+# define ZOM_IDLE				0
+# define ZOM_DIE				1
+# define ZOM_ATTACK				2
+# define ZOM_WALK				3
+# define DOOR_CLOSE				4
+# define DOOR_OPEN				5	
+# define MELEE_IDLE				6
+# define MELEE_ATTACK			7
+# define MELEE_WALK				8
+# define GUN_IDLE				9
+# define GUN_ATTACK				10
+# define GUN_WALK				11
+# define DANCING_BEAR			12
+# define DANCING_DOG			13
+# define DANCING_CAT			14
+# define PEPSI_DRAW				15
+# define PEPSI_IDLE				16
+# define PEPSI_DRINK			17
+# define PEPSI_OPEN_AND_DRINK	18
+# define PEPSI_RUN				19
+# define PEPSI_WALK				20
+
+/* user_states */
+# define STATE_DRAW				0
+# define STATE_IDLE				1
+# define STATE_DRINK			2
+# define STATE_OPEN_AND_DRINK	3
+# define STATE_RUN				4
+# define STATE_WALK				5
+
+/* mouse_buttons */
+# define LEFT_CLICK				1
 
 # define ATTACK			"Attack"
 # define DIE			"Die"
@@ -100,6 +120,12 @@
 # define WALK			"Walk"
 # define CLOSE			"Close"
 # define OPEN			"Open"
+
+/* pepsi */
+# define DRAW			"Draw"
+# define DRINK			"Drink"
+# define OPEN_AND_DRINK	"Open_and_drink"
+# define RUN			"Run"
 
 # define NORTH	0
 # define SOUTH	1
@@ -112,9 +138,13 @@
 # define S	1
 # define D	2
 # define W	13
-
 # define ESC	53
 # define SPACE	49
+# define ONE	18
+# define TWO	19
+# define THREE	20
+# define FOUR	21
+# define SHIFT	257
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -127,11 +157,12 @@
 
 # define ARROW_OFFSET	123
 
-# define NUM_SPRITE	1
+# define NUM_SPRITE	21
 # define NUM_SPRITE_TYPE	4
 
 /* user */
-# define MOVE_SPEED	0.08
+# define MOVE_SPEED	0.05
+# define RUN_SPEED	0.08
 # define ROT_SPEED	0.0005
 
 /* user->flag */
@@ -139,6 +170,21 @@
 # define DIAGONAL 2
 
 # define DIAGONAL_SCALE 0.7071
+
+/* BASS_sound_stream */
+# define NUM_STREAM				5
+# define BG_SOUND				0
+# define DRINK_SOUND			1
+# define OPEN_AND_DRINK_SOUND	2
+# define WALK_SOUND				3
+# define RUN_SOUND				4
+
+/* Map Texture */
+# define VDOOR_OPEN	2
+# define HDOOR_OPEN 3
+
+# define SKY_WIDTH	2560
+# define SKY_HEIGHT	1920
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -149,10 +195,6 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
-
-/**
- * Thread testing
-*/
 
 typedef struct s_task
 {
@@ -267,6 +309,8 @@ typedef struct s_sprite_node
 	float	y;
 	int		sprite_type;
 	float	distance;
+	int		v_move_screen;
+	float	v_move;
 	size_t	start_frame;
 }	t_sprite_node;
 
@@ -404,7 +448,18 @@ typedef struct s_dda {
 	int				texture_num;
 	int				texture_x;
 	int				end_pixel_x;
+	t_pic			*texture;
 }	t_dda;
+
+typedef struct s_weapon_thread
+{
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
+	t_mlx	*mlx;
+	t_pic	*texture;
+}	t_weapon_thread;
 
 typedef struct s_sprite_thread
 {
@@ -453,9 +508,16 @@ typedef struct s_mlx {
 	void			*win;
 	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
+	int				cur_audio;
 	int				frame_sync_counter;
 	int				num_frame;
 	int				num_frame_render;
+	int				weapon_num;
+	int				change_weapon_num;
+	int				pepsi_open;
+	size_t			weapon_start_frame;
+	int				user_state;
+	int				weapon_sprite[5];
 	long			num_threads;
 	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
@@ -472,7 +534,7 @@ typedef struct s_mlx {
 	t_user			user;
 	size_t			time;
 	t_dda			dda;
-	HSTREAM			sound_stream;
+	HSTREAM			sound_stream[NUM_STREAM];
 }	t_mlx;
 
 //tmp
@@ -599,7 +661,7 @@ void			push_sprite(t_sprite_vec *vec, t_sprite_node *node);
 t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
 void			delete_sprite(t_sprite_vec *vec, int index);
 t_sprite_node	*create_sprite_node(float x, float y,
-					int sprite_type);
+					int sprite_type, float v_move);
 
 /* mouse_move_bonus.c */
 int				handle_mouse_move(int x, int y, void *arg);
@@ -643,16 +705,29 @@ void			handle_jump(t_mlx *graphic, t_user *user);
 void			update_sprite_distance(t_mlx *graphic,
 					t_user *user, t_sprite_vec *vec);
 
-/* bg_sound_bonus.c */
-void			set_bg_sound();
-
+/* sound_bonus.c */
+void			set_bg_sound(t_mlx *graphic);
+void			load_sound(t_mlx *mlx);
+void			play_sound(t_mlx *mlx, int audio_num);
 
 /* draw_minimap_bonus.c */
 void			draw_minimap_routine(void *in);
 void			init_minimap(t_pic *minimap);
 
+/* draw_user_bonus.c */
+void			draw_user(t_mlx *graphic);
+
 /* open_file.c */
 int				open_file(char *file);
 int				close_file(int fd);
+
+/* draw_user_bonus */
+void			change_state(t_mlx *graphic, int user_state);
+
+/* init_bonus.c */
+void			init_sprite_fpm(t_mlx *graphic);
+
+/* sky_bonus.c */
+void			draw_sky_wall(t_dda	*dda, t_mlx *graphic, int y);
 
 #endif
