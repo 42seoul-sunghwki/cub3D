@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_list_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/29 16:48:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:10:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ void	delete_sprite(t_sprite_vec *vec, int index)
 }
 
 t_sprite_node	*create_sprite_node(float x, float y,
-	int sprite_type, float v_move)
+	int sprite_type)
 {
 	t_sprite_node	*return_node;
 
 	return_node = malloc(sizeof(t_sprite_node));
 	return_node->x = x;
 	return_node->y = y;
-	return_node->v_move = v_move;
 	return_node->sprite_type = sprite_type;
 	return_node->start_frame = 0;
 	return (return_node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_arrow_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 14:10:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/01 00:10:06 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:09:49 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	check_collision(t_mlx *graphic)
 	t_user		*user;
 
 	user = &graphic->user;
+	printf("check_collision\n");
 	check_diagonal(graphic, user);
 	calculate_new_displacement(graphic);
 	if (user->new_displacement_y <= 0)
