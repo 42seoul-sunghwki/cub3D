@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 15:52:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:58:40 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 {
-	static char	*tmp[] = {'V', 'H'};
+	static char	tmp[] = {'V', 'H'};
 	int			i;
 
 	i = -1;
