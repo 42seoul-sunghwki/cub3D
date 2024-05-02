@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/04/30 15:30:11 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 01:00:50 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	calculate_sprite(t_sprite_info *sprite,
 	sprite->sprite_y = node->y - user->y;
 	sprite->inv_det = 1.0 / ((user->plane_x * user->dir_y)
 			- (user->dir_x * user->plane_y));
+	if (node->status != 0)
+		sprite->inv_det = 1.0;
 	sprite->transform_x = sprite->inv_det * (user->dir_y
 			* sprite->sprite_x - user->dir_x * sprite->sprite_y);
 	sprite->transform_y = sprite->inv_det * (-user->plane_y
@@ -105,6 +107,15 @@ void	draw_sprite(void *arg)
 	free(sprite_thread);
 }
 
+bool	skip_sprite(t_mlx *graphic, t_sprite_node *cur_sprite)
+{
+	if (cur_sprite->status == 2
+		&& graphic->total_frame - cur_sprite->start_frame
+		>= (size_t) graphic->sprite[DOOR_CLOSE].num_img * 2)
+		return (true);
+	return (false);
+}
+
 void	project_sprite(t_mlx *graphic, t_user *user)
 {
 	t_sprite_node	*cur_sprite;
@@ -115,18 +126,16 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 
 	i = -1;
 	vec = &graphic->sprite_vec;
-	// printf("vec->size [%d]\n", vec->size);
 	while (++i < vec->size)
 	{
 		cur_sprite = get_sprite(vec, i);
-		// printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
+		if (skip_sprite(graphic, cur_sprite))
+			break ;
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
-		// printf("start_frame: %ld, total_frame: [%ld] tex_num: %ld num_img %d\n", cur_sprite->start_frame, graphic->total_frame, frame_diff / sprite->fpm, sprite->num_img);
 		calculate_sprite(&graphic->sprite_info, cur_sprite, user, graphic);
 		draw_sprite_thread(graphic, &sprite->img[frame_num], cur_sprite);
-		// draw_sprite(&graphic->sprite_info, graphic, &sprite->img[frame_num]);
 	}
 }
 

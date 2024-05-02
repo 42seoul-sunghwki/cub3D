@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:33:29 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 21:35:11 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:47:21 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	init_sprite_fpm(t_mlx *graphic)
 	graphic->sprite[PEPSI_OPEN_AND_DRINK].fpm = 2;
 	graphic->sprite[PEPSI_WALK].fpm = 2;
 	graphic->sprite[PEPSI_RUN].fpm = 2;
+	graphic->sprite[DOOR_CLOSE].fpm = 2;
 }

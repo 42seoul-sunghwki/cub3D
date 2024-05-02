@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 23:01:15 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 00:08:24 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@
 # define STATE_OPEN_AND_DRINK	3
 # define STATE_RUN				4
 # define STATE_WALK				5
+
+/* door_state */
+# define DOOR_STILL	2
 
 /* mouse_buttons */
 # define LEFT_CLICK				1
@@ -315,8 +318,6 @@ typedef struct s_sprite_node
 {
 	float	x;
 	float	y;
-	int		x;
-	int		y;
 	int		sprite_type;
 	float	distance;
 	int		v_move_screen;
