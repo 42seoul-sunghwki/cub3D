@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/28 18:48:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/04/30 01:03:26 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,7 @@ void	draw_minimap_routine(void *in)
 		minimap->start_y--;
 		minimap->pixel_y += minimap->pixel_size;
 	}
+	free(minimap);
 }
 
 //static void	draw_xline_minimap(t_mlx *mlx, float pixel_y,

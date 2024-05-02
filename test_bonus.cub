@@ -8,14 +8,18 @@ US ./texture/nyan_cat.xpm
 
 ZO ./texture/zombie
 DO ./texture/door
+DB ./texture/dancing_bear
+DD ./texture/dancing_dog
+DC ./texture/dancing_cat
+PS ./texture/pepsi
 
 F 0,0,0
 C 255,255,255
 
 11111111111
 10000000001
-10000000001
-1000N000001
-11H10000001
+100101H1001
+100VN000001
+10010000001
 10000000001
 11111111111
