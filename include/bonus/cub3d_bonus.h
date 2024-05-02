@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/30 17:51:03 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:05:46 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@
 # define TWO	19
 # define THREE	20
 # define FOUR	21
+# define SHIFT	257
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -161,6 +162,7 @@
 
 /* user */
 # define MOVE_SPEED	0.05
+# define RUN_SPEED	0.08
 # define ROT_SPEED	0.0005
 
 /* user->flag */
@@ -168,6 +170,17 @@
 # define DIAGONAL 2
 
 # define DIAGONAL_SCALE 0.7071
+
+/* BASS_sound_stream */
+# define NUM_STREAM				5
+# define BG_SOUND				0
+# define DRINK_SOUND			1
+# define OPEN_AND_DRINK_SOUND	2
+# define WALK_SOUND				3
+# define RUN_SOUND				4
+
+# define SKY_WIDTH	2560
+# define SKY_HEIGHT	1920
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_data		t_data;
@@ -490,6 +503,7 @@ typedef struct s_mlx {
 	void			*win;
 	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
+	int				cur_audio;
 	int				frame_sync_counter;
 	int				num_frame;
 	int				num_frame_render;
@@ -515,7 +529,7 @@ typedef struct s_mlx {
 	t_user			user;
 	size_t			time;
 	t_dda			dda;
-	HSTREAM			sound_stream;
+	HSTREAM			sound_stream[NUM_STREAM];
 }	t_mlx;
 
 //tmp
@@ -686,8 +700,10 @@ void			handle_jump(t_mlx *graphic, t_user *user);
 void			update_sprite_distance(t_mlx *graphic,
 					t_user *user, t_sprite_vec *vec);
 
-/* bg_sound_bonus.c */
+/* sound_bonus.c */
 void			set_bg_sound(t_mlx *graphic);
+void			load_sound(t_mlx *mlx);
+void			play_sound(t_mlx *mlx, int audio_num);
 
 /* draw_minimap_bonus.c */
 void			draw_minimap_routine(void *in);
@@ -699,5 +715,14 @@ void			draw_user(t_mlx *graphic);
 /* open_file.c */
 int				open_file(char *file);
 int				close_file(int fd);
+
+/* draw_user_bonus */
+void			change_state(t_mlx *graphic, int user_state);
+
+/* init_bonus.c */
+void			init_sprite_fpm(t_mlx *graphic);
+
+/* sky_bonus.c */
+void			draw_sky_wall(t_dda	*dda, t_mlx *graphic, int y);
 
 #endif

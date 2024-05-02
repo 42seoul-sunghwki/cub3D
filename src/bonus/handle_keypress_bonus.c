@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/29 21:53:36 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/01 00:37:04 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	handle_key_space(t_user *user)
 	if (user->flag & JUMP)
 		return ;
 	user->flag |= JUMP;
-	user->z_velocity = 40;
+	user->z_velocity = 60;
 }
 
 int	handle_keypress(int keycode, void *arg)

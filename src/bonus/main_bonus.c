@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 17:27:07 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:06:18 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,19 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 		get_img_addr(&graphic->img_data[i]);
 		ft_memset(graphic->img_data[i].addr, 0, sizeof(int) * (WINWIDTH * WINHEIGHT));
 	}
+	init_sprite_fpm(graphic);
 	graphic->num_frame = 0;
 	graphic->num_frame_render = 0;
 	graphic->total_frame = 0;
 	graphic->block.f_trgb = 0xced4da;
 	graphic->block.c_trgb = 0;
 	graphic->weapon_num = 0;
+	graphic->pepsi_open = false;
 	//weapon setting
 	graphic->change_weapon_num = 1;
 	graphic->weapon_sprite[1] = PEPSI_DRAW;
 	graphic->weapon_start_frame = 0;
 	cub_to_struct(argv[1], graphic);
-	//i = -1;
-	//while (++i < 15)
-	//{
-	//	sprite->img[i].data.img = mlx_xpm_file_to_image(graphic->mlx,
-	//		sprite->img[i].name, &sprite->img[i].w, &sprite->img[i].h);
-	//	get_img_addr(&sprite->img[i].data);
-	//}
-	graphic->sprite[DANCING_BEAR].fpm = 2;
-	graphic->sprite[DANCING_DOG].fpm = 2;
-	graphic->sprite[DANCING_CAT].fpm = 2;
-	// graphic->sprite[PEPSI_DRAW].fpm = 2;
-	// graphic->sprite[PEPSI_IDLE].fpm = 2;
-	// graphic->sprite[PEPSI_DRINK].fpm = 2;
-	// graphic->sprite[PEPSI_OPEN_AND_DRINK].fpm = 2;
-	// graphic->sprite[PEPSI_WALK].fpm = 2;
-	// graphic->sprite[PEPSI_RUN].fpm = 2;
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
@@ -135,6 +121,7 @@ int	main(int argc, char **argv)
 	mlx_hook(graphic.win, 17, 0, terminate_program, &graphic);
 	mlx_hook(graphic.win, 6, 0, handle_mouse_move, &graphic);
 	mlx_mouse_hook(graphic.win, handle_mouse_click, &graphic);
-	// set_bg_sound(&graphic);
+	set_bg_sound(&graphic);
+	load_sound(&graphic);
 	mlx_loop(graphic.mlx);
 }

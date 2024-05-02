@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 16:27:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:25:52 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	draw_floor_routine(void *arg)
 		floor->raydir_x_end = user->dir_x + user->plane_x;
 		floor->raydir_y_end = user->dir_y + user->plane_y;
 		floor->p = floor->end_i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy); // adding z compomenet to make floor with z change
+		if (floor->p > 0)
+			break ;
 		floor->pos_z = 1.34 * WINHEIGHT * 0.5 + user->z;
 		floor->row_distance = floor->pos_z / floor->p;
 		floor->floor_step_x = -floor->row_distance

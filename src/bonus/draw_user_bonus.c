@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:29:27 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 18:04:50 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 21:44:03 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ void	weapon_render(t_mlx *graphic)
 	weapon_sprite = graphic->weapon_sprite;
 	sprite = &graphic->sprite[weapon_sprite[graphic->weapon_num]
 		+ graphic->user_state];
+	// num_frame = (graphic->total_frame - graphic->weapon_start_frame)
+	// 	% sprite->num_img;
 	num_frame = (graphic->total_frame - graphic->weapon_start_frame)
-		% sprite->num_img;
+		% (sprite->num_img * sprite->fpm) / sprite->fpm;
 	// printf("num_img: %d\n", sprite->num_img);
 	pic = &sprite->img[num_frame];
 	draw_weapon_thread(graphic, pic);
@@ -121,11 +123,8 @@ void	draw_user(t_mlx *graphic)
 		change_weapon(graphic);
 	else if ((user_state == STATE_DRINK || user_state == STATE_DRAW
 			|| user_state == STATE_OPEN_AND_DRINK)
-		&& (int)(graphic->total_frame - graphic->weapon_start_frame)
-		> sprite->num_img)
-	{
-		graphic->user_state = STATE_IDLE;
+		&& graphic->total_frame - graphic->weapon_start_frame
+		> sprite->num_img * sprite->fpm)
 		change_state(graphic, STATE_IDLE);
-	}
 	weapon_render(graphic);
 }

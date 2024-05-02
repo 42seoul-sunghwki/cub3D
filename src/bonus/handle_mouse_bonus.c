@@ -6,11 +6,11 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:56:15 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 15:50:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:19:11 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 int	handle_mouse_click(int button, int x, int y, void *arg)
 {
@@ -22,7 +22,17 @@ int	handle_mouse_click(int button, int x, int y, void *arg)
 	if (button == LEFT_CLICK && graphic->user_state != STATE_DRINK)
 	{
 		graphic->weapon_start_frame = graphic->total_frame;
-		graphic->user_state = STATE_DRINK;
+		if (graphic->pepsi_open == false)
+		{
+			play_sound(graphic, OPEN_AND_DRINK_SOUND);
+			graphic->user_state = STATE_OPEN_AND_DRINK;
+			graphic->pepsi_open = true;
+		}
+		else
+		{
+			play_sound(graphic, DRINK_SOUND);
+			graphic->user_state = STATE_DRINK;
+		}
 	}
 	return (0);
 }
