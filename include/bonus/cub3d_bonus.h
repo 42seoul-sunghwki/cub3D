@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 18:48:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:11:52 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define SPRITE_MOVE_SPEED	0.05
+# define SPRITE_MOVE_SPEED	0.005
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
