@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 19:22:06 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 21:38:57 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	dda_door(t_dda *dda, t_map *map)
 	// printf("map: %c\n", map->map[dda->map_y][dda->map_x]);
 }
 
-static void	perform_dda(t_dda *dda, t_map *map)
+static void	perform_dda(t_mlx *graphic, t_dda *dda, t_map *map)
 {
 	while (dda->collision_flag == false)
 	{
@@ -60,6 +60,7 @@ static void	perform_dda(t_dda *dda, t_map *map)
 		dda->perp_wall_dist = (dda->side_dist_x - dda->delta_dist_x);
 	else
 		dda->perp_wall_dist = (dda->side_dist_y - dda->delta_dist_y);
+	check_door_interaction(graphic, dda, map);
 }
 
 static void	calculate_texture_helper(t_mlx *graphic, t_map *map, t_dda *dda, t_user *user)
@@ -149,7 +150,7 @@ void	draw_wall_routine(void *arg)
 	while (dda->cur_pixel_x < dda->end_pixel_x)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
-		perform_dda(dda, &graphic->map);
+		perform_dda(graphic, dda, &graphic->map);
 		draw_walls(dda, graphic, user, &graphic->map);
 		dda->cur_pixel_x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 18:57:14 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 21:55:18 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	push_sprite(vec, create_sprite_node(3, 2, DANCING_BEAR, 0));
 	push_sprite(vec, create_sprite_node(3, 3, DANCING_DOG, 0));
 	push_sprite(vec, create_sprite_node(3, 4, DANCING_CAT, 0));
+	t_sprite_vec	*vec_door = &graphic->door_vec;
+	init_sprite_vec(vec_door);
+	parse_map_door(graphic);
 	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	if (graphic->num_threads < 0)
 		perror("sysconf");

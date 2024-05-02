@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 18:53:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:01:15 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,15 @@
 # define RUN_SPEED	0.08
 # define ROT_SPEED	0.0005
 
+# define E_INTERACT	14
+
 /* user->flag */
 # define JUMP 1
 # define DIAGONAL 2
 
 # define DIAGONAL_SCALE 0.7071
+
+# define INTERACT_DISTANCE 1
 
 /* BASS_sound_stream */
 # define NUM_STREAM				5
@@ -180,8 +184,12 @@
 # define RUN_SOUND				4
 
 /* Map Texture */
-# define VDOOR_OPEN	2
-# define HDOOR_OPEN 3
+# define VDOOR_CLOSED		'V'
+# define HDOOR_CLOSED		'H'
+# define VDOOR_OPEN			2
+# define HDOOR_OPEN 		3
+# define CHANGING_VDOOR		4
+# define CHANGING_HDOOR		5
 
 # define SKY_WIDTH	2560
 # define SKY_HEIGHT	1920
@@ -307,10 +315,13 @@ typedef struct s_sprite_node
 {
 	float	x;
 	float	y;
+	int		x;
+	int		y;
 	int		sprite_type;
 	float	distance;
 	int		v_move_screen;
 	float	v_move;
+	int		status;
 	size_t	start_frame;
 }	t_sprite_node;
 
@@ -508,6 +519,7 @@ typedef struct s_mlx {
 	void			*win;
 	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
+	size_t			interact_frame;
 	int				cur_audio;
 	int				frame_sync_counter;
 	int				num_frame;
@@ -518,6 +530,7 @@ typedef struct s_mlx {
 	size_t			weapon_start_frame;
 	int				user_state;
 	int				weapon_sprite[5];
+	int				*door_map;
 	long			num_threads;
 	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
@@ -531,6 +544,7 @@ typedef struct s_mlx {
 	t_sprite		sprite[NUM_SPRITE];
 	t_sprite_info	sprite_info;
 	t_sprite_vec	sprite_vec;
+	t_sprite_vec	door_vec;
 	t_user			user;
 	size_t			time;
 	t_dda			dda;
@@ -727,7 +741,11 @@ void			change_state(t_mlx *graphic, int user_state);
 /* init_bonus.c */
 void			init_sprite_fpm(t_mlx *graphic);
 
-/* sky_bonus.c */
-void			draw_sky_wall(t_dda	*dda, t_mlx *graphic, int y);
+/* parse_map_door_bonus.c */
+void			parse_map_door(t_mlx *graphic);
+
+/* door_interaction_bonus.c */
+void			check_door_interaction(t_mlx *graphic, t_dda *dda, t_map *map);
+
 
 #endif
