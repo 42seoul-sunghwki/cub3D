@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:41:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/03 17:08:10 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:34:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,11 +271,22 @@ void	sanitize_p_queue(t_p_queue *queue)
 	queue->size = 0;
 }
 
+int		check_map_range(t_map *map, t_position *position)
+{
+	if (position->x < 0 || position->y < 0
+		|| position->x >= map->w || position->y >= map->h
+		|| map->map[(int)position->y][(int)position->x] == '1')
+		return (true);
+	return (false);
+}
+
 t_node	*jps_search_line(t_node *parent, t_sprite_node *node, t_mlx *mlx, t_position *origin)
 {
 	static t_position	shift[] = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}}; //left, up, right, down
 	static t_position	test[] = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}}; //pick odd or even
 	t_position			position;
+	t_node				*input;
+	t_position			check_position;
 	int					dir;
 	int					i;
 	int					j;
@@ -288,7 +299,7 @@ t_node	*jps_search_line(t_node *parent, t_sprite_node *node, t_mlx *mlx, t_posit
 	while (i++ < 4)
 	{
 		memcpy(&position, origin, sizeof(t_position));
-		if ((dir << i) & 1)
+		if ((dir >> i) & 1)
 		{
 			//check end condition
 			if (parent->position.x == (int)mlx->user.x 
@@ -307,14 +318,21 @@ t_node	*jps_search_line(t_node *parent, t_sprite_node *node, t_mlx *mlx, t_posit
 			{
 				if (i % 2 == j % 2)
 				{
-					if (mlx->map.map[position.y + test[j - 1].y][position.x + test[j - 1].x] == '1' &&
-					mlx->map.map[position.y + test[j - 1].y + shift[i - 1].y][position.x + test[j - 1].x + shift[i - 1].x] != '1')
+					check_position.x = position.x + test[j - 1].x;
+					check_position.y = position.y + test[j - 1].y;
+					if (check_map_range(&mlx->map, &check_position) == true
+						&& check_map_range(&mlx->map, &(t_position){check_position.x + shift[i - 1].x, check_position.y + shift[i - 1].y}) == true)
+					{
+						continue;
+					}
+					if (mlx->map.map[check_position.y][check_position.x] == '1' &&
+					mlx->map.map[check_position.y + shift[i - 1].y][check_position.x + shift[i - 1].x] != '1')
 					{
 						//add forced neighbor
 						h_cost = get_manhattan_distance(position.x, position.y, (int)mlx->user.x, (int)mlx->user.y);
 						g_cost = get_manhattan_distance(parent->position.x, parent->position.y, position.x, position.y) + parent->g_cost;
-						parent = init_t_node(position, g_cost + h_cost, g_cost, (int)pow(2, i) | (int)pow(2, j));
-						enqueue(&node->open_list, parent);
+						input = init_t_node(position, g_cost + h_cost, g_cost, (int)pow(2, i) | (int)pow(2, j));
+						enqueue(&node->open_list, input);
 						break ;
 					}
 				}
@@ -356,14 +374,17 @@ t_node	*jps_init_start(t_sprite_node *start, t_mlx *mlx)
 			i = 0;
 			while (i < 4)
 			{
-				n = (t_node *)malloc(sizeof(t_node));
-				n->position.x = start->x + diagonal[i].x;
-				n->position.y = start->y + diagonal[i].y;
-				n->f_cost = -get_manhattan_distance((int)n->position.x, (int)n->position.y, (int)mlx->user.x, (int)mlx->user.y);
-				n->g_cost = 0;
-				n->direction = (int)pow(2, i) | (int)pow(2, (i + 1) % 4);
-				n->next = NULL;
-				enqueue(&start->open_list, n);
+				if (n->direction & (int)pow(2, i + 1))
+				{
+					ret = (t_node *)malloc(sizeof(t_node));
+					ret->position.x = start->x + diagonal[i].x;
+					ret->position.y = start->y + diagonal[i].y;
+					ret->f_cost = -get_manhattan_distance((int)ret->position.x, (int)ret->position.y, (int)mlx->user.x, (int)mlx->user.y);
+					ret->g_cost = 0;
+					ret->direction = (int)pow(2, i) | (int)pow(2, (i + 1) % 4);
+					ret->next = n;
+					enqueue(&start->open_list, ret);
+				}
 				i++;
 			}
 		}
