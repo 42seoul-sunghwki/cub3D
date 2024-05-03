@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:47:22 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 19:15:18 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:09:24 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	enqueue(t_p_queue *heap, t_node *node)
 
 	arr = heap->arr;
 	heap->size += 1;
+	if (heap->max_size <= heap->size)
+	{
+		heap->max_size *= 2;
+		arr = realloc(arr, sizeof(t_node *) * heap->max_size);
+	}
 	i = heap->size;
 	arr[i] = node;
 	increase_value(heap, i, node);
