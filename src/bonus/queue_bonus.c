@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 22:02:52 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/01 19:33:11 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:39:23 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_node	*pop(t_p_queue *heap)
 
 void	push(t_p_queue *heap, t_node *node)
 {
-	if (heap->size == heap->max_size)
+	heap->size++;
+	if (heap->max_size <= heap->size)
 	{
 		heap->max_size *= 2;
 		heap->arr = (t_node **)realloc(heap->arr, sizeof(t_node *) * (heap->max_size + 1));
 	}
 	heap->arr[heap->size] = node;
-	heap->size++;
 }
 
 t_node	*dup_node(t_node *node)

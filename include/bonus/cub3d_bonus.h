@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/03 20:35:20 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:08:35 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@
 # define SKY	4
 # define FLOOR	5
 
-# define LEFT_UP		1
-# define RIGHT_UP		2
-# define LEFT_DOWN		4
-# define RIGHT_DOWN		8
+# define LEFT_UP		0
+# define RIGHT_UP		1
+# define LEFT_DOWN		2
+# define RIGHT_DOWN		3
 
 
 # define A	0

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/01 19:49:46 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/03 23:05:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 	while (++i < vec->size)
 	{
 		cur_sprite = get_sprite(vec, i);
-		// printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
+		//printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
+		 printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
@@ -125,20 +126,12 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 void	update_sprite(t_mlx *graphic, t_user *user)
 {
 	t_sprite_vec	*vec;
-	int				i;
 
 	vec = &graphic->sprite_vec;
 	//check for respawn? add sprite
 	//delete sprite - dead sprite
 	//update distance
 	jps(graphic);
-	i = 0;
-	while (i < vec->size)
-	{
-		sanitize_p_queue(&vec->list[i]->open_list);
-		sanitize_p_queue(&vec->list[i]->close_list);
-		i++;
-	}
 	update_sprite_distance(graphic, user, vec);
 	//sort
 	//access or draw

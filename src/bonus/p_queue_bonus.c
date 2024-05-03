@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:47:22 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/03 18:52:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:45:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ void	enqueue(t_p_queue *heap, t_node *node)
 	}
 	i = heap->size;
 	heap->arr[i] = node;
-	printf("size : %d\n", heap->size);
 	increase_value(heap, i, node);
 }

@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/02 15:25:02 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/03 23:14:29 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra -fsanitize=address
+FLAGS =  -g -Wall -Werror -Wextra -fsanitize=address -fno-omit-frame-pointer
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
