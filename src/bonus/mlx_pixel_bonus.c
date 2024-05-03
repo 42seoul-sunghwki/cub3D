@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 19:09:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:46:37 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	draw_texture_line(t_mlx *graphic, t_data *frame, t_dda *dda, int y)
 	dda->text_pos += dda->text_step;
 	// printf("tex_x: [%d] tex_y: [%d]\n", dda->texture_x, tex_y);
 	color = my_mlx_pixel_get(data, dda->texture_x, tex_y);
-	my_mlx_pixel_put(frame, dda->cur_pixel_x, y, color);
+	if (get_t(color) != 0xFF)
+		my_mlx_pixel_put(frame, dda->cur_pixel_x, y, color);
 }
 
 void	draw_vertical_line(t_mlx *graphic, t_dda *dda)

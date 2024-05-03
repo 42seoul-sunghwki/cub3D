@@ -6,47 +6,12 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/03 01:00:50 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 23:11:10 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	calculate_sprite(t_sprite_info *sprite,
-	t_sprite_node *node, t_user *user, t_mlx *graphic)
-{
-	(void) graphic;
-
-	sprite->sprite_x = node->x - user->x;
-	sprite->sprite_y = node->y - user->y;
-	sprite->inv_det = 1.0 / ((user->plane_x * user->dir_y)
-			- (user->dir_x * user->plane_y));
-	if (node->status != 0)
-		sprite->inv_det = 1.0;
-	sprite->transform_x = sprite->inv_det * (user->dir_y
-			* sprite->sprite_x - user->dir_x * sprite->sprite_y);
-	sprite->transform_y = sprite->inv_det * (-user->plane_y
-			* sprite->sprite_x + user->plane_x * sprite->sprite_y);
-	node->v_move_screen = (node->v_move / sprite->transform_y);
-	sprite->sprite_screen_x = (int)((WINWIDTH / 2)
-			* (1 + sprite->transform_x / sprite->transform_y));
-	sprite->sprite_height = abs((int)(WINHEIGHT
-				/ (sprite->transform_y))) * 1.34;
-	sprite->draw_start_y = -(sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy + user->z / node->distance;
-	if (sprite->draw_start_y < 0)
-		sprite->draw_start_y = 0;
-	// printf("node->distance: %f\n", node->distance);
-	sprite->draw_end_y = (sprite->sprite_height / 2) + WINHEIGHT / 2 + WINWIDTH * user->zy + user->z / node->distance;
-	if (sprite->draw_end_y >= WINHEIGHT)
-		sprite->draw_end_y = WINHEIGHT - 1;
-	sprite->sprite_width = abs((int)(WINHEIGHT / sprite->transform_y));
-	sprite->draw_start_x = -sprite->sprite_width / 2 + sprite->sprite_screen_x;
-	if (sprite->draw_start_x < 0)
-		sprite->draw_start_x = 0;
-	sprite->draw_end_x = sprite->sprite_width / 2 + sprite->sprite_screen_x;
-	if (sprite->draw_end_x >= WINWIDTH)
-		sprite->draw_end_x = WINWIDTH - 1;
-}
 /**
  * TODO: norm, change tex_y ?
 */
@@ -107,15 +72,6 @@ void	draw_sprite(void *arg)
 	free(sprite_thread);
 }
 
-bool	skip_sprite(t_mlx *graphic, t_sprite_node *cur_sprite)
-{
-	if (cur_sprite->status == 2
-		&& graphic->total_frame - cur_sprite->start_frame
-		>= (size_t) graphic->sprite[DOOR_CLOSE].num_img * 2)
-		return (true);
-	return (false);
-}
-
 void	project_sprite(t_mlx *graphic, t_user *user)
 {
 	t_sprite_node	*cur_sprite;
@@ -129,12 +85,10 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 	while (++i < vec->size)
 	{
 		cur_sprite = get_sprite(vec, i);
-		if (skip_sprite(graphic, cur_sprite))
-			break ;
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
-		calculate_sprite(&graphic->sprite_info, cur_sprite, user, graphic);
+		calculate_sprite(&graphic->sprite_info, cur_sprite, user);
 		draw_sprite_thread(graphic, &sprite->img[frame_num], cur_sprite);
 	}
 }

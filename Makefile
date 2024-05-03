@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/02 23:36:21 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/03 23:16:56 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ BONUS_SRC =	main_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
 			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \
-			parse_map_door_bonus.c door_interaction_bonus.c
+			parse_door_map_bonus.c door_interaction_bonus.c door_map_bonus.c \
+			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -95,29 +96,6 @@ $(BONUS_BIN_DIR):
 $(OBJ_BONUS_DIR):
 	mkdir -p $@
 
-#for linux
-
-# $(MLX_LINUX): 
-# 	make -C ./lib/mlx_linux all
-
-# $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -I./lib/mlx_linux -O3 -c $< -o $@
-
-# $(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(MANDATORY_BIN_DIR)
-# 	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
-# 	$(LIBFT) -o $(NAME)
-#	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
-
-#bonus
-# $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-# 	$(CC) -pg -g -Iinclude -I./include/bonus -I./lib/mlx_linux -O3 -c $< -o $@
-
-# $(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BONUS_BIN_DIR)
-# 	$(CC) -pg -p $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -I./lib/mlx_linux -lXext -lX11 -lm -lz \
-# 	$(LIBFT) -o $(NAME_BONUS)
-# install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
-
-#for MAC
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@

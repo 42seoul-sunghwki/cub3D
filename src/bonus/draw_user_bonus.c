@@ -6,13 +6,13 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:29:27 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 21:44:03 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 23:08:24 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	draw_weapon_pixel(t_weapon_thread *weapon_thread, t_pic *texture,
+static void	draw_weapon_pixel(t_weapon_thread *weapon_thread, t_pic *texture,
 	int y, int x)
 {
 	t_mlx	*graphic;
@@ -30,7 +30,8 @@ void	draw_weapon_pixel(t_weapon_thread *weapon_thread, t_pic *texture,
 /**
  * TODO: either set w and h for weapon texture or set define for each weapon
 */
-void	draw_weapon(void *arg)
+
+static void	draw_weapon(void *arg)
 {
 	t_weapon_thread	*weapon_thread;
 	t_pic			*texture;
@@ -55,7 +56,7 @@ void	draw_weapon(void *arg)
 	free(weapon_thread);
 }
 
-void	draw_weapon_thread(t_mlx *graphic, t_pic *texture)
+static void	draw_weapon_thread(t_mlx *graphic, t_pic *texture)
 {
 	t_weapon_thread	*weapon_thread;
 	int				i;
@@ -76,22 +77,7 @@ void	draw_weapon_thread(t_mlx *graphic, t_pic *texture)
 	wait_for_threads(&graphic->pool);
 }
 
-void	change_weapon(t_mlx *graphic)
-{
-	graphic->weapon_num = graphic->change_weapon_num;
-	graphic->user_state = STATE_DRAW;
-	graphic->weapon_start_frame = graphic->total_frame;
-	if (graphic->weapon_num == 1)
-		graphic->pepsi_open = 0;
-}
-
-void	change_state(t_mlx *graphic, int user_state)
-{
-	graphic->weapon_start_frame = graphic->total_frame;
-	graphic->user_state = user_state;
-}
-
-void	weapon_render(t_mlx *graphic)
+static void	weapon_render(t_mlx *graphic)
 {
 	t_sprite	*sprite;
 	t_pic		*pic;

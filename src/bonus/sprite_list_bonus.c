@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 23:47:58 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:24:30 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_sprite_node	*create_sprite_node(float x, float y,
 	t_sprite_node	*return_node;
 
 	return_node = malloc(sizeof(t_sprite_node));
-	return_node->status = 0;
 	return_node->x = x;
 	return_node->y = y;
 	return_node->v_move = v_move;

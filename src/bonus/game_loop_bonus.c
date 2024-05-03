@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/01 15:25:52 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:03:34 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	game_loop(void *arg)
 	mlx_sync_render(graphic);
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
+	update_door(graphic);
 	update_sprite(graphic, user);
 	draw_minimap_thread(graphic);
 	draw_user(graphic);
