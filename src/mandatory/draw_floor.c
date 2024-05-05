@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:48:40 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 17:48:51 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:53:55 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 {
-	int	j;
-	int	color;
+	int		j;
+	int		color;
+	t_data	*data;
 
 	j = -1;
+	data = &graphic->img_data[graphic->num_frame];
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
 	while (++j < WINWIDTH)
 	{
 		floor->cell_x = (int)(floor->floor_x);
@@ -28,8 +32,7 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 		floor->floor_y += floor->floor_step_y;
 		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data,
 				floor->tx, floor->ty);
-		my_mlx_pixel_put(&graphic->img_data[graphic->num_frame],
-			j, WINHEIGHT - 1 - i, color);
+		my_mlx_pixel_put(data, j, WINHEIGHT - 1 - i, color);
 	}
 }
 

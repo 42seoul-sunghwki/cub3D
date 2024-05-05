@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/05 13:33:21 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/05 14:47:27 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra
+FLAGS =  -g -Wall -Werror -Wextra -O3
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -35,8 +35,9 @@ SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 BONUS_SRC =	main_bonus.c \
 			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
-			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c cub_slice_sprite_bonus.c \
-			cub_read_bonus.c cub_slice_bonus.c cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
+			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
+			cub_slice_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
+			cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
@@ -122,13 +123,13 @@ $(LIBFT):
 clean:
 	rm -rf $(MANDATORY_OBJS)
 	rm -rf $(BONUS_OBJS)
+	rm -rf $(DEP)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(NAME_BONUS)
-	rm -rf $(DEP)
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
