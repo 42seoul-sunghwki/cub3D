@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/13 18:06:54 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:38:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ int	init_main(int argc)
 		return (SUCCESS);
 }
 
+void	check()
+{
+	system("leaks cub3D");
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	*map;
+	atexit(check);
 
 	if (init_main(argc) == FAIL)
 		return (1);

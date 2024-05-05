@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 22:14:44 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:51:13 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,22 @@ void	print_struct(t_mlx *mlx)
 	print_map(&mlx->map);
 }
 
-// void	check()
-// {
-// 	system("leaks cub3D");
-// }
-
 void	mlx_setup(t_mlx *graphic)
 {
 	mlx_mouse_hide(graphic->mlx);
 	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 }
 
-// void	leaks()
-// {
-// 	system("leaks cub3D");
-// }
+void	leaks()
+{
+	system("leaks cub3D");
+}
 
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	*map;
-	// atexit(leaks);
+	atexit(leaks);
 
 	if (init_main(argc) == FAIL)
 		return (1);
