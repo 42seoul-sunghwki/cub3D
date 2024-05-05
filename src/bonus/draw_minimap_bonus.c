@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 16:44:13 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:56:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ void	draw_minimap_routine(void *in)
 		minimap->start_y--;
 		minimap->pixel_y += minimap->pixel_size;
 	}
+	free(minimap);
 }
 
 //static void	draw_xline_minimap(t_mlx *mlx, float pixel_y,

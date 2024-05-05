@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_move_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:40:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/26 19:14:51 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:04:36 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	handle_mouse_move_z(t_mlx *graphic, int displace_z)
 		user->zx = 0.0;
 		user->zy = -1.0;
 	}
-	// printf("user->zy [%f]\n", user->zy);
 }
 
 int	handle_mouse_move(int x, int z, void *arg)
@@ -69,13 +68,8 @@ int	handle_mouse_move(int x, int z, void *arg)
 
 	graphic = (t_mlx *)arg;
 	(void)arg;
-	//printf("handle_mouse_move");
 	handle_mouse_move_x(graphic, x - HALF_WINWIDTH);
 	handle_mouse_move_z(graphic, z - HALF_WINHEIGHT);
-	//mac
 	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	//linux
-	// mlx_mouse_move(graphic->mlx, graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
-	// printf("y: [%d] x: [%d]\n", z, x);
 	return (0);
 }

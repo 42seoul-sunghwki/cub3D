@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_hooks_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:14:28 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/16 13:10:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/30 21:18:36 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int	terminate_program(t_mlx *graphic)
 	// {
 	// 	mlx_destroy_image(graphic->mlx, graphic->block.pic[i].data.img);
 	// }
+	// BASS_StreamFree(graphic->sound_stream);
+	// BASS_Free();
 	exit(0);
 }

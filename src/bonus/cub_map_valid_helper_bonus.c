@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:35:29 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:05:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,27 @@
 
 static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 {
-	if (map[y][x] == 'D')
+	static char	tmp[] = {'V', 'H'};
+	int			i;
+
+	i = -1;
+	while (i < 2)
 	{
-		if (map[y - 1][x] == 'D' || map[y + 1][x] == 'D'
-			|| map[y][x - 1] == 'D' || map[y][x + 1] == 'D')
-			ft_exit("Invalid map\nDoor is too close to another door");
-		if (map[y - 1][x] == '1' && map[y + 1][x] == '1'
-			&& map[y][x - 1] != '1' && map[y][x + 1] != '1')
-			return ;
-		else if (map[y - 1][x] != '1' && map[y + 1][x] != '1'
-			&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
-			return ;
-		else
-			ft_exit("Invalid map\nDoor is not valid");
+		if (map[y][x] == tmp[i])
+		{
+			if (map[y - 1][x] == tmp[i] || map[y + 1][x] == tmp[i]
+				|| map[y][x - 1] == tmp[i] || map[y][x + 1] == tmp[i])
+				ft_exit("Invalid map\nDoor is too close to another door");
+			if (i == 0 && map[y - 1][x] == '1' && map[y + 1][x] == '1'
+				&& map[y][x - 1] != '1' && map[y][x + 1] != '1')
+				return ;
+			else if (i == 1 && map[y - 1][x] != '1' && map[y + 1][x] != '1'
+				&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
+				return ;
+			else
+				ft_exit("Invalid map\nDoor is not valid");
+		}
+		i++;
 	}
 	if (map[y][x] == 'N' || map[y][x] == 'S'
 		|| map[y][x] == 'W' || map[y][x] == 'E')

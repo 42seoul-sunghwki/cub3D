@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/03 23:14:29 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/05 15:52:56 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra -fsanitize=address -fno-omit-frame-pointer
+FLAGS =  -g -Wall -Werror -Wextra -O3 -fsanitize=address -fno-omit-frame-pointer
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -36,8 +36,9 @@ BONUS_SRC =	main_bonus.c \
 			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
 			jps_bonus.c p_queue_bonus.c p_queue_helper.c queue_bonus.c \
-			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c cub_slice_sprite_bonus.c \
-			cub_read_bonus.c cub_slice_bonus.c cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
+			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
+			cub_slice_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
+			cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
@@ -47,7 +48,11 @@ BONUS_SRC =	main_bonus.c \
 			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
 			draw_minimap_bonus.c minimap_thread_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
-			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c
+			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c \
+			sound_bonus.c draw_user_bonus.c init_bonus.c \
+			parse_door_map_bonus.c door_interaction_bonus.c door_map_bonus.c \
+			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c \
+			door_util_bonus.c perform_dda_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -94,29 +99,6 @@ $(BONUS_BIN_DIR):
 $(OBJ_BONUS_DIR):
 	mkdir -p $@
 
-#for linux
-
-# $(MLX_LINUX): 
-# 	make -C ./lib/mlx_linux all
-
-# $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
-# 	$(CC) $(FLAGS) -Iinclude -Iinclude/mandatory -I./lib/mlx_linux -O3 -c $< -o $@
-
-# $(NAME): $(MANDATORY_OBJS) $(MLX_LINUX) $(LIBFT) | $(MANDATORY_BIN_DIR)
-# 	$(CC) $(OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz \
-# 	$(LIBFT) -o $(NAME)
-#	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME)
-
-#bonus
-# $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-# 	$(CC) -pg -g -Iinclude -I./include/bonus -I./lib/mlx_linux -O3 -c $< -o $@
-
-# $(NAME_BONUS): $(BONUS_OBJS) $(MLX_LINUX) $(LIBFT) | $(BONUS_BIN_DIR)
-# 	$(CC) -pg -p $(BONUS_OBJS) -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -I./lib/mlx_linux -lXext -lX11 -lm -lz \
-# 	$(LIBFT) -o $(NAME_BONUS)
-# install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
-
-#for MAC
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
@@ -128,11 +110,11 @@ $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 
 # bonus
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
-	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
+	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -Ilib/bass24-osx -MMD -MF $(DEP) -c $< -o $@
 
 $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
-	$(LIBFT) -o $(NAME_BONUS)
+	$(LIBFT) -Wl,-rpath,/Users/minsepar/cub3d/lib/bass24-osx/intel -Llib/bass24-osx/intel -lbass -o $(NAME_BONUS)
 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
 
@@ -142,13 +124,13 @@ $(LIBFT):
 clean:
 	rm -rf $(MANDATORY_OBJS)
 	rm -rf $(BONUS_OBJS)
+	rm -rf $(DEP)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(NAME_BONUS)
-	rm -rf $(DEP)
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
