@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 16:24:30 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:03:38 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_sprite_vec(t_sprite_vec *vec)
 void	push_sprite(t_sprite_vec *vec, t_sprite_node *node)
 {
 	t_sprite_node	**new_list;
-	int	i;
+	int				i;
 
 	if (vec->size == vec->malloc_size)
 	{

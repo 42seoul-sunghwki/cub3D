@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:29:27 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 23:08:24 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:30:53 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,8 @@ static void	weapon_render(t_mlx *graphic)
 	weapon_sprite = graphic->weapon_sprite;
 	sprite = &graphic->sprite[weapon_sprite[graphic->weapon_num]
 		+ graphic->user_state];
-	// num_frame = (graphic->total_frame - graphic->weapon_start_frame)
-	// 	% sprite->num_img;
 	num_frame = (graphic->total_frame - graphic->weapon_start_frame)
 		% (sprite->num_img * sprite->fpm) / sprite->fpm;
-	// printf("num_img: %d\n", sprite->num_img);
 	pic = &sprite->img[num_frame];
 	draw_weapon_thread(graphic, pic);
 }

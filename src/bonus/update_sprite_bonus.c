@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/03 23:11:10 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:02:49 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 
 	j = sprite->draw_start_y - 1;
 	frame = &graphic->img_data[graphic->num_frame];
-	// printf("draw sprite pixel\n");
 	while (++j < sprite->draw_end_y)
 	{
 		d = (j - WINWIDTH * graphic->user.zy - graphic->user.z
@@ -38,10 +37,8 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 			tex_y *= -1;
 			tex_y %= sprite->sprite_height;
 		}
-		// printf("%p\n", &texture->data);
 		color = my_mlx_pixel_get(&sprite->texture->data,
-			sprite_thread->tex_x, tex_y);
-		//color if it isn't invisible
+				sprite_thread->tex_x, tex_y);
 		if (get_t(color) != 0xFF)
 			my_mlx_pixel_put(frame, x, j, color);
 	}
@@ -58,8 +55,6 @@ void	draw_sprite(void *arg)
 	user = &sprite_thread->mlx->user;
 	sprite = &sprite_thread->mlx->sprite_info;
 	i = sprite_thread->draw_start - 1;
-	// printf("sprite->draw_start_x [%d]\n", sprite->draw_start_x);
-	// printf("sprite->draw_end_x [%d]\n", sprite->draw_end_x);
 	while (++i < sprite_thread->draw_end)
 	{
 		sprite_thread->tex_x = (256
@@ -98,12 +93,6 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 	t_sprite_vec	*vec;
 
 	vec = &graphic->sprite_vec;
-	//check for respawn? add sprite
-	//delete sprite - dead sprite
-	//update distance
 	update_sprite_distance(graphic, user, vec);
-	//sort
-	//access or draw
-	// printf("print sprite\n");
 	project_sprite(graphic, user);
 }
