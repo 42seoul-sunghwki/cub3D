@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/05 16:51:08 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:54:04 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 	vec = &graphic->sprite_vec;
 	jps(graphic);
 	update_sprite_distance(graphic, user, vec);
+	mergesort_sprite_list(graphic->sprite_vec.list, graphic->sprite_vec.size);
 	project_sprite(graphic, user);
 }
