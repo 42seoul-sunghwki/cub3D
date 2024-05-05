@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/30 01:22:34 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:03:29 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	*worker_thread(void *arg)
 		task->function(task->arg);
 		pthread_mutex_lock(&pool->mutex);
 		pool->task_complete++;
-		// printf("task complete: %d\n", pool->task_complete);
 		pthread_cond_signal(&pool->synchronize);
 		pthread_mutex_unlock(&pool->mutex);
 		free(task);
@@ -88,7 +87,6 @@ void	start_wait_for_threads(t_thread_pool *pool, int total_task)
 
 void	wait_for_threads(t_thread_pool *pool)
 {
-	// printf("%d\n", pool->total_task);
 	pthread_mutex_lock(&pool->mutex);
 	while (pool->task_complete < pool->total_task)
 	{

@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*   door_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 21:33:29 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/02 23:47:21 by minsepar         ###   ########.fr       */
+/*   Created: 2024/05/03 15:04:03 by minsepar          #+#    #+#             */
+/*   Updated: 2024/05/03 23:02:31 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	init_sprite_fpm(t_mlx *graphic)
+t_door	*get_door(t_mlx	*graphic, int y, int x)
 {
-	graphic->sprite[DANCING_BEAR].fpm = 2;
-	graphic->sprite[DANCING_DOG].fpm = 2;
-	graphic->sprite[DANCING_CAT].fpm = 2;
-	graphic->sprite[PEPSI_DRAW].fpm = 2;
-	graphic->sprite[PEPSI_IDLE].fpm = 2;
-	graphic->sprite[PEPSI_DRINK].fpm = 2;
-	graphic->sprite[PEPSI_OPEN_AND_DRINK].fpm = 2;
-	graphic->sprite[PEPSI_WALK].fpm = 2;
-	graphic->sprite[PEPSI_RUN].fpm = 2;
-	graphic->sprite[DOOR_CLOSE].fpm = 2;
+	int		low;
+	int		high;
+	int		mid;
+	t_door	*cur_door;
+	int		index;
+
+	low = 0;
+	high = graphic->num_door - 1;
+	index = y * graphic->map.w + x;
+	while (low <= high)
+	{
+		mid = (high + low) / 2;
+		cur_door = &graphic->door[mid];
+		if (cur_door->index == index)
+			return (cur_door);
+		else if (cur_door->index < index)
+			low = mid + 1;
+		else
+			high = mid - 1;
+	}
+	return (NULL);
 }

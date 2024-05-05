@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/01 15:25:52 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:08:49 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static void	draw_floor_pixel(t_mlx *graphic, t_floor *floor, int i)
 		floor->cell_y = (int)(floor->floor_y);
 		floor->tx = (int)(64 * (floor->floor_x - floor->cell_x)) & (63);
 		floor->ty = (int)(64 * (floor->floor_y - floor->cell_y)) & (63);
-		// printf("tx: %d ty: %d\n", floor->tx, floor->ty);
-		// printf("block pic: [%p]\n", &graphic->block.pic[FLOOR].data);
 		floor->floor_x += floor->floor_step_x;
 		floor->floor_y += floor->floor_step_y;
-		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data, floor->tx, floor->ty);
+		color = my_mlx_pixel_get(&graphic->block.pic[FLOOR].data,
+				floor->tx, floor->ty);
 		my_mlx_pixel_put(&graphic->img_data[graphic->num_frame],
 			j, WINHEIGHT - 1 - i, color);
 	}
@@ -56,7 +55,7 @@ void	draw_floor_routine(void *arg)
 		floor->raydir_y_start = user->dir_y - user->plane_y;
 		floor->raydir_x_end = user->dir_x + user->plane_x;
 		floor->raydir_y_end = user->dir_y + user->plane_y;
-		floor->p = floor->end_i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy); // adding z compomenet to make floor with z change
+		floor->p = floor->end_i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy);
 		if (floor->p > 0)
 			break ;
 		floor->pos_z = 1.34 * WINHEIGHT * 0.5 + user->z;
@@ -105,22 +104,18 @@ int	game_loop(void *arg)
 {
 	t_mlx			*graphic;
 	t_user			*user;
-	size_t			cur_time;
 
 	graphic = arg;
 	user = &graphic->user;
-	// printf("start loop\n");
-	// cur_time = get_time_in_us();
-	// printf("user->z: [%f]\n", user->z);
 	pthread_mutex_lock(&graphic->counter_mutex);
 	while (graphic->frame_sync_counter > 1)
 		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
 	pthread_mutex_unlock(&graphic->counter_mutex);
-	// printf("frame_sync_counter: %d\n", graphic->frame_sync_counter);
 	handle_keys_loop(graphic);
 	mlx_sync_render(graphic);
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
+	update_door(graphic);
 	update_sprite(graphic, user);
 	draw_minimap_thread(graphic);
 	draw_user(graphic);
@@ -130,11 +125,6 @@ int	game_loop(void *arg)
 	pthread_mutex_unlock(&graphic->counter_mutex);
 	graphic->num_frame += 1;
 	graphic->num_frame %= 3;
-	// printf("graphic->num_frame %d\n", graphic->num_frame);
 	graphic->total_frame++;
-	cur_time = get_time_in_us();
-	// printf("fps: [%lu]\n", 1000000/(cur_time - graphic->time));
-	graphic->time = cur_time;
-	// printf("user->zx: [%f] user->zy: [%f]\n", user->zx, user->zy);
 	return (0);
 }
