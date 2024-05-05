@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/05 15:53:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:51:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 	while (++i < vec->size)
 	{
 		cur_sprite = get_sprite(vec, i);
-		//printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
-		 printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
+		printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;

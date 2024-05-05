@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 22:14:44 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:10:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	t_sprite_vec	*vec = &graphic->sprite_vec;
 	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
-	push_sprite(vec, create_sprite_node(3, 2, DANCING_BEAR, 0));
+	push_sprite(vec, create_sprite_node(3, 2, DANCING_BEAR, 0)); //refine map
 	push_sprite(vec, create_sprite_node(3, 3, DANCING_DOG, 0));
 	push_sprite(vec, create_sprite_node(3, 4, DANCING_CAT, 0));
 	/* door_array */

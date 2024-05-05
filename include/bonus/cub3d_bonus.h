@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/05 15:55:57 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:57:13 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define SPRITE_MOVE_SPEED	0.005
+# define SPRITE_MOVE_SPEED	0.01
+# define BEAR_MOVE_SPEED	0.03
+# define CAT_MOVE_SPEED		0.015
+# define DOG_MOVE_SPEED		0.02
 
 # define YELLOW 0xFFFF << 8
 # define RED 0xFF << 16
@@ -741,7 +744,7 @@ void			push_sprite(t_sprite_vec *vec, t_sprite_node *node);
 t_sprite_node	*get_sprite(t_sprite_vec *vec, int index);
 void			delete_sprite(t_sprite_vec *vec, int index);
 t_sprite_node	*create_sprite_node(float x, float y,
-					int sprite_type);
+					int sprite_type, float v_move);
 
 /* mouse_move_bonus.c */
 int				handle_mouse_move(int x, int y, void *arg);
@@ -822,6 +825,8 @@ t_door			*get_door(t_mlx	*graphic, int y, int x);
 /* door_dda_bonus.c */
 void			perform_door_dda(t_dda *dda, t_map *map);
 void			update_door(t_mlx *graphic);
+
+void			jps(t_mlx *mlx);
 
 /* calculate_sprite_bonus.c */
 void			calculate_sprite(t_sprite_info *sprite,

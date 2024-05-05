@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_slice_sprite_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 15:44:46 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/29 22:29:56 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:53:25 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	read_folder(char *path, char *dir_name, int num, t_mlx *mlx)
 		if (i < 0 || i >= mlx->sprite[num].num_img)
 			ft_exit("Invalid sprite file name");
 		mlx->sprite[num].img[i].name = ft_strdup(file_name);
-		printf(("num : %d, i : %d file_name : %s\n"), num, i, file_name);
+		//printf(("num : %d, i : %d file_name : %s\n"), num, i, file_name);
 		check_img_sprite_file(file_name, mlx, &(mlx->sprite[num].img[i]));
 		free(token);
 		free(file_name);
