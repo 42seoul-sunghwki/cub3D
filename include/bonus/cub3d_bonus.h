@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 18:53:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:27:22 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@
 # define STATE_RUN				4
 # define STATE_WALK				5
 
+/* door_state */
+# define DOOR_STILL	2
+
 /* mouse_buttons */
 # define LEFT_CLICK				1
 
@@ -145,6 +148,7 @@
 # define THREE	20
 # define FOUR	21
 # define SHIFT	257
+# define WEAPON_OFFSET	17
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -165,11 +169,15 @@
 # define RUN_SPEED	0.08
 # define ROT_SPEED	0.0005
 
+# define E_INTERACT	14
+
 /* user->flag */
 # define JUMP 1
 # define DIAGONAL 2
 
 # define DIAGONAL_SCALE 0.7071
+
+# define INTERACT_DISTANCE 1
 
 /* BASS_sound_stream */
 # define NUM_STREAM				5
@@ -180,8 +188,14 @@
 # define RUN_SOUND				4
 
 /* Map Texture */
-# define VDOOR_OPEN	2
-# define HDOOR_OPEN 3
+# define EMPTY				'0'
+# define WALL				'1'
+# define VDOOR_CLOSED		'V'
+# define HDOOR_CLOSED		'H'
+# define VDOOR_OPEN			2
+# define HDOOR_OPEN 		3
+# define CHANGING_VDOOR		4
+# define CHANGING_HDOOR		5
 
 # define SKY_WIDTH	2560
 # define SKY_HEIGHT	1920
@@ -448,6 +462,7 @@ typedef struct s_dda {
 	int				texture_num;
 	int				texture_x;
 	int				end_pixel_x;
+	bool			changing_door;
 	t_pic			*texture;
 }	t_dda;
 
@@ -488,6 +503,14 @@ typedef struct s_sprite_info
 	t_pic	*texture;
 }	t_sprite_info;
 
+typedef struct s_door
+{
+	int			index;
+	int			direction;
+	int			frame_num;
+	size_t		start_frame;
+}	t_door;
+
 /**
  * t_mlx struct gets passed to the game_loop function which renders each frame
  * 
@@ -508,6 +531,7 @@ typedef struct s_mlx {
 	void			*win;
 	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
+	size_t			interact_frame;
 	int				cur_audio;
 	int				frame_sync_counter;
 	int				num_frame;
@@ -518,6 +542,8 @@ typedef struct s_mlx {
 	size_t			weapon_start_frame;
 	int				user_state;
 	int				weapon_sprite[5];
+	int				*door_map;
+	int				num_door;
 	long			num_threads;
 	float			z_buffer[WINWIDTH];
 	size_t			total_frame;
@@ -531,8 +557,8 @@ typedef struct s_mlx {
 	t_sprite		sprite[NUM_SPRITE];
 	t_sprite_info	sprite_info;
 	t_sprite_vec	sprite_vec;
+	t_door			*door;
 	t_user			user;
-	size_t			time;
 	t_dda			dda;
 	HSTREAM			sound_stream[NUM_STREAM];
 }	t_mlx;
@@ -637,6 +663,9 @@ size_t			get_time_in_us(void);
 /* handle_mouse_bonus.c */
 int				handle_mouse_click(int button, int x, int y, void *arg);
 
+/* handle_arrow_bonus.c */
+void			check_collision(t_mlx *graphic);
+
 /* collision_check_bonus.c */
 void			dir_y_check_p(t_map *map, t_user *user);
 void			dir_y_check_n(t_map *map, t_user *user);
@@ -649,11 +678,6 @@ void			update_sprite(t_mlx *graphic, t_user *user);
 
 /* mergesort_sprite_bonus.c */
 t_sprite_node	**mergesort_sprite_list(t_sprite_node **list, int size);
-
-/* handle_arrow_bonus.c */
-void			handle_left_arrow(t_mlx *graphic, int keycode);
-void			handle_right_arrow(t_mlx *graphic, int keycode);
-void			check_collision(t_mlx *graphic);
 
 /* sprite_list_bonus.c */
 void			init_sprite_vec(t_sprite_vec *vec);
@@ -679,6 +703,7 @@ void			wait_for_threads(t_thread_pool *pool);
 
 /* draw_wall_bonus.c */
 void			draw_wall_routine(void *arg);
+bool			is_open_door(int door_num);
 
 /* draw_walls_thread.c */
 void			draw_wall_thread(t_mlx *graphic);
@@ -690,7 +715,8 @@ void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
 void			count_user_coordinate(t_mlx *mlx);
-t_minimap		*draw_minimap_thread_helper(t_minimap *info, t_mlx *graphic, int i);
+t_minimap		*draw_minimap_thread_helper(t_minimap *info,
+					t_mlx *graphic, int i);
 
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
@@ -721,13 +747,38 @@ void			draw_user(t_mlx *graphic);
 int				open_file(char *file);
 int				close_file(int fd);
 
-/* draw_user_bonus */
+/* draw_user_util_bonus */
+void			change_weapon(t_mlx *graphic);
 void			change_state(t_mlx *graphic, int user_state);
 
 /* init_bonus.c */
 void			init_sprite_fpm(t_mlx *graphic);
 
-/* sky_bonus.c */
-void			draw_sky_wall(t_dda	*dda, t_mlx *graphic, int y);
+/* parse_door_map_bonus.c */
+void			parse_door_map(t_mlx *graphic);
+
+/* door_interaction_bonus.c */
+void			check_door_interaction(t_mlx *graphic, t_dda *dda, t_map *map);
+
+/* door_map_bonus.c */
+t_door			*get_door(t_mlx	*graphic, int y, int x);
+
+/* door_dda_bonus.c */
+void			perform_door_dda(t_dda *dda, t_map *map);
+void			update_door(t_mlx *graphic);
+
+/* calculate_sprite_bonus.c */
+void			calculate_sprite(t_sprite_info *sprite,
+					t_sprite_node *node, t_user *user);
+
+/* door_util_bonus.c */
+bool			is_open_door(int door_num);
+bool			is_v_door(int map_texture);
+bool			is_h_door(int map_texture);
+void			check_interaction_opendoor(t_mlx *graphic,
+					t_dda *dda, t_map *map);
+
+/* perform_dda_bonus.c */
+void			perform_dda(t_mlx *graphic, t_dda *dda, t_map *map);
 
 #endif

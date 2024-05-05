@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 17:58:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/01 00:09:53 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:04:09 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@ void	set_bg_sound(t_mlx *mlx)
 		printf("파일 로드 실패: %d\n", BASS_ErrorGetCode());
 		BASS_Free();
 	}
-	BASS_ChannelSetAttribute(mlx->sound_stream[BG_SOUND], BASS_ATTRIB_VOL, 0.01);
+	BASS_ChannelSetAttribute(mlx->sound_stream[BG_SOUND],
+		BASS_ATTRIB_VOL, 0.01);
 	mlx->cur_audio = 1;
 	BASS_ChannelPlay(mlx->sound_stream[BG_SOUND], FALSE);
-	// while (BASS_ChannelIsActive(streamHandle) == BASS_ACTIVE_PLAYING) {
-	// 	// 이 부분에 적절한 sleep 함수를 사용해 CPU 사용률을 관리할 수 있습니다.
-	// 	sleep(100);
-	// }
-	
 }
 
 void	load_sound(t_mlx *mlx)
