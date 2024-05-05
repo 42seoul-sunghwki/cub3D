@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/03 23:15:28 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:27:22 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -559,7 +559,6 @@ typedef struct s_mlx {
 	t_sprite_vec	sprite_vec;
 	t_door			*door;
 	t_user			user;
-	size_t			time;
 	t_dda			dda;
 	HSTREAM			sound_stream[NUM_STREAM];
 }	t_mlx;
@@ -716,7 +715,8 @@ void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
 void			count_user_coordinate(t_mlx *mlx);
-t_minimap		*draw_minimap_thread_helper(t_minimap *info, t_mlx *graphic, int i);
+t_minimap		*draw_minimap_thread_helper(t_minimap *info,
+					t_mlx *graphic, int i);
 
 /* handle_keyrelease.c */
 int				handle_keyrelease(int keycode, void *arg);
@@ -770,4 +770,15 @@ void			update_door(t_mlx *graphic);
 /* calculate_sprite_bonus.c */
 void			calculate_sprite(t_sprite_info *sprite,
 					t_sprite_node *node, t_user *user);
+
+/* door_util_bonus.c */
+bool			is_open_door(int door_num);
+bool			is_v_door(int map_texture);
+bool			is_h_door(int map_texture);
+void			check_interaction_opendoor(t_mlx *graphic,
+					t_dda *dda, t_map *map);
+
+/* perform_dda_bonus.c */
+void			perform_dda(t_mlx *graphic, t_dda *dda, t_map *map);
+
 #endif

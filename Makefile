@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/03 23:16:56 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/05 13:33:21 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ BONUS_SRC =	main_bonus.c \
 			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \
 			parse_door_map_bonus.c door_interaction_bonus.c door_map_bonus.c \
-			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c
+			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c \
+			door_util_bonus.c perform_dda_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
