@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 21:39:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 22:36:33 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:11:17 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	check_door_interaction(t_mlx *graphic, t_dda *dda, t_map *map)
 
 	user = &graphic->user;
 	if (graphic->interact_frame != graphic->total_frame
-		|| map->map[dda->map_y][dda->map_x] == WALL
 		|| dda->perp_wall_dist > INTERACT_DISTANCE)
 		return ;
 	if (map->map[dda->map_y][dda->map_x] == VDOOR_CLOSED

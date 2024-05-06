@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:33:44 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 23:16:08 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:52:26 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ void	update_door(t_mlx *graphic)
 
 static void	dda_door_changing(t_dda *dda, t_map *map)
 {
-	if (!is_open_door(map->map[dda->map_y][dda->map_x]))
-		return ;
-	if (map->map[dda->map_y][dda->map_x] == CHANGING_VDOOR
-		|| map->map[dda->map_y][dda->map_x] == VDOOR_OPEN)
+	if (is_v_door(map->map[dda->map_y][dda->map_x]))
 		dda->side_dist_x -= dda->delta_dist_x / 2;
 	else
 		dda->side_dist_y -= dda->delta_dist_y / 2;
@@ -117,6 +114,7 @@ void	perform_door_dda(t_dda *dda, t_map *map)
 			dda->side = 1;
 		}
 		if (map->map[dda->map_y][dda->map_x] == '1'
+			|| is_close_door(map->map[dda->map_y][dda->map_x])
 			|| is_open_door(map->map[dda->map_y][dda->map_x]))
 			dda->collision_flag = true;
 	}
