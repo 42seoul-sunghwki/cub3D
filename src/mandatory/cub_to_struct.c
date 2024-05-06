@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_to_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:30:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:00:20 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	map_to_user_x(t_mlx *mlx, int *flag, int y)
 	}
 }
 
-static void	map_to_user(t_mlx *mlx)
+static void	map_alloc(t_mlx *mlx)
 {
 	int	y;
 	int	flag;
@@ -64,6 +64,6 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 	close_file(fd);
 	cub_dup_valid(mlx);
 	cub_map_valid(&(mlx->map));
-	map_to_user(mlx);
+	map_alloc(mlx);
 	return (SUCCESS);
 }

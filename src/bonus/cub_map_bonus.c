@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:32:51 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:29:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	map_cub_lst_to_arr(t_lst_head *head, t_map *map)
 	map->h = head->h;
 	arr = lst_to_arr(head);
 	if (!arr)
-		ft_exit("Invalid map in map_cub_lst_to_arr");
+		ft_exit("Malloc failed");
 	map->map = arr;
 	return (SUCCESS);
 }
