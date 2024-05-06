@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map_valid_helper_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:15:19 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 23:39:43 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ static void	cub_valid_user(char **map, int x, int y, int *flag)
 
 static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 {
-	static char	tmp[] = {'V', 'H'};
+	static char	tmp[2] = {'V', 'H'};
 	int			i;
 
 	i = -1;
-	while (i < 2)
+	while (++i < 2)
 	{
 		if (map[y][x] == tmp[i])
 		{
@@ -45,7 +45,6 @@ static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 			else
 				ft_exit("Invalid map\nDoor is not valid");
 		}
-		i++;
 	}
 	cub_valid_user(map, x, y, flag);
 }
