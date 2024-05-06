@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:41:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/05 22:38:18 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:12:58 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ t_node	*init_node(t_node *start, t_position *target, t_coord *user, int directio
 
 int	check_halt_condition(int x, int y, t_map *map)
 {
-	if (x < 0 || y < 0 || x >= map->w || y >= map->h)
+	if (x < 0 || y < 0 || x >= map->w 
+		|| y >= map->h || map->map[y][x] == '1')
+	{
+		printf("halt_condition\n");
 		return (true);
-	if (map->map[y][x] == '1')
-		return (true);
+	}
 	return (false);
 }
 
@@ -85,9 +87,9 @@ void	sanitize_p_queue(t_p_queue *queue)
 
 int		check_map_range(t_map *map, t_position *position)
 {
+	printf("check_map_range x : %d, y : %d, map : [%c]\n", position->x, position->y, map->map[position->y][position->x]);
 	if (position->x < 0 || position->y < 0
-		|| position->x >= map->w || position->y >= map->h
-		|| map->map[position->y][position->x] == '1')
+		|| position->x >= map->w || position->y >= map->h)
 		return (true);
 	return (false);
 }
@@ -95,7 +97,7 @@ int		check_map_range(t_map *map, t_position *position)
 /**
  * jps_find_line - find user in line and find forced neighbor
 */
-t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_position *origin)
+t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_position *origin) //maybe error in this part
 {
 	t_position	check_position;
 	t_position	forced_position;
@@ -107,7 +109,8 @@ t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_positi
 	check_position.y = origin->y;
 	while (1)
 	{
-		//printf("check_position.x : %d, check_position.y : %d start->dir.x : %d, start->dir.y : %d\n", check_position.x, check_position.y, start->dir.x, start->dir.y);
+		printf("jps_find_line\n");
+		printf("check_position.x : %d, check_position.y : %d start->dir.x : %d, start->dir.y : %d\n", check_position.x, check_position.y, start->dir.x, start->dir.y);
 		if (check_halt_condition(check_position.x, check_position.y, &mlx->map) == true)
 			return (NULL);
 		if (check_position.x == (int)mlx->user.x && check_position.y == (int)mlx->user.y)
@@ -131,9 +134,9 @@ t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_positi
 					g_cost = get_manhattan_distance(start->position.x, start->position.y, check_position.x, check_position.y) + start->g_cost;
 					f_cost = get_manhattan_distance(check_position.x, check_position.y, (int)mlx->user.x, (int)mlx->user.y) + g_cost;
 					if (start->dir.y == -1) //up / right forced
-						ret = init_t_node(forced_position, -f_cost, g_cost, 1);
+						ret = init_t_node(check_position, -f_cost, g_cost, 1);
 					else // down / right forced
-						ret = init_t_node(forced_position, -f_cost, g_cost, 3);
+						ret = init_t_node(check_position, -f_cost, g_cost, 3);
 					ret->next = start;
 					enqueue(&sprite->open_list, ret);
 				}
@@ -149,9 +152,9 @@ t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_positi
 					g_cost = get_manhattan_distance(start->position.x, start->position.y, check_position.x, check_position.y) + start->g_cost;
 					f_cost = get_manhattan_distance(check_position.x, check_position.y, (int)mlx->user.x, (int)mlx->user.y) + g_cost;
 					if (start->dir.y == -1) //up / left forced
-						ret = init_t_node(forced_position, -f_cost, g_cost, 0);
+						ret = init_t_node(check_position, -f_cost, g_cost, 0);
 					else //down / left forced
-						ret = init_t_node(forced_position, -f_cost, g_cost, 2);
+						ret = init_t_node(check_position, -f_cost, g_cost, 2);
 					ret->next = start;
 					enqueue(&sprite->open_list, ret);
 				}
@@ -170,9 +173,9 @@ t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_positi
 					g_cost = get_manhattan_distance(start->position.x, start->position.y, check_position.x, check_position.y) + start->g_cost;
 					f_cost = get_manhattan_distance(check_position.x, check_position.y, (int)mlx->user.x, (int)mlx->user.y) + g_cost;
 					if (start->dir.x == -1) // down / left
-						ret = init_t_node(forced_position, -f_cost, g_cost, 2);
+						ret = init_t_node(check_position, -f_cost, g_cost, 2);
 					else //down / right
-						ret = init_t_node(forced_position, -f_cost, g_cost, 3);
+						ret = init_t_node(check_position, -f_cost, g_cost, 3);
 					ret->next = start;
 					enqueue(&sprite->open_list, ret);
 				}
@@ -188,9 +191,9 @@ t_node	*jps_find_line(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_positi
 					g_cost = get_manhattan_distance(start->position.x, start->position.y, check_position.x, check_position.y) + start->g_cost;
 					f_cost = get_manhattan_distance(check_position.x, check_position.y, (int)mlx->user.x, (int)mlx->user.y) + g_cost;
 					if (start->dir.x == -1) //up , left
-					ret = init_t_node(forced_position, -f_cost, g_cost, 0);
+						ret = init_t_node(check_position, -f_cost, g_cost, 0);
 					else //up / right
-						ret = init_t_node(forced_position, -f_cost, g_cost, 1);
+						ret = init_t_node(check_position, -f_cost, g_cost, 1);
 					ret->next = start;
 					enqueue(&sprite->open_list, ret);
 				}
@@ -206,11 +209,13 @@ t_node	*jps_find_diagonal(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_po
 {
 	static t_position	shift[] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}};
 	t_position			check_position;
+	t_coord				coord;
 	t_node				*node;
 	char				**map;
 
 	//check diagonal foreign
 	//check RIGHT_UP / LEFT_DOWN 1, 2
+	printf("find diagonal\n");
 	map = mlx->map.map;
 	if (start->direction == LEFT_UP || start->direction == RIGHT_DOWN)
 	{
@@ -220,7 +225,8 @@ t_node	*jps_find_diagonal(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_po
 		if (map[origin->y][origin->x + shift[RIGHT_UP].x] == '1' 
 			&& map[check_position.y][check_position.x] == '0') //
 		{
-			node = init_node(start, &check_position, (t_coord *){(int)mlx->user.x, (int)mlx->user.y}, start->direction);
+			coord = (t_coord){mlx->user.x, mlx->user.y};
+			node = init_node(start, &check_position, &coord, start->direction);
 			enqueue(&sprite->open_list, node);
 			return (NULL);
 		}		
@@ -229,7 +235,8 @@ t_node	*jps_find_diagonal(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_po
 		if (map[origin->y][origin->x + shift[LEFT_DOWN].x] == '1'
 		&& map[check_position.y][check_position.x] == '0')
 		{
-			node = init_node(start, &check_position, (t_coord *){(int)mlx->user.x, (int)mlx->user.y}, start->direction);
+			coord = (t_coord){mlx->user.x, mlx->user.y};
+			node = init_node(start, &check_position, &coord, start->direction);
 			enqueue(&sprite->open_list, node);
 			return (NULL);
 		}
@@ -241,7 +248,8 @@ t_node	*jps_find_diagonal(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_po
 		if (map[origin->y][origin->x + shift[RIGHT_DOWN].x] == '1'
 		&& map[check_position.y][check_position.x] == '0')
 		{
-			node = init_node(start, &check_position, (t_coord *){(int)mlx->user.x, (int)mlx->user.y}, start->direction);
+			coord = (t_coord){mlx->user.x, mlx->user.y};
+			node = init_node(start, &check_position, &coord, start->direction);
 			enqueue(&sprite->open_list, node);
 			return (NULL);
 		}
@@ -250,17 +258,19 @@ t_node	*jps_find_diagonal(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_po
 		if (map[origin->y][origin->x + shift[LEFT_UP].x] == '1'
 		&& map[check_position.y][check_position.x] == '0')
 		{
-			node = init_node(start, &check_position, (t_coord *){(int)mlx->user.x, (int)mlx->user.y}, start->direction);
+			coord = (t_coord){mlx->user.x, mlx->user.y};
+			node = init_node(start, &check_position, &coord, start->direction);
 			enqueue(&sprite->open_list, node);
 			return (NULL);
 		}
 	}
+	return (NULL);
 }
 
-t_node	*jps_find_diagonal_sub(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_position *origin)
-{
+//t_node	*jps_find_diagonal_sub(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_position *origin)
+//{
 	
-}
+//}
 
 /**
  * jps_find - start jps_find_line and shift position to find user
@@ -268,16 +278,15 @@ t_node	*jps_find_diagonal_sub(t_node *start, t_sprite_node *sprite, t_mlx *mlx, 
 t_node	*jps_find(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_position *origin)
 {
 	static t_position	shift[] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}};
-	int					i;
 	t_position			next_pos;
 	t_node				*ret;
 
 	next_pos.x = origin->x;
 	next_pos.y = origin->y;
-	i = 0;
 	while (1)
 	{
 		printf("jps_find\n");
+		printf("next_pos x : %d, next_post y : %d\n", next_pos.x, next_pos.y);
 		if (check_halt_condition(next_pos.x, next_pos.y, &mlx->map) == true)
 			return (NULL);
 		start->dir.x = shift[start->direction].x;
@@ -292,7 +301,9 @@ t_node	*jps_find(t_node *start, t_sprite_node *sprite, t_mlx *mlx, t_position *o
 			return (ret);
 		next_pos.x += shift[start->direction].x;
 		next_pos.y += shift[start->direction].y;
-		i++;
+		ret = jps_find_diagonal(start, sprite, mlx, origin);
+		if (ret != NULL)
+			return (ret);
 	}
 }
 
@@ -308,6 +319,8 @@ t_node	*jps_dequeue(t_sprite_node *sprite, t_mlx *mlx)
 	{
 		printf("jps_dequeue\n");
 		node = dequeue(&sprite->open_list);
+		if (node != NULL)
+			printf("dequeue node x : %d, y : %d, find direction : %d, sprite position x : %f, y : %f, user position x : %f, y : %f\n", node->position.x, node->position.y, node->direction, sprite->x, sprite->y, mlx->user.x, mlx->user.y);
 		if (node == NULL)
 			return (NULL);
 		ret = jps_find(node, sprite, mlx, &node->position);
@@ -394,7 +407,7 @@ void	jps_update_position(t_node *dst, t_sprite_node *start, t_mlx *mlx)
 		start->x = round(start->x);
 		start->y = round(start->y);
 	}
-	printf("dst->x : %d, dst->y : %d\n", dst->position.x, dst->position.y);
+	printf("dst->x : %d, dst->y : %d map->w : %d, map->h : %d\n", dst->position.x, dst->position.y, mlx->map.w, mlx->map.h);
 	printf("node->x : %f, node->y : %f, user->x : %f, user->y : %f, dis : %f\n", start->x, start->y, mlx->user.x, mlx->user.y, dis);
 }
 
@@ -409,7 +422,7 @@ void	jps(t_mlx *mlx)
 	i = 0;
 	while (i < vec->size)
 	{
-		printf("vec size : %d, i : %d\n", vec->size, i);
+		printf("\n\nvec size : %d, i : %d\n", vec->size, i);
 		node = vec->list[i];
 		jps_init(node, mlx);
 		dst = jps_dequeue(node, mlx);

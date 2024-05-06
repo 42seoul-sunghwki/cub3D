@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/05 21:33:01 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:26:00 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,12 @@
 # define SKY	4
 # define FLOOR	5
 
+/**
+ * LEFT_UP : (-1, -1)
+ * RIGHT_UP : (1, -1)
+ * LEFT_DOWN : (-1, 1)
+ * RIGHT_DOWN : (1, 1)
+*/
 # define LEFT_UP		0
 # define RIGHT_UP		1
 # define LEFT_DOWN		2
