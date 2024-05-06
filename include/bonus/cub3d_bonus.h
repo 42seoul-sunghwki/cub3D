@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/05 13:27:22 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:14:48 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -773,6 +773,7 @@ void			calculate_sprite(t_sprite_info *sprite,
 
 /* door_util_bonus.c */
 bool			is_open_door(int door_num);
+bool			is_close_door(int door_num);
 bool			is_v_door(int map_texture);
 bool			is_h_door(int map_texture);
 void			check_interaction_opendoor(t_mlx *graphic,
@@ -780,5 +781,8 @@ void			check_interaction_opendoor(t_mlx *graphic,
 
 /* perform_dda_bonus.c */
 void			perform_dda(t_mlx *graphic, t_dda *dda, t_map *map);
+
+/* init_mlx_bonus.c */
+void			init_t_mlx(t_mlx *graphic, char **argv);
 
 #endif

@@ -6,7 +6,6 @@ FI ./texture/stone.xpm
 
 US ./texture/nyan_cat.xpm
 
-ZO ./texture/zombie
 DO ./texture/door
 DB ./texture/dancing_bear
 DD ./texture/dancing_dog

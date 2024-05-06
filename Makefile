@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/05 15:31:34 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/06 19:53:42 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ BONUS_SRC =	main_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \
 			parse_door_map_bonus.c door_interaction_bonus.c door_map_bonus.c \
 			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c \
-			door_util_bonus.c perform_dda_bonus.c
+			door_util_bonus.c perform_dda_bonus.c init_mlx_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -116,7 +116,6 @@ $(NAME_BONUS): $(BONUS_OBJS) $(LIBFT) $(MLX)
 	$(LIBFT) -Wl,-rpath,/Users/minsepar/cub3d/lib/bass24-osx/intel -Llib/bass24-osx/intel -lbass -o $(NAME_BONUS)
 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
-
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
 
