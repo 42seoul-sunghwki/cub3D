@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 20:48:41 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/06 20:52:20 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,6 +148,7 @@ clean:
 	rm -rf $(MANDATORY_OBJS)
 	rm -rf $(BONUS_OBJS)
 	rm -rf $(DEP)
+	rm -rf $(BASS)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 
