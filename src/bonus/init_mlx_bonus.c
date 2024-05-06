@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:10:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 19:14:10 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:25:48 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ static void	init_t_mlx_helper(t_mlx *graphic, char **argv)
 	graphic->weapon_sprite[1] = PEPSI_DRAW;
 	graphic->weapon_start_frame = 0;
 	vec = &graphic->sprite_vec;
-	cub_to_struct(argv[1], graphic);
 	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
-	push_sprite(vec, create_sprite_node(3, 2, DANCING_BEAR, 0));
-	push_sprite(vec, create_sprite_node(3, 3, DANCING_DOG, 0));
-	push_sprite(vec, create_sprite_node(3, 4, DANCING_CAT, 0));
+	cub_to_struct(argv[1], graphic);
 	parse_door_map(graphic);
 	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	if (graphic->num_threads < 0)

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:11:43 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:30:57 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:38:00 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	read_folder(char *path, char *dir_name, int num, t_mlx *mlx)
 	dir_path = join_path(path, dir_name);
 	dir = open_folder(dir_path);
 	mlx->sprite[num].num_img = count_folder_file(dir);
-	mlx->sprite[num].img = (t_pic *)malloc(sizeof(t_pic)
-			* mlx->sprite[num].num_img);
+	mlx->sprite[num].img = (t_pic *)calloc(mlx->sprite[num].num_img,
+			sizeof(t_pic));
 	read_folder_helper(dir, dir_path, num, mlx);
 	closedir(dir);
 	free(dir_path);

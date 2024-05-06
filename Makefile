@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 23:34:37 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/06 23:46:33 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ BONUS_SRC =	main_bonus.c \
 			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
 			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
-			cub_slice_sprite_bonus.c cub_read_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
+			cub_slice_sprite_bonus.c cub_slice_sprite_helper_bonus.c cub_read_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
 			cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
 			astar_bonus.c astar_helper_bonus.c astar_thread_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
@@ -46,7 +46,8 @@ BONUS_SRC =	main_bonus.c \
 			mergesort_sprite_bonus.c sprite_list_bonus.c \
 			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
 			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
-			draw_minimap_bonus.c draw_minimap_helper_bonus.c minimap_thread_bonus.c \
+			draw_minimap_bonus.c draw_rotate_minimap_bonus.c draw_minimap_helper_bonus.c minimap_thread_bonus.c \
+			draw_floor_thread_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
 			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \
@@ -86,10 +87,17 @@ MLX_LINUX = mlx_Linux
 
 MLX_BIN = lib/mlx/bin
 
+BUILD = build
+
+BASS = lib/bass24-osx/intel/libbass.dylib
+
 all: $(NAME)
 
 $(MLX):
 	make -C ./lib/mlx all
+
+$(BUILD):
+	mkdir -p $@
 
 $(MLX_BIN):
 	mkdir -p $@
@@ -106,6 +114,12 @@ $(BONUS_BIN_DIR):
 $(OBJ_BONUS_DIR):
 	mkdir -p $@
 
+$(OBJ_MANDATORY_DIR):
+	mkdir -p $@
+
+$(BASS):
+	make -C lib/bass24-osx intel
+
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
@@ -121,7 +135,7 @@ $(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN)
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -Ilib/bass24-osx -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN)
+$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) $(BASS) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/bonus
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
@@ -135,6 +149,7 @@ clean:
 	rm -rf $(MANDATORY_OBJS)
 	rm -rf $(BONUS_OBJS)
 	rm -rf $(DEP)
+	rm -rf $(BASS)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 

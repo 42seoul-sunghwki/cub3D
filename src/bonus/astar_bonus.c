@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:45:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:24:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,6 @@ void	astar_input(t_mlx *mlx, t_sprite_node *node,
 		{
 			in = init_node(parent, tmp, &user, 5);
 			in->next = parent;
-			//printf("open_list node\n");
-			//i = find_target(&node->open_list, tmp);
-			//if (i != 0)
-			//{
-			//	if (in->f_cost < node->open_list.arr[i]->f_cost)
-			//	{
-			//		delete_p_queue(&node->open_list, i);
-			//		enqueue(&node->open_list, in);
-			//	}
-			//	else
-			//		free(in);
-			//}
-			//else
 			enqueue(&node->open_list, in);
 		}
 	}

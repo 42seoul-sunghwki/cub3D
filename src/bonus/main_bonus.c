@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 19:18:36 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:27:21 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,10 @@ void	mlx_setup(t_mlx *graphic)
 	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 }
 
-void	leaks()
-{
-	system("leaks cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	*map;
-	// atexit(leaks);
 
 	if (init_main(argc) == FAIL)
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map_valid_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:01:08 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:20:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int	cub_map_valid(t_map *map)
 		cub_valid_left_side(map, 0, y);
 		cub_valid_right_side(map, map->w - 1, y);
 	}
-	cub_valid_door_user_zombie(map);
+	cub_valid_door_user_sprite(map);
 	return (SUCCESS);
 }
