@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 18:46:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:44:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define SPRITE_MOVE_SPEED	0.01
-# define BEAR_MOVE_SPEED	0.03
-# define CAT_MOVE_SPEED		0.015
-# define DOG_MOVE_SPEED		0.02
+# define BEAR_MOVE_SPEED	0.035
+# define CAT_MOVE_SPEED		0.02
+# define DOG_MOVE_SPEED		0.03
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -361,6 +360,12 @@ typedef struct s_sprite_vec
 	t_sprite_node	**list;
 }	t_sprite_vec;
 
+typedef struct s_astar
+{
+	t_mlx			*mlx;
+	t_sprite_node	*node;
+}	t_astar;
+
 /**
  * @var int		num_img		number of img, dynamic init
 */
@@ -655,6 +660,9 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 /* cub_slice_sprite_bonus.c */
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
+/* cub_read_sprite_bonus.c */
+void			read_folder(char *path, char *dir_name, int num, t_mlx *mlx);
+
 /* cub_check_bonus.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
 void			check_img_sprite_file(char *file,
@@ -825,7 +833,20 @@ void			perform_door_dda(t_dda *dda, t_map *map);
 void			update_door(t_mlx *graphic);
 
 //void			jps(t_mlx *mlx);
-void			astar(t_mlx *mlx);
+//void			astar(t_mlx *mlx);
+
+/* astar_helper_bonus.c */
+void			update_position(t_node *dst, t_sprite_node *start);
+int				get_manhattan_distance(int x1, int y1, int x2, int y2);
+
+/* astar_bonus.c */
+void			astar_init(t_sprite_node *node, t_mlx *mlx);
+t_node			*astar_find(t_mlx *mlx, t_sprite_node *node);
+void			astar_input(t_mlx *mlx, t_sprite_node *node, t_node *parent, t_position *tmp);
+t_node			*init_node(t_node *start, t_position *target, t_coord *user, int direction);
+
+/* astar_thread_bonus.c */
+void			astar_thread(t_mlx *mlx);
 
 /* calculate_sprite_bonus.c */
 void			calculate_sprite(t_sprite_info *sprite,

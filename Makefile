@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 16:04:12 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/06 19:38:47 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,17 +36,17 @@ BONUS_SRC =	main_bonus.c \
 			mlx_color_bonus.c mlx_hooks_bonus.c mlx_pixel_bonus.c\
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
 			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
-			cub_slice_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
+			cub_slice_sprite_bonus.c cub_read_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
 			cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
-			astar_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
+			astar_bonus.c astar_helper_bonus.c astar_thread_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
 			mergesort_sprite_bonus.c sprite_list_bonus.c \
 			update_sprite_bonus.c mouse_move_bonus.c task_queue_bonus.c \
 			thread_pool_bonus.c wall_thread_bonus.c draw_walls_bonus.c \
-			draw_minimap_bonus.c minimap_thread_bonus.c \
+			draw_minimap_bonus.c draw_minimap_helper_bonus.c minimap_thread_bonus.c \
 			sprite_thread_bonus.c handle_keyrelease_bonus.c \
 			handle_keys_bonus.c handle_jump_bonus.c sprite_distance_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \

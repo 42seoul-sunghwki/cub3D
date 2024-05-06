@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/26 12:32:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:18:00 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ DIR	*open_folder(char *path)
 	DIR	*dir;
 
 	dir = opendir(path);
-	printf("path: %s\n", path);
 	if (!dir)
 		ft_exit("Failed to open folder");
 	return (dir);

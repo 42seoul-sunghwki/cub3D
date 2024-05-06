@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 22:02:52 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/03 22:39:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:17:36 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	push(t_p_queue *heap, t_node *node)
 	if (heap->max_size <= heap->size)
 	{
 		heap->max_size *= 2;
-		heap->arr = (t_node **)realloc(heap->arr, sizeof(t_node *) * (heap->max_size + 1));
+		heap->arr = (t_node **)realloc(heap->arr,
+				sizeof(t_node *) * (heap->max_size + 1));
 	}
 	heap->arr[heap->size] = node;
 }

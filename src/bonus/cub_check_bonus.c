@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/05 16:54:04 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:07:54 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	check_img_sprite_file(char *file, t_mlx *graphic, t_pic *org_img)
 {
 	int	fd;
 
-	//printf("check img sprite file: %s\n", file);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_exit("Img file is not exist");

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 17:07:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:14:34 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,6 @@ static void	map_to_user(t_mlx *mlx)
 	}
 }
 
-//tmp
-void	print_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	printf("map width: %d\n", map->w);
-	printf("map height: %d\n", map->h);
-	while (i < map->h)
-	{
-		printf("%s\n", map->map[i]);
-		i++;
-	}
-}
-
-
 int	cub_to_struct(char *file, t_mlx *mlx)
 {
 	int		fd;
@@ -68,6 +52,5 @@ int	cub_to_struct(char *file, t_mlx *mlx)
 	cub_dup_valid(mlx);
 	cub_map_valid(&(mlx->map));
 	map_to_user(mlx);
-	print_map(&mlx->map);
 	return (SUCCESS);
 }

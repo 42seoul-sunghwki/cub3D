@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/06 16:06:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:56:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 	t_sprite_vec	*vec;
 
 	vec = &graphic->sprite_vec;
-	//jps(graphic);
-	astar(graphic);
 	update_sprite_distance(graphic, user, vec);
 	mergesort_sprite_list(graphic->sprite_vec.list, graphic->sprite_vec.size);
 	project_sprite(graphic, user);

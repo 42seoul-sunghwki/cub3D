@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 17:07:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:16:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	print_struct(t_mlx *mlx)
 	printf("mlx->user.x: %f\n", mlx->user.x);
 	printf("mlx->user.y: %f\n", mlx->user.y);
 	printf("mlx->user.rot_speed: %f\n", mlx->user.rot_speed);
-	print_map(&mlx->map);
+	//print_map(&mlx->map);
 }
 
 // void	check()
