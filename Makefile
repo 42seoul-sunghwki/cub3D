@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/05 19:55:14 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/06 16:04:12 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS =  -g -Wall -Werror -Wextra -O3
+FLAGS =  -g -Wall -Werror -Wextra
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -39,7 +39,7 @@ BONUS_SRC =	main_bonus.c \
 			cub_slice_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
 			cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_to_struct_bonus.c \
-			jps_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
+			astar_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \

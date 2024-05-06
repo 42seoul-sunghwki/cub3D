@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 11:26:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:04:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -831,7 +831,8 @@ t_door			*get_door(t_mlx	*graphic, int y, int x);
 void			perform_door_dda(t_dda *dda, t_map *map);
 void			update_door(t_mlx *graphic);
 
-void			jps(t_mlx *mlx);
+//void			jps(t_mlx *mlx);
+void			astar(t_mlx *mlx);
 
 /* calculate_sprite_bonus.c */
 void			calculate_sprite(t_sprite_info *sprite,
