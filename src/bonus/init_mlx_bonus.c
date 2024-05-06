@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:10:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 21:20:10 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:25:48 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ static void	init_t_mlx_helper(t_mlx *graphic, char **argv)
 	init_minimap(&graphic->minimap);
 	init_sprite_vec(vec);
 	cub_to_struct(argv[1], graphic);
-	//push_sprite(vec, create_sprite_node(3, 2, DANCING_BEAR, 0));
-	//push_sprite(vec, create_sprite_node(3, 3, DANCING_DOG, 0));
-	//push_sprite(vec, create_sprite_node(3, 4, DANCING_CAT, 0));
 	parse_door_map(graphic);
 	graphic->num_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	if (graphic->num_threads < 0)

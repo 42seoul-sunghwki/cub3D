@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 21:13:55 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:24:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	cub_dup_valid_two_img(t_pic *org, t_pic *cmp)
 	int	len;
 
 	len = ft_strlen(org->name);
-	//printf("org->name : %s, cmp->name : %s\n", org->name, cmp->name);
 	if (ft_strncmp(org->name, cmp->name, len) == 0)
 		ft_exit("Duplicate texture");
 }

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 21:22:39 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:06:00 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -660,6 +660,11 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 /* cub_slice_sprite_bonus.c */
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
+/* cub_slice_sprite_helper_bonus.c */
+void			slice_sprite_bear(char **split, t_mlx *mlx);
+void			slice_sprite_dog(char **split, t_mlx *mlx);
+void			slice_sprite_cat(char **split, t_mlx *mlx);
+
 /* cub_read_sprite_bonus.c */
 void			read_folder(char *path, char *dir_name, int num, t_mlx *mlx);
 
@@ -698,6 +703,10 @@ void			get_img_addr(t_data *data);
 /* frame_bonus.c */
 void			display_frame(t_mlx *graphic);
 void			init_frame_thread(t_mlx *graphic);
+
+/* draw_floor_thread_bonus.c */
+void			draw_floor_thread(t_mlx *graphic);
+void			draw_floor_routine(void *arg);
 
 /* game_loop_bonus.c */
 int				game_loop(void *arg);
@@ -800,6 +809,13 @@ void			update_sprite_distance(t_mlx *graphic,
 void			set_bg_sound(t_mlx *graphic);
 void			load_sound(t_mlx *mlx);
 void			play_sound(t_mlx *mlx, int audio_num);
+
+/* draw_rotate_minimap_bonus.c */
+void			count_user_coordinate(t_mlx *mlx, t_minimap *info);
+void			rotate_minimap_coord(t_minimap *minimap,
+					t_coord *pixel, t_coord *rotate);
+void			rotate_minimap(t_minimap *minimap,
+					float pixel_x, float *rotate_x, float *rotate_y);
 
 /* draw_minimap_bonus.c */
 void			draw_minimap_routine(void *in);
