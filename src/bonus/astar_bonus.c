@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 17:09:40 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:41:54 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,13 +168,11 @@ void	astar_input(t_mlx *mlx, t_sprite_node *node, t_node *parent, t_position *tm
 {
 	t_coord	user;
 	t_node	*in;
-	//int		i;
 
 	user.x = mlx->user.x;
 	user.y = mlx->user.y;
 	if (check_halt_condition(tmp->x, tmp->y, &mlx->map) == false)
 	{
-		//printf("clost_list node\n");
 		if (find_target(&node->close_list, tmp) == 0)
 		{
 			in = init_node(parent, tmp, &user, 5);
