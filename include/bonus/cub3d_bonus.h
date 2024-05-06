@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:14:48 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:02:34 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define YELLOW 0xFFFF << 8
-# define RED 0xFF << 16
-# define GREEN 0xFF << 8
-# define BLUE  0xFF
+# define BEAR_MOVE_SPEED	0.035
+# define CAT_MOVE_SPEED		0.02
+# define DOG_MOVE_SPEED		0.03
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -137,6 +136,17 @@
 # define SKY	4
 # define FLOOR	5
 
+/**
+ * LEFT_UP : (-1, -1)
+ * RIGHT_UP : (1, -1)
+ * LEFT_DOWN : (-1, 1)
+ * RIGHT_DOWN : (1, 1)
+*/
+# define LEFT_UP		0
+# define RIGHT_UP		1
+# define LEFT_DOWN		2
+# define RIGHT_DOWN		3
+
 # define A	0
 # define S	1
 # define D	2
@@ -209,6 +219,18 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
+typedef struct s_node		t_node;
+typedef struct s_p_queue	t_p_queue;
+
+/**
+ * arr size is vector
+*/
+typedef struct s_p_queue
+{
+	t_node	**arr;
+	int		size;
+	int		max_size;
+}	t_p_queue;
 
 typedef struct s_task
 {
@@ -319,21 +341,30 @@ typedef struct s_floor {
 
 typedef struct s_sprite_node
 {
-	float	x;
-	float	y;
-	int		sprite_type;
-	float	distance;
-	int		v_move_screen;
-	float	v_move;
-	size_t	start_frame;
+	float		x;
+	float		y;
+	float		distance;
+	int			sprite_type;
+	int			v_move_screen;
+	float		v_move;
+	size_t		start_frame;
+	t_p_queue	open_list;
+	t_p_queue	close_list;
+	t_node		*next_node;
 }	t_sprite_node;
 
 typedef struct s_sprite_vec
 {
-	int	size;
-	int	malloc_size;
+	int				size;
+	int				malloc_size;
 	t_sprite_node	**list;
 }	t_sprite_vec;
+
+typedef struct s_astar
+{
+	t_mlx			*mlx;
+	t_sprite_node	*node;
+}	t_astar;
 
 /**
  * @var int		num_img		number of img, dynamic init
@@ -354,7 +385,7 @@ typedef struct s_block {
 	int		c_trgb;
 }	t_block;
 
-typedef struct	s_minimap {
+typedef struct s_minimap {
 	t_mlx	*mlx;
 	float	sin_user;
 	float	cos_user;
@@ -369,10 +400,25 @@ typedef struct	s_minimap {
 	int		coord_end;
 }	t_minimap;
 
-typedef struct	s_coord {
+typedef struct s_coord {
 	float	x;
 	float	y;
 }	t_coord;
+
+typedef struct s_position {
+	int		x;
+	int		y;
+}	t_position;
+
+typedef struct s_node
+{
+	t_position	position;
+	t_position	dir;
+	float		f_cost;
+	float		g_cost;
+	int			direction;
+	t_node		*next;
+}	t_node;
 
 /**
  * @var	float		x			x position of the user
@@ -614,6 +660,9 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 /* cub_slice_sprite_bonus.c */
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
+/* cub_read_sprite_bonus.c */
+void			read_folder(char *path, char *dir_name, int num, t_mlx *mlx);
+
 /* cub_check_bonus.c */
 int				check_img_cub(char **split, t_mlx *graphic, t_pic *org_img);
 void			check_img_sprite_file(char *file,
@@ -672,6 +721,22 @@ void			dir_y_check_n(t_map *map, t_user *user);
 void			dir_x_check_p(t_map *map, t_user *user);
 void			dir_x_check_n(t_map *map, t_user *user);
 
+/* p_queue_bonus.c */
+void			node_swap(t_node **arr, int i, int j);
+void			max_heapify(t_p_queue *heap, int i);
+t_node			*dequeue(t_p_queue *heap);
+void			increase_value(t_p_queue *heap, int i, t_node *node);
+void			enqueue(t_p_queue *heap, t_node *node);
+
+/*p_queue_helper.c */
+float			distance(float x, float y, float dest_x, float dest_y);
+t_p_queue		*init_p_queue(int size);
+/* queue_bonus.c */
+t_node			*pop(t_p_queue *heap);
+void			push(t_p_queue *heap, t_node *node);
+t_p_queue		*init_p_queue(int size);
+void			sanitize_p_queue(t_p_queue *heap);
+
 /* draw_sprite_bonus.c */
 void			draw_sprite(void *arg);
 void			update_sprite(t_mlx *graphic, t_user *user);
@@ -714,7 +779,7 @@ void			draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 
 /* draw_minimap_thread.c */
 void			draw_minimap_thread(t_mlx *graphic);
-void			count_user_coordinate(t_mlx *mlx);
+void			count_user_coordinate(t_mlx *mlx, t_minimap *info);
 t_minimap		*draw_minimap_thread_helper(t_minimap *info,
 					t_mlx *graphic, int i);
 
@@ -766,6 +831,22 @@ t_door			*get_door(t_mlx	*graphic, int y, int x);
 /* door_dda_bonus.c */
 void			perform_door_dda(t_dda *dda, t_map *map);
 void			update_door(t_mlx *graphic);
+
+//void			jps(t_mlx *mlx);
+//void			astar(t_mlx *mlx);
+
+/* astar_helper_bonus.c */
+void			update_position(t_node *dst, t_sprite_node *start);
+int				get_manhattan_distance(int x1, int y1, int x2, int y2);
+
+/* astar_bonus.c */
+void			astar_init(t_sprite_node *node, t_mlx *mlx);
+t_node			*astar_find(t_mlx *mlx, t_sprite_node *node);
+void			astar_input(t_mlx *mlx, t_sprite_node *node, t_node *parent, t_position *tmp);
+t_node			*init_node(t_node *start, t_position *target, t_coord *user, int direction);
+
+/* astar_thread_bonus.c */
+void			astar_thread(t_mlx *mlx);
 
 /* calculate_sprite_bonus.c */
 void			calculate_sprite(t_sprite_info *sprite,

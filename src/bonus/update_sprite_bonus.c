@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/05 13:02:49 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:56:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 	while (++i < vec->size)
 	{
 		cur_sprite = get_sprite(vec, i);
+		printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
@@ -94,5 +95,6 @@ void	update_sprite(t_mlx *graphic, t_user *user)
 
 	vec = &graphic->sprite_vec;
 	update_sprite_distance(graphic, user, vec);
+	mergesort_sprite_list(graphic->sprite_vec.list, graphic->sprite_vec.size);
 	project_sprite(graphic, user);
 }

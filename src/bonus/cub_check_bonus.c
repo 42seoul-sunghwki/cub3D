@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 15:47:45 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:54:06 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	check_img_sprite_file(char *file, t_mlx *graphic, t_pic *org_img)
 {
 	int	fd;
 
-	printf("check img sprite file: %s\n", file);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_exit("Img file is not exist");
@@ -48,7 +47,7 @@ int	check_map_cub(char *line)
 		flag = FAIL;
 		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
 			flag = SUCCESS;
-		if (line[i] == 'V' || line[i] == 'H' || line[i] == 'Z' || line[i] == 'N'
+		if (line[i] == 'V' || line[i] == 'H' || line[i] == 'N'
 			|| line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 			flag = SUCCESS;
 		if (flag == FAIL)

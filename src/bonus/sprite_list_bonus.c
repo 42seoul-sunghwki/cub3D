@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_list_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 13:03:38 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:56:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,12 @@ t_sprite_node	*create_sprite_node(float x, float y,
 	return_node->v_move = v_move;
 	return_node->sprite_type = sprite_type;
 	return_node->start_frame = 0;
+	return_node->open_list.max_size = 10;
+	return_node->open_list.size = 0;
+	return_node->open_list.arr = (t_node **)calloc(10, sizeof(t_node *));
+	return_node->close_list.max_size = 10;
+	return_node->close_list.size = 0;
+	return_node->close_list.arr = (t_node **)calloc(10, sizeof(t_node *));
+	return_node->next_node = NULL;
 	return (return_node);
 }
