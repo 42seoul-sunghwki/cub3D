@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 20:02:34 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:08:23 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -660,6 +660,11 @@ int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 /* cub_slice_sprite_bonus.c */
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
+/* cub_slice_sprite_helper_bonus.c */
+void			slice_sprite_bear(char **split, t_mlx *mlx);
+void			slice_sprite_dog(char **split, t_mlx *mlx);
+void			slice_sprite_cat(char **split, t_mlx *mlx);
+
 /* cub_read_sprite_bonus.c */
 void			read_folder(char *path, char *dir_name, int num, t_mlx *mlx);
 
@@ -690,7 +695,7 @@ void			free_lst(t_lst_head *head);
 
 /* cub_map_valid_bonus.c */
 int				cub_map_valid(t_map *map);
-void			cub_valid_door_user_zombie(t_map *map);
+void			cub_valid_door_user_sprite(t_map *map);
 
 /* init_struct_bonus.c */
 void			get_img_addr(t_data *data);
@@ -698,6 +703,10 @@ void			get_img_addr(t_data *data);
 /* frame_bonus.c */
 void			display_frame(t_mlx *graphic);
 void			init_frame_thread(t_mlx *graphic);
+
+/* draw_floor_thread_bonus.c */
+void			draw_floor_thread(t_mlx *graphic);
+void			draw_floor_routine(void *arg);
 
 /* game_loop_bonus.c */
 int				game_loop(void *arg);
@@ -801,6 +810,13 @@ void			set_bg_sound(t_mlx *graphic);
 void			load_sound(t_mlx *mlx);
 void			play_sound(t_mlx *mlx, int audio_num);
 
+/* draw_rotate_minimap_bonus.c */
+void			count_user_coordinate(t_mlx *mlx, t_minimap *info);
+void			rotate_minimap_coord(t_minimap *minimap,
+					t_coord *pixel, t_coord *rotate);
+void			rotate_minimap(t_minimap *minimap,
+					float pixel_x, float *rotate_x, float *rotate_y);
+
 /* draw_minimap_bonus.c */
 void			draw_minimap_routine(void *in);
 void			init_minimap(t_pic *minimap);
@@ -842,8 +858,10 @@ int				get_manhattan_distance(int x1, int y1, int x2, int y2);
 /* astar_bonus.c */
 void			astar_init(t_sprite_node *node, t_mlx *mlx);
 t_node			*astar_find(t_mlx *mlx, t_sprite_node *node);
-void			astar_input(t_mlx *mlx, t_sprite_node *node, t_node *parent, t_position *tmp);
-t_node			*init_node(t_node *start, t_position *target, t_coord *user, int direction);
+void			astar_input(t_mlx *mlx,
+					t_sprite_node *node, t_node *parent, t_position *tmp);
+t_node			*init_node(t_node *start,
+					t_position *target, t_coord *user, int direction);
 
 /* astar_thread_bonus.c */
 void			astar_thread(t_mlx *mlx);

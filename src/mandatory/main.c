@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 20:17:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:07:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,10 @@ int	init_main(int argc)
 		return (SUCCESS);
 }
 
-void	check()
-{
-	system("leaks cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 	t_map	*map;
-	// atexit(check);
 
 	if (init_main(argc) == FAIL)
 		return (1);
