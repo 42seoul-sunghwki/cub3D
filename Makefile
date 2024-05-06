@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 20:47:51 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/06 20:48:41 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,7 +134,7 @@ $(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN)
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -Ilib/bass24-osx -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN) $(BASS)
+$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) $(BASS) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/bonus
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
