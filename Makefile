@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 20:02:22 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/06 20:19:16 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,10 +84,15 @@ BONUS_BIN_DIR = bin/bonus
 
 MLX_LINUX = mlx_Linux
 
+MLX_BIN = lib/mlx/bin
+
 all: $(NAME)
 
 $(MLX):
 	make -C ./lib/mlx all
+
+$(MLX_BIN):
+	mkdir -p $@
 
 $(OBJ_DIR):
 	mkdir -p $@
@@ -105,7 +110,7 @@ $(OBJ_BONUS_DIR):
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX)
+$(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/mandatory
 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
@@ -116,7 +121,7 @@ $(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -Ilib/bass24-osx -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX)
+$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/bonus
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
