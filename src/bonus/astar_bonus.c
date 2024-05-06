@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 18:41:54 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:42:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,6 @@ void	update_position(t_node *dst, t_sprite_node *start, t_mlx *mlx)
 		else if (start->sprite_type == DANCING_DOG)
 			start->y += (DOG_MOVE_SPEED * dis) / tmp.y;
 	}
-	//if (mlx->map.map[mlx->map.h - (int)start->y][(int)start->x] == '1')
-	//{
-	//	start->x = round(start->x);
-	//	start->y = round(start->y);
-	//}
 }
 
 int		find_target(t_p_queue *list, t_position *position)

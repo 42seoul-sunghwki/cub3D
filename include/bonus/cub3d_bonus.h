@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 16:04:31 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:46:58 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@
 # define BEAR_MOVE_SPEED	0.03
 # define CAT_MOVE_SPEED		0.015
 # define DOG_MOVE_SPEED		0.02
-
-# define YELLOW 0xFFFF << 8
-# define RED 0xFF << 16
-# define GREEN 0xFF << 8
-# define BLUE  0xFF
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -238,7 +233,6 @@ typedef struct s_p_queue
 	int		max_size;
 }	t_p_queue;
 
-
 typedef struct s_task
 {
 	void			(*function)(void *);
@@ -352,8 +346,8 @@ typedef struct s_sprite_node
 	float		y;
 	float		distance;
 	int			sprite_type;
-	int		v_move_screen;
-	float	v_move;
+	int			v_move_screen;
+	float		v_move;
 	size_t		start_frame;
 	t_p_queue	open_list;
 	t_p_queue	close_list;
@@ -386,7 +380,7 @@ typedef struct s_block {
 	int		c_trgb;
 }	t_block;
 
-typedef struct	s_minimap {
+typedef struct s_minimap {
 	t_mlx	*mlx;
 	float	sin_user;
 	float	cos_user;
@@ -420,7 +414,6 @@ typedef struct s_node
 	int			direction;
 	t_node		*next;
 }	t_node;
-
 
 /**
  * @var	float		x			x position of the user
