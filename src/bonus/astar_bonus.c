@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   astar_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 21:24:11 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 00:08:56 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_halt_condition(int x, int y, t_map *map)
 	if (x < 0 || y < 0 || x >= map->w
 		|| y >= map->h || map->map[y][x] == '1')
 	{
-		printf("halt_condition\n");
+		// printf("halt_condition\n");
 		return (true);
 	}
 	return (false);

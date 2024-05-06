@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_to_struct_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 20:19:40 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 23:52:54 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	map_to_sprite_bonus(t_mlx *mlx, char **map, int x, int y)
 		{
 			node = create_sprite_node(x, y, DANCING_DOG, 0);
 			push_sprite(&mlx->sprite_vec, node);
+			map[y][x] = EMPTY;
 		}
 		else
 			ft_exit("No valid sprite in dacing dog");
@@ -51,6 +52,7 @@ static void	map_to_sprite(t_mlx *mlx, char **map, int x, int y)
 		{
 			node = create_sprite_node(x, y, DANCING_BEAR, 0);
 			push_sprite(&mlx->sprite_vec, node);
+			map[y][x] = EMPTY;
 		}
 		else
 			ft_exit("No valid sprite in dancing bear");
@@ -61,6 +63,7 @@ static void	map_to_sprite(t_mlx *mlx, char **map, int x, int y)
 		{
 			node = create_sprite_node(x, y, DANCING_CAT, 0);
 			push_sprite(&mlx->sprite_vec, node);
+			map[y][x] = EMPTY;
 		}
 		else
 			ft_exit("No valid sprite in dacing cat");
