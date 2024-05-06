@@ -56,8 +56,6 @@ void	draw_floor_routine(void *arg)
 		floor->raydir_x_end = user->dir_x + user->plane_x;
 		floor->raydir_y_end = user->dir_y + user->plane_y;
 		floor->p = floor->end_i - (HALF_WINHEIGHT) + (WINWIDTH * user->zy);
-		if (floor->p > 0)
-			break ;
 		floor->pos_z = 1.34 * WINHEIGHT * 0.5 + user->z;
 		floor->row_distance = floor->pos_z / floor->p;
 		floor->floor_step_x = -floor->row_distance
