@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 19:08:46 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:57:02 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	game_loop(void *arg)
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
 	update_door(graphic);
+	astar_thread(graphic);
 	update_sprite(graphic, user);
 	draw_minimap_thread(graphic);
 	draw_user(graphic);

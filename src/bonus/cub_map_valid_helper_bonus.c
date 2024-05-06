@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map_valid_helper_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/02 16:05:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:15:19 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+
+static void	cub_valid_user(char **map, int x, int y, int *flag)
+{
+	if (map[y][x] == 'N' || map[y][x] == 'S'
+		|| map[y][x] == 'W' || map[y][x] == 'E')
+	{
+		if (*flag == true)
+			ft_exit("Invalid map\nUser is duplicated");
+		*flag = true;
+	}
+}
 
 static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 {
@@ -36,13 +47,7 @@ static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 		}
 		i++;
 	}
-	if (map[y][x] == 'N' || map[y][x] == 'S'
-		|| map[y][x] == 'W' || map[y][x] == 'E')
-	{
-		if (*flag == true)
-			ft_exit("Invalid map\nUser is duplicated");
-		*flag = true;
-	}
+	cub_valid_user(map, x, y, flag);
 }
 
 static void	cub_valid_zombie(char **map, int x, int y)
