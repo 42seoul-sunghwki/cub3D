@@ -16,12 +16,15 @@ NAME= ./bin/libmlx.dylib
 INC=-I.
 # OPTI=-Ounchecked
 
+BIN= ./bin
+
+$(BIN):
+	mkdir -p $@
+
 all: $(NAME)
 
-$(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
+$(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ) | $(BIN)
 	swiftc -O $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz
-
-
 
 %.o: %.swift
 	swiftc -O $(OPTI) $(INC) -parse-as-library -c $< -o $@

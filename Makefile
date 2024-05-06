@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 19:38:47 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/06 20:52:20 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ BONUS_SRC =	main_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \
 			parse_door_map_bonus.c door_interaction_bonus.c door_map_bonus.c \
 			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c \
-			door_util_bonus.c perform_dda_bonus.c
+			door_util_bonus.c perform_dda_bonus.c init_mlx_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 
@@ -84,10 +84,22 @@ BONUS_BIN_DIR = bin/bonus
 
 MLX_LINUX = mlx_Linux
 
+MLX_BIN = lib/mlx/bin
+
+BUILD = build
+
+BASS = lib/bass24-osx/intel/libbass.dylib
+
 all: $(NAME)
 
 $(MLX):
 	make -C ./lib/mlx all
+
+$(BUILD):
+	mkdir -p $@
+
+$(MLX_BIN):
+	mkdir -p $@
 
 $(OBJ_DIR):
 	mkdir -p $@
@@ -101,11 +113,17 @@ $(BONUS_BIN_DIR):
 $(OBJ_BONUS_DIR):
 	mkdir -p $@
 
+$(OBJ_MANDATORY_DIR):
+	mkdir -p $@
+
+$(BASS):
+	make -C lib/bass24-osx intel
+
 # mandatory
 $(OBJ_MANDATORY_DIR)/%.o: $(SRC_MANDATORY_DIR)/%.c | $(OBJ_MANDATORY_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/mandatory -Ilib/mlx -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX)
+$(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/mandatory
 	$(CC) $(FLAGS) $(MANDATORY_OBJS) -framework OpenGL -framework AppKit \
@@ -116,14 +134,13 @@ $(NAME): $(PWD) $(MANDATORY_OBJS) $(LIBFT) $(MLX)
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
 	$(CC) $(FLAGS) -Ilib/libftprintf -Iinclude/bonus -Ilib/mlx -Ilib/bass24-osx -MMD -MF $(DEP) -c $< -o $@
 
-$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX)
+$(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) $(BASS) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/bonus
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
 	$(LIBFT) -Wl,-rpath,$(PWD)/lib/bass24-osx/intel -Llib/bass24-osx/intel -lbass -o $(NAME_BONUS)
 	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
-
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus
 
@@ -131,6 +148,7 @@ clean:
 	rm -rf $(MANDATORY_OBJS)
 	rm -rf $(BONUS_OBJS)
 	rm -rf $(DEP)
+	rm -rf $(BASS)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 
