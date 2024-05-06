@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 22:06:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:08:23 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -858,8 +858,10 @@ int				get_manhattan_distance(int x1, int y1, int x2, int y2);
 /* astar_bonus.c */
 void			astar_init(t_sprite_node *node, t_mlx *mlx);
 t_node			*astar_find(t_mlx *mlx, t_sprite_node *node);
-void			astar_input(t_mlx *mlx, t_sprite_node *node, t_node *parent, t_position *tmp);
-t_node			*init_node(t_node *start, t_position *target, t_coord *user, int direction);
+void			astar_input(t_mlx *mlx,
+					t_sprite_node *node, t_node *parent, t_position *tmp);
+t_node			*init_node(t_node *start,
+					t_position *target, t_coord *user, int direction);
 
 /* astar_thread_bonus.c */
 void			astar_thread(t_mlx *mlx);
