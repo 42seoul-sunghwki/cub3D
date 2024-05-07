@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 22:07:43 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:56:23 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_t_mlx(t_mlx *graphic)
 	}
 	graphic->num_frame = 0;
 	graphic->total_frame = 0;
-	graphic->block.f_trgb = 0xced4da;
-	graphic->block.c_trgb = 0;
+	graphic->block.f_trgb = -1;
+	graphic->block.c_trgb = -1;
 }
 
 int	init_main(int argc)
@@ -47,12 +47,10 @@ int	init_main(int argc)
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
-	t_map	*map;
 
 	if (init_main(argc) == FAIL)
 		return (1);
 	ft_memset(&graphic, 0, sizeof(t_mlx));
-	map = &graphic.map;
 	init_t_mlx(&graphic);
 	cub_to_struct(argv[1], &graphic);
 	mlx_loop_hook(graphic.mlx, game_loop, &graphic);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_dda_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:33:44 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 19:52:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:41:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 static void	update_door_frame(t_mlx *graphic, t_door *cur_door)
 {
 	t_sprite	*sprite;
-	t_map		*map;
 
-	map = &graphic->map;
 	sprite = graphic->sprite;
 	if (cur_door->direction == -1 && cur_door->frame_num != 0)
 	{
@@ -67,9 +65,7 @@ void	update_door(t_mlx *graphic)
 {
 	int			i;
 	t_door		*cur_door;
-	t_sprite	*sprite;
 
-	sprite = graphic->sprite;
 	i = -1;
 	while (++i < graphic->num_door)
 	{

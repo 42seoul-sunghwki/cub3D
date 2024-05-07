@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 14:27:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:35:42 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:40:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ float	distance(float x, float y, float dest_x, float dest_y)
 
 void	delete_p_queue(t_p_queue *list, int i)
 {
-	t_node	*deleted;
-
-	deleted = list->arr[i];
 	list->arr[i] = list->arr[list->size];
 	list->size--;
 	max_heapify(list, i);

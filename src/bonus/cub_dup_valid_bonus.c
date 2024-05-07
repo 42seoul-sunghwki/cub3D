@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 21:24:17 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:23:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,25 @@ static void	cub_dup_valid_sprite(t_mlx *mlx)
 	}
 }
 
+static void	cub_img_name_clear(t_mlx *mlx)
+{
+	int	i;
+
+	i = -1;
+	while (++i < IMG_COUNT)
+	{
+		if (i == FI || i == CI)
+		{
+			if (mlx->block.pic[i].name == NULL)
+				continue ;
+		}
+		if (mlx->block.pic[i].name != NULL)
+			free(mlx->block.pic[i].name);
+	}
+	if (mlx->block.bonus[0].name != NULL)
+		free(mlx->block.bonus[0].name);
+}
+
 void	cub_dup_valid(t_mlx *mlx)
 {
 	int	i;
@@ -80,6 +99,7 @@ void	cub_dup_valid(t_mlx *mlx)
 		cub_dup_valid_img(mlx, &mlx->block.pic[i], i);
 		cub_dup_valid_two_img(&mlx->block.pic[i], &mlx->block.bonus[0]);
 	}
+	cub_img_name_clear(mlx);
 	if (mlx->block.f_trgb == mlx->block.c_trgb)
 		ft_exit("Duplicate color");
 	cub_dup_valid_sprite(mlx);

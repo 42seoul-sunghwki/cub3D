@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_slice.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:49:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:22:34 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 {
-	static char	*wall[6] = {"NO", "SO", "EA", "WE", "CI", "FI"};
+	static char	*wall[] = {"NO", "SO", "EA", "WE"};
 	int			i;
 
 	i = -1;
-	while (++i < 6)
+	while (++i < 4)
 	{
 		if (ft_strncmp(split[0], wall[i], 3) == 0)
 		{

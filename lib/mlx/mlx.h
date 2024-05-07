@@ -132,7 +132,7 @@ int	mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 int	mlx_hook(void *win_ptr, int x_event, int x_mask,
                  int (*funct)(), void *param);
 
-int     mlx_mouse_hide();
+//int     mlx_mouse_hide();
 int     mlx_mouse_show();
 int     mlx_mouse_move(void *win_ptr, int x, int y);
 int     mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
@@ -151,6 +151,8 @@ int	mlx_sync(int cmd, void *param);
 ** mlx_do_sync equals cmd_completed for all windows.
 ** cmd is one of the define, param will be img_ptr or win_ptr accordingly
 */
+
+int	mlx_mouse_hide(void *mlx_ptr);
 
 int	mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 

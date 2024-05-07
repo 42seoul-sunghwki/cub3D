@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/07 15:36:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:27:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 void	draw_sprite(void *arg)
 {
 	int				i;
-	t_user			*user;
 	t_sprite_thread	*sprite_thread;
 	t_sprite_info	*sprite;
 
 	sprite_thread = arg;
-	user = &sprite_thread->mlx->user;
 	sprite = &sprite_thread->mlx->sprite_info;
 	i = sprite_thread->draw_start - 1;
 	while (++i < sprite_thread->draw_end)

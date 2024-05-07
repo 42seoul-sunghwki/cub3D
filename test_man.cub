@@ -1,12 +1,13 @@
 NO ./texture/bluestone.xpm
 SO ./texture/eagle.xpm
-WE       ./texture/purplestone.xpm
+WE      ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 
-F 0,0,0
-C 255,255,255
+F 0, 0,      0     
+C 255     ,   255,255
 
 11   111111111
 1W111000001  1
 1000000110   1
 11111111111111
+
