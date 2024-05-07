@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
+#    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/06 23:59:40 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/07 16:12:43 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS = -g -Wall -Werror -Wextra -O2 -fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra -O3 -fsanitize=address
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -139,8 +139,12 @@ $(NAME_BONUS): $(PWD) $(BONUS_OBJS) $(LIBFT) $(MLX) $(BASS) | $(MLX_BIN)
 	@mkdir -p ./bin
 	@mkdir -p ./bin/bonus
 	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
-	$(LIBFT) -Wl,-rpath,$(PWD)/lib/bass24-osx/intel -Llib/bass24-osx/intel -lbass -o $(NAME_BONUS)
-	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
+	$(LIBFT) -Wl,-rpath,$(PWD)/lib/bass24-osx/arm64 -Llib/bass24-osx/arm64 -lbass -o $(NAME_BONUS)
+	install_name_tool -change bin/libmlx.dylib $(PWD)/lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
+	
+#	$(CC) $(FLAGS) $(BONUS_OBJS) -framework OpenGL -framework AppKit $(MLX) \
+#	$(LIBFT) -Wl,-rpath,$(PWD)/lib/bass24-osx/intel -Llib/bass24-osx/intel -lbass -o $(NAME_BONUS)
+#	install_name_tool -change ./bin/libmlx.dylib ./lib/mlx/bin/libmlx.dylib $(NAME_BONUS)
 	
 $(LIBFT):
 	make -C $(LIBFT_DIR) all bonus

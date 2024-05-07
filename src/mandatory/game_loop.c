@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 14:50:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:36:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
 */
 static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
-	int		wall_index;
 	float	half_line_height;
 
 	(void) map;
@@ -91,7 +90,6 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	dda->draw_end_y = half_line_height + HALF_WINHEIGHT;
 	if (dda->draw_end_y >= WINHEIGHT)
 		dda->draw_end_y = WINHEIGHT - 1;
-	wall_index = map->map[user->map_y][user->map_x] - '0';
 	calculate_texture(graphic, dda, user);
 	if (dda->side == 1)
 		draw_vertical_line(graphic, dda);
