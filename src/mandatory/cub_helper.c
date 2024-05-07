@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 21:16:35 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:35:28 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ static char	*merge_split(char **split, int start)
 	return (ret);
 }
 
+static void	check_comma_rgb(char *tmp)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(tmp);
+	i = 0;
+	while (len--)
+	{
+		if (tmp[len] == ',')
+			i++;
+	}
+	if (i != 2)
+		ft_exit("Not valid color");
+}
+
 static char	**split_to_rgb(char **split)
 {
 	char	**rgb;
@@ -47,7 +63,8 @@ static char	**split_to_rgb(char **split)
 	tmp = merge_split(split, 1);
 	if (!tmp)
 		return (NULL);
-	i = 0;
+	check_comma_rgb(tmp);
+	i = -1;
 	while (split[++i] != NULL)
 	{
 		free(split[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_helper_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/24 13:00:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:39:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*merge_split(char **split, int start)
 	end = 0;
 	i = start - 1;
 	ret = ft_strdup(split[start]);
-	while (split[end] == NULL)
+	while (split[end] != NULL)
 		end++;
 	while (++i < end - 1)
 	{
@@ -38,6 +38,22 @@ static char	*merge_split(char **split, int start)
 	return (ret);
 }
 
+static void	check_comma_rgb(char *tmp)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(tmp);
+	i = 0;
+	while (len--)
+	{
+		if (tmp[len] == ',')
+			i++;
+	}
+	if (i != 2)
+		ft_exit("Not valid color");
+}
+
 static char	**split_to_rgb(char **split)
 {
 	char	**rgb;
@@ -47,7 +63,8 @@ static char	**split_to_rgb(char **split)
 	tmp = merge_split(split, 1);
 	if (!tmp)
 		return (NULL);
-	i = 0;
+	check_comma_rgb(tmp);
+	i = -1;
 	while (split[++i] != NULL)
 	{
 		free(split[i]);

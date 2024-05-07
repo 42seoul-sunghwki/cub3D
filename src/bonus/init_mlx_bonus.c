@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:10:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 21:25:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:38:48 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	graphic->num_frame = 0;
 	graphic->num_frame_render = 0;
 	graphic->total_frame = 0;
-	graphic->block.f_trgb = 0xced4da;
-	graphic->block.c_trgb = 0;
+	graphic->block.f_trgb = -1;
+	graphic->block.c_trgb = -1;
 	init_t_mlx_helper(graphic, argv);
 }
