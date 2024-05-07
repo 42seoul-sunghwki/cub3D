@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_dup_valid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:10:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:57:44 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	cub_dup_valid(t_mlx *mlx)
 		size = ft_strlen(mlx->block.pic[i].name);
 		cub_dup_valid_2(mlx, i, size);
 	}
+	if (mlx->block.f_trgb == -1 || mlx->block.c_trgb == -1)
+		ft_exit("Not initialize color");
 	if (mlx->block.f_trgb == mlx->block.c_trgb)
 		ft_exit("Duplicate color");
 }

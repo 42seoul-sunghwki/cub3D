@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_helper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 17:48:54 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:16:35 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*merge_split(char **split, int start)
 	end = 0;
 	i = start - 1;
 	ret = ft_strdup(split[start]);
-	while (split[end] == NULL)
+	while (split[end] != NULL)
 		end++;
 	while (++i < end - 1)
 	{
