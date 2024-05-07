@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/06 22:05:15 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:48:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	game_loop(void *arg)
 		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
 	pthread_mutex_unlock(&graphic->counter_mutex);
 	handle_keys_loop(graphic);
+	printf("before loop\n");
 	game_loop_helper(graphic, user);
+	printf("after loop\n");
 	pthread_mutex_lock(&graphic->counter_mutex);
 	graphic->frame_sync_counter++;
 	pthread_cond_signal(&graphic->render_cond);
