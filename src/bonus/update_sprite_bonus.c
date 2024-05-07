@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/07 15:40:56 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:27:11 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	draw_sprite(void *arg)
 	while (++i < sprite_thread->draw_end)
 	{
 		sprite_thread->tex_x = (256
-				* (i - (-sprite->sprite_width / 2 + sprite->sprite_screen_x)))
-			* sprite->texture->w / sprite->sprite_width / 256;
+				* (i - (-sprite->sprite_width / 2.0 + sprite->sprite_screen_x)))
+			* sprite->texture->w / sprite->sprite_width / 256.0;
 		if (sprite->transform_y > 0 && i > 0 && i < WINWIDTH
 			&& sprite->transform_y < sprite_thread->mlx->z_buffer[i])
 			draw_sprite_pixel(sprite, sprite_thread->mlx, i, sprite_thread);
@@ -78,7 +78,6 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 	while (++i < vec->size)
 	{
 		cur_sprite = get_sprite(vec, i);
-		// printf("sprite x: [%f] y: [%f]\n", cur_sprite->x, cur_sprite->y);
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;

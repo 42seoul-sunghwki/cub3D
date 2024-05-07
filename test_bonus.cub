@@ -12,8 +12,8 @@ DD ./texture/dancing_dog
 DC ./texture/dancing_cat
 PS ./texture/pepsi
 
-F 0,0,0
-C 255,255,255
+C 0,0,0
+F 255,255,255
 
 111111111111111
 100000000010001

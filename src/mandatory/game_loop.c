@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 15:36:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:27:23 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	game_loop(void *arg)
 	dda = &graphic->dda;
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
-	draw_floor(graphic);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
