@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 14:50:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:24:35 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	game_loop(void *arg)
 	dda = &graphic->dda;
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
-	draw_floor(graphic);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
