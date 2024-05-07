@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:11:43 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 20:38:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:25:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	read_folder_helper(DIR *dir, char *dir_path, int num, t_mlx *mlx)
 		file_name = join_path(dir_path, token);
 		i = ft_atoi(token) - 1;
 		if (i < 0 || i >= mlx->sprite[num].num_img)
-			ft_exit("Invalid sprite file name");
+			ft_exit("Invalid sprite folder name");
 		mlx->sprite[num].img[i].name = ft_strdup(file_name);
 		check_img_sprite_file(file_name, mlx, &(mlx->sprite[num].img[i]));
 		free(token);

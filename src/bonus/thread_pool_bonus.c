@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_pool_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 13:03:29 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:09:42 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	*worker_thread(void *arg)
 		}
 		task = pop_task(pool);
 		pthread_mutex_unlock(&pool->mutex);
+		if (task == NULL)
+			continue ;
 		task->function(task->arg);
 		pthread_mutex_lock(&pool->mutex);
 		pool->task_complete++;
