@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 14:08:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:12:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -680,7 +680,7 @@ void			check_img_sprite_file(char *file,
 char			*read_cub(int fd, t_mlx *graphic);
 
 /* cub_dub_valid_helper_bonus.c */
-void		cub_dup_valid_sprite(t_mlx *mlx);
+void			cub_dup_valid_sprite(t_mlx *mlx);
 
 /* cub_dup_valid_bonus.c */
 void			cub_dup_valid(t_mlx *mlx);
