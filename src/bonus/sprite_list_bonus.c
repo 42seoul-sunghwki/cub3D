@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_list_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 15:56:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:21:43 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ t_sprite_node	*create_sprite_node(float x, float y,
 	t_sprite_node	*return_node;
 
 	return_node = malloc(sizeof(t_sprite_node));
-	return_node->x = x;
-	return_node->y = y;
+	return_node->x = x + HITBOX;
+	return_node->y = y + HITBOX;
 	return_node->v_move = v_move;
 	return_node->sprite_type = sprite_type;
 	return_node->start_frame = 0;

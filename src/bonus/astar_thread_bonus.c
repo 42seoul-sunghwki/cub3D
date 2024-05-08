@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:49:41 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:44:39 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:04:41 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	astar_routine(void *in)
 	dst = astar_find(mlx, node);
 	if (dst != NULL)
 		update_position(dst, node);
-	else
-		printf("dst is NULL\n");
 	sanitize_p_queue(&node->open_list);
 	sanitize_p_queue(&node->close_list);
 }
