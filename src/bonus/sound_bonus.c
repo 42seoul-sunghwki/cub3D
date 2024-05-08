@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 17:58:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 13:04:09 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:20:29 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,11 @@
 void	set_bg_sound(t_mlx *mlx)
 {
 	if (!BASS_Init(-1, 44100, 0, 0, NULL))
-		printf("BASS 초기화 실패: %d\n", BASS_ErrorGetCode());
+		terminate_program(mlx);
 	mlx->sound_stream[BG_SOUND] = BASS_StreamCreateFile(
 			FALSE, "src/bonus/sound/nyan_cat.mp3", 0, 0, BASS_MUSIC_LOOP);
 	if (!mlx->sound_stream[0])
-	{
-		printf("파일 로드 실패: %d\n", BASS_ErrorGetCode());
-		BASS_Free();
-	}
+		terminate_program(mlx);
 	BASS_ChannelSetAttribute(mlx->sound_stream[BG_SOUND],
 		BASS_ATTRIB_VOL, 0.01);
 	mlx->cur_audio = 1;

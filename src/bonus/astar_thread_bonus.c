@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   astar_thread_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:49:41 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 14:08:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:19:01 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	astar_thread(t_mlx *graphic)
 
 	i = -1;
 	vec = &graphic->sprite_vec;
-	printf("%s\n", __func__);
 	start_wait_for_threads(&graphic->pool, vec->size);
 	while (++i < vec->size)
 	{
