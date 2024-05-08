@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:01 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 16:33:21 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:56:41 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	update_position(t_node *dst, t_sprite_node *start)
 {
 	t_node	*next;
 
+	printf("y: %f, x: %f\n", start->y, start->x);
 	next = dst->next;
 	while (true)
 	{
