@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 19:29:34 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 22:15:33 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:19:46 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	draw_minimap_thread(t_mlx *graphic)
 	info.cos_user = graphic->user.dir_x / radius;
 	info.mlx = graphic;
 	count_user_coordinate(graphic, &info);
-	printf("%s\n", __func__);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:47:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 22:15:43 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:21:05 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	draw_wall_thread(t_mlx *graphic)
 	int		i;
 
 	i = -1;
-	printf("%s\n", __func__);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{

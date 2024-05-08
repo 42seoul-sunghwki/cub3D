@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 22:20:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:19:32 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	handle_keypress(int keycode, void *arg)
 
 	graphic = arg;
 	user = &graphic->user;
-	printf("keycode: %d\n", keycode);
 	if (keycode == ESC)
 		on_escape((t_mlx *)arg);
 	else if (keycode == SPACE)
