@@ -6,20 +6,24 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 13:02:09 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 16:07:13 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:21:13 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
 static void	draw_rotate_minimap_blend(t_mlx *mlx, t_coord *pixel,
-		int minimap_x, int minimap_y)
+		t_position *position)
 {
 	t_data	*minimap;
+	int		minimap_x;
+	int		minimap_y;
 	int		get_trgb;
 	int		tmp;
 
 	minimap = &mlx->img_data[mlx->num_frame];
+	minimap_x = position->x;
+	minimap_y = position->y;
 	if (pixel->y < 0 || pixel->y >= mlx->map.h
 		|| pixel->x < 0 || pixel->x >= mlx->map.w)
 	{
@@ -63,8 +67,9 @@ static void	draw_rotate_minimap(t_mlx *mlx,
 
 void	draw_minimap_xline(t_minimap *minimap, float pixel_x)
 {
-	t_coord	rotate_coord;
-	int		i;
+	t_coord		rotate_coord;
+	t_position	position;
+	int			i;
 
 	i = 0;
 	while (i < minimap->end_x)
@@ -75,9 +80,10 @@ void	draw_minimap_xline(t_minimap *minimap, float pixel_x)
 			pixel_x += minimap->pixel_size;
 			continue ;
 		}
+		position = (t_position){i, minimap->start_y};
 		rotate_minimap(minimap, pixel_x, &rotate_coord.x, &rotate_coord.y);
 		draw_rotate_minimap_blend(minimap->mlx, &rotate_coord,
-			i, minimap->start_y);
+			&position);
 		draw_rotate_minimap(minimap->mlx,
 			i, minimap->start_y);
 		pixel_x += minimap->pixel_size;
