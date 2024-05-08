@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 14:08:38 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:28:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define MINIMAP_SCALE	8
 # define MINIMAP_WALL	0x33008000
 # define MINIMAP_FLOOR	0x33000000
+# define MINIMAP_DOOR	0x0000B4D8
 # define MINIMAP_BG		0x80FFFFFF
 # define MINIMAP_USER	0x33FF0000
 
@@ -164,7 +165,7 @@
 # define INT_MIN	0x80000000
 
 # define HITBOX			0.3
-# define SPRITEBOX		0.2
+# define SPRITEBOX		0
 # define LEFT_ARROW		123
 # define RIGHT_ARROW	124
 # define DOWN_ARROW		125
@@ -680,7 +681,7 @@ void			check_img_sprite_file(char *file,
 char			*read_cub(int fd, t_mlx *graphic);
 
 /* cub_dub_valid_helper_bonus.c */
-void		cub_dup_valid_sprite(t_mlx *mlx);
+void			cub_dup_valid_sprite(t_mlx *mlx);
 
 /* cub_dup_valid_bonus.c */
 void			cub_dup_valid(t_mlx *mlx);

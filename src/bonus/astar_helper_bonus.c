@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   astar_helper_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:01 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 16:30:01 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:56:41 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
