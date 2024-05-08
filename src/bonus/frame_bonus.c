@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:57:58 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 14:52:53 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:25:56 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ void	display_frame(t_mlx *graphic)
 	t_data	*data;
 
 	data = &graphic->img_data[graphic->num_frame_render];
-	//mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
 	mlx_put_image_to_window(graphic->mlx, graphic->win, data->img, 0, 0);
-	//mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
 }
 
 void	*render_thread(void *arg)

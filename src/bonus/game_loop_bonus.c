@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 15:21:27 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:26:14 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ static void	game_loop_helper(t_mlx *graphic, t_user *user)
 	update_door(graphic);
 	astar_thread(graphic);
 	update_sprite(graphic, user);
-	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, graphic->win);
 	draw_minimap_thread(graphic);
 	draw_user(graphic);
-	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, graphic->win);
 }
 
 int	game_loop(void *arg)
