@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:29:27 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 00:15:12 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:34:19 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void	draw_weapon_thread(t_mlx *graphic, t_pic *texture)
 	int				i;
 
 	i = -1;
+	printf("%s\n", __func__);
+	printf("%ld\n", graphic->num_threads);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{

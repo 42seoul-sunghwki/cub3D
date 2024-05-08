@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:01:15 by minsepar          #+#    #+#             */
-/*   Updated: 2024/04/24 16:11:55 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:15:38 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	draw_sprite_thread(t_mlx *graphic, t_pic *texture,
 	diff = sprite->draw_end_x - sprite->draw_start_x;
 	i = -1;
 	sprite->texture = texture;
+	printf("%s\n", __func__);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{

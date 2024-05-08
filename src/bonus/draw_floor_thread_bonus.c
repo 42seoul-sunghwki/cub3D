@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor_thread_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:04:45 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 22:05:16 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:20:07 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	draw_floor_thread(t_mlx *graphic)
 	t_floor	*floor;
 
 	i = -1;
+	printf("%s\n", __func__);
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{

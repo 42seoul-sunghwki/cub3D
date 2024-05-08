@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:09:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 22:09:42 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:09:28 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static void	*worker_thread(void *arg)
 		}
 		task = pop_task(pool);
 		pthread_mutex_unlock(&pool->mutex);
-		if (task == NULL)
-			continue ;
 		task->function(task->arg);
 		pthread_mutex_lock(&pool->mutex);
 		pool->task_complete++;
