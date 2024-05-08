@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map_valid_helper_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 23:46:38 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:49:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,6 @@ static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 	cub_valid_user(map, x, y, flag);
 }
 
-static void	cub_valid_sprite(char **map, int x, int y)
-{
-	if (map[y][x] == 'B')
-	{
-		if (map[y -1][x] == '1' && map[y + 1][x] == '1'
-			&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
-			ft_exit("Invalid map\nBear is surrounded by wall");
-	}
-	else if (map[y][x] == 'C')
-	{
-		if (map[y -1][x] == '1' && map[y + 1][x] == '1'
-			&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
-			ft_exit("Invalid map\nCat is surrounded by wall");
-	}
-	else if (map[y][x] == 'D')
-	{
-		if (map[y -1][x] == '1' && map[y + 1][x] == '1'
-			&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
-			ft_exit("Invalid map\nDog is surrounded by wall");
-	}
-}
-
 void	cub_valid_door_user_sprite(t_map *map)
 {
 	int	x;
@@ -88,7 +66,6 @@ void	cub_valid_door_user_sprite(t_map *map)
 				|| x - 1 < 0 || x + 1 > map->w)
 				continue ;
 			cub_valid_door_user(map->map, x, y, &flag);
-			cub_valid_sprite(map->map, x, y);
 		}
 	}
 	if (flag == false)

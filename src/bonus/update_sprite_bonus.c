@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/07 20:27:11 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:41:50 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
+		cur_sprite->x += SPRITEBOX;
+		cur_sprite->y += SPRITEBOX;
 		calculate_sprite(&graphic->sprite_info, cur_sprite, user);
+		cur_sprite->x -= SPRITEBOX;
+		cur_sprite->y -= SPRITEBOX;
 		draw_sprite_thread(graphic, &sprite->img[frame_num], cur_sprite);
 	}
 }

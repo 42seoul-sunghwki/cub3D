@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 23:04:37 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:08:38 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@
 # define INT_MIN	0x80000000
 
 # define HITBOX			0.3
+# define SPRITEBOX		0.2
 # define LEFT_ARROW		123
 # define RIGHT_ARROW	124
 # define DOWN_ARROW		125
@@ -372,6 +373,7 @@ typedef struct s_astar
 */
 typedef struct s_sprite {
 	int		num_img;
+	char	*folder_name;
 	t_pic	*img;
 	size_t	fpm;
 }	t_sprite;
@@ -676,6 +678,9 @@ void			check_img_sprite_file(char *file,
 
 /* cub_read_bonus.c */
 char			*read_cub(int fd, t_mlx *graphic);
+
+/* cub_dub_valid_helper_bonus.c */
+void		cub_dup_valid_sprite(t_mlx *mlx);
 
 /* cub_dup_valid_bonus.c */
 void			cub_dup_valid(t_mlx *mlx);

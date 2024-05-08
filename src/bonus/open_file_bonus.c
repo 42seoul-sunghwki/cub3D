@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:18:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:20:25 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,20 @@ DIR	*open_folder(char *path)
 int	count_folder_file(DIR *dir)
 {
 	int				ret;
+	int				len;
 	struct dirent	*entry;
+	static char		ds_store[] = ".DS_Store";
 
 	ret = 0;
+	len = ft_strlen(ds_store);
 	entry = readdir(dir);
 	while (entry)
 	{
 		if (entry->d_type == DT_REG)
-			ret++;
+		{
+			if (ft_strncmp(entry->d_name, ds_store, len) != 0)
+				ret++;
+		}
 		entry = readdir(dir);
 	}
 	rewinddir(dir);

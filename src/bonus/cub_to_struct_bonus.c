@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_to_struct_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 23:52:54 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:59:01 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	map_to_user(t_mlx *mlx, char **map, int x, int y)
+static int	map_to_user(t_mlx *mlx, char **map, int x, int y)
 {
 	if (map[y][x] == 'N' || map[y][x] == 'S'
 		|| map[y][x] == 'W' || map[y][x] == 'E')
@@ -22,7 +22,9 @@ static void	map_to_user(t_mlx *mlx, char **map, int x, int y)
 		mlx->dda.cos_rot_speed = cos(mlx->user.rot_speed);
 		mlx->dda.sin_rot_speed = sin(mlx->user.rot_speed);
 		map[y][x] = '0';
+		return (1);
 	}
+	return (0);
 }
 
 static void	map_to_sprite_bonus(t_mlx *mlx, char **map, int x, int y)
@@ -76,18 +78,23 @@ static void	map_alloc(t_mlx *mlx)
 	int		x;
 	int		y;
 	char	**map;
+	int		flag;
 
 	y = -1;
+	flag = 0;
 	map = mlx->map.map;
 	while (++y < mlx->map.h)
 	{
 		x = -1;
 		while (++x < mlx->map.w)
 		{
-			map_to_user(mlx, map, x, y);
+			if (map_to_user(mlx, map, x, y) == 1)
+				flag = 1;
 			map_to_sprite(mlx, map, x, y);
 		}
 	}
+	if (flag != 1)
+		ft_exit("Not user");
 }
 
 int	cub_to_struct(char *file, t_mlx *mlx)

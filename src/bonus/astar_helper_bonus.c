@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   astar_helper_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:01 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 15:36:26 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:25:18 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ void	update_position(t_node *dst, t_sprite_node *start)
 	{
 		if (dst->position.x == (int)start->x
 			&& dst->position.y == (int)start->y)
-		{
-			// printf("find user\n");
 			return ;
-		}
 		if (next)
 		{
 			if (next->position.x == (int)start->x

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   astar_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 15:36:29 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:30:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	check_halt_condition(int x, int y, t_map *map)
 	if (x < 0 || y < 0 || x >= map->w
 		|| y >= map->h || map->map[y][x] == '1')
 	{
-		// printf("halt_condition\n");
 		return (true);
 	}
 	return (false);
@@ -62,9 +61,12 @@ void	astar_input(t_mlx *mlx, t_sprite_node *node,
 	{
 		if (find_target(&node->close_list, tmp) == 0)
 		{
-			in = init_node(parent, tmp, &user, 5);
-			in->next = parent;
-			enqueue(&node->open_list, in);
+			if (find_target(&node->open_list, tmp) == 0)
+			{
+				in = init_node(parent, tmp, &user, 5);
+				in->next = parent;
+				enqueue(&node->open_list, in);
+			}
 		}
 	}
 }

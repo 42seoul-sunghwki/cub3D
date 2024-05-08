@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:11:43 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 20:38:00 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:10:34 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@ static char	*read_folder_token(DIR *dir)
 {
 	struct dirent	*entry;
 	int				len;
+	static char		ds_store[] = ".DS_Store";
 
+	len = ft_strlen(ds_store);
 	while (1)
 	{
 		entry = readdir(dir);
-		if (entry == NULL || entry->d_type == DT_REG)
+		if (entry == NULL)
+			break ;
+		if (entry->d_type == DT_REG
+			&& ft_strncmp(entry->d_name, ds_store, len) != 0)
 			break ;
 	}
 	if (entry)
@@ -61,7 +66,7 @@ static void	read_folder_helper(DIR *dir, char *dir_path, int num, t_mlx *mlx)
 		file_name = join_path(dir_path, token);
 		i = ft_atoi(token) - 1;
 		if (i < 0 || i >= mlx->sprite[num].num_img)
-			ft_exit("Invalid sprite file name");
+			ft_exit("Out of range in sprite img");
 		mlx->sprite[num].img[i].name = ft_strdup(file_name);
 		check_img_sprite_file(file_name, mlx, &(mlx->sprite[num].img[i]));
 		free(token);
@@ -76,9 +81,14 @@ void	read_folder(char *path, char *dir_name, int num, t_mlx *mlx)
 
 	dir_path = join_path(path, dir_name);
 	dir = open_folder(dir_path);
+	if (dir == NULL)
+		ft_exit("Not valid folder name");
 	mlx->sprite[num].num_img = count_folder_file(dir);
+	if (mlx->sprite[num].num_img == 0)
+		ft_exit("Not input sprite");
 	mlx->sprite[num].img = (t_pic *)calloc(mlx->sprite[num].num_img,
 			sizeof(t_pic));
+	mlx->sprite[num].folder_name = ft_strdup(dir_path);
 	read_folder_helper(dir, dir_path, num, mlx);
 	closedir(dir);
 	free(dir_path);
