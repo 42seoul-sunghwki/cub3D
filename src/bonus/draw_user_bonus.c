@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:29:27 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 22:44:39 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:34:19 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	draw_user(t_mlx *graphic)
 	else if ((user_state == STATE_DRINK || user_state == STATE_DRAW
 			|| user_state == STATE_OPEN_AND_DRINK)
 		&& graphic->total_frame - graphic->weapon_start_frame
-		> sprite->num_img * sprite->fpm)
+		>= sprite->num_img * sprite->fpm)
 		change_state(graphic, STATE_IDLE);
 	weapon_render(graphic);
 }

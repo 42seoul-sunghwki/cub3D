@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 22:51:37 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/03 21:47:18 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/07 23:04:46 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ bool	is_walkable(int num_texture)
 {
 	if (num_texture == EMPTY
 		|| num_texture == VDOOR_OPEN
-		|| num_texture == HDOOR_OPEN)
+		|| num_texture == HDOOR_OPEN
+		|| num_texture == SPACE_MAP)
 		return (true);
 	return (false);
 }

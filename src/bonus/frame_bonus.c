@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:57:58 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 14:50:40 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:39:20 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	display_frame(t_mlx *graphic)
 	t_data	*data;
 
 	data = &graphic->img_data[graphic->num_frame_render];
+	// mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
 	mlx_put_image_to_window(graphic->mlx, graphic->win, data->img, 0, 0);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
 }
 
 void	*render_thread(void *arg)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/07 21:16:58 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/08 13:01:30 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS = -g -Wall -Werror -Wextra -O3
+FLAGS = -g -Wall -Werror -Wextra -O2
 
 SRC_MANDATORY_DIR :=	src/mandatory
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 22:08:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/07 23:04:37 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@
 # define WALL				'1'
 # define VDOOR_CLOSED		'V'
 # define HDOOR_CLOSED		'H'
+# define SPACE_MAP			' '
 # define VDOOR_OPEN			2
 # define HDOOR_OPEN 		3
 # define CHANGING_VDOOR		4
