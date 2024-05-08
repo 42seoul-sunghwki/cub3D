@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 14:19:29 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:35:47 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	game_loop_helper(t_mlx *graphic, t_user *user)
 	t_data	*data;
 
 	data = &graphic->img_data[graphic->num_frame_render];
-	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
 	update_door(graphic);
