@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:57:58 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 13:39:20 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:10:53 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	display_frame(t_mlx *graphic)
 	t_data	*data;
 
 	data = &graphic->img_data[graphic->num_frame_render];
-	// mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
 	mlx_put_image_to_window(graphic->mlx, graphic->win, data->img, 0, 0);
 	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
 }

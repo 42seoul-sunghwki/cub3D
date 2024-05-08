@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 10:58:21 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 14:04:18 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:10:14 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	cub_dup_valid_sprite_helper(t_mlx *mlx, int i)
 	sprite = &mlx->sprite[i];
 	while (++j < sprite->num_img)
 	{
-		//printf("sprite_name : %s, sprite amount :%d, i : %d\n", sprite->folder_name, sprite->num_img, j);
 		if (sprite->img[j].data.img == NULL)
 			ft_exit("Not enough sprite image");
 	}
