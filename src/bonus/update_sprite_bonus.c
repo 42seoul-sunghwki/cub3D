@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/08 16:05:41 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:09:10 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,7 @@ void	project_sprite(t_mlx *graphic, t_user *user)
 		sprite = &graphic->sprite[cur_sprite->sprite_type];
 		frame_num = graphic->total_frame
 			% (sprite->num_img * sprite->fpm) / sprite->fpm;
-		// cur_sprite->x -= SPRITEBOX;
-		// cur_sprite->y -= SPRITEBOX;
 		calculate_sprite(&graphic->sprite_info, cur_sprite, user);
-		// cur_sprite->x += SPRITEBOX;
-		// cur_sprite->y += SPRITEBOX;
 		draw_sprite_thread(graphic, &sprite->img[frame_num], cur_sprite);
 	}
 }
