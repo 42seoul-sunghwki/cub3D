@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 11:21:32 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:06:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	cub_dup_valid_img(t_mlx *mlx, t_pic *cmp, int i)
 				continue ;
 		}
 		if (mlx->block.pic[j].name == NULL)
-			ft_exit("Not input texture");
+			ft_exit("Not input wall texture");
 		cub_dup_valid_two_img(&mlx->block.pic[j], cmp);
 	}
 }
@@ -79,7 +79,7 @@ void	cub_dup_valid(t_mlx *mlx)
 				continue ;
 		}
 		if (mlx->block.pic[i].name == NULL)
-			ft_exit("Not input texture");
+			ft_exit("Not input wall texture");
 		cub_dup_valid_img(mlx, &mlx->block.pic[i], i);
 		cub_dup_valid_two_img(&mlx->block.pic[i], &mlx->block.bonus[0]);
 	}

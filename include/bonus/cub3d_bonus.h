@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 11:05:27 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:43:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@
 # define INT_MIN	0x80000000
 
 # define HITBOX			0.3
+# define SPRITEBOX		0.2
 # define LEFT_ARROW		123
 # define RIGHT_ARROW	124
 # define DOWN_ARROW		125

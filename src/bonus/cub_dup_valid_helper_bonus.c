@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 10:58:21 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 12:21:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:04:18 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	cub_dup_valid_sprite_helper(t_mlx *mlx, int i)
 	sprite = &mlx->sprite[i];
 	while (++j < sprite->num_img)
 	{
-		printf("sprite_name : %s, sprite amount :%d, i : %d\n", sprite->folder_name, sprite->num_img, j);
+		//printf("sprite_name : %s, sprite amount :%d, i : %d\n", sprite->folder_name, sprite->num_img, j);
 		if (sprite->img[j].data.img == NULL)
 			ft_exit("Not enough sprite image");
 	}
@@ -37,6 +37,34 @@ static void	cub_dup_valid_sprite_helper(t_mlx *mlx, int i)
 	}
 }
 
+static void	cub_valid_sprite_door(t_mlx *mlx)
+{
+	t_sprite	*sprite;
+
+	sprite = mlx->sprite;
+	if (sprite[DOOR_CLOSE].img != NULL
+		&& sprite[DOOR_OPEN].img != NULL)
+		return ;
+	else
+		ft_exit("Not input door sprite");
+}
+
+static void	cub_valid_sprite_pepsi(t_mlx *mlx)
+{
+	t_sprite	*sprite;
+
+	sprite = mlx->sprite;
+	if (sprite[PEPSI_DRAW].img != NULL
+		&& sprite[PEPSI_IDLE].img != NULL
+		&& sprite[PEPSI_DRINK].img != NULL
+		&& sprite[PEPSI_OPEN_AND_DRINK].img != NULL
+		&& sprite[PEPSI_RUN].img != NULL
+		&& sprite[PEPSI_WALK].img != NULL)
+		return ;
+	else
+		ft_exit("Not input user sprite");
+}
+
 void	cub_dup_valid_sprite(t_mlx *mlx)
 {
 	int			i;
@@ -47,4 +75,6 @@ void	cub_dup_valid_sprite(t_mlx *mlx)
 		if (mlx->sprite[i].img != NULL)
 			cub_dup_valid_sprite_helper(mlx, i);
 	}
+	cub_valid_sprite_pepsi(mlx);
+	cub_valid_sprite_door(mlx);
 }
