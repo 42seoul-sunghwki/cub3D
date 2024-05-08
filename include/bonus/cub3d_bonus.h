@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 22:08:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:05:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,7 @@ typedef struct s_astar
 */
 typedef struct s_sprite {
 	int		num_img;
+	char	*folder_name;
 	t_pic	*img;
 	size_t	fpm;
 }	t_sprite;
@@ -675,6 +676,9 @@ void			check_img_sprite_file(char *file,
 
 /* cub_read_bonus.c */
 char			*read_cub(int fd, t_mlx *graphic);
+
+/* cub_dub_valid_helper_bonus.c */
+void		cub_dup_valid_sprite(t_mlx *mlx);
 
 /* cub_dup_valid_bonus.c */
 void			cub_dup_valid(t_mlx *mlx);
