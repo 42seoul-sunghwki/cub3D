@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 13:30:16 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:58:10 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	check_halt_condition(int x, int y, t_map *map)
 {
 	if (x < 0 || y < 0 || x >= map->w
-		|| y >= map->h || map->map[y][x] == '1')
+		|| y >= map->h || map->map[y][x] == '1'
+		|| map->map[y][x] == 'V' || map->map[y][x] == 'H')
 	{
 		return (true);
 	}
