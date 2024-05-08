@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:11:43 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 11:35:47 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:32:49 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ static char	*read_folder_token(DIR *dir)
 {
 	struct dirent	*entry;
 	int				len;
+	static char		ds_store[] = ".DS_Store";
 
+	len = ft_strlen(ds_store);
 	while (1)
 	{
 		entry = readdir(dir);
-		if (entry == NULL || entry->d_type == DT_REG)
+		if (entry == NULL)
 			break ;
+		if (entry->d_type == DT_REG
+			&& ft_strncmp(entry->d_name, ds_store, len) != 0)
+				break ;
 	}
 	if (entry)
 	{
@@ -59,6 +64,7 @@ static void	read_folder_helper(DIR *dir, char *dir_path, int num, t_mlx *mlx)
 		if (!token)
 			break ;
 		file_name = join_path(dir_path, token);
+		printf("file_name : %s\n", file_name);
 		i = ft_atoi(token) - 1;
 		if (i < 0 || i >= mlx->sprite[num].num_img)
 			ft_exit("Out of range in sprite img");
