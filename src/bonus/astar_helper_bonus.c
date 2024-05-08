@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:01 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 13:25:18 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:28:49 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	update_position_helper(t_node *dst, t_sprite_node *start)
 		else if (start->sprite_type == DANCING_DOG)
 			start->y += (DOG_MOVE_SPEED * dis) / tmp.y;
 	}
+	printf("x : %f, y : %f\n", start->x, start->y);
 }
 
 void	update_position(t_node *dst, t_sprite_node *start)
