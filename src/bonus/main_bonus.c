@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 13:59:51 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:04:29 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,10 @@ void	mlx_setup(t_mlx *graphic)
 	graphic->flag |= MOUSE_MOVE;
 }
 
-void	leaks_check()
-{
-	system("leaks cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 
-	atexit(leaks_check);
 	if (init_main(argc) == FAIL)
 		return (1);
 	ft_memset(&graphic, 0, sizeof(t_mlx));

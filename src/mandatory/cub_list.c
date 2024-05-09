@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 20:47:42 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 14:40:28 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:05:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	**lst_to_arr(t_lst_head *head)
 			return (NULL);
 		ft_memset(arr[i], ' ', head->w);
 		arr[i][head->w] = '\0';
-		printf("tmp->line : %s\n", tmp->line);
 		ft_strlcpy(arr[i], tmp->line, head->w + 1);
 		tmp = tmp->next;
 		i--;

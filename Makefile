@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
+#    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/09 14:33:17 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/09 15:09:22 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -166,7 +166,7 @@ run:
 	@$(NAME) ./test_man.cub
 
 runb:
-	$(NAME_BONUS) ./test_bonus.cub
+	@$(NAME_BONUS) ./test_bonus.cub
 
 bonus: $(NAME_BONUS)
 

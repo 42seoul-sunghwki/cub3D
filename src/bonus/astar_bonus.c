@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 13:22:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:43:37 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	check_map_range(t_map *map, t_position *position)
 	if (position->x < 0 || position->y < 0
 		|| position->x >= map->w || position->y >= map->h)
 	{
-		printf("out of map range\n");
 		return (true);
 	}
 	return (false);
