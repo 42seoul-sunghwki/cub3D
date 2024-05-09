@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 20:56:23 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:03:21 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ int	init_main(int argc)
 		return (SUCCESS);
 }
 
+void	leaks_check()
+{
+	system("leaks cub3D");
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
 
+	atexit(leaks_check);
 	if (init_main(argc) == FAIL)
 		return (1);
 	ft_memset(&graphic, 0, sizeof(t_mlx));
