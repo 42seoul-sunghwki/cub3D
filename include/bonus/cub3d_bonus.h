@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:21 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:59:35 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,17 +148,18 @@
 # define LEFT_DOWN		2
 # define RIGHT_DOWN		3
 
-# define A	0
-# define S	1
-# define D	2
-# define W	13
-# define ESC	53
-# define SPACE	49
-# define ONE	18
-# define TWO	19
-# define THREE	20
-# define FOUR	21
-# define SHIFT	257
+# define A				0
+# define S				1
+# define D				2
+# define W				13
+# define Q				12
+# define ESC			53
+# define SPACE			49
+# define ONE			18
+# define TWO			19
+# define THREE			20
+# define FOUR			21
+# define SHIFT			257
 # define WEAPON_OFFSET	17
 
 # define INT_MAX	0x7FFFFFFF
@@ -186,6 +187,9 @@
 /* user->flag */
 # define JUMP 1
 # define DIAGONAL 2
+
+/* mlx->flag */
+# define MOUSE_MOVE 1
 
 # define DIAGONAL_SCALE 0.7071
 
@@ -582,6 +586,7 @@ typedef struct s_mlx {
 	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
 	size_t			interact_frame;
+	int				flag;
 	int				cur_audio;
 	int				frame_sync_counter;
 	int				num_frame;
