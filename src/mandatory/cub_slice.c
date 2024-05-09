@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 20:22:34 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:24:17 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static int	slice_wall_cub(char **split, t_mlx *mlx, t_block *block)
 				return (FAIL);
 			return (SUCCESS);
 		}
+	}
+	i = -1;
+	while (split[0][++i])
+	{
+		if (split[0][i] != '1' && split[0][i] != ' ')
+			ft_exit("Wrong Img Name");
 	}
 	return (UNDEFINED);
 }
@@ -61,12 +67,8 @@ int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 		free_2d_ptr(split);
 		return (SUCCESS);
 	}
-	if (slice_wall_cub(split, mlx, block) == SUCCESS)
-	{
-		free_2d_ptr(split);
-		return (SUCCESS);
-	}
-	if (slice_color_cub(split, block) == SUCCESS)
+	if (slice_color_cub(split, block) == SUCCESS || \
+		slice_wall_cub(split, mlx, block) == SUCCESS)
 	{
 		free_2d_ptr(split);
 		return (SUCCESS);

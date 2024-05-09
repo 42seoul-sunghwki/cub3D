@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 21:35:28 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:09:28 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,29 @@ static char	**split_to_rgb(char **split)
 	return (rgb);
 }
 
+static	int	input_to_rgb(char *str)
+{
+	int	i;
+	int	len;
+	int	ret;
+
+	i = -1;
+	len = ft_strlen(str);
+	if (len > 10)
+		ft_exit("Wrong Color over Range");
+	while (++i < len)
+	{
+		if (i == 0 && str[i] == '+')
+			continue ;
+		if (!ft_isdigit(str[i]))
+			ft_exit("Wrong Color Digit");
+	}
+	ret = ft_atoi(str);
+	if (ret < 0 || ret > 255)
+		ft_exit("Wrong Color over Range");
+	return (ret);
+}
+
 int	color_cub(char **split)
 {
 	char	**rgb;
@@ -90,9 +113,9 @@ int	color_cub(char **split)
 		return (UNDEFINED);
 	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
 		ft_exit("Invalid cub file in color");
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
+	r = input_to_rgb(rgb[0]);
+	g = input_to_rgb(rgb[1]);
+	b = input_to_rgb(rgb[2]);
 	ret = create_trgb(0, r, g, b);
 	free_2d_ptr(rgb);
 	return (ret);

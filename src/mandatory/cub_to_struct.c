@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:19:30 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/07 21:55:30 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:03:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,23 @@ static void	map_alloc(t_mlx *mlx)
 		ft_exit("Not user");
 }
 
+static void	check_cub_file_name(char *file)
+{
+	int	len;
+
+	len = ft_strlen(file);
+	if (len - 4 <= 0)
+		ft_exit("Wrong cub file name");
+	if (ft_strncmp(&file[len - 4], ".cub", 5) != 0)
+		ft_exit("Wrong cub file name");
+}
+
 int	cub_to_struct(char *file, t_mlx *mlx)
 {
 	int		fd;
 	char	*line;
 
+	check_cub_file_name(file);
 	fd = open_file(file);
 	line = read_cub(fd, mlx);
 	if (line == NULL)
