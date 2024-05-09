@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 13:50:47 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:38:16 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ static void	on_escape(t_mlx *graphic)
 int	handle_keypress(int keycode, void *arg)
 {
 	t_mlx		*graphic;
-	static void	(*f[2])(t_mlx *, int) = {
-		handle_left_arrow,
-		handle_right_arrow
-	};
+	static void	(*f[2])(t_mlx *, int) = {handle_left_arrow, handle_right_arrow};
 
 	graphic = arg;
 	printf("%d\n", keycode);
@@ -34,6 +31,11 @@ int	handle_keypress(int keycode, void *arg)
 	{
 		keycode -= ARROW_OFFSET;
 		f[keycode]((t_mlx *)arg, keycode);
+	}
+	if ((keycode >= A && keycode <= D) || keycode == W)
+	{
+		graphic->keycode = keycode;
+		check_collision(graphic);
 	}
 	return (SUCCESS);
 }
