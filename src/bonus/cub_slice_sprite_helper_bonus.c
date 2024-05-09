@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 21:41:13 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 21:44:24 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:50:21 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	slice_sprite_bear(char **split, t_mlx *mlx)
 	dir = open_folder(split[1]);
 	closedir(dir);
 	read_folder(split[1], "", DANCING_BEAR, mlx);
+	free_sprite_img_name(mlx->sprite, DANCING_BEAR);
 }
 
 void	slice_sprite_dog(char **split, t_mlx *mlx)
@@ -34,6 +35,7 @@ void	slice_sprite_dog(char **split, t_mlx *mlx)
 	dir = open_folder(split[1]);
 	closedir(dir);
 	read_folder(split[1], "", DANCING_DOG, mlx);
+	free_sprite_img_name(mlx->sprite, DANCING_DOG);
 }
 
 void	slice_sprite_cat(char **split, t_mlx *mlx)
@@ -46,4 +48,5 @@ void	slice_sprite_cat(char **split, t_mlx *mlx)
 	dir = open_folder(split[1]);
 	closedir(dir);
 	read_folder(split[1], "", DANCING_CAT, mlx);
+	free_sprite_img_name(mlx->sprite, DANCING_CAT);
 }

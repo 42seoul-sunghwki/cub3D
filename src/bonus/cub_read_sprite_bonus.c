@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:11:43 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 14:10:34 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:01:22 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	read_folder_helper(DIR *dir, char *dir_path, int num, t_mlx *mlx)
 		i = ft_atoi(token) - 1;
 		if (i < 0 || i >= mlx->sprite[num].num_img)
 			ft_exit("Out of range in sprite img");
-		mlx->sprite[num].img[i].name = ft_strdup(file_name);
 		check_img_sprite_file(file_name, mlx, &(mlx->sprite[num].img[i]));
 		free(token);
 		free(file_name);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   astar_thread_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:49:41 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 18:09:24 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:41:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	astar_routine(void *in)
 		update_position(dst, node);
 	sanitize_p_queue(&node->open_list);
 	sanitize_p_queue(&node->close_list);
+	free(in);
 }
 
 void	astar_thread(t_mlx *graphic)

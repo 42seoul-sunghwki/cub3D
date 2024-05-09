@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/05 14:04:34 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:30:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@
 # define WEST	3
 # define SKY	4
 # define FLOOR	5
+
+# define A	0
+# define S	1
+# define D	2
+# define W	13
 
 # define INT_MAX	0x7FFFFFFF
 # define INT_MIN	0x80000000
@@ -175,6 +180,8 @@ typedef struct s_user {
 	float	plane_y;
 	float	move_speed;
 	float	rot_speed;
+	float	new_displacement_x;
+	float	new_displacement_y;
 }	t_user;
 
 /**
@@ -244,6 +251,7 @@ typedef struct s_mlx {
 	void		*win;
 	t_data		img_data[2];
 	int			num_frame;
+	int			keycode;
 	size_t		total_frame;
 	t_map		map;
 	t_block		block;
@@ -345,7 +353,7 @@ void			draw_floor(t_mlx *graphic);
 /* handle_keypress.c */
 int				handle_keypress(int keycode, void *arg);
 size_t			get_time_in_us(void);
-void			check_collision(t_mlx *graphic, int keycode);
+void			check_collision(t_mlx *graphic);
 void			handle_left_arrow(t_mlx *graphic, int keycode);
 void			handle_right_arrow(t_mlx *graphic, int keycode);
 

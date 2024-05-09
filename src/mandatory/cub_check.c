@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/14 15:48:37 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:13:36 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	check_map_cub(char *line)
 	while (line[++i])
 	{
 		flag = FAIL;
-		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
+		if (line[i] == ' ')
+			continue ;
+		if (line[i] == '1' || line[i] == '0')
 			flag = SUCCESS;
 		if (line[i] == 'N'
 			|| line[i] == 'S' || line[i] == 'W' || line[i] == 'E')

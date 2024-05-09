@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 12:08:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:03:44 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define BEAR_MOVE_SPEED	0.035
-# define CAT_MOVE_SPEED		0.02
-# define DOG_MOVE_SPEED		0.03
+# define BEAR_MOVE_SPEED	0.025
+# define CAT_MOVE_SPEED		0.015
+# define DOG_MOVE_SPEED		0.02
 
 # define UNDEFINED	-1
 # define SUCCESS	0
@@ -148,17 +148,18 @@
 # define LEFT_DOWN		2
 # define RIGHT_DOWN		3
 
-# define A	0
-# define S	1
-# define D	2
-# define W	13
-# define ESC	53
-# define SPACE	49
-# define ONE	18
-# define TWO	19
-# define THREE	20
-# define FOUR	21
-# define SHIFT	257
+# define A				0
+# define S				1
+# define D				2
+# define W				13
+# define Q				12
+# define ESC			53
+# define SPACE			49
+# define ONE			18
+# define TWO			19
+# define THREE			20
+# define FOUR			21
+# define SHIFT			257
 # define WEAPON_OFFSET	17
 
 # define INT_MAX	0x7FFFFFFF
@@ -186,6 +187,9 @@
 /* user->flag */
 # define JUMP 1
 # define DIAGONAL 2
+
+/* mlx->flag */
+# define MOUSE_MOVE 1
 
 # define DIAGONAL_SCALE 0.7071
 
@@ -582,6 +586,7 @@ typedef struct s_mlx {
 	bool			key_states[UINT16_MAX];
 	t_data			img_data[3];
 	size_t			interact_frame;
+	int				flag;
 	int				cur_audio;
 	int				frame_sync_counter;
 	int				num_frame;
@@ -662,6 +667,7 @@ int				cub_to_struct(char *file, t_mlx *mlx);
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
 /* cub_slice_sprite_bonus.c */
+void			free_sprite_img_name(t_sprite *sprite, int i);
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
 /* cub_slice_sprite_helper_bonus.c */

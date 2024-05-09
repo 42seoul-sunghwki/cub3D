@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:37:32 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 13:21:43 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:36:07 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	push_sprite(t_sprite_vec *vec, t_sprite_node *node)
 		i = -1;
 		while (++i < vec->size)
 			new_list[i] = vec->list[i];
+		free(vec->list);
+		vec->list = new_list;
 	}
 	vec->list[vec->size] = node;
 	vec->size++;
