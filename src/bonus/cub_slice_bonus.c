@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_slice_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:42:39 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 23:32:22 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:24:12 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static int	slice_bonus_cub(char **split, t_mlx *mlx, t_block *block)
 				return (FAIL);
 			return (SUCCESS);
 		}
+	}
+	i = -1;
+	while (split[0][++i])
+	{
+		if (split[0][i] != '1' && split[0][i] != ' ')
+			ft_exit("Wrong Img Name");
 	}
 	return (UNDEFINED);
 }
@@ -80,9 +86,9 @@ int	slice_cub(char *line, t_mlx *mlx, t_block *block)
 		return (SUCCESS);
 	}
 	if (slice_wall_cub(split, mlx, block) == SUCCESS || \
-		slice_bonus_cub(split, mlx, block) == SUCCESS || \
 		slice_sprite_cub(split, mlx) == SUCCESS || \
-		slice_color_cub(split, block) == SUCCESS)
+		slice_color_cub(split, block) == SUCCESS || \
+		slice_bonus_cub(split, mlx, block) == SUCCESS)
 	{
 		free_2d_ptr(split);
 		return (SUCCESS);
