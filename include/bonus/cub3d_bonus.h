@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 12:08:02 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:45:21 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -662,6 +662,7 @@ int				cub_to_struct(char *file, t_mlx *mlx);
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
 /* cub_slice_sprite_bonus.c */
+void			free_sprite_img_name(t_sprite *sprite, int i);
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
 /* cub_slice_sprite_helper_bonus.c */
