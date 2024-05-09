@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:50:53 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/04/13 18:23:07 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:27:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	map_cub_lst_2(char *line, int *flag)
 		free(line);
 		return (SUCCESS);
 	}
-	if (tmp[0] != '\0' && *flag == true)
+	if (line[0] != '\0' && *flag == true)
 		ft_exit("Invalid map in enter");
 	free(tmp);
 	return (FAIL);
