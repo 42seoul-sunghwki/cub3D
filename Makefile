@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/08 16:26:48 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/09 12:06:52 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ BONUS_SRC =	main_bonus.c \
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
 			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
 			cub_slice_sprite_bonus.c cub_slice_sprite_helper_bonus.c cub_read_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
-			cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
+			cub_map_alloc_bonus.c cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
 			cub_dup_valid_bonus.c cub_dup_valid_helper_bonus.c cub_to_struct_bonus.c \
 			astar_bonus.c astar_helper_bonus.c astar_thread_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
