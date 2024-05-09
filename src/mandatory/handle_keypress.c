@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 14:38:16 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:58:09 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	handle_keypress(int keycode, void *arg)
 		keycode -= ARROW_OFFSET;
 		f[keycode]((t_mlx *)arg, keycode);
 	}
-	if ((keycode >= A && keycode <= D) || keycode == W)
+	else if ((keycode >= A && keycode <= D) || keycode == W)
 	{
+		printf("keycode :%d\n", keycode);
 		graphic->keycode = keycode;
 		check_collision(graphic);
 	}
