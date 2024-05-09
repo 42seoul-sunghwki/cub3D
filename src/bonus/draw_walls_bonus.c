@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 20:03:34 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:44:27 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ static void	calculate_texture_helper(t_dda *dda, t_user *user)
 	{
 		dda->wall_pixel_x = user->y + dda->perp_wall_dist * dda->raydir_y;
 		if (dda->raydir_x > 0)
-			dda->texture_num = WEST;
-		else
 			dda->texture_num = EAST;
+		else
+			dda->texture_num = WEST;
 	}
 	else
 	{
 		dda->wall_pixel_x = user->x + dda->perp_wall_dist * dda->raydir_x;
 		if (dda->raydir_y > 0)
-			dda->texture_num = SOUTH;
-		else
 			dda->texture_num = NORTH;
+		else
+			dda->texture_num = SOUTH;
 	}
 }
 
