@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:21 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:37:27 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define BEAR_MOVE_SPEED	0.035
-# define CAT_MOVE_SPEED		0.02
-# define DOG_MOVE_SPEED		0.03
+# define BEAR_MOVE_SPEED	0.025
+# define CAT_MOVE_SPEED		0.015
+# define DOG_MOVE_SPEED		0.02
 
 # define UNDEFINED	-1
 # define SUCCESS	0
