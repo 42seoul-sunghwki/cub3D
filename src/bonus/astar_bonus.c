@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:23:18 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 15:58:10 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:22:07 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ t_node	*astar_find(t_mlx *mlx, t_sprite_node *node)
 		parent = dequeue(&node->open_list);
 		if (parent == NULL)
 			return (NULL);
+		push(&node->close_list, parent);
 		if (parent->position.x == (int)mlx->user.x
 			&& parent->position.y == (int)mlx->user.y)
 			return (parent);
-		push(&node->close_list, parent);
 		tmp.x = parent->position.x - 1;
 		tmp.y = parent->position.y;
 		astar_input(mlx, node, parent, &tmp);
