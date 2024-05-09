@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 15:44:46 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 12:49:49 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:02:05 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_sprite_img_name(t_sprite sprite[], int i)
 	int	j;
 
 	j = -1;
-	while (++j < sprite->num_img)
+	while (++j < sprite[i].num_img)
 	{
 		free(sprite[i].img[j].name);
 	}
