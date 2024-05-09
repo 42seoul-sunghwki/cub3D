@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_arrow_bonus.c                               :+:      :+:    :+:   */
+/*   calculate_keypress.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 14:10:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 14:20:38 by minsepar         ###   ########.fr       */
+/*   Created: 2024/05/09 13:47:36 by minsepar          #+#    #+#             */
+/*   Updated: 2024/05/09 14:32:14 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
 static void	calculate_new_displacement_xy(t_user *user, t_mlx *graphic,
 	float ws_flag, float ad_flag)
 {
-	if (graphic->key_states[W] || graphic->key_states[S])
+	if (graphic->keycode == W || graphic->keycode == S)
 	{
-		if (graphic->key_states[W])
+		if (graphic->keycode == W)
 			ws_flag *= -1;
 		user->new_displacement_y += user->dir_y * ws_flag * user->move_speed;
 		user->new_displacement_x += user->dir_x * ws_flag * user->move_speed;
 	}
-	if (graphic->key_states[A] || graphic->key_states[D])
+	if (graphic->keycode == A || graphic->keycode == D)
 	{
-		if (graphic->key_states[D])
+		if (graphic->keycode == D)
 			ad_flag *= -1;
 		user->new_displacement_y += -user->dir_x * ad_flag * user->move_speed;
 		user->new_displacement_x += user->dir_y * ad_flag * user->move_speed;
@@ -40,32 +40,9 @@ static void	calculate_new_displacement(t_mlx *graphic)
 	user = &graphic->user;
 	ws_flag = -1;
 	ad_flag = -1;
-	if (user->flag & DIAGONAL)
-	{
-		ws_flag *= DIAGONAL_SCALE;
-		ad_flag *= DIAGONAL_SCALE;
-	}
 	user->new_displacement_x = 0;
 	user->new_displacement_y = 0;
 	calculate_new_displacement_xy(user, graphic, ws_flag, ad_flag);
-}
-
-static void	check_diagonal(t_mlx *graphic, t_user *user)
-{
-	static int	arrows[] = {W, A, S, D};
-	int			i;
-	int			counter;
-
-	user->flag &= ~DIAGONAL;
-	i = -1;
-	counter = 0;
-	while (++i < 4)
-	{
-		if (graphic->key_states[arrows[i]])
-			counter++;
-	}
-	if (counter == 2)
-		user->flag |= DIAGONAL;
 }
 
 void	check_collision(t_mlx *graphic)
@@ -73,14 +50,13 @@ void	check_collision(t_mlx *graphic)
 	t_user		*user;
 
 	user = &graphic->user;
-	check_diagonal(graphic, user);
 	calculate_new_displacement(graphic);
 	if (user->new_displacement_y <= 0)
-		dir_y_check_n(&graphic->map, user);
+		dir_y_check_n(&graphic->map, user, user->new_displacement_y);
 	else
-		dir_y_check_p(&graphic->map, user);
+		dir_y_check_p(&graphic->map, user, user->new_displacement_y);
 	if (user->new_displacement_x <= 0)
-		dir_x_check_n(&graphic->map, user);
+		dir_x_check_n(&graphic->map, user, user->new_displacement_x);
 	else
-		dir_x_check_p(&graphic->map, user);
+		dir_x_check_p(&graphic->map, user, user->new_displacement_x);
 }
