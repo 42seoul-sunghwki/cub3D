@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 13:59:35 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:03:44 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@
 # define PREV_COOR_SIZE	30
 # define UPDATE_COOR	10
 
-# define BEAR_MOVE_SPEED	0.035
-# define CAT_MOVE_SPEED		0.02
-# define DOG_MOVE_SPEED		0.03
+# define BEAR_MOVE_SPEED	0.025
+# define CAT_MOVE_SPEED		0.015
+# define DOG_MOVE_SPEED		0.02
 
 # define UNDEFINED	-1
 # define SUCCESS	0
