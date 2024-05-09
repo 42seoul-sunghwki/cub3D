@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:38:43 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 14:37:17 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:49:14 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	handle_left_arrow(t_mlx *graphic, int keycode)
 	dda = &graphic->dda;
 	old_dir_x = user->dir_x;
 	old_plane_x = user->plane_x;
+	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed);
+	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed);
 	printf("dda->cos %f\n", dda->cos_rot_speed);
 	printf("dda->sin %f\n", dda->sin_rot_speed);
 	user->dir_x = user->dir_x * dda->cos_rot_speed
@@ -48,6 +50,8 @@ void	handle_right_arrow(t_mlx *graphic, int keycode)
 	user = &graphic->user;
 	old_dir_x = user->dir_x;
 	old_plane_x = user->plane_x;
+	graphic->dda.cos_rot_speed = cos(graphic->user.rot_speed);
+	graphic->dda.sin_rot_speed = sin(graphic->user.rot_speed);
 	user->dir_x = user->dir_x * dda->cos_rot_speed
 		- user->dir_y * -dda->sin_rot_speed;
 	user->dir_y = old_dir_x * -dda->sin_rot_speed
