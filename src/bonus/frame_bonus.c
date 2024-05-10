@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:57:58 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 16:25:56 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:36:41 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void	display_frame(t_mlx *graphic)
 	t_data	*data;
 
 	data = &graphic->img_data[graphic->num_frame_render];
+	// data = &graphic->img_data[0];
 	mlx_put_image_to_window(graphic->mlx, graphic->win, data->img, 0, 0);
-	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
+	// mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, graphic->win);
 }
 
 void	*render_thread(void *arg)
 {
 	t_mlx		*graphic;
+	size_t		total_render_frame = 0;
 
 	graphic = arg;
 	while (1)
@@ -47,10 +49,11 @@ void	*render_thread(void *arg)
 		display_frame(graphic);
 		pthread_mutex_lock(&graphic->counter_mutex);
 		graphic->frame_sync_counter--;
-		pthread_cond_signal(&graphic->render_cond);
-		pthread_mutex_unlock(&graphic->counter_mutex);
 		graphic->num_frame_render += 1;
 		graphic->num_frame_render %= 3;
+		total_render_frame++;
+		pthread_cond_signal(&graphic->render_cond);
+		pthread_mutex_unlock(&graphic->counter_mutex);
 	}
 }
 

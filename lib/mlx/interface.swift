@@ -200,7 +200,7 @@ public func mlx_sync_swift(_ what:Int32, _ param:UnsafeRawPointer) -> Int32
     switch what
     {
 	case MLX_SYNC_IMAGE_WRITABLE:
-		let img:MlxImg = _mlx_bridge(ptr:param); while img.onGPU > 0 {print(img.onGPU)} 
+		let img:MlxImg = _mlx_bridge(ptr:param); while img.onGPU > 0 {} 
 	case MLX_SYNC_WIN_FLUSH_CMD:
 		let win:MlxWin = _mlx_bridge(ptr:param); win.flushImages()
 	case MLX_SYNC_WIN_CMD_COMPLETED:
