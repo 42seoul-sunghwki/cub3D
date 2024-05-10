@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/10 21:33:48 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/10 22:04:34 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS = -g -Wall -Werror -Wextra -O3 -fsanitise=address
+FLAGS = -g -Wall -Werror -Wextra -O3 -fsanitize=address
 
 SRC_MANDATORY_DIR :=	src/mandatory
 

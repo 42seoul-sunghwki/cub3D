@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/10 21:32:18 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:38:22 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 				/ sprite_thread->node->distance)
 			* 256 - (WINHEIGHT * 128) + (sprite->sprite_height) * 128;
 		tex_y = ((d * sprite->texture->h) / sprite->sprite_height) / 256;
-		// if (tex_y < 0)
-		// 	tex_y = -tex_y;
-		// tex_y %= sprite->sprite_height;
+		if (tex_y < 0)
+			tex_y = -tex_y;
 		color = my_mlx_pixel_get(&sprite->texture->data,
 				sprite_thread->tex_x, tex_y);
 		if (get_t(color) != 0xFF)
