@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:45:09 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 13:04:42 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:23:10 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	draw_texture_line(t_mlx *graphic, t_data *frame, t_dda *dda, int y)
 	dda->text_pos += dda->text_step;
 	color = my_mlx_pixel_get(data, dda->texture_x, tex_y);
 	if (get_t(color) != 0xFF)
+	{
 		my_mlx_pixel_put(frame, dda->cur_pixel_x, y, color);
+		graphic->z_buffer[y][dda->cur_pixel_x] = dda->perp_wall_dist;
+	}
 }
 
 void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
@@ -87,9 +90,13 @@ void	draw_vertical_line(t_mlx *graphic, t_dda *dda)
 	while (++i < WINHEIGHT)
 	{
 		if (i < dda->draw_start_y)
+		{
 			my_mlx_pixel_put(data, dda->cur_pixel_x, i, graphic->block.f_trgb);
+			graphic->z_buffer[i][dda->cur_pixel_x] = dda->perp_wall_dist;
+		}
 		else if (i >= dda->draw_start_y && i < dda->draw_end_y)
 			draw_texture_line(graphic, data, dda, i);
+		else
+			graphic->z_buffer[i][dda->cur_pixel_x] = INT_MAX;
 	}
-	graphic->z_buffer[dda->cur_pixel_x] = dda->perp_wall_dist;
 }

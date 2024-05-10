@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 14:03:44 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:59:09 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -588,9 +588,7 @@ typedef struct s_mlx {
 	size_t			interact_frame;
 	int				flag;
 	int				cur_audio;
-	int				frame_sync_counter;
 	int				num_frame;
-	int				num_frame_render;
 	int				weapon_num;
 	int				change_weapon_num;
 	int				pepsi_open;
@@ -600,11 +598,8 @@ typedef struct s_mlx {
 	int				*door_map;
 	int				num_door;
 	long			num_threads;
-	float			z_buffer[WINWIDTH];
+	float			z_buffer[WINHEIGHT][WINWIDTH];
 	size_t			total_frame;
-	pthread_t		render_thread;
-	pthread_cond_t	render_cond;
-	pthread_mutex_t	counter_mutex;
 	t_thread_pool	pool;
 	t_map			map;
 	t_pic			minimap;

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:40:07 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 14:10:14 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:29:27 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ int	handle_mouse_move(int x, int z, void *arg)
 	graphic = (t_mlx *)arg;
 	if (!(graphic->flag & MOUSE_MOVE))
 		return (0);
+	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 	handle_mouse_move_x(graphic, x - HALF_WINWIDTH);
 	handle_mouse_move_z(graphic, z - HALF_WINHEIGHT);
-	if (graphic->flag & MOUSE_MOVE)
-		mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 	return (0);
 }

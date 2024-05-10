@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:10:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 21:38:48 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:08:25 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	init_t_mlx_helper(t_mlx *graphic, char **argv)
 	if (graphic->num_threads < 0)
 		perror("sysconf");
 	thread_pool_init(&graphic->pool, graphic->num_threads);
-	init_frame_thread(graphic);
 }
 
 void	init_t_mlx(t_mlx *graphic, char **argv)
@@ -51,7 +50,6 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	}
 	init_sprite_fpm(graphic);
 	graphic->num_frame = 0;
-	graphic->num_frame_render = 0;
 	graphic->total_frame = 0;
 	graphic->block.f_trgb = -1;
 	graphic->block.c_trgb = -1;
