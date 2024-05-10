@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/10 20:22:02 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/11 01:14:02 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ void	mlx_setup(t_mlx *graphic)
 	graphic->flag |= MOUSE_MOVE;
 }
 
+void	check()
+{
+	system("leaks cub3D");
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	graphic;
+	atexit(check);
 
 	if (init_main(argc) == FAIL)
 		return (1);

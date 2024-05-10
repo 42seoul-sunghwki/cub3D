@@ -6,7 +6,7 @@
 #    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/10 22:04:34 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/11 01:13:03 by minsepar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS = -g -Wall -Werror -Wextra -O3 -fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
@@ -37,9 +37,11 @@ BONUS_SRC =	main_bonus.c \
 			frame_bonus.c init_struct_bonus.c cub_check_bonus.c \
 			cub_helper_bonus.c cub_list_bonus.c cub_map_bonus.c \
 			cub_slice_sprite_bonus.c cub_slice_sprite_helper_bonus.c cub_read_sprite_bonus.c cub_read_bonus.c cub_slice_bonus.c \
-			cub_map_alloc_bonus.c cub_map_valid_bonus.c cub_map_valid_helper_bonus.c \
-			cub_dup_valid_bonus.c cub_dup_valid_helper_bonus.c cub_to_struct_bonus.c \
-			astar_bonus.c astar_helper_bonus.c astar_thread_bonus.c p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c\
+			cub_map_alloc_bonus.c cub_map_valid_bonus.c \
+			cub_map_valid_helper_bonus.c cub_dup_valid_bonus.c \
+			cub_dup_valid_helper_bonus.c cub_to_struct_bonus.c \
+			astar_bonus.c astar_helper_bonus.c astar_thread_bonus.c \
+			p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
@@ -53,7 +55,8 @@ BONUS_SRC =	main_bonus.c \
 			sound_bonus.c draw_user_bonus.c init_bonus.c \
 			parse_door_map_bonus.c door_interaction_bonus.c door_map_bonus.c \
 			door_dda_bonus.c calculate_sprite_bonus.c draw_user_util_bonus.c \
-			door_util_bonus.c perform_dda_bonus.c init_mlx_bonus.c
+			door_util_bonus.c perform_dda_bonus.c init_mlx_bonus.c \
+			draw_wall_routine_bonus.c door_draw_bonus.c
 
 SRCS =	$(addprefix $(SRC_MANDATORY_DIR)/, $(SRC))
 

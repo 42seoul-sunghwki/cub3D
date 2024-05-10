@@ -6,11 +6,28 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:24:57 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 20:14:27 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/11 00:58:36 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+
+void	add_door_node(t_dda *dda)
+{
+	t_stack	*door_stack;
+	t_list	*node;
+	t_door	*door;
+	t_mlx	*graphic;
+
+	door_stack = &dda->door_stack;
+	graphic = dda->mlx;
+	door = get_door(graphic, dda->map_y, dda->map_x);
+	if (!door)
+		terminate_program(graphic);
+	node = ft_lstnew(door);
+	ft_lstadd_front(&door_stack->head, node);
+	door_stack->size++;
+}
 
 static void	check_ray_collision(t_dda *dda, t_map *map)
 {
@@ -32,7 +49,10 @@ static void	check_ray_collision(t_dda *dda, t_map *map)
 			dda->collision_flag = true;
 		if (is_open_door(map->map[dda->map_y][dda->map_x])
 			|| is_close_door(map->map[dda->map_y][dda->map_x]))
+		{
+			add_door_node(dda);
 			dda->changing_door = true;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:47:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 14:21:05 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/11 00:00:51 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	draw_wall_thread(t_mlx *graphic)
 	while (++i < graphic->num_threads)
 	{
 		dda = malloc(sizeof(t_dda));
+		dda->door_stack.size = 0;
 		dda->mlx = graphic;
 		dda->cur_pixel_x = WINWIDTH / graphic->num_threads * i;
 		dda->end_pixel_x = WINWIDTH / graphic->num_threads * (i + 1);
