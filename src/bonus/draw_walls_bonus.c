@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/11 00:06:38 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:18:24 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,3 @@ void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 	calculate_texture(graphic, dda, user);
 	draw_vertical_line(graphic, dda);
 }
-

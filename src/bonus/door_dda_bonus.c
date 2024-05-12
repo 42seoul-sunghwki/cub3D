@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:33:44 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/11 00:44:59 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:02:48 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,11 @@ void	perform_door_dda(t_dda *dda, t_map *map, t_door	*door)
 {
 	while (dda->collision_flag == false)
 	{
+		if (is_door_equal(dda->map_y, dda->map_x, door, dda->mlx))
+		{
+			dda->collision_flag = true;
+			break ;
+		}
 		if (dda->side_dist_x < dda->side_dist_y)
 		{
 			dda->side_dist_x += dda->delta_dist_x;
@@ -109,8 +114,6 @@ void	perform_door_dda(t_dda *dda, t_map *map, t_door	*door)
 			dda->map_y += dda->step_y;
 			dda->side = 1;
 		}
-		if (is_door_equal(dda->map_y, dda->map_x, door, dda->mlx))
-			dda->collision_flag = true;
 	}
 	dda_door_changing(dda, map);
 	if (dda->side == 0)
