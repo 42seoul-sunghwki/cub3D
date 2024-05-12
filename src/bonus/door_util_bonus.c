@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:22:05 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/11 00:52:21 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:43:28 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ bool	is_h_door(int map_texture)
 
 void	check_interaction_opendoor(t_mlx *graphic, t_dda *dda, t_map *map)
 {
-	if (dda->cur_pixel_x == HALF_WINWIDTH)
+	if (dda->cur_pixel_x == HALF_WINWIDTH && graphic->key_states[E_INTERACT])
 		check_door_interaction(graphic, dda, map);
 }
