@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:36:02 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/13 15:39:33 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:04:47 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static	int	input_to_rgb(char *str)
 
 	i = -1;
 	len = ft_strlen(str);
-	if (len > 10)
+	if (len > 3)
 		ft_exit("Wrong Color over Range");
 	while (++i < len)
 	{

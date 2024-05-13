@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/13 15:13:58 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:23:34 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ int	cub_map_valid(t_map *map)
 	queue_delete(queue);
 	free(queue->arr);
 	free(queue);
+	cub_valid_door_user_sprite(map);
 	return (SUCCESS);
 }
