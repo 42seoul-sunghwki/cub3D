@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/13 10:43:54 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:52:14 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ int	game_loop(void *arg)
 	user = &graphic->user;
 	if (!(graphic->flag & MOUSE_START))
 	{
-		mlx_mouse_move(graphic->win, user->x, user->y);
+		mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 		graphic->flag |= MOUSE_START;
 	}
-	printf("y: %f x: %f\n", user->dir_y, user->dir_x);
 	handle_keys_loop(graphic);
 	mlx_sync_render(graphic);
 	game_loop_helper(graphic, user);

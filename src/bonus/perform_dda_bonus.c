@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:24:57 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/12 23:05:07 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:11:55 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	add_door_node(t_dda *dda)
 	graphic = dda->mlx;
 	door = get_door(graphic, dda->map_y, dda->map_x);
 	if (!door)
-	{
-		printf("y: %d x: %d\n", dda->map_y, dda->map_x);
 		terminate_program(graphic);
-	}
 	node = ft_lstnew(door);
 	ft_lstadd_front(&door_stack->head, node);
 	door_stack->size++;
