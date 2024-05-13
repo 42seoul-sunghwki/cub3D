@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:06:49 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/05 20:03:34 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:18:24 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ static void	calculate_texture_helper(t_dda *dda, t_user *user)
 	{
 		dda->wall_pixel_x = user->y + dda->perp_wall_dist * dda->raydir_y;
 		if (dda->raydir_x > 0)
-			dda->texture_num = WEST;
-		else
 			dda->texture_num = EAST;
+		else
+			dda->texture_num = WEST;
 	}
 	else
 	{
 		dda->wall_pixel_x = user->x + dda->perp_wall_dist * dda->raydir_x;
 		if (dda->raydir_y > 0)
-			dda->texture_num = SOUTH;
-		else
 			dda->texture_num = NORTH;
+		else
+			dda->texture_num = SOUTH;
 	}
 }
 
@@ -76,7 +76,7 @@ static void	calculate_texture(t_mlx *graphic, t_dda *dda, t_user *user)
  * TODO: find a way to make realistic shade effect
  * TODO: block comes out to be 540 x 480 fix it to make it square
 */
-static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
+void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 {
 	float	half_line_height;
 
@@ -93,32 +93,4 @@ static void	draw_walls(t_dda *dda, t_mlx *graphic, t_user *user, t_map *map)
 		dda->draw_end_y = WINHEIGHT - 1;
 	calculate_texture(graphic, dda, user);
 	draw_vertical_line(graphic, dda);
-}
-
-void	draw_wall_routine(void *arg)
-{
-	t_user	*user;
-	t_mlx	*graphic;
-	t_dda	*dda;
-	t_map	*map;
-
-	dda = arg;
-	graphic = dda->mlx;
-	user = &graphic->user;
-	map = &graphic->map;
-	while (dda->cur_pixel_x < dda->end_pixel_x)
-	{
-		init_data(dda, user, dda->cur_pixel_x);
-		perform_dda(graphic, dda, map);
-		draw_walls(dda, graphic, user, map);
-		if (dda->changing_door == true)
-		{
-			init_data(dda, user, dda->cur_pixel_x);
-			perform_door_dda(dda, map);
-			check_interaction_opendoor(graphic, dda, map);
-			draw_walls(dda, graphic, user, map);
-		}
-		dda->cur_pixel_x++;
-	}
-	free(dda);
 }

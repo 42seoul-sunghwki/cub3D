@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 14:03:44 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:40:45 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,8 @@
 # define DIAGONAL 2
 
 /* mlx->flag */
-# define MOUSE_MOVE 1
+# define MOUSE_MOVE		1
+# define MOUSE_START	2
 
 # define DIAGONAL_SCALE 0.7071
 
@@ -228,6 +229,7 @@ typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
 typedef struct s_node		t_node;
 typedef struct s_p_queue	t_p_queue;
+typedef struct s_stack		t_stack;
 
 /**
  * arr size is vector
@@ -467,6 +469,20 @@ typedef struct s_user {
 	int			last_coor_idx;
 }	t_user;
 
+typedef struct s_door
+{
+	int			index;
+	int			direction;
+	int			frame_num;
+	size_t		start_frame;
+}	t_door;
+
+typedef struct s_stack
+{
+	t_list	*head;
+	int		size;
+}	t_stack;
+
 /**
  * @var	float	camera_x		x-coordinate of the current ray in camera space.
  * 								Left most value is 1, middle is 0, right is 2
@@ -518,6 +534,7 @@ typedef struct s_dda {
 	int				end_pixel_x;
 	bool			changing_door;
 	t_pic			*texture;
+	t_stack			door_stack;
 }	t_dda;
 
 typedef struct s_weapon_thread
@@ -557,14 +574,6 @@ typedef struct s_sprite_info
 	t_pic	*texture;
 }	t_sprite_info;
 
-typedef struct s_door
-{
-	int			index;
-	int			direction;
-	int			frame_num;
-	size_t		start_frame;
-}	t_door;
-
 /**
  * t_mlx struct gets passed to the game_loop function which renders each frame
  * 
@@ -588,9 +597,7 @@ typedef struct s_mlx {
 	size_t			interact_frame;
 	int				flag;
 	int				cur_audio;
-	int				frame_sync_counter;
 	int				num_frame;
-	int				num_frame_render;
 	int				weapon_num;
 	int				change_weapon_num;
 	int				pepsi_open;
@@ -600,11 +607,8 @@ typedef struct s_mlx {
 	int				*door_map;
 	int				num_door;
 	long			num_threads;
-	float			z_buffer[WINWIDTH];
+	float			z_buffer[WINHEIGHT][WINWIDTH];
 	size_t			total_frame;
-	pthread_t		render_thread;
-	pthread_cond_t	render_cond;
-	pthread_mutex_t	counter_mutex;
 	t_thread_pool	pool;
 	t_map			map;
 	t_pic			minimap;
@@ -617,9 +621,6 @@ typedef struct s_mlx {
 	t_dda			dda;
 	HSTREAM			sound_stream[NUM_STREAM];
 }	t_mlx;
-
-//tmp
-void			print_map(t_map *map);
 
 /* mlx_hooks_bonus.c */
 int				terminate_program(t_mlx *graphic);
@@ -667,7 +668,7 @@ int				cub_to_struct(char *file, t_mlx *mlx);
 int				slice_cub(char *line, t_mlx *graphic, t_block *block);
 
 /* cub_slice_sprite_bonus.c */
-void			free_sprite_img_name(t_sprite *sprite, int i);
+void			free_sprite_img_name(t_sprite sprite[], int i);
 int				slice_sprite_cub(char **split, t_mlx *mlx);
 
 /* cub_slice_sprite_helper_bonus.c */
@@ -718,7 +719,6 @@ void			get_img_addr(t_data *data);
 
 /* frame_bonus.c */
 void			display_frame(t_mlx *graphic);
-void			init_frame_thread(t_mlx *graphic);
 
 /* draw_floor_thread_bonus.c */
 void			draw_floor_thread(t_mlx *graphic);
@@ -732,7 +732,6 @@ void			init_data(t_dda *dda, t_user *user, int x_pixel_num);
 
 /* handle_keypress_bonus.c */
 int				handle_keypress(int keycode, void *arg);
-size_t			get_time_in_us(void);
 
 /* handle_mouse_bonus.c */
 int				handle_mouse_click(int button, int x, int y, void *arg);
@@ -861,7 +860,7 @@ void			check_door_interaction(t_mlx *graphic, t_dda *dda, t_map *map);
 t_door			*get_door(t_mlx	*graphic, int y, int x);
 
 /* door_dda_bonus.c */
-void			perform_door_dda(t_dda *dda, t_map *map);
+void			perform_door_dda(t_dda *dda, t_map *map, t_door *door);
 void			update_door(t_mlx *graphic);
 
 //void			jps(t_mlx *mlx);
@@ -899,5 +898,13 @@ void			perform_dda(t_mlx *graphic, t_dda *dda, t_map *map);
 
 /* init_mlx_bonus.c */
 void			init_t_mlx(t_mlx *graphic, char **argv);
+
+/* draw_walls_bonus.c */
+void			draw_walls(t_dda *dda, t_mlx *graphic,
+					t_user *user, t_map *map);
+
+/* door_draw_bonus.c */
+int				is_door_equal(int map_y, int map_x,
+					t_door *door, t_mlx *graphic);
 
 #endif

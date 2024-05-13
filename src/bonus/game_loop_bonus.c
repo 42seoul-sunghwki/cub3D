@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 16:26:14 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:43:54 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ void	mlx_sync_render(t_mlx *graphic)
 	t_data	*data;
 
 	data = &graphic->img_data[graphic->num_frame];
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img);
 }
 
 static void	game_loop_helper(t_mlx *graphic, t_user *user)
 {
-	t_data	*data;
-
-	data = &graphic->img_data[graphic->num_frame_render];
+	(void) user;
 	draw_floor_thread(graphic);
 	draw_wall_thread(graphic);
 	update_door(graphic);
@@ -40,16 +39,16 @@ int	game_loop(void *arg)
 
 	graphic = arg;
 	user = &graphic->user;
-	pthread_mutex_lock(&graphic->counter_mutex);
-	while (graphic->frame_sync_counter > 1)
-		pthread_cond_wait(&graphic->render_cond, &graphic->counter_mutex);
-	pthread_mutex_unlock(&graphic->counter_mutex);
+	if (!(graphic->flag & MOUSE_START))
+	{
+		mlx_mouse_move(graphic->win, user->x, user->y);
+		graphic->flag |= MOUSE_START;
+	}
+	printf("y: %f x: %f\n", user->dir_y, user->dir_x);
 	handle_keys_loop(graphic);
+	mlx_sync_render(graphic);
 	game_loop_helper(graphic, user);
-	pthread_mutex_lock(&graphic->counter_mutex);
-	graphic->frame_sync_counter++;
-	pthread_cond_signal(&graphic->render_cond);
-	pthread_mutex_unlock(&graphic->counter_mutex);
+	display_frame(graphic);
 	graphic->num_frame += 1;
 	graphic->num_frame %= 3;
 	graphic->total_frame++;

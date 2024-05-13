@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_dda_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:33:44 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/07 15:41:17 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:02:48 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,15 @@ static void	dda_door_changing(t_dda *dda, t_map *map)
 	}
 }
 
-void	perform_door_dda(t_dda *dda, t_map *map)
+void	perform_door_dda(t_dda *dda, t_map *map, t_door	*door)
 {
 	while (dda->collision_flag == false)
 	{
+		if (is_door_equal(dda->map_y, dda->map_x, door, dda->mlx))
+		{
+			dda->collision_flag = true;
+			break ;
+		}
 		if (dda->side_dist_x < dda->side_dist_y)
 		{
 			dda->side_dist_x += dda->delta_dist_x;
@@ -109,10 +114,6 @@ void	perform_door_dda(t_dda *dda, t_map *map)
 			dda->map_y += dda->step_y;
 			dda->side = 1;
 		}
-		if (map->map[dda->map_y][dda->map_x] == '1'
-			|| is_close_door(map->map[dda->map_y][dda->map_x])
-			|| is_open_door(map->map[dda->map_y][dda->map_x]))
-			dda->collision_flag = true;
 	}
 	dda_door_changing(dda, map);
 	if (dda->side == 0)

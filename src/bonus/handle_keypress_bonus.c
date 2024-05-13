@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:03:18 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/08 14:19:32 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:50:42 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	handle_keypress(int keycode, void *arg)
 		graphic->change_weapon_num = (keycode - WEAPON_OFFSET);
 	else if (graphic->key_states[keycode] == false && keycode == E_INTERACT)
 		graphic->interact_frame = graphic->total_frame;
-	else
-		graphic->key_states[keycode] = true;
+	graphic->key_states[keycode] = true;
 	return (SUCCESS);
 }

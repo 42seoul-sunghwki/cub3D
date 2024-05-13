@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:11:40 by jacob             #+#    #+#             */
-/*   Updated: 2024/05/08 18:09:10 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:38:22 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ static void	draw_sprite_pixel(t_sprite_info *sprite, t_mlx *graphic,
 	frame = &graphic->img_data[graphic->num_frame];
 	while (++j < sprite->draw_end_y)
 	{
+		if (sprite->transform_y >= sprite_thread->mlx->z_buffer[j][x])
+			continue ;
 		d = (j - WINWIDTH * graphic->user.zy - graphic->user.z
 				/ sprite_thread->node->distance)
 			* 256 - (WINHEIGHT * 128) + (sprite->sprite_height) * 128;
 		tex_y = ((d * sprite->texture->h) / sprite->sprite_height) / 256;
 		if (tex_y < 0)
-		{
-			tex_y *= -1;
-			tex_y %= sprite->sprite_height;
-		}
+			tex_y = -tex_y;
 		color = my_mlx_pixel_get(&sprite->texture->data,
 				sprite_thread->tex_x, tex_y);
 		if (get_t(color) != 0xFF)
@@ -58,8 +57,7 @@ void	draw_sprite(void *arg)
 		sprite_thread->tex_x = (256
 				* (i - (-sprite->sprite_width / 2.0 + sprite->sprite_screen_x)))
 			* sprite->texture->w / sprite->sprite_width / 256.0;
-		if (sprite->transform_y > 0 && i > 0 && i < WINWIDTH
-			&& sprite->transform_y < sprite_thread->mlx->z_buffer[i])
+		if (sprite->transform_y > 0 && i > 0 && i < WINWIDTH)
 			draw_sprite_pixel(sprite, sprite_thread->mlx, i, sprite_thread);
 	}
 	free(sprite_thread);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keyrelease_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:04:16 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 14:43:44 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:38:35 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
