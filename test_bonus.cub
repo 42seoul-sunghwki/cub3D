@@ -3,9 +3,7 @@ SO ./texture/eagle.xpm
 WE       ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm   
 
-
 US ./texture/nyan_cat.xpm
-
 DO ./texture/door
 DB ./texture/dancing_bear
 DC ./texture/dancing_cat
@@ -18,7 +16,7 @@ F 255,255,254
 111111111111111
 1SV0V0V0V0V0VC1
 1H1H1H1H1H1H1H1
-10V0V0V0V0V0V01
+10V0V0V0V0V01H1
 1H1H1H1H1H1H1H1
 10V0V0V0V0V0V01
 111111111111111

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_dup_valid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:06:51 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 19:10:13 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:12:36 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	cub_dup_valid_2(t_mlx *mlx, int i, int size)
 static void	cub_free_file_name(t_mlx *mlx)
 {
 	int	i;
- 
+
 	i = -1;
 	while (++i < 4)
 	{

@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:10:42 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/13 14:09:31 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:23:52 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	init_t_mlx(t_mlx *graphic, char **argv)
 	graphic->mlx = mlx_init();
 	graphic->win = mlx_new_window(graphic->mlx, WINWIDTH, WINHEIGHT, "cub3D");
 	ft_memset(graphic->key_states, 0, sizeof(bool) * UINT16_MAX);
-	ft_memset(graphic->sprite, 0, sizeof(t_sprite) * 21);
 	while (++i < 3)
 	{
 		graphic->img_data[i].img
