@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:04:45 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 14:19:04 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:54:06 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	draw_floor_thread(t_mlx *graphic)
 	t_floor	*floor;
 
 	i = -1;
+	if (!(graphic->block.pic[FLOOR].data.img))
+		return ;
 	start_wait_for_threads(&graphic->pool, graphic->num_threads);
 	while (++i < graphic->num_threads)
 	{
