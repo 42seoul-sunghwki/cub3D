@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 22:26:12 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/09 17:45:30 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:41:11 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	game_loop(void *arg)
 	dda = &graphic->dda;
 	dda->cur_pixel_x = -1;
 	user = &graphic->user;
+	mlx_do_sync(graphic->mlx);
 	while (++dda->cur_pixel_x < WINWIDTH)
 	{
 		init_data(dda, user, dda->cur_pixel_x);
