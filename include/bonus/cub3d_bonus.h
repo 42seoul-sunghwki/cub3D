@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/13 14:14:16 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:13:10 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -721,6 +721,10 @@ char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
+
+/* cub_map_valid_helper_bonus.c */
+void			push_init_node(t_map *map, t_position posit,
+					t_queue *queue, int direction);
 
 /* cub_map_valid_bonus.c */
 int				cub_map_valid(t_map *map);

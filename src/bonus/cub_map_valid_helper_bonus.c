@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:08:54 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/08 13:49:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:20:31 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	cub_valid_door_user(char **map, int x, int y, int *flag)
 			if (map[y - 1][x] == tmp[i] || map[y + 1][x] == tmp[i]
 				|| map[y][x - 1] == tmp[i] || map[y][x + 1] == tmp[i])
 				ft_exit("Invalid map\nDoor is too close to another door");
-			if (i == 0 && map[y - 1][x] == '1' && map[y + 1][x] == '1'
+			else if (i == 0 && map[y - 1][x] == '1' && map[y + 1][x] == '1'
 				&& map[y][x - 1] != '1' && map[y][x + 1] != '1')
 				return ;
 			else if (i == 1 && map[y - 1][x] != '1' && map[y + 1][x] != '1'
@@ -70,4 +70,27 @@ void	cub_valid_door_user_sprite(t_map *map)
 	}
 	if (flag == false)
 		ft_exit("Invalid map\nUser is not exist");
+}
+
+void	push_init_node(t_map *map, t_position posit,
+		t_queue *queue, int direction)
+{
+	t_node	*tmp;
+	char	*c;
+
+	c = &map->map[posit.y][posit.x];
+	if (posit.x >= map->w || posit.x < 0 || posit.y >= map->h || posit.y < 0)
+		return ;
+	if (c[0] == ' ' || c[0] == 0)
+	{
+		c[0] = 1;
+		tmp = init_queue_node(posit.x, posit.y, direction);
+		queue_push(queue, tmp);
+	}
+	else if (c[0] == 1 || c[0] == '1')
+		return ;
+	else
+	{
+		ft_exit("Invalid map\nIt isn't surround by 1");
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 15:44:46 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 13:02:05 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:51:51 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	slice_sprite_cub(char **split, t_mlx *mlx)
 	{
 		if (ft_strncmp(split[0], sp[i], 3) == 0)
 		{
+			if (split[1] == NULL)
+				ft_exit("Wrong Input in Sprite");
 			if (i == 0)
 				slice_sprite_door(split, mlx);
 			else if (i == 1)

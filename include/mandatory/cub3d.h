@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 14:30:00 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:25:08 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@
 # define DOWN_ARROW		125
 # define UP_ARROW		126
 
+# define LEFT			0
+# define UP				1
+# define RIGHT			2
+# define DOWN			3
+
 # define ARROW_OFFSET	123
 
 typedef struct s_mlx		t_mlx;
@@ -69,6 +74,7 @@ typedef struct s_user		t_user;
 typedef struct s_block		t_block;
 typedef struct s_line_lst	t_line_lst;
 typedef struct s_lst_head	t_lst_head;
+typedef struct s_node		t_node;
 
 /**
  * @var	void	*img
@@ -87,6 +93,29 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct s_position {
+	int		x;
+	int		y;
+}	t_position;
+
+typedef struct s_node
+{
+	t_position	position;
+	t_position	dir;
+	float		f_cost;
+	float		g_cost;
+	int			direction;
+	t_node		*next;
+}	t_node;
+
+typedef struct s_queue
+{
+	t_node	**arr;
+	int		size;
+	int		start;
+	int		end;
+}	t_queue;
 
 /**
  * @var	int		w		the width of the map (in number of blocks)
@@ -332,6 +361,16 @@ char			**lst_to_arr(t_lst_head *head);
 t_line_lst		*init_line_lst(char *line);
 t_lst_head		*init_lst_head(void);
 void			free_lst(t_lst_head *head);
+
+/* queue.c */
+void			queue_push(t_queue *queue, t_node *tmp);
+t_node			*queue_pop(t_queue *queue);
+void			queue_delete(t_queue *queue);
+t_node			*init_queue_node(int x, int y, int direction);
+
+/* cub_map_valid_helper.c */
+void			push_init_node(t_map *map, t_position posit,
+					t_queue *queue, int direction);
 
 /* cub_map_valid.c */
 int				cub_map_valid(t_map *map);
