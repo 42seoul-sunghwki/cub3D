@@ -5,44 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 22:02:52 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/06 19:17:36 by sunghwki         ###   ########.fr       */
+/*   Created: 2024/05/13 12:33:21 by sunghwki          #+#    #+#             */
+/*   Updated: 2024/05/13 14:02:46 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-t_node	*pop(t_p_queue *heap)
+void	queue_push(t_queue *queue, t_node *tmp)
 {
-	t_node	*ret;
-
-	if (heap->size == 0)
-		return (NULL);
-	ret = heap->arr[heap->size];
-	heap->size--;
-	return (ret);
+	queue->arr[queue->end] = tmp;
+	queue->end += 1;
 }
 
-void	push(t_p_queue *heap, t_node *node)
+t_node	*queue_pop(t_queue *queue)
 {
-	heap->size++;
-	if (heap->max_size <= heap->size)
+	if (queue->start < queue->end)
 	{
-		heap->max_size *= 2;
-		heap->arr = (t_node **)realloc(heap->arr,
-				sizeof(t_node *) * (heap->max_size + 1));
+		queue->start += 1;
+		return (queue->arr[queue->start - 1]);
 	}
-	heap->arr[heap->size] = node;
+	else
+		return (NULL);
 }
 
-t_node	*dup_node(t_node *node)
+void	queue_delete(t_queue *queue)
 {
-	t_node	*new_node;
+	while (queue->start < queue->end)
+	{
+		free(queue->arr[queue->start++]);
+	}
+}
 
-	new_node = (t_node *)malloc(sizeof(t_node));
-	new_node->position.x = node->position.x;
-	new_node->position.y = node->position.y;
-	new_node->f_cost = node->f_cost;
-	new_node->next = node->next;
-	return (new_node);
+t_node	*init_queue_node(int x, int y, int direction)
+{
+	t_node	*tmp;
+
+	tmp = (t_node *)malloc(sizeof(t_node));
+	tmp->position.x = x;
+	tmp->position.y = y;
+	tmp->direction = direction;
+	return (tmp);
 }

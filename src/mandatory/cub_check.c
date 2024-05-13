@@ -6,7 +6,7 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:23:08 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/09 14:13:36 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:12:30 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	check_img_cub(char **split, t_mlx *graphic, t_pic *org_img)
 	if (fd == -1)
 		ft_exit("Invalid cub file in img");
 	close(fd);
+	if (org_img->data.img != NULL)
+		ft_exit("Duplicate img");
 	org_img->data.img = mlx_xpm_file_to_image(graphic->mlx, split[1],
 			&org_img->w, &org_img->h);
 	if (!org_img->data.img)

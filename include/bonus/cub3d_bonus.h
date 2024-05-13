@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/13 10:40:45 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:14:16 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,11 @@
 # define LEFT_DOWN		2
 # define RIGHT_DOWN		3
 
+# define LEFT			0
+# define UP				1
+# define RIGHT			2
+# define DOWN			3
+
 # define A				0
 # define S				1
 # define D				2
@@ -231,6 +236,13 @@ typedef struct s_node		t_node;
 typedef struct s_p_queue	t_p_queue;
 typedef struct s_stack		t_stack;
 
+typedef struct s_queue
+{
+	t_node	**arr;
+	int		size;
+	int		start;
+	int		end;
+}	t_queue;
 /**
  * arr size is vector
 */
@@ -745,6 +757,12 @@ void			dir_y_check_n(t_map *map, t_user *user);
 void			dir_x_check_p(t_map *map, t_user *user);
 void			dir_x_check_n(t_map *map, t_user *user);
 
+/* queue_bonus.c */
+void			queue_push(t_queue *queue, t_node *tmp);
+t_node			*queue_pop(t_queue *queue);
+void			queue_delete(t_queue *queue);
+t_node			*init_queue_node(int x, int y, int direction);
+
 /* p_queue_bonus.c */
 void			node_swap(t_node **arr, int i, int j);
 void			max_heapify(t_p_queue *heap, int i);
@@ -755,7 +773,8 @@ void			enqueue(t_p_queue *heap, t_node *node);
 /*p_queue_helper.c */
 float			distance(float x, float y, float dest_x, float dest_y);
 t_p_queue		*init_p_queue(int size);
-/* queue_bonus.c */
+
+/* stack_bonus.c */
 t_node			*pop(t_p_queue *heap);
 void			push(t_p_queue *heap, t_node *node);
 t_p_queue		*init_p_queue(int size);

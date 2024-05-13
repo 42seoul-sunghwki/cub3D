@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+         #
+#    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/13 15:04:30 by minsepar         ###   ########.fr        #
+#    Updated: 2024/05/13 14:35:00 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ BONUS_SRC =	main_bonus.c \
 			cub_map_valid_helper_bonus.c cub_dup_valid_bonus.c \
 			cub_dup_valid_helper_bonus.c cub_to_struct_bonus.c \
 			astar_bonus.c astar_helper_bonus.c astar_thread_bonus.c \
-			p_queue_bonus.c p_queue_helper_bonus.c queue_bonus.c \
+			queue_bonus.c p_queue_bonus.c p_queue_helper_bonus.c stack_bonus.c \
 			open_file_bonus.c free_pointer_bonus.c ft_lib_bonus.c \
 			game_loop_bonus.c init_dda_data_bonus.c handle_keypress_bonus.c \
 			handle_mouse_bonus.c collision_check_bonus.c handle_arrow_bonus.c \
