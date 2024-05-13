@@ -16,7 +16,7 @@ NAME_BONUS = ./bin/bonus/cub3D
 
 CC	=	cc
 
-FLAGS = -g -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -O3 -fsanitize=address
 
 SRC_MANDATORY_DIR :=	src/mandatory
 
