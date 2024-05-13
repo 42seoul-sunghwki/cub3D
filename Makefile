@@ -6,7 +6,7 @@
 #    By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 17:59:32 by minsepar          #+#    #+#              #
-#    Updated: 2024/05/13 14:35:00 by sunghwki         ###   ########.fr        #
+#    Updated: 2024/05/13 15:23:22 by sunghwki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJ_BONUS_DIR := build/bonus
 
 SRC =	main.c mlx_color.c mlx_hooks.c mlx_pixel.c frame.c init_struct.c \
 		cub_check.c cub_helper.c cub_list.c cub_map.c cub_read.c cub_slice.c \
-		cub_map_valid.c cub_dup_valid.c cub_to_struct.c open_file.c \
+		queue.c cub_map_valid.c cub_map_valid_helper.c cub_dup_valid.c cub_to_struct.c open_file.c \
 		free_pointer.c ft_lib.c game_loop.c init_dda_data.c handle_keypress.c \
 		collision_check.c collision_check_dir.c calculate_keypress.c
 

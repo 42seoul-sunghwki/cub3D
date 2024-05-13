@@ -6,32 +6,51 @@
 /*   By: sunghwki <sunghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:15:07 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/13 15:06:31 by sunghwki         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:13:58 by sunghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	push_init_node(t_map *map, t_position posit,
-		t_queue *queue, int direction)
+static void	pop_map_valid_minus(t_map *map, t_node *node, t_queue *queue)
 {
-	t_node	*tmp;
-	char	*c;
+	static t_position	posit[] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+	t_position			next;
+	int					dir;
 
-	c = &map->map[posit.y][posit.x];
-	if (posit.x >= map->w || posit.x < 0 || posit.y >= map->h || posit.y < 0)
-		return ;
-	if (c[0] == ' ' || c[0] == 0)
+	dir = node->direction;
+	if (dir == LEFT)
 	{
-		c[0] = 1;
-		tmp = init_queue_node(posit.x, posit.y, direction);
-		queue_push(queue, tmp);
+		next = (t_position){posit[DOWN].x + node->position.x,
+			posit[DOWN].y + node->position.y};
+		push_init_node(map, next, queue, DOWN);
 	}
-	else if (c[0] == 1 || c[0] == '1')
-		return ;
 	else
 	{
-		ft_exit("Invalid map\nIt isn't surround by 1");
+		next = (t_position){posit[dir - 1].x + node->position.x,
+			posit[dir - 1].y + node->position.y};
+		push_init_node(map, next, queue, dir - 1);
+	}
+}
+
+static void	pop_map_valid_plus(t_map *map, t_node *node, t_queue *queue)
+{
+	static t_position	posit[] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+	t_position			next;
+	int					dir;
+
+	dir = node->direction;
+	if (dir == DOWN)
+	{
+		next = (t_position){posit[LEFT].x + node->position.x,
+			posit[LEFT].y + node->position.y};
+		push_init_node(map, next, queue, LEFT);
+	}
+	else
+	{
+		next = (t_position){posit[dir + 1].x + node->position.x,
+			posit[dir + 1].y + node->position.y};
+		push_init_node(map, next, queue, dir + 1);
 	}
 }
 
@@ -48,33 +67,11 @@ static void	pop_map_valid(t_map *map, t_queue *queue)
 		if (tmp == NULL)
 			return ;
 		dir = tmp->direction;
-		if (dir == LEFT)
-		{
-			next = (t_position){posit[DOWN].x + tmp->position.x,
-				posit[DOWN].y + tmp->position.y};
-			push_init_node(map, next, queue, DOWN);
-		}
-		else
-		{
-			next = (t_position){posit[dir - 1].x + tmp->position.x,
-				posit[dir - 1].y + tmp->position.y};
-			push_init_node(map, next, queue, dir - 1);
-		}
+		pop_map_valid_minus(map, tmp, queue);
 		next = (t_position){posit[dir].x + tmp->position.x,
 			posit[dir].y + tmp->position.y};
 		push_init_node(map, next, queue, dir);
-		if (dir == DOWN)
-		{
-			next = (t_position){posit[LEFT].x + tmp->position.x,
-				posit[LEFT].y + tmp->position.y};
-			push_init_node(map, next, queue, LEFT);
-		}
-		else
-		{
-			next = (t_position){posit[dir + 1].x + tmp->position.x,
-				posit[dir + 1].y + tmp->position.y};
-			push_init_node(map, next, queue, dir + 1);
-		}
+		pop_map_valid_plus(map, tmp, queue);
 		free(tmp);
 	}
 }
