@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:35:17 by sunghwki          #+#    #+#             */
-/*   Updated: 2024/05/11 00:59:39 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:40:45 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,8 @@
 # define DIAGONAL 2
 
 /* mlx->flag */
-# define MOUSE_MOVE 1
+# define MOUSE_MOVE		1
+# define MOUSE_START	2
 
 # define DIAGONAL_SCALE 0.7071
 

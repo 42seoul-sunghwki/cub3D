@@ -6,7 +6,7 @@
 /*   By: minsepar <minsepar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:28:56 by minsepar          #+#    #+#             */
-/*   Updated: 2024/05/11 01:14:02 by minsepar         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:39:00 by minsepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	init_main(int argc)
 void	mlx_setup(t_mlx *graphic)
 {
 	mlx_mouse_hide(graphic->mlx);
-	mlx_mouse_move(graphic->win, HALF_WINWIDTH, HALF_WINHEIGHT);
 	graphic->flag |= MOUSE_MOVE;
 }
 
