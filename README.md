@@ -14,6 +14,15 @@ Validated 05/03/2024. Grade: 125%
 Minseo Park (minsepar)
 Sunghwan Kim (sunghwki)
 
+## Key takeaway from the project
+- RayCasting using Digital Diffrential Analysis (DDA) algorithm
+- Used A* algorithm to make dancing cat, dog, bear sprite follow the user
+  - Priority Queue using Max Heap
+- Utilizing multi-core system using pthread library
+- Pthread optimization with thread pool
+- Horizontal and Veritical mouse movement
+- Triple buffering using mlx_images
+
 ## Clone
 
 ```shell
@@ -29,14 +38,6 @@ git clone https://github.com/42seoul-sunghwki/cub3D.git
 <p align="center">
   <img src="https://github.com/42seoul-sunghwki/cub3D/blob/main/Screen%20Shot%202024-05-16%20at%209.59.47%20PM.png?raw=true" alt="cub3D demo2">
 </p>
-
-## Key takeaway from the project
-- RayCasting using Digital Diffrential Analysis (DDA) algorithm
-- Used A* algorithm to make dancing cat, dog, bear sprite follow the user
-  - Priority Queue using Max Heap
-- Utilizing multi-core system using pthread library
-- Pthread optimization with thread pool
-- Horizontal and Veritical mouse movement
 
 ## copyright
 - copyright in NYANCAT
