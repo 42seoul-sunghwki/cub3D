@@ -22,6 +22,7 @@ Validated 05/13/2024. Grade: 125%
 - Pthread optimization with thread pool
 - Horizontal and Veritical mouse movement
 - Triple buffering using mlx_images
+- Rotating minimap using rotation matrix
 
 ## Clone
 
