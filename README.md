@@ -10,7 +10,7 @@ Cub3D is a 42 school team project aiming recreate a raycaster similar to that of
 
 Validated 05/03/2024. Grade: 125%
 
-## authors
+## Authors
 Minseo Park (minsepar)
 Sunghwan Kim (sunghwki)
 
