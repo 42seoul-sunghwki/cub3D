@@ -11,8 +11,8 @@ Cub3D is a 42 school team project aiming to recreate a raycaster similar to that
 Validated 05/13/2024. Grade: 125%
 
 ## Authors
-Minseo Park (minsepar)
-Sunghwan Kim (sunghwki)
+- Minseo Park (minsepar)
+- Sunghwan Kim (sunghwki)
 
 ## Key takeaway from the project
 - RayCasting using Digital Diffrential Analysis (DDA) algorithm
