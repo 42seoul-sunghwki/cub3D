@@ -1,6 +1,6 @@
 # Cub3D
 
-Cub3D is a 42 school team project aiming recreate a raycaster similar to that of Wolfenstein 3D using the MiniLibX library. 
+Cub3D is a 42 school team project aiming to recreate a raycaster similar to that of Wolfenstein 3D using the MiniLibX library. 
 
 <p align="center">
   <img src="https://github.com/parkj12b/42-project-badges/blob/main/badges/cub3dm.png" alt="Cub3D 42 project badge">
